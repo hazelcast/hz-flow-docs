@@ -1,0 +1,32 @@
+= Integrating a New Docs Project into the Docs Site
+
+After creating your site, you need to complete the following steps to publish it on docs.hazelcast.com:
+
+. Publish to docs.hazelcast.com.
+. Create any redirects that you need such as for the `latest/` alias.
+. Add your project's URL to the search indexer's configuration.
+. Configure docsearch in the UI to display your index in search results.
+
+== Publishing to docs.hazelcast.com
+
+The Antora playbook in the link:https://github.com/hazelcast/hazelcast-docs[`hazelcast-docs` repository] defines the content that gets published to docs.hazelcast.com.
+
+The `hazelcast-docs` repository is separated into two link:https://github.com/hazelcast/hazelcast-docs#production-and-staging-sites[branches]: `develop` (staging site) and `main` (production site). 
+
+To publish the content of your project to docs.hazelcast.com, add your repository to the `content.sources` object of the `antora-playbook.yml` file in the `develop` branch, then apply the changes to the `main` branch.
+
+On a merge to the `hazelcast-docs` repository, a build hook is triggered and the site is built from the playbook. You can monitor the build in Netlify.
+
+== Creating Redirects
+
+To create a URL alias for the latest version of your content, see link:https://github.com/hazelcast/hazelcast-docs/blob/develop/README.adoc#redirects[Redirects].
+
+== Configuring the Search Index
+
+To index your content and make it available in our internal search results, see link:https://github.com/hazelcast/hazelcast-docs/blob/develop/README.adoc#search[Search].
+
+== Configuring Docsearch
+
+To display relevant versions of products in the search results, we apply filters in the UI project. For an example, see link:https://github.com/hazelcast/hazelcast-docs-ui/blob/35a98ad178f8a79532f2701bd229e8226624cf47/src/partials/footer-scripts.hbs#L557[this filter for the JDBC driver docs].
+
+After making changes to the UI project, make sure to link:https://github.com/hazelcast/hazelcast-docs-ui/blob/master/.github/CONTRIBUTING.adoc#package-for-use-with-antora[create and release a new package].
