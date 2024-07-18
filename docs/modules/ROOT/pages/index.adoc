@@ -1,5 +1,5 @@
 = Quickstart
-:description: 'Connect all your APIs & data sources dynamically, without writing integration code'
+:description: Connect all your APIs & data sources dynamically, without writing integration code.
 
 {long-product-name} automates integration for your microservices.
 
@@ -33,7 +33,4 @@ Stuck?  Need help?  Have an idea?  We'd love to hear from your.
 
 You can connect with the {short-product-name} team in a number of ways
 
-* https://github.com/{short-product-name}api/{short-product-name}/issues[Submit an issue] on our Github repo
-* https://github.com/{short-product-name}api/{short-product-name}/discussions[Start a discussion] over at Github
-* https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[Chat to the team] on Slack
-* We're https://twitter.com/{short-product-name}api[@{short-product-name}api] on Twitter
+
