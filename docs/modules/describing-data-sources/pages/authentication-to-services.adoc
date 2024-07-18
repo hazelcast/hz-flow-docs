@@ -1,8 +1,6 @@
 = Authenticating {short-product-name} to other services
 :description: Configuring authentication credentials {short-product-name} provides to other services
 
-import \{Callout} from "@/components/docs/Callout";
-
 {short-product-name} will pass authentication headers to upstream services when sending requests.
 
 Configuration is managed through an `auth.conf` file, present in a Taxi project in your workspace.
