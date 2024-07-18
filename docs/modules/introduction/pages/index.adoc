@@ -1,0 +1,154 @@
+= What is {short-product-name}
+:description: '{long-product-name} automates API integration, and provides rich data discovery, so you can spend less time plumbing, and more time building.'
+
+== Introduction
+
+Modern organizations have multiple services and data sources and, with the move to microservices,
+this is on the rise.
+
+However, while microservices are great, lots of services means lots of plumbing, which can quickly become
+brittle, making change difficult.
+
+{short-product-name} addresses this by automatically building and maintaining the integration between services,
+allowing services to stay decoupled from one another.
+
+=== Consumer-centric integration
+
+{short-product-name} allows consumers to ask for the data they need, without specifying how to fetch it.  {short-product-name} generates the integration on the fly, using https://taxilang.org[Taxi]
+metadata embedded inside API specs.
+
+This means that as APIs evolve, or as services are deployed or replaced, {short-product-name}'s integrations automatically adapt, without requiring clients to change.
+
+image:high-level-overview.png[Overview]
+
+[,taxi]
+----
+given {
+   emailAddress : EmailAddress = "jimmy@demo.com"
+} find {
+   lastPurchase: {
+      @Format("dd/MMM/yyyy hh:mm:ss")
+      date : LastPurchaseDate
+      value : LastPurchaseValue
+   }
+   accountBalance : AccountBalance
+}
+----
+
+{short-product-name} leverages schemas to automatically work out which services to call,
+and sequences them together to pass data from service to service, in order to discover the data clients need.
+
+image:what-clients-sees.png[What clients see]
+
+== Integration that adapts with you
+
+Services publish their schemas to {short-product-name}, which describe their APIs and the data they provide.
+
+{short-product-name} uses this to build integration plans on the fly. This means that as your APIs change, {short-product-name} automatically adapts,
+keeping clients protected from the change.
+
+There are no resolvers to update, Swagger SDKs to rebuild, or API consumer contracts to refactor.
+
+{short-product-name} provides several ways for services to generate and publish their schema:
+hand-crafted schemas, automatically generated at runtime, Git-backed in a central repository, or a mix of the three.
+
+Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
+
+== Semantic data schemas
+
+Semantic schemas describe the meaning of their data in a way that's shareable between systems.
+
+|===
+| Schema attribute | What it tells us
+
+| Field name
+| Where to find information
+
+| Data type
+| How to read / write from the wire
+
+| ???
+| What the data means in a broader ecosystem
+|===
+
+=== Today's schemas aren't semantic
+
+Today, when we connect two systems together, an engineer has to build a mental model between the *field name* and the *data they're looking for*.
+
+[,taxi]
+----
+// The id attribute in the Customer model from the Accounts sytems
+// is the same as the custId attribute in the Purchase model from sales system
+namespace accounts {
+   model Customer {
+     id : String  // This is the same...
+   }
+}
+namespace sales {
+   model Purchase {
+      custId : String //...as this
+   }
+}
+----
+
+This has a few shortcomings:
+
+* The mapping of `+Customer.id -> Purchase.custId+` gets embedded in code.  If a field name changes, this breaks, making change difficult.
+* The mapping gets repeated for *every consumer*.
+
+This mapping exercise takes place because traditional schemas don't provide rich enough information to link on anything else.
+
+If a field gets renamed?  💥 Boom! Breakdown city.
+
+What's missing is _semantic metadata_ - something that describes how data between systems relates to one another, independent of field names.
+
+=== Defining semantic metadata
+
+https://taxilang.org[Taxi] is a language for defining and embedding semantic metadata.
+
+It allows us to represent how data links _between_ systems, without relying on field names.
+
+[,taxi]
+----
+// Define the semantic concept
+type CustomerId inherits String
+
+namespace accounts {
+   model Customer {
+     id : CustomerId  // This is the same...
+   }
+}
+namespace sales {
+   model Purchase {
+      custId : CustomerId //...as this
+   }
+}
+----
+
+These semantic types are defined in Taxi.  You can either choose to describe your APIs using Taxi (which has first class
+support for semantic metadata), or embed Taxi metadata within other schema languages, such as OpenAPI:+++<SnippetGroup>+++```yml Customer OpenAPI Spec # An extract of the ShoppingCartApi OpenAPI spec: components: schemas: Customer: properties: id: # Field name x-taxi-type: # \<-- Taxi extension name: CustomerId # \<-- Semantic type type: string ``` ```yaml Sales OpenAPI Spec # An extract of the CustomerApi OpenAPI spec: components: schemas: Purchase: properties: custId: # Field name x-taxi-type: # \<-- Taxi extension name: CustomerId # \<-- Semantic type type: string ```+++</SnippetGroup>+++
+
+=== Semantic driven integration
+
+Once we understand how data between systems relates, we can use the rest of the API specs to work out how to connect them together.
+
+For example, given a `Purchase` from our Orders system, we can understand how to look up information about the customer from the Customer system.
+
+image:linked-services.png[Linked services]
+
+{short-product-name} performs this integration for us.
+
+By sending a request in https://taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], we can ask for data, without specifying how data
+relates, or which systems to get them from.
+
+[,taxi]
+----
+find { Purchases[] } as {
+  purchaseId : PurchaseId // Comes from the Purchase object
+  customerName : CustomerName // Looked up by calling the Customer service
+}
+----
+
+This means that systems are free to update field names, replace databases with APIs, APIs with databases, etc.  Consumers remain unaffected.
+
+Find out more about semantic data and Taxi on the  https://taxilang.org[Taxi website].

@@ -1,7 +1,7 @@
 site:
   title: Documentation
   url: http:localhost:5000
-  start_page: 
+  start_page: hz-flow::index.adoc
   robots: disallow
   keys:
     docsearch_id: 'QK2EAH8GB0'
@@ -19,7 +19,7 @@ ui:
 asciidoc:
   attributes:
     # Download images from kroki at build time (does not work for inline images)
-    kroki-fetch-diagram: true
+    # kroki-fetch-diagram: true
     # Inlude next and previous links on each page
     page-pagination: true@
     idprefix: ''
@@ -29,4 +29,4 @@ asciidoc:
     page-survey: https://www.surveymonkey.co.uk/r/NYGJNF9
   extensions:
     - ./docs-tabs-library/tabs-block.js
-    - asciidoctor-kroki
+    # - asciidoctor-kroki

@@ -1,0 +1,155 @@
+= Using AWS services
+
+import \{Callout} from "@/components/docs/Callout";+++<Callout type="note" title="Before you begin">+++Before using AWS services, you need to define a connection to AWS in your `connections.conf` file. Read more about defining AWS connections link:/docs/describing-data-sources/configuring-connections#aws-connections[here].+++</Callout>+++
+
+{short-product-name} supports reading Protobuf messages, either as a message format for HTTP endpoints or from a streaming query originating from Kafka.
+
+You can annotate Protobuf sources directly with Taxi metadata, or
+you can import through the Schema Importer.
+
+== DynamoDb
+
+DynamoDb services can only be declared in Taxi.
+
+Querying against key is supported, as are write operations.
+
+To expose a DynamoDb service, the following two annotations are required:
+
+* Add a ` @com.{code-product-name}.aws.dynamo.Table` to a model
+* Add a `@com.{code-product-name}.aws.dynamo.DynamoService` annotation to the service
+
+[,taxi]
+----
+import com.{code-product-name}.aws.dynamo.DynamoService
+import com.{code-product-name}.aws.dynamo.Table
+
+// connectionName must match the defined connection.
+@Table( connectionName = "myAws" , tableName = "reviews" )
+model Review {
+  @Id
+  movieId : MovieId
+  score: ReviewScore inherits Int
+}
+
+@DynamoService
+service DynamoService {
+  // Exposes query operations that return Review[]
+  table reviews: Review[]
+
+  // allows upsert calls
+  @UpsertOperation
+  write operation saveReview(Review):Review
+}
+----
+
+Write operations (such as upserts) can only be invoked in link:/docs/querying/mutations[mutations].
+
+== Lambda
+
+{short-product-name} can invoke a Lambda, either to discover data in a query, or in a link:/docs/querying/mutations[mutation].
+
+A service must have the `AwsLambdaService` annotation, passing the configured connection.
+
+Operations have the `LambdaOperation` annotation.
+
+[,taxi]
+----
+import com.{code-product-name}.aws.lambda.AwsLambdaService
+import com.{code-product-name}.aws.lambda.LambdaOperation
+
+@AwsLambdaService( connectionName = "myAws" )
+service MovieDb {
+  @LambdaOperation(name = "streamingprovider")
+  operation movieQuery(@RequestBody StreamingProviderRequest): StreamingProviderResponse
+}
+----
+
+== S3
+
+{short-product-name} can connect to S3 and read a file containing CSV data.
+
+We're excited to expand the functionality of our S3 adapter.  If you have a use case to discuss, please https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[get in touch on Slack].
+
+[,taxi]
+----
+import com.{code-product-name}.formats.Csv
+@Csv
+type Orders {
+   symbol : Symbol by column(2)
+   open : Price by column(3)
+   high : Price by column(4)
+   close : Price by column(6)
+}
+@S3Service( connectionName = "myAws" )
+service AwsBucketService {
+   @S3Operation(bucket = "Orders")
+   vyneQl query fetchReports(body:VyneQlQuery): OrderWindowSummary[]
+}
+----
+
+== SQS
+
+=== Consuming events
+
+{short-product-name} can subscribe to a stream of data from SQS.
+
+[,taxi]
+----
+import com.{code-product-name}.aws.sqs.SqsService
+import com.{code-product-name}.aws.sqs.SqsOperation
+
+@SqsService( connectionName = "moviesConnection" )
+service MovieService {
+  @SqsOperation( queue = "movies" )
+  operation streamMovieQuery():Stream<Movie>
+}
+----
+
+This can then be queried using a standard `stream` query:
+
+[,taxi]
+----
+stream { Movie }
+// as ...
+----
+
+=== Publishing events
+
+{short-product-name} can publish to a queue using a mutation:
+
+[,taxi]
+----
+import com.{code-product-name}.aws.sqs.SqsService
+import com.{code-product-name}.aws.sqs.SqsOperation
+
+@SqsService( connectionName = "moviesConnection" )
+service MovieService {
+  @SqsOperation( queue = "movies" )
+  write operation publishMoveEvent(Movie):Movie
+}
+----
+
+Publishing events can only be invoked in link:/docs/querying/mutations[mutations].
+
+==== Example: Consuming from one SQS topic, and publishing to another
+
+[,taxi]
+----
+import com.{code-product-name}.aws.sqs.SqsService
+import com.{code-product-name}.aws.sqs.SqsOperation
+
+@SqsService( connectionName = "moviesConnection" )
+service MovieService {
+
+  @SqsOperation(queue = "newReleases" )
+  operation newReleases():Stream<Movie>
+
+  @SqsOperation( queue = "moviesToReview" )
+  write operation publishMoveEvent(Movie):Movie
+}
+
+// Query: consume from the new releases queue, and publish to
+// a "movies to review" queue
+stream { Movie }
+call MovieService::publishMovieEvent
+----

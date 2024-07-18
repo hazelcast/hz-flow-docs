@@ -1,0 +1,140 @@
+= Composing APIs and a Database
+
+This guide focuses on stitching together APIs and a Database to create a custom API for our needs. Typically, you'd use this in a Backend-for-frontend (BFF) pattern.+++<Callout type="note" title="Get the source...">+++There's code for this guide available on https://github.com/{short-product-name}api/demos/tree/main/composing-apis-and-db[Github]+++</Callout>+++
+
+This {lpn} demo takes place in a fictitious film studio. Our goal is to stitch together data about our Films catalog, along with data from REST APIs, like the reviews of each film, and where we can watch it.
+
+== Our demo services
+
+<ImageWithCaption src=\{Architecture} caption="The architecture for this demo"></ImageWithCaption>
+
+This demo deploys the following:
+
+* A database exposing a catalog of films
+* A REST Endpoint that returns which streaming services are playing each film
+* A REST Endpoint that returns reviews for each film
+* A REST Endpoint that resolves IDs
+ ** Our services have different ID schemes - specifically the IDs used in our DB are not the same IDs used by our FilmReviews API. Therefore, we need to map one set of IDs to another
+
+== Describing our data and services
+
+First, we'll define a handful of Taxi types to describe the data returned from our services:
+
+```taxi films.taxi
+type StreamingProviderName inherits String
+type StreamingProviderPrice inherits Decimal
+type FilmId inherits Int
+type Description inherits String
+type Title inherits String
+```
+
+Then we'll embed those types in our REST APIs.
+
+We've shown this approach in a few different ways, depending on your preference for describing APIs:
+
+<DescribingServices />
+
+<div className={'not-prose pt-6'}>
+  <hr className='border-slate-600' />
+</div>
+
+## Publish our API specs
+Now that the API specs have Taxi metadata, we can publish them to {short-product-name}:
+
+<PublishingApiSpecsSteps />
+
+## Composing APIs
+Our APIs are now described and published to {short-product-name}, so we can start writing queries to ask for data.
+
+In the Query Editor, write a query to ask for data coming from the 3 APIs:
+
+```taxi
+find { Film[] } as {
+    id : FilmId
+    title : Title
+
+    review: FilmReviewScore
+    reviewText: ReviewText
+
+    availableOn: StreamingProviderName
+    price: StreamingProviderPrice
+}[]
+```
+
+Notice that as you type, you'll get helpful code completion.
+
+<ImageWithCaption src=\{CodeEditing} caption="Auto completing like a boss."></ImageWithCaption>
+
+Run this query, and you'll get the results back, linking together data from our database, and three different REST APIs.
+
+=== Exploring the profiler
+
+Click on the Profiler tab, and you'll see an architecture diagram, showing all
+the services that were called for each field:
+
+<ImageWithCaption src=\{ProfilerView} caption="The profiler shows the services invoked to execute our query."></ImageWithCaption>
+
+Note that:
+
+* To fetch our `serviceName` and `price`, we passed data from the DB to a REST API
+* To fetch the review data, we had to take a trip to an additional API to resolve the IDs
+
+=== How does this work?
+
+There's no resolver or glue code written here, so how does this all work?
+
+{short-product-name} uses the types in our query (`FilmReviewScore`, `ReviewText`, etc), and looks up
+the services that expose these values. It then builds an integration plan to load the required
+data.
+
+== Exposing a composite API
+
+Now we have the data we want to expose, we can publish this on an API.
+
+* First click *Save*
+* In the popup, for the project, select `films`
+* For the query name, enter `filmsAndReviews` (or any name you choose)
+* Click *Save*
+
+<ImageWithCaption src=\{SaveQuery} caption="Saving a query writes it to disk in developer mode, so you can commit to Git."></ImageWithCaption>
+
+If you take a look in the source code, a new file has appeared at `taxi/src/filmsAndReviews.taxi`.
+
+Next, let's expose this saved query as an HTTP endpoint.
+
+* In the top menu, click the 3-dots menu item
+* Click *Publish query as HTTP Endpoint*
+* In the popup, enter a URL for the query - eg: `films-and-reviews`
+* Click *Update*
+* Click *Save*
+
+<ImageWithCaption src=\{PublishAsHttp} caption="Publish your query as an HTTP endpoint, to consume from UIs."></ImageWithCaption>
+
+Now, send a request to the endpoint you selected. As we're getting JSON back, we'll pipe it to `jq` so it's nicely formatted:
+
+[,bash]
+----
+curl http://localhost:9022/api/q/films-and-reviews | jq
+----
+
+[,json]
+----
+  {
+    "id": 904,
+    "title": "TRAIN BUNCH",
+    "review": 4.6,
+    "reviewText": "This is not one of those awful dark, depressing films about an impending genetic apocalypse, although it could have easily been turned into that with a few minor tweaks. This is an entertaining romp, loaded with action, nostalgia and special effects.",
+    "availableOn": "Netflix",
+    "price": 9.99
+  },
+  {
+    "id": 905,
+    "title": "TRAINSPOTTING STRANGERS",
+    "review": 3.9,
+    "reviewText": "For a while it seems it wants to be the franchise’s ‘Mission: Impossible.’ Instead, it’s the anti–‘Top Gun: Maverick’.My co-worker Ali has one of these. He says it looks towering.",
+    "availableOn": "Now TV",
+    "price": 13.99
+  },
+----
+
+<ImageWithCaption src=\{CliQuery} caption="Curly."></ImageWithCaption>

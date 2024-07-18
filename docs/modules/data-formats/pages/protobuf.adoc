@@ -1,0 +1,9 @@
+= Protobuf
+:description: 'Working with Protobuf data in {short-product-name}'
+
+
+Protobuf is supported when using a dedicated Protobuf spec.
+
+Using Protobuf without a spec is technically link:/docs/describing-data-sources/protobuf#generated-taxi[possible], but discouraged, and not currently supported.
+
+Instead, use a dedicated link:/docs/describing-data-sources/protobuf[Protobuf] spec.

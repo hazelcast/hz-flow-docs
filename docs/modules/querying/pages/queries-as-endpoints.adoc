@@ -1,0 +1,165 @@
+= Publishing queries (http and websockets)
+:description: Let consumers invoke your queries as standard HTTP endpoints
+
+You might decide that instead of link:/docs/querying/writing-queries#submitting-queries[submitting queries] directly to {short-product-name}, or using one of our
+link:/docs/querying/kotlin-sdk[SDKs] to execute a query programmatically, you'd rather just publish the query as an HTTP(s) endpoint.
+
+== Saved queries
+
+Any queries committed to your taxonomy that have an `@HttpOperation` annotation will automatically be converted into an HTTP query.
+
+For example:
+
+```taxi MyQuery.taxi
+@HttpOperation(url = '/api/q/movies/\{movieId}', method = 'GET')
+query getMoviesAndReivews(@PathVariable("movieId") movieId: MovieId) {
+  given { movieId }
+  find {
+    title : MovieTitle
+    reviewScore : ReviewScore
+  }
+}
+
+----
+Any declared `query` that's in a Taxi project published to {short-product-name} can be converted into an HTTP operation.
+
+### HttpOperation annotation
+Queries need to have an `@HttpOperation` annotation:
+
+| Param  | Description                                                                                     |
+|--------|-------------------------------------------------------------------------------------------------|
+| url    | The URL the query is exposed under. It *must* start `/api/q`.  Any other query URLs are ignored |
+| method | The HTTP method to respond to, one of `GET`,`POST`,`PUT`, or `DELETE`                           |
+
+Variables can be defined in your path using `{myVar}`, which are then made available in your query declaration using a `@PathVariable` annotation.
+
+<Callout type="note" title="Heads up!">
+  For security reasons, queries are only exposed under the <code>/api/q</code> endpoint. Any queries where URL in the <code>@HttpOperation</code> annotation starts with something other than <code>/api/q</code> are ignored
+</Callout>
+
+### Declaring the query
+Named queries are defined using a `query` syntax:
+
+#### Path Variables
+```taxi
+// Declares a query named getMoviesAndReviews`
+query getMoviesAndReviews(
+   // Define variables to be passed in
+   @PathVariable("movieId") movieId: MovieId
+) { ... }
+----
+
+[discrete]
+==== Request Body
+
+For a POST query, the request body is also available:
+
+[,taxi]
+----
+query doASearch(@RequestBody searchRequest: SearchRequest) {
+ ...
+}
+----
+
+=== Given clause
+
+If you've written Taxi queries before, you're used to using the https://docs.taxilang.org/language-reference/querying-with-taxiql/#providing-start-hints[given] clause
+to provide data into the query.
+
+For saved queries, that data is often passed as a variable, so the syntax is slightly different:
+
+[,taxi]
+----
+// Not a saved query, given clause has a value:
+given { movieId: MovieId = 123 }
+find { ... }
+
+// A saved query, the movieId comes from the params:
+query findMoviesAndReviews(@PathVariable(...) movieId: MovieId) {
+  given { movieId } // exposes the parameter into the query as a fact.
+  find { ... }
+}
+----
+
+=== Streaming results with server-sent events (SSE)
+
+To receive query results as a continuous stream of server-sent events, set the Accept header to `text/event-stream`.
+
+This method can be applied to both standard Request/Response queries and streaming queries.
+
+When using SSE, especially with queries returning multiple records (e.g., database queries), the time-to-first-byte is generally faster.
+This efficiency is due to records being transmitted as soon as they become available, unlike the standard approach where all records are delivered together
+at the end of the request.
+
+Example request using `curl`:
+
+[,bash]
+----
+curl -X GET 'http://localhost:9022/api/q/streamingTest' \
+  -H 'Accept: text/event-stream;charset-UTF-8'
+----
+
+== Saved streams
+
+Streaming queries can be exposed over either HTTP (using server-sent events), or Websocket (or both).
+
+Saved streams are executed in the background on the link:/docs/streams/streaming-data#the-stream-server[Stream Server].
+By connecting to the output stream, you can observe the results.
+
+Note that when you observe a result feed from a streaming query,
+results are published from the point the request is received.
+Previous results are not published on result stream.+++<Callout type="note" title="Heads up!">+++You can expose streaming queries on _both_ server-sent event endpoints and Websockets - simply add both the annotations.+++</Callout>+++
+
+=== Publishing on WebSocket
+
+To publish a query over a websocket, annotate the query with the `WebsocketOperation` annotation, declaring the `path`:+++<Callout type="note" title="Heads up!">+++For security reasons, websocket streams are only exposed under the `/api/s` path. Any queries where path in the `@WebsocketOperation` annotation starts with something other than `/api/s` are ignored+++</Callout>+++
+
+[,taxi]
+----
+@WebsocketOperation(path = '/api/s/newReleases')
+query getNewReleaseAnnouncements {
+  stream { NewReleaseAnnouncement } as {
+    title : MovieTitle
+    reviewScore : ReviewScore
+  }[]
+}
+----
+
+=== Publishing as server-sent events
+
+Streaming queries can also be published over HTTP by declaring a `@HttpOperation`,
+and then requesting a `text/event-stream` response:
+
+[,taxi]
+----
+@HttpOperation(url = '/api/q/newReleases', method = 'GET')
+query getNewReleaseAnnouncements {
+  stream { NewReleaseAnnouncement } as {
+    title : MovieTitle
+    reviewScore : ReviewScore
+  }[]
+}
+----
+
+Once this is published, results can be streamed by requesting a `text/event-stream`:
+
+[,bash]
+----
+curl -X GET 'http://localhost:9022/api/q/newReleases' \
+  -H 'Accept: text/event-stream;charset-UTF-8'
+----
+
+== Live reload
+
+Any changes made to the queries are automatically deployed.
+
+* When developing locally, this is as soon as you save a file
+* In production, when using a Git repository, as soon as changes are merged, they're deployed on the next poll (typically a couple of minutes)
+
+== OpenAPI
+
+{short-product-name} automatically creates an OpenAPI spec for any query endpoints it serves.
+
+The OpenAPI specs are available at `+/api/q/meta/{nameOfQuery}/oas+`.
+
+For example, a query defined as `+query findMoviesAndReviews(...)+` would have an OpenAPI spec available at `/api/q/meta/findMoviesAndReviews/oas`

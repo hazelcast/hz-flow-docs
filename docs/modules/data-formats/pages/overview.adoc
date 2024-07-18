@@ -1,0 +1,84 @@
+export const meta = {
+  title: 'Data formats in {short-product-name}',
+  pageTitle: 'Data formats in {short-product-name}',
+  description: 'Data formats in {short-product-name} - Overview'
+}
+
+Data formats specify how {short-product-name} should read and write data.
+
+By default, {short-product-name} assumes that data is provided as JSON. However, by adding a data format to a model, this
+can be modified to any type of serialization format.
+
+== API specs and message formats
+
+Some API specs which define transport also have their own message format (e.g., Protobuf).  If that's the
+case, you generally don't need to do anything - {short-product-name} applies the correct formats when parsing the API spec.
+
+|===
+| API Spec | Message Format | Docs
+
+| Protobuf
+| Protobuf
+| link:/docs/describing-data-sources/protobuf[Protobuf docs]
+
+| OpenAPI
+| JSON
+| link:/docs/describing-data-sources/open-api[OpenAPI docs]
+
+| SOAP
+| XML
+| link:/docs/describing-data-sources/soap[SOAP docs]
+|===
+
+== Using message formats in Taxi
+
+If you're using Taxi to describe your API specs, you need to specify the data format that is used for reading/writing messages.
+
+By default, messages are expected to be in JSON.  Other formats can be specified using an annotation on the top level type.
+
+For example:
+
+[,taxi]
+----
+> import com.{code-product-name}.formats.Xml
+
+> @Xml
+  model Person {
+    firstName : FirstName
+  }
+----
+
+You only need to apply the annotation to the top level entity.
+
+|===
+| Message format | Annotation | Links
+
+| Json
+| Not needed - default format
+| -
+
+| Xml
+| `com.{code-product-name}.formats.Xml`
+| link:/docs/data-formats/xml[Xml annotation docs]
+
+| Csv
+| `com.{code-product-name}.formats.Csv`
+| link:/docs/data-formats/csv[Csv annotation docs]
+
+| Protobuf
+| Not supported in Taxi - Use a Protobuf spec
+| https://github.com/{short-product-name}api/{short-product-name}/issues[File an issue to request support]
+
+| Avro
+| Not supported directly in Taxi - Use an Avro spec
+| https://github.com/{short-product-name}api/{short-product-name}/issues[File an issue to request support]
+|===
+
+== Defining custom formats
+
+Internally, {short-product-name} uses a https://github.com/{short-product-name}api/{short-product-name}/blob/develop/vyne-core-types/src/main/java/com/{code-product-name}/models/format/ModelFormatSpec.kt[ModelFormatSpec] to provide
+format-specific serialization and deserialization implementations.
+
+While it is possible to define your own custom format, to load it into {short-product-name} currently requires a custom build, which is available for Enterprise customers only.
+
+Support for loading custom formats via Taxi projects is planned - Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.

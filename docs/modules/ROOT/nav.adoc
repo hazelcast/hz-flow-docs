@@ -1,0 +1,55 @@
+.Get started
+* xref:index.adoc[Overview]
+* xref:introduction:index.adoc[What is {short-product-name}]
+* About Taxi
+* xref:guides:index.adoc[Tutorials]
+** xref:guides:install.adoc[]
+** xref:guides:compose.adoc[Compose APIs and database]
+** xref:guides:apis-db-kafka.adoc[Create first integration]
+** xref:guides:work-with-xml.adoc[Work with XML and JSON]
+** xref:guides:streaming-data.adoc[Stream data]
+* xref:workspace:overview.adoc[Your workspace]
+** xref:workspace:connecting-a-git-repo.adoc[] 
+** xref:workspace:connecting-a-disk-repo.adoc[] 
+
+.Manage data sources
+* xref:describing-data-sources:configuring-connections.adoc[]
+* xref:describing-data-sources:authentication-to-services.adoc[]
+* xref:describing-data-sources:open-api.adoc[]
+* xref:describing-data-sources:soap.adoc[]
+* xref:describing-data-sources:http.adoc[]
+* xref:describing-data-sources:protobuf.adoc[]
+* xref:describing-data-sources:databases.adoc[]
+* xref:describing-data-sources:hazelcast.adoc[]
+* xref:describing-data-sources:mongodb.adoc[]
+* xref:describing-data-sources:kafka.adoc[]
+* xref:describing-data-sources:aws-services.adoc[]
+* xref:describing-data-sources:caching.adoc[]
+* xref:describing-data-sources:intro-to-semantic-integration.adoc[]
+* xref:describing-data-sources:tips-on-taxonomies.adoc[]
+
+.Query data
+* xref:querying:writing-queries.adoc[]
+* xref:querying:mutations.adoc[]
+* xref:querying:kotlin-sdk.adoc[]
+* xref:querying:queries-as-endpoints.adoc[]
+* xref:querying:observability.adoc[]
+
+.Data streams & formats
+* xref:streams:streaming-data.adoc[Stream data]
+* xref:querying:streams.adoc[Data pipelines]
+* xref:data-formats:overview.adoc[Data formats]
+* xref:data-formats:avro.adoc[]
+* xref:data-formats:csv.adoc[]
+* xref:data-formats:json.adoc[]
+* xref:data-formats:xml.adoc[]
+* xref:data-formats:protobuf.adoc[]
+* xref:data-formats:custom-data-formats.adoc[]
+
+.Deployment
+* xref:deploying:production-deployments.adoc[]
+* xref:deploying:configuring-{short-product-name}.adoc[]
+* xref:deploying:managing-secrets.adoc[]
+* xref:deploying:authentication.adoc[]
+* xref:deploying:data-policies.adoc[]
+* xref:deploying:distributing-work-on-a-cluster.adoc[]

@@ -1,0 +1,102 @@
+= Install {short-product-name}
+
+This guide covers getting {long-product-name} and Taxi running locally in a developer environment.
+
+== Prerequisites
+
+Before you get started, you'll need the following:
+
+* https://docs.docker.com/engine/install/[Docker] and Docker Compose (installed by default with Docker)
+* https://sdkman.io/install[SDKMan] - A fantastic tool for installing SDKs and developer tools
+* https://code.visualstudio.com/[VSCode] - Optional, but we create dev tools for VSCode that improve the developer experience
+
+== Installing Taxi+++<InstallingCliSteps>++++++</InstallingCliSteps>+++
+
+https://taxilang.org[Taxi] is a language for describing data sources, and how data relates.
+
+Its CLI has tooling for creating projects and running builds.
+
+First, let's install Taxi:
+
+[,console]
+----
+$ sdk install taxi
+
+Downloading: taxi 1.42.0
+
+In progress...
+
+Installing: taxi 1.42.0
+Done installing!
+
+Setting taxi 1.42.0 as default.
+----
+
+Now running `taxi` should show the installed build:
+
+[,bash]
+----
+$ taxi
+
+Taxi 1.42.0 @7ebfab5
+Usage: taxi [options] [command] [command options] Main options
+----
+
+=== Creating a new Taxi project
+
+Create an empty directory, and run `taxi init`
+
+[,bash]
+----
+$ mkdir {short-product-name}-demo
+$ cd {short-product-name}-demo
+$ taxi init
+----
+
+You'll be prompted with questions about the project group, name, version and src:
+
+----
+Project group (eg., com.acme): com.demo
+Project name: hello-world
+Project version [0.1.0]:
+Source directory [src/]:
+Creating project com.demo/hello-world v0.1.0 in directory /dev/{short-product-name}-demo
+Writing config to /dev/{short-product-name}-demo/taxi.conf
+Generating source directory at /dev/{short-product-name}-demo/src
+Finished
+----
+
+You now have an empty taxi project.
+
+Open VSCode to take a look around:
+
+[,bash]
+----
+$ code .
+----
+
+<ImageWithCaption src=\{VSCodeExplorer} />
+
+== Launching {short-product-name}
+
+Finally, let's launch {short-product-name}.
+
+Taxi has a convenient command to launch a developer environment of {short-product-name}, which is preconfigured to the current project:
+
+[,bash]
+----
+$ taxi {short-product-name}
+----
+
+This downloads a `docker-compose.yml` file from https://start.{code-product-name}.com/[start.{code-product-name}.com], then runs `docker compose up`.
+
+=== Live reload
+
+The developer environment of {short-product-name} is configured with live reload, so any changes you make in your Taxi project are automatically picked up
+and detected inside of {short-product-name}.
+
+== Next steps
+
+That's it! You're now running {short-product-name} locally, and have a brand new Taxi project ready to go.
+
+Why not take one of our Guides for a spin, and build something locally.

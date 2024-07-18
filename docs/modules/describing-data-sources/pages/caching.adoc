@@ -1,0 +1,116 @@
+= Caching
+
+<Callout type='warning' title="We're working on it...">
+  This guide is under construction. If you hit some rough edges, or find it confusing, come yell at us <a href={'https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg'} target="_blank">on slack</a>.
+</Callout>
+
+## Caching requests
+By default, {short-product-name} will cache requests throughout a query only. i.e., {short-product-name} will only call a service with the same set of
+parameters once within a query. 
+However, caches are destroyed at the end of each query.
+
+To enable caching, simply add `@Cache` to the top of your query:
+
+```taxi
+> @Cache
+  find { Film[] } as {
+    id : FilmId
+    // Fetched from a remote service.
+    // Calls will be cached.
+    currentReviewScore : ReviewScore
+  }
+```
+
+
+
+### Scoping caches
+By default, all queries share the same cache.  If you want cache isolation, so that
+population and invalidation are isolated from each other, you can apply a name to the cache:
+
+```taxi
+> @Cache("myCache")
+  find { Film[] } as {
+    id : FilmId
+    // Fetched from a remote service.
+    // Calls will be cached.
+    currentReviewScore : ReviewScore
+  }
+```
+
+
+## Using {short-product-name}'s local cache
+{short-product-name}'s local cache runs in-process within {short-product-name}.  
+
+It's the default cache that's enabled if no connection is provided.
+
+It's helpful for development, but shouldn't be taken to production,
+as excessive caching can cause Out-of-Memory failures and degrade performance.
+
+```taxi
+  // This query uses the default, local cache
+> @Cache
+  find { Film[] } as {
+    id : FilmId
+    // Fetched from a remote service
+    currentReviewScore : ReviewScore
+  }
+```
+
+### Cache TTL
+{short-product-name}'s internal cache contains a TTL of 5 minutes.
+
+This can't currently be configured, as the cache is not intended for production use.
+
+
+## Using an external cache
+{short-product-name} supports external caches, and will run a near-cache in-process, offloading to the remote cache
+as the library supports.
+
+To enable a remote cache, first define a connection to the cache in your `connections.conf` file, then specify
+the name of the connection in your query.
+
+```hocon connections.conf
+hazelcast {
+   myHazelcast {
+      connectionName = myHazelcast
+      addresses = ["localhost:5701"]
+   }
+}
+```
+
+```taxi query.taxi
+> @Cache(connection = "myHazelcast")
+  find { Film[] } as {
+    id : FilmId
+    // Fetched from a remote service
+    currentReviewScore : ReviewScore
+  }
+```
+
+### Supported caches
+{short-product-name} supports caching with the following platforms:
+
+ * Hazelcast
+ * Redis
+
+If you need a cache not listed, please [reach out on Slack](https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg).
+
+### Cache TTL
+The default Cache TTL is defined in the connections file:
+
+```hocon connections.conf
+  hazelcast {
+     myHazelcast {
+        connectionName = myHazelcast
+        addresses = ["localhost:5701"]
+>       ttl = 20 minutes
+     }
+  }
+```
+
+### Max-age headers
+{short-product-name} will honour max-age headers when caching responses from HTTP services:
+<ImageWithCaption src={httpResponseCacheControl} />
+
+Setting the `cache-control: max-age=` header will cause the entry to be automatically evicted after the `max-age` expires.
+

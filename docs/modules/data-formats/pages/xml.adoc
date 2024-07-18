@@ -1,0 +1,144 @@
+= XML
+:description: 'Working with XML data in {short-product-name}'
+
+To declare that a type should be read/written as XML, add the `com.{code-product-name}.formats.Xml` annotation to a model:
+
+[,taxi]
+----
+import com.{code-product-name}.formats.Xml
+
+@Xml
+model Person {
+  firstName : FirstName inherits String
+}
+----
+
+== Declaring attributes
+
+By default, scalar items within a model are expected to be an XML element.
+
+To declare something should be read/written as an attribute, use the `@lang.taxi.xml.XmlAttribute` annotation.
+
+For example:
+
+[,taxi]
+----
+  import com.{code-product-name}.formats.Xml
+> import lang.taxi.xml.XmlAttribute
+
+  @Xml
+  model Actor inherits Person {
+>     @XmlAttribute
+      id : ActorId
+
+      fullName : FullName
+  }
+----
+
+Would read/write the following XML:
+
+[,xml]
+----
+<?xml version='1.0' encoding='UTF-8'?>
+<Actor id="3">
+    <fullName>Jimmy Smith</fullName>
+</Actor>
+----
+
+== Collections
+
+Collections are indicated by a repeating group with the attribute name.
+
+For example:
+
+[,taxi]
+----
+  @Xml
+  model Movie {
+>   actors : Actor[]
+  }
+----
+
+Would expect a repeated `actors` element:
+
+[,xml]
+----
+<?xml version='1.0' encoding='UTF-8'?>
+<Movie>
+    <actors id="1">
+        <firstName>Mel</firstName>
+        <lastName>Gibson</lastName>
+    </actors>
+    <actors id="2">
+        <firstName>Jack</firstName>
+        <lastName>Spratt</lastName>
+    </actors>
+</Movie>
+----
+
+== Expressions
+
+Expressions can be declared on a model.
+
+=== Serializing
+
+Expression values are written out as normal elements.
+
+=== Deserializing
+
+If an element or attribute is present for the field where the expression is declared,
+the expression is ignored, and the value from the source is taken.
+
+If there's no value present, then the expression is evaluated.
+
+[,taxi]
+----
+import com.{code-product-name}.formats.Xml
+import lang.taxi.xml.XmlAttribute
+
+@Xml
+model Actor {
+    firstName : FirstName inherits String
+    lastName : LastName inherits String
+    fullName : FullName inherits String = FirstName + ' ' + LastName
+}
+----
+
+Given the following XML:
+
+[,xml]
+----
+<?xml version='1.0' encoding='UTF-8'?>
+<Actor id="3">
+    <firstName>Jimmy</firstName>
+    <lastName>Smith</lastName>
+</Actor>
+----
+
+Then the value is read as:
+
+[,json]
+----
+{
+  "firstName" : "Jimmy",
+  "lastName" : "Smith",
+  "fullName" : "Jimmy Smith"
+}
+----
+
+== Using xpath() references
+
+<Callout type={"warning"} title='Deprecated'>
+  Using the `by xpath` tag is deprecated.
+
+Field names in the model are now used to match elements and attributes
+</Callout>
+
+It's possible (but discouraged) to use `by xpath("")` references to declare a column:
+
+[,taxi]
+----
+model Person {
+  firstName : FirstName by xpath("//fName")
+}
+----

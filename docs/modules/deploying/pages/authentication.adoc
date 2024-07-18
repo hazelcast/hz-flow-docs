@@ -1,0 +1,354 @@
+= Enabling authentication
+:description: Configuring {short-product-name} to require authentication through OpenID Connect or SAML
+
+import \{Callout} from "@/components/docs/Callout";
+import oktaSamlSingleSignOnUrl from '@/img/okta-saml-sign-on-url.png'
+import oktaSamlAudienceUrl from '@/img/okta-saml-audience-url.png'
+
+== Overview
+
+{short-product-name} supports authentication through:
+
+* An OpenID Connect authentication service, via the Authorization Flow with PKCE pattern
+
+OR
+
+* SAML Identity Provider which performs authentication and passes the user's identity and authorization level to the service provider
+
+== OpenID Connect setup
+
+To enable OpenID Connect Authentication, pass the following config options to {short-product-name} on the command line:
+
+|===
+| Parameter | Sample values | Description
+
+| `vyne.security.openIdp.enabled`
+| `true` / `false` (default)
+| Set to `true` to enable OpenID Connect authentication
+
+| `vyne.security.openIdp.issuerUrl`
+| https://auth-service/auth/realms/{short-product-name}
+| The openIdp issuer endpoint. The browser will redirect to this endpoint, so ensure the DNS entry is accessible via browser traffic
+
+| `vyne.security.openIdp.clientId`
+| `{short-product-name}`
+| The client ID to present to OpenID server. Defaults to `{short-product-name}` if not provided
+
+| `vyne.security.openIdp.jwks-uri`
+| https://auth-service/certs
+| A URL to load the set of JWKs used to verify signatures of presented tokens. This URL is called by {short-product-name}'s server, so ensure that the DNS entry is accessible to {short-product-name}
+
+| `vyne.security.openIdp.require-https`
+| `true` (default) / `false`
+| Indicates if auth must be performed over https. Defaults to true
+
+| `vyne.security.openIdp.account-management-url`
+| https://auth-service/account
+| *Optional.* A URL where authenticated users may be redirected, to manage their account
+
+| `vyne.security.openIdp.org-management-url`
+| https://auth-service/org
+| *Optional.* A URL where authenticated users may be redirected, to manage their organization. Generally, this is where roles are assigned to users
+|===
+
+A typical Docker config might look as follows:
+
+[,yaml]
+----
+  vyne:
+    image: {code-product-name}/{short-product-name}:${ORBITAL_VERSION}
+    volumes:
+      - ./vyne-config:/opt/service/config
+    environment:
+      OPTIONS: >-
+        --vyne.security.openIdp.enabled=true
+        --vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/{short-product-name}/protocol/openid-connect/certs
+        --vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/{short-product-name}
+        --vyne.security.openIdp.clientId={short-product-name}
+----
+
+When a user attempts to access {short-product-name}, they will be redirected to the login page as configured with the OpenID Connect provider.
+
+{short-product-name} doesn't provide a UI for managing users or roles. It's expected that this is handled through the OIDC service.
+
+=== The presented JWT
+
+The presented JWT is expected to have the following attributes:
+
+|===
+| Claim | Required | Description
+
+| `sub`
+| required
+| Subject - Identifier for the End-User at the Issuer
+
+| `iss`
+| required
+| Issuer - the OIDC provider who authenticated the user
+
+| One of `preferred_username` or `first_name` and `last_name`
+| required
+| Shorthand name by which the End-User wishes to be referred to at the RP, such as janedoe or j.doe
+
+| One of `email` or `clientId`
+| required
+| Something that uniquely identifies the user
+
+| One of `picture` or `picture_url`
+| optional
+| The user's avatar
+
+| `name`
+| optional
+| End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
+|===
+
+Additionally, role information must be present. See the docs on link:/deploying/authorization#reading-roles-from-jwt-tokens[Authorization] for more information.
+
+== Configuring OpenID Providers
+
+=== Keycloak
+
+Keycloak is the default IDP (it's what the {short-product-name} team tests with), so requires the least configuration.
+
+[,bash]
+----
+# Set to true to enable Auth
+--vyne.security.openIdp.enabled=true
+--vyne.security.openIdp.clientId={short-product-name}
+
+# The url that the browser will redirect to for authentication.
+# Ensure this is accessible from browsers
+--vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/{short-product-name}
+
+# The url that {short-product-name} will connect to, to validate the JWT's presented.
+# Ensure this is accessible from the {short-product-name} server
+# This normally follows the convention of ${issuerUrl}/protocol/openid-connect/certs
+--vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/{short-product-name}/protocol/openid-connect/certs
+----
+
+=== AWS Cognito
+
+The following instructions step through configuring AWS Cognito using AWS Console. These docs
+aren't intended to be exhaustive around AWS Congito - refer to AWS for more detailed instructions.
+
+==== Preparing AWS Cognito
+
+. Create an AWS Cognito User pool, and users (if not already present)
+ ** Take note of the User Pool Id.
+. Create an App Integration, and click to create an App Client:
+ ** *Under App Client*:
+  *** Create a Public Client
+  *** Don't generate a client secret
+  *** Under "Authentication Flows", ensure that the ALLOW_USER_PASSWORD_AUTH flow is selected
+ ** *Under Hosted UI Settings*:
+  *** Specify the callback URL of where you're running {short-product-name}. (For testing, you can additionally add `localhost` here too)
+  *** For OAuth 2.0 Grant types, ensure "Authorization code grant" is selected
+  *** For OIDC Connect scopes, ensure `email`, `openid` and `profile` are selected
+ ** Click *Create app client*
+. Take note of the Client Id, which you'll need in the next step
+
+==== Configuring {short-product-name}
+
+Use the following config settings in {short-product-name}:
+
+[,bash]
+----
+# Set to true to enable Auth
+--vyne.security.openIdp.enabled=true
+# Replace YOUR_CLIENT_ID with the clientId noted earlier
+--vyne.security.openIdp.clientId=YOUR_CLIENT_ID
+
+# In the below, replace REGION and USER_POOL_ID accordingly
+# Eg: https://cognito-idp.eu-west-2.amazonaws.com/eu-west-2_xxxxx
+--vyne.security.openIdp.issuerUrl=https://cognito-idp.REGION.amazonaws.com/USER_POOL_ID
+--vyne.security.openIdp.jwks-uri=https://cognito-idp.REGION.amazonaws.com/USER_POOL_ID/.well-known/jwks.json
+# Use the scopes openid email profile
+--vyne.security.openIdp.scope="openid email profile"
+# Must be set to Id
+--vyne.security.openIdp.identity-token-kind=Id
+----
+
+<Callout type={'note'} title="Don't forget!">
+  You must also configure AWS Cognito link:/deploying/authorization#aws-cognito[role-based access control] +
+</Callout>
+
+=== Azure+++<Callout type="warning" title="Azure AD B2C Not Supported">+++Unfortunately, at this time Azure AD B2C is not supported, as it does not provide support for <a href={'https://learn.microsoft.com/en-us/answers/questions/818404/role-based-access-for-webapi-in-azure-b2c'}>exposing roles in the published JWT</a>. However, Azure Active Directory (Entra) is supported, as described below.+++</Callout>+++
+
+* Log into Azure, and ensure you have an Azure AD directory active (not an Azure AD B2C directory)
+* Navigate to Microsoft Entra ID, and select "App registrations" from the left navbar
+* Click "New Registration" in the top navbar
+* Provide a name for the application - e.g.: "{short-product-name}"
+* For the Redirect URI, select Single-Page Application, and paste the URL of where {short-product-name} is hosted. (eg: `+https://mycompany/{short-product-name}+`)
+* Click Register
+
+You are taken to the settings for your newly created Azure AD application.
+
+* Click *Overview* in the left navbar
+ ** Take note of the Application (client) ID - you'll need this shortly
+* From the top navbar, select *Endpoints*
+ ** Take note of the OpenID Connect metadata document value - you'll need this shortly
+ ** It should look like this: `+https://login.microsoftonline.com/YOUR-APP-ID/v2.0/.well-known/openid-configuration+`
+
+<Callout type={'note'} title="Don't forget!">
+  You must also configure Azure link:/docs/deploying/authorization#azure[role-based access control]
+</Callout>
+
+Launch {short-product-name} passing the following parameters:
+
+[,bash]
+----
+--vyne.security.openIdp.enabled=true
+
+## Use the URL copied above
+--vyne.security.openIdp.oidcDiscoveryUrl=https://login.microsoftonline.com/YOUR-APP-ID/v2.0/.well-known/openid-configuration
+## Use the ClientId copied above
+--vyne.security.openIdp.clientId=xxxxx
+--vyne.security.openIdp.scope="openid profile email"
+--vyne.security.openIdp.identity-token-kind=Id
+## These relate to RBAC, after following the docs for enabling RBAC with Azure
+--vyne.security.open-idp.roles.format=path
+--vyne.security.open-idp.roles.path=roles
+----
+
+=== Other IDPs
+
+In general, {short-product-name} supports OpenID Connect authentication and authorization, and should be compatible with most platforms that implement OIDC protocol.  {short-product-name} uses the Authorization Code + PKCE flow.
+
+The following parameters (passed to {short-product-name} on startup) are used to configure OpenID Connect support:
+
+|===
+| Parameter | Description
+
+| `vyne.security.openIdp.enabled`
+| Set to `true` to turn on support for OIDC
+
+| `vyne.security.openIdp.client-id`
+| The ClientId as set by the OIDC provider
+
+| `vyne.security.openIdp.issuer-url`
+| Sets the issuerUrl, as provided by the OIDC provider
+
+| `vyne.security.openIdp.oidc-discovery-url`
+| Sets where the OpenID discovery document is loaded from. If not provided, will default to `+${issuerUrl}/.well-known/openid-configuration+`, which is the conventional URL, and normally OK
+
+| `vyne.security.openIdp.scope`
+| *Optional* The OIDC scopes to be requested. Defaults to `openid profile email offline_access`. Changing this will affect the claims presented in the JWT, which may affect {short-product-name}'s ability to read the token
+
+| `vyne.security.openIdp.require-https`
+| *Optional* Defines if requests must be made over https. Defaults to `true`
+
+| `vyne.security.openIdp.identity-token-kind`
+| *Optional* Either `Access` (default) or `Id`. Defines which token the browser should present to {short-product-name} after authentication by the IDP. The token should contain the required claims
+
+| `vyne.security.openIdp.account-management-url`
+| *Optional* Provides a URL that is presented to the user within the UI to manage their account
+|===
+
+For most scenarios, you need to set _either_ the `issuer-url` or `oidc-discovery-url`, but not both. However, if your OIDC provider uses non-standard configuration, both may be required.
+
+== Troubleshooting OpenID
+
+=== Ensure DNS entries are accessible
+
+When testing with Docker/Kubernetes, it's common to be accessing the browser via localhost, but services are operating in different, isolated DNS networks.
+Pay particular attention to the two following settings, which are accessed in different contexts:
+
+|===
+| Parameter | Description
+
+| `vyne.security.openIdp.issuerUrl`
+| Redirected from the browser. If you're running Keycloak (or similar), `localhost` is possibly OK here
+
+| `vyne.security.openIdp.jwks-uri`
+| Requested from the {short-product-name} server. If both {short-product-name} and your IDP (e.g. Keycloak) are running within Docker, make sure you use a DNS entry that is accessible to {short-product-name}. (i.e., `localhost` is unlikely to work here)
+|===
+
+== SAML Authentication
+
+SAML stands for Security Assertion Markup Language. It is an XML-based open standard for transferring identity data between two parties: an identity provider (IdP) and a service provider (SP).
+
+* Identity Provider -- Performs authentication and passes the user's identity and authorization level to the service provider
+* Service Provider -- Trusts the identity provider and authorizes the given user to access the requested resource
+
+To configure {short-product-name} as a Service Provider and authenticate users against a SAML Identity Provider, pass the following config options to {short-product-name} on the command line:
+
+|===
+| Parameter | Sample values | Description
+
+| `vyne.security.saml.enabled`
+| `true` / `false` (default)
+| Set to `true` to enable SAML authentication
+
+| `vyne.security.saml.keyStorePath`
+| `/opt/service/{short-product-name}/saml.jks`
+| SAML protocol requires signing various SAML protocol messages. This is the full path of corresponding key store accessible by {short-product-name}. Please note that, if the key store file does not exist at the specified location, {short-product-name} will create the key store for you
+
+| `vyne.security.saml.keyStorePassword`
+| `{short-product-name}`
+| Password for your key store
+
+| `vyne.security.saml.privateKeyPassword`
+| `{short-product-name}`
+| Password for your private key contained in the key store
+
+| `vyne.security.saml.idpMetadataFilePath`
+| `/opt/service/{short-product-name}/saml-idp-metadata.xml`
+| Full path of your SAML IdP metadata XML. The path should be accessible by {short-product-name}.
+
+| `vyne.security.saml.serviceProviderEntityId`
+| `+http://foo.{code-product-name}.io+`
+| Service Provider Entity Id of {short-product-name}
+
+| `vyne.security.saml.callbackBaseUrl`
+| `+http://foo.{code-product-name}.io+`
+| {short-product-name} URL which is accessible by SAML IdP
+
+| `vyne.security.saml.serviceProviderMetadataResourcePath`
+| `/opt/service/orbita/sp-metadata.xml`
+| Full path of the service provider metadata XML file. This file will be generated automatically by {short-product-name}
+
+| `vyne.security.saml.maximumAuthenticationLifetime`
+| `3600`
+| Once you have an authenticated web session on the Identity Provider, usually it won't prompt you again to enter your credentials and it will automatically generate a new assertion for you. By default, the SAML client will accept assertions based on a previous authentication for one hour. If you want to change this behavior, set the maximumAuthenticationLifetime parameter
+|===
+
+=== Example SAML Setup with Okta
+
+* To begin, you'll need an Okta developer account. You can create one at https://developer.okta.com/signup[developer.okta.com/signup] or install the Okta CLI and run Okta register
+* Log into your Okta account and go to `Applications > Create App Integration.` Select `SAML 2.0` and click *Next*. Name your app something like {short-product-name}Saml and click `Next`
+* Assuming {short-product-name} will be running on your local with its default port, set the `Single sign-on URL` as:
+
+----
+http://localhost:9022/saml?client_name=SAML2Client
+----
+
+* Use `Single sign-on Url` for `Recipient URL` and `Destination URL`.
+
+<img src={oktaSamlSingleSignOnUrl.src} />
+
+* Set `Audience URI (SP Entity ID)` to `+http://okta-sample.{short-product-name}.io+`
+
+<img src={oktaSamlAudienceUrl.src} />
+
+* Click `Next`
+* Set `App type` to `This is an internal app that we have created`
+* Okta will create your app, and you will be redirected to its Sign On tab. Scroll down to the SAML Signing Certificates and go to SHA-2 > Actions > View IdP Metadata. You can right-click and copy this menu item's link or open its URL. Copy the resulting link to your clipboard. It should look something like the following:
+* Save the View IdP data to a patch that is accessible to {short-product-name}. You'll set the value of `vyne.security.saml.idpMetadataFilePath` configuration value
+* Go to your app's Assignment tab and assign access to the Everyone group
+* Here is the list of {short-product-name} arguments for your setup:
+
+----
+--vyne.security.saml.enabled=true
+--vyne.security.saml.keyStorePath=/opt/serviuce/{short-product-name}/saml.jks
+--vyne.security.saml.keyStorePassword={short-product-name}
+--vyne.security.saml.privateKeyPassword={short-product-name}
+--vyne.security.saml.idpMetadataFilePath=/op/service/{short-product-name}/okta-idp-metadata.xml
+--vyne.security.saml.serviceProviderEntityId=http://okta-sample.{short-product-name}.io
+--vyne.security.saml.callbackBaseUrl=http://localhost:9022
+--vyne.security.saml.serviceProviderMetadataResourcePath=/opt/service/{short-product-name}/sp-{short-product-name}-metadata.xml
+----
+
+== See also
+
+* link:./authorization[Role-based authorization]

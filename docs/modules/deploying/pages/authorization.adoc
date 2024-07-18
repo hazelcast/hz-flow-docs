@@ -1,0 +1,255 @@
+= Enabling role-based authorization
+
+import \{Callout} from "@/components/docs/Callout";+++<Callout title="Prerequisite" type="note">+++To use role-based authentication, you must have configured authorization with an OpenID Connect provider. [Learn how to enable authorization](./authentication)+++</Callout>+++
+
+{short-product-name} uses role-based authorization to control which users can perform which tasks.
+
+== Roles
+
+Roles are used to grant <<permissions,permissions>> to users, which allow
+users to perform different actions on the {short-product-name} platform.
+
+The roles themselves are configurable.  {short-product-name} ships with a set of reasonable
+default roles, but you may choose to modify these or build your own.
+
+Roles are configured in a config file, typically found at `config/roles.conf`.
+
+If the file is not present on startup, a new file is created the first time a user logs in.
+
+[,hocon]
+----
+// Defines roles, and assigns them authorities.
+// Users who are granted these roles will be authorised to perform
+// the related activities
+grantedAuthorityMappings {
+   Admin {
+      grantedAuthorities = [ "RunQuery","CancelQuery"]
+   }
+
+   Viewer {
+      grantedAuthorities = [ "BrowseCatalog" ]
+   }
+}
+----
+
+=== List of default roles
+
+The following roles are shipped by default:
+
+|===
+| Role | Granted Authorities
+
+| Admin
+| Everything
+
+| Viewer
+| BrowseCatalog
+
+| QueryRunner
+| RunQuery
+
+| PlatformManager
+| CancelQuery, +
+ViewQueryHistory +
+ViewHistoricQueryResults +
+BrowseSchema +
+EditSchema +
+ViewCaskDefinitions +
+EditCaskDefinitions +
+ViewPipelines +
+EditPipelines +
+ViewAuthenticationTokens +
+EditAuthenticationTokens +
+ViewConnections +
+EditConnections
+|===
+
+== Assigning users to roles
+
+Roles are assigned based on the JWT token presented by your link:/docs/deploying/authentication[OIDC server].
+
+By default, if your OIDC server does not present any roles, a user who logs in will not be able to do anything, and will
+see an empty navbar.
+
+To grant roles, you'll need to assign one of the <<list-of-default-roles,roles>> to your users within your OIDC platform.
+
+{short-product-name} will work with any OIDC compliant server. {short-product-name} ships with defaults against Keycloak, which is a common OSS OIDC server.
+However, you can use whichever OIDC server you wish.
+
+== Configuring specific IDPs
+
+=== Keycloak
+
+The following steps were tested against Keycloak 22. Actual steps may vary depending on your version or configuration. Use Keycloak's docs to configure accordingly.
+
+* Log into the realm admin in Keycloak
+* Navigate to your realm, and select Realm roles in the left-hand navbar
+* Click *Create Role*
+* Add a role from above. (e.g., Admin), and click *Save*
+* Navigate to Users, and select the user you wish to manage
+* Click *Role Mapping*
+* Click *Assign Role*, select the Admin role, and click *Assign*
+
+If your user was previously logged into {short-product-name}, they'll need to log out and in again to refresh their token.
+
+=== AWS Cognito
+
+AWS uses Groups to populate the `cognito:groups` claim in the provided JWT. Here's how to configure this:
+
+==== Create the group / role
+
+. In AWS Cognito, navigate to the User Pool for {short-product-name}
+. Click Groups and create a group. The name of the group should match a <<roles,role>>. (e.g.: `Admin`)
+. Assign users to the role
+
+==== Configuring {short-product-name}
+
+To configure {short-product-name} to read the roles from the JWT passed by Cognito, the following params are required:
+
+[,bash]
+----
+--vyne.security.openIdp.roles.format=path
+--vyne.security.openIdp.roles.path="cognito:groups"
+----
+
+After this, {short-product-name} should now work with authentication and authorization via Cognito.
+
+=== Azure
+
+Ensure you've first set up {short-product-name} as an AD Application, as described in the Configuring link:/docs/deploying/authentication#azure[Azure Authentication].
+
+==== Creating roles
+
+. Inside Azure, navigate to Microsoft Entra ID, then select *App registrations* from the left navigation bar
+. Select the application you created link:/docs/deploying/authentication#azure[earlier]
+. Select *App roles*
+. Select *Create App role*:
+ ** The display name and value should match a configured <<roles,role>> (e.g.: `Admin`).
+ ** Set *Allowed member types* to Users/Groups
+ ** Click *Apply*
+
+==== Assigning users to roles
+
+. Inside Azure, navigate to *Enterprise Applications*
+. Select the application you created earlier
+. Click *Assign users and groups*
+. Select the checkbox next to a user, and then click *Edit Assignment* and select the role
+
+Repeat to assign roles as required.
+
+==== Configuring {short-product-name}
+
+To configure {short-product-name} to read the roles from the JWT passed by Azure, the following params are required:
+
+[,bash]
+----
+--vyne.security.openIdp.roles.format=path
+--vyne.security.openIdp.roles.path="roles"
+----
+
+After restarting {short-product-name}, user roles will now be passed from Azure to {short-product-name} and read from the JWT.
+
+=== Other IDPs: Reading roles from JWT Tokens
+
+{short-product-name} expects the user roles to be present in the claims, as a list of strings provided under a `roles` key.
+
+There is no universal standard of how OIDC servers provide roles within JWT tokens, therefore some configuration may be required.
+
+{short-product-name} is configured to work with https://www.keycloak.org/[Keycloak] by default, which publishes roles at `realm_access.roles`.
+
+You can configure a different path by adding the following parameters:
+
+|===
+| Parameter | Description
+
+| `vyne.security.open-idp.roles.format`
+| Set to `path` to provide a custom path
+
+| `vyne.security.open-idp.roles.path`
+| Set to the path within the JWT for the roles. Eg: `realm_access.roles`
+|===
+
+{short-product-name} expects that each part within the token is a `Map`, except for the last path, which should be a `String[]`.
+
+If you need more complex support for your OIDC, please reach out to us on https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[Slack] to discuss your requirements.
+
+== Permissions
+
+{short-product-name} ships with the following permissions.
+
+To perform an activity, users must be associated with a role that
+grants the related authority.
+
+|===
+| Activity | Required permission
+
+| Issue a query through the UI
+| RunQuery
+
+| Issue a query through the API
+| RunQuery
+
+| Cancel a running query
+| CancelQuery
+
+| Browse the query history in the UI
+| ViewQueryHistory
+
+| View the results of historic queries
+| ViewHistoricQueryResults
+
+| Browse the data catalog
+| BrowseCatalog
+
+| View the registered schemas
+| BrowseSchema
+
+| Modify a catalog entry
+| EditSchema
+
+| Import a new schema through the schema importer UI
+| EditSchema
+
+| List pipelines
+| ViewPipelines
+
+| Add a new pipeline
+| EditPipelines
+
+| Edit an existing pipeline
+| EditPipelines
+
+| View authentication tokens {short-product-name} uses in requests
+| ViewAuthenticationTokens
+
+| Edit authentication tokens {short-product-name} uses in requests
+| EditAuthenticationTokens
+
+| View configured data sources
+| ViewConnections
+
+| Edit configured data sources
+| EditConnections
+|===
+
+== Authorization parameters
+
+The following parameters are configurable, by passing values
+to {short-product-name} on startup.  The values all have reasonable defaults, and it's uncommon to change
+these.  However, they can be configured as required.
+
+|===
+| Parameter | Description | Default value
+
+| `vyne.security.authorisation.role-definitions-file`
+| Path to a file which defines roles and their granted authorities
+| `config/roles.conf`
+
+| `vyne.security.authorisation.user-to-role-mappings-file`
+| Path to a file which lists users, and their assigned roles
+| `config/user-role-mappings.conf`
+
+| `vyne.security.authorisation.admin-role`
+| The name of the role which grants admin privileges
+| `Admin`
+|===

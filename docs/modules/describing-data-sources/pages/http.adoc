@@ -1,0 +1,277 @@
+= Working with HTTP sources
+:description: 'An overview of how to connect data sources to Orbital'
+
++++<Callout type="note" title="See also: OpenAPI">+++Orbital has first-class support for working with link:./open-api[OpenAPI specs] and link:./soap[SOAP WSDLs]. The following guide is intended for consuming HTTP services without a separate spec.+++</Callout>+++
+
+== Describing HTTP with Taxi
+
+If you're not working with other HTTP specs, you can describe your services directly using Taxi. Taxi is very rich and expressive, and
+is designed to fully support describing API sources, for teams who are not currently using an existing standard.
+
+== Services
+
+A service is simply a group of operations.
+
+[,taxi]
+----
+service PeopleService {
+   operation listAllPeople():Person[]
+}
+----
+
+Services that contain HTTP operations may optionally declare an `@HttpService` annotation, which allows it to set a baseUrl for all contained operations.
+
+[,taxi]
+----
+@HttpService(baseUrl="https://foo.com")
+service PeopleService {
+   // resolves to https://foo.com/people
+   @HttpOperation(method = 'GET', url = '/people')
+   operation listAllPeople():Person[]
+}
+----
+
+== HTTP Operations
+
+An operation defines a function on the API.
+
+[,taxi]
+----
+@HttpOperation(method = 'GET', url = 'https://myservice/people')
+operation listAllPeople():Person[]
+----
+
+Operations often have annotations that provide hints to tooling as to how to invoke them.
+
+Taxi ships with some standard annotations, as part of its https://gitlab.com/taxi-lang/taxi-lang/tree/master/taxi-stdlib-annotations/src/main/java/lang/taxi/annotations[std-lib].  Although it's up to individual tooling to determine how to interpret these, the suggested usage is as follows:
+
+|===
+| Annotation | Usage
+
+| `@HttpOperation(method,url)`
+| Indicates that the operation should be invoked over HTTP, using the provided `method` and `url`
+
+| `@HttpRequestBody`
+| Indicates that a parameter will be found on the request body
+
+| `@PathVariable(name)`
+| Indicates a property from the path that should be populated with a variable passed to the operation
+
+| `@HttpHeader(name,value, prefix)`
+| Defines how headers are passed. See below
+|===
+
+=== HTTP Headers
+
+HTTP headers are passed as annotations, which follow this format:
+
+[,taxi]
+----
+annotation HttpHeader {
+   name : String
+   [[ Pass a value when using as an annotation on an operation. For parameters, it's valid to allow the value to be populated from the parameter. ]]
+   value : String?
+   prefix : String?
+   suffix : String?
+}
+----
+
+HTTP Headers can be defined in operations in a few different ways:
+
+==== As a fixed value, on an operation
+
+[,taxi]
+----
+service MyService {
+  @HttpOperation(method = "GET", url = "...")
+  @HttpHeader(name = "Consumes", value = "application/json")
+  operation findPeople():Person[]
+}
+----
+
+==== As an input into an operation
+
+[,taxi]
+----
+service MyService {
+  operation findPeople(
+     @HttpHeader(name = "Cache-Control", prefix = "max-age=") cacheMaxAge : CacheMaxAge
+  ):Person[]
+}
+----
+
+Which is then invoked as:
+
+[,taxi]
+----
+given { maxAge : CacheMaxAge = 64000 }
+find { Person[] }
+----
+
+Additionally, header values can be calculated, using expressions:
+
+[,taxi]
+----
+service MyService {
+  operation findPeople(
+     @HttpHeader(name = "If-Modified-Since") ifModifiedSince : Instant = addDays(now(),-7)
+  ):Person[]
+}
+----
+
+=== Examples
+
+[,taxi]
+----
+service MovieService {
+   @HttpOperation(method = "GET" , url = "https://myMovies/movies")
+   operation findAllMovies() : Movie[]
+
+   @HttpOperation(method = "GET" , url = "https://myMovies/movies/{id}")
+   operationFindMovie( @PathVariable(name = "id") id : MovieId ) : Movie
+}
+
+@HttpService(baseUrl = "http://actorService")
+service ActorService {
+   // resolves to http://actorService/actors
+   @HttpOperation(method = "GET" , url = "/actors")
+   operation findAllActors() : Actor[]
+}
+----
+
+Names of operation parameters are optional.  This is to encourage developers to leverage a richer type system where possible:
+
+[,taxi]
+----
+// These two declarations are both valid, and describe the same operation
+operation convertUnits(source:Weight, targetUnit:Unit):Weight
+operation convertUnits(Weight,Unit):Weight
+----
+
+=== HTTP Parameters
+
+=== Operation contracts and constraints
+
+Contracts and constraints are useful for telling tooling about what functionality an operation can provide, and what conditions must be met before invoking.
+
+Both contracts and constraints use the same syntax.
+
+[,taxi]
+----
+type Money {
+   currency : String
+   amount : Decimal
+}
+operation convertCurrency(input: Money,
+      targetCurrency: String) : Money(from input, currency = targetCurrency)
+----
+
+=== From input
+
+A contract may indicate that a return type is derived from one of the inputs, by using the `+from {input}+` syntax:
+
+[,taxi]
+----
+operation convertUnits(input: Weight, target: Unit):Weight( from input )
+----
+
+=== Attribute constraints
+
+Attribute constraints describe either a pre-condition (if on an input) or a post-condition (if on a return type) for an operation.
+
+[,taxi]
+----
+operation convertFromPounds(input : Money(currency = 'GBP'), target: Currency)
+    : Money( from input, currency = target)
+----
+
+As shown above, attribute constraints may either be:
+
+* A constant value (ie., `"GBP"`)
+* A reference to an attribute of another parameter
+* Nested syntax is supported (ie., `foo.bar.baz`)
+
+These constraints are applicable on types too. See +++<link to="../taxi-language#type-constraints">++++++</link>+++type constraints</Link> for an example.
+
+== Retry policies
+
+When integrating with external REST APIs, handling intermittent failures such as HTTP 500 errors is crucial for maintaining application reliability.
+
+Taxi allows defining retry policies, which Orbital will honour when things go wrong.
+
+=== Fixed delay retry policy
+
+A fixed delay retry policy retries operations with a constant wait time between attempts. This is useful for temporary issues on the external service's end.
+
+For example, to retry the `getReviews` operation upon receiving an HTTP 500 error, with a 5-second wait for up to 10 attempts, define the service as follows:
+
+[,taxi]
+----
+service ReviewsApi {
+    @HttpOperation(method = "GET", url = "https://reviews/{id}")
+    @HttpRetry(responseCode = [500], fixedRetryPolicy = @HttpFixedRetryPolicy(maxRetries = 10, retryDelay = 5))
+    operation getReviews(id: FilmId): FilmReview[]
+}
+----
+
+To include additional error codes like HTTP 502, simply adjust the `responseCode` attribute:
+
+[,taxi]
+----
+service ReviewsApi {
+    @HttpOperation(method = "GET", url = "https://reviews/{id}")
+    @HttpRetry(responseCode = [500, 502], fixedRetryPolicy = @HttpFixedRetryPolicy(maxRetries = 10, retryDelay = 5))
+    operation getReviews(id: FilmId): FilmReview[]
+}
+----
+
+=== Exponential delay retry policy
+
+An exponential delay retry policy increases the delay between retries, which can be further randomized using jitter to avoid synchronized retry storms:
+
+[,taxi]
+----
+service ReviewsApi {
+    @HttpOperation(method = "GET", url = "https://reviews/{id}")
+    @HttpRetry(responseCode = [500, 502], fixedRetryPolicy = @HttpExponentialRetryPolicy(maxRetries = 10, retryDelay = 5, jitter = 0.5))
+    operation getReviews(id: FilmId): FilmReview[]
+}
+----
+
+With the above definition, Orbital will try invoking the rest at most 10 times in case of HTTP 500 or HTTP 502 errors.
+
+However, the delay between retries will increase exponentially.
+
+With a `jitter` value between 0 and 1, you add some randomness to the delay time by introducing a random delay, or "`jitter`", to the next retry delay time.
+This ensures that the retries are not synchronous and reduces the likelihood of a retry storm.
+
+Here's how the table would look with exponential backoff with jitter:
+
+|===
+| Retry Attempt | Delay Time (seconds) | Jitter Range (seconds) | Actual Delay Time (seconds)
+
+| 1
+| 1.0
+| 0.5
+| 1-0 - 1.5
+
+| 2
+| 2.0
+| 0.5
+| 1-5 - 2.5
+
+| 3
+| 4.0
+| 0.5
+| 3.5 -- 4.5
+
+| 4
+| 8.0
+| 0.5
+| 7.5 -- 8.5
+
+| 5
+| 16.0
+| 0.5
+| 15.5 -- 16.5
+|===

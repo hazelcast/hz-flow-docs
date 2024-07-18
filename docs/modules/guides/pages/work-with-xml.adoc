@@ -1,0 +1,299 @@
+= Working with XML and JSON
+:description: Linking services that publish XML
+
+This guide features services publishing a mix of XML and JSON, and explains how to combine them and expose the
+composed services as a REST API.
+
+It shows starting an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
+
+This demo has a video walkthrough that discusses how it's built:
+
+image::https://cdn.loom.com/sessions/thumbnails/d7819e1108e7401094dbdad39796bbf4-1697719617654-with-play.gif[Video walkthrough,link=https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4]
+
+== Overview
+
+This guide shows how to connect:
+
+[,taxi]
+----
+// A service the returns a list of Films (in XML)
+operation findAllFilms():FilmList
+
+// A service that returns the cast of a film (in XML)
+operation findCast(FilmId):ActorList
+
+// A service that returns the list of awards a film has won (in JSON)
+operation findAwards(FilmId):Award[]
+----
+
+<ImageWithCaption src=\{ArchitectureOverview}
+                  caption={`The services in our demo`} />
+
+We'll stitch these together, and expose a REST API that returns the data from all three services.
+
+== Setting up
+
+https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=92[Jump to this section of the video]
+
+To get started, install Taxi using https://sdkman.io/[SDKMan] and create a new project:
+
+[,bash]
+----
+sdk install taxi
+taxi init
+# follow prompts to create your taxi project
+----
+
+Then launch an {short-product-name} developer environment:
+
+----
+taxi {short-product-name}
+----
+
+This downloads a Docker Compose file which configures a local developer environment of {short-product-name} that live-reloads your
+Taxi project changes.
+
+== Describing the Film Service
+
+https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
+
+Write some Taxi that describes our Film service:+++<SnippetGroup>+++```taxi films.taxi import com.{code-product-name}.formats.Xml // The @Xml annotation tells {short-product-name} how to read this object @Xml model FilmList { item : Film[] } model Film { id : FilmId inherits Int title : FilmTitle inherits String yearReleased : YearReleased inherits Int } service FilmsService { @HttpOperation(url = "http://localhost:8044/films", method = "GET") operation getAllFilms():FilmList } ``` ```xml films-data.xml +++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
+
+== Integrating the Cast Service
+
+Our CastService takes the ID of a Film, and returns a list of actors:+++<SnippetGroup>+++```taxi actors.taxi import com.{code-product-name}.formats.Xml @Xml model ActorList { item : Actor[] } model Actor { id : ActorId inherits Int name : ActorName inherits String } service CastService { @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList } ``` ```xml actor-data.xml +++<List>++++++<item>++++++<id>+++34+++</id>+++ +++<name>+++JUDY DEAN+++</name>++++++</item>+++ +++<item>++++++<id>+++21+++</id>+++ +++<name>+++ELVIS MARX+++</name>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
+
+=== What connects it together
+
+{short-product-name} now has enough information to link our services together:
+
+[,taxi]
+----
+// The FilmId from our Film model...
+model Film {
+  id : FilmId inherits Int
+  ...
+}
+// ... is used as an input to our fetchCastForFilm operation:
+operation fetchCastForFilm(FilmId):ActorList
+----
+
+We don't need to write any integration code or resolvers.  There's enough information in the schemas.+++<Callout type="note" title="Reminder">+++We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`+++</Callout>+++
+
+== Writing Data Queries
+
+https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
+
+{short-product-name} uses type metadata to understand how to link things together.  Rather than writing integration code,
+we write a query for data using TaxiQL.
+
+=== Fetch the list of films
+
+[,taxi]
+----
+// Just fetch the ActorList
+find { FilmList }
+----
+
+Which returns:
+
+[,json]
+----
+{
+   "item": [
+      {
+         "id": 0,
+         "title": "ACADEMY DINOSAUR",
+         "yearReleased": 2005
+      },
+      {
+         "id": 1,
+         "title": "ACE GOLDFINGER",
+         "yearReleased": 1975
+      },
+      // snip
+   ]
+}
+----
+
+=== Restructure the result
+
+We'd like to remove the `item` wrapper (which is carried over from the XML format), so we change the query, to ask just for a `Film[]`
+
+[,taxi]
+----
+find { FilmList } as Film[]
+----
+
+Which returns:
+
+[,json]
+----
+[
+  {
+   "id": 0,
+   "title": "ACADEMY DINOSAUR",
+   "yearReleased": 2005
+  },
+  {
+   "id": 1,
+   "title": "ACE GOLDFINGER",
+   "yearReleased": 1975
+  }
+]
+----
+
+=== Defining a custom response object
+
+We can define a data contract of the exact data we want back, specifying the field names we like,
+with the data type indicating where the data is sourced from:
+
+[,taxi]
+----
+find { FilmList } as (Film[]) -> {
+    filmId : FilmId
+    nameOfFilm : FilmTitle
+}
+----
+
+=== Linking our Actor Service
+
+To include data from our `CastService`, we just ask for the actor information:
+
+[,taxi]
+----
+  find { FilmList } as (Film[]) -> {
+      filmId : FilmId
+      nameOfFilm : FilmTitle
+>     cast : Actor[]
+  }
+----
+
+Which now gives us:
+
+[,json]
+----
+{
+   "filmId": 0,
+   "nameOfFilm": "ACADEMY DINOSAUR",
+   "cast": [
+      {
+         "id": 18,
+         "name": "BOB FAWCETT"
+      },
+      {
+         "id": 28,
+         "name": "ALEC WAYNE"
+      },
+    //..snip
+   ]
+}
+----
+
+== Adding our Awards Service
+
+We can also define a schema and service for our awards information, which is returned in JSON:+++<SnippetGroup>+++```taxi awards.taxi model Award { title : AwardTitle inherits String yearWon : YearWon inherits Int } service AwardsService { @HttpOperation(url = "http://localhost:8044/film/\{filmId}/awards", method = "GET") operation fetchAwardsForFilm(@PathVariable("filmId") filmId : FilmId):Award[] } ``` ```json awards-data.json [ { "title": "Best Makeup and Hairstyling", "yearWon": 2020 }, { "title": "Best Original Score", "yearWon": 2020 }, // snip\... ] ```+++</SnippetGroup>+++
+
+=== Enriching our query
+
+Finally, to include this awards data, we just add it to our query:
+
+[,taxi]
+----
+  find { FilmList } as (Film[]) -> {
+      filmId : FilmId
+      nameOfFilm : FilmTitle
+      cast : Actor[]
+>     awards : Award[]
+  }
+----
+
+Which gives us:
+
+[,json]
+----
+{
+   "filmId": 0,
+   "nameOfFilm": "ACADEMY DINOSAUR",
+   "cast" : [] // omitted
+   "awards": [
+      {
+         "title": "Best Documentary Feature",
+         "yearWon": 2020
+      },
+      {
+         "title": "Best Supporting Actress",
+         "yearWon": 2020
+      },
+   ]
+}
+----
+
+== Publishing our query as a REST API
+
+Now that we're happy with our response data, we can publish this query as a REST API.
+
+* First, we wrap the query in a `+query { ... }+` block, and save it in our Taxi project
+* Then we add an `+@HttpOperation(...)+` annotation
+
+```taxi query.taxi
+
+____
+@HttpOperation(url = '/api/q/filmsAndAwards', method = 'GET')
+ query filmsAndAwards {
+      find { FilmList } as (Film[]) \-> {
+          filmId : FilmId
+          nameOfFilm : FilmTitle
+          awards : Award[]
+          cast : Actor[]
+      }
+ }
+```
+____
+
+Our query is now available at `+http://localhost:9022/api/q/filmsAndAwards+`
+
+[,bash]
+----
+$ curl http://localhost:9022/api/q/filmsAndAwards | jq
+----
+
+Which gives us:
+
+[,json]
+----
+[
+  {
+    "filmId": 0,
+    "nameOfFilm": "ACADEMY DINOSAUR",
+    "awards": [
+      {
+        "title": "Best Animated Feature",
+        "yearWon": 2020
+      },
+      {
+        "title": "Best Original Score for a Comedy",
+        "yearWon": 2020
+      },
+      {
+        "title": "Best Documentary Feature",
+        "yearWon": 2020
+      },
+      // .... snip
+    ]
+  }
+]
+----
+
+== Wrapping up and next steps
+
+In this guide, we've:
+
+* Created a Taxi project
+* Exposed XML services and modelled their responses
+* Written a query stitching three services together
+* Published that query as an HTTP service
+
+The code for this guide is available on https://github.com/{short-product-name}api/demos/tree/main/xml-demo[Github].
+
+Remember, if you haven't already done so, head to the https://github.com/{short-product-name}api/{short-product-name}[{short-product-name} github repo] and give us a star!
