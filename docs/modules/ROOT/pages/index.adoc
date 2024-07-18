@@ -1,5 +1,5 @@
 = Quickstart
-:description: Connect all your APIs & data sources dynamically, without writing integration code.
+:description: Connect all your APIs and data sources dynamically, without writing integration code.
 
 {long-product-name} automates integration for your microservices.
 
@@ -15,22 +15,28 @@ Then visit http://localhost:9022 in your browser.
 
 == What is {long-product-name}?
 
-{short-product-name} is a data gateway that automates the integration, transformation and discovery of data from data sources (API's, databases, message brokers) across your enterprise.
+{short-product-name} is a data gateway that automates the integration, transformation and discovery of data from data sources (APIs, databases, message brokers) across your enterprise.
 
 {short-product-name} integrates on-the-fly, automatically adjusting as your data sources change.
 
-This is powered by rich semantic schemas, which infer how data across your organisation links together, and automate the integration and discovery of data.
+This is powered by rich semantic schemas, which infer how data across your organization links together, and automate the integration and discovery of data.
 
-<ImageWithCaption src=\{NetworkDiagram} addLightBackground/>
+// We need the image from Orbital as can't find it in source
+// <ImageWithCaption src=\{NetworkDiagram} addLightBackground/>
 
 == Quick Links
 
-Once you have {short-product-name} running locally, connect your microservices, and start querying for data+++<QuickLinks>++++++<QuickLink title="Connecting data sources" icon="connect" href="docs/describing-data-sources/configuring-connections" description="Connect your APIs, Databases and Message Queues to {short-product-name}.">++++++</QuickLink>+++ +++<QuickLink title="Querying" icon="query" href="/docs/querying/writing-queries" description="Query for data through {short-product-name}'s API, and let {short-product-name} handle the integration plumbing for you.">++++++</QuickLink>+++ +++<QuickLink title="Follow a guide" icon="guides" href="/docs/guides" description="A handful of guides to help get productive with {short-product-name}">++++++</QuickLink>+++ +++<QuickLink title="Head to production" icon="production" href="/docs/deploying/production-deployments" description="Deploy {short-product-name} on your Kubernetes cluster or using Docker Compose">++++++</QuickLink>++++++</QuickLinks>+++
+Once you have {short-product-name} running locally, connect your microservices, and start querying for data
+
+* link:/docs/describing-data-sources/configuring-connections[Connect data sources] - Connect your APIs, Databases and Message Queues to {short-product-name} 
+* link:/docs/querying/writing-queries[Query data] - Query for data through {short-product-name}'s API, and let it handle the integration plumbing for you
+* link:/docs/deploying/production-deployments[Head to production] - Deploy {short-product-name} on your Kubernetes cluster or using Docker Compose
+* link:/docs/guides[Tutorials] - Step-by-step tutorials to help get productive with {short-product-name}
 
 == Getting help
 
-Stuck?  Need help?  Have an idea?  We'd love to hear from your.
+Stuck?  Need help?  Have an idea?  We'd love to hear from you.
 
-You can connect with the {short-product-name} team in a number of ways
+You can connect with the {short-product-name} team in a number of ways:
 
-
+// We need a list of contact options here

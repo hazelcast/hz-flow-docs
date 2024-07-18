@@ -1,4 +1,6 @@
 = Install {short-product-name}
+:description: A tutorial to Taxi running locally.
+
 
 This guide covers getting {long-product-name} and Taxi running locally in a developer environment.
 
@@ -7,13 +9,12 @@ This guide covers getting {long-product-name} and Taxi running locally in a deve
 Before you get started, you'll need the following:
 
 * https://docs.docker.com/engine/install/[Docker] and Docker Compose (installed by default with Docker)
-* https://sdkman.io/install[SDKMan] - A fantastic tool for installing SDKs and developer tools
-* https://code.visualstudio.com/[VSCode] - Optional, but we create dev tools for VSCode that improve the developer experience
+* https://sdkman.io/install[SDKMan] - a useful tool for installing SDKs and developer tools
+* https://code.visualstudio.com/[VSCode] - optional, but we create dev tools for VSCode that improve the developer experience
 
 == Installing Taxi+++<InstallingCliSteps>++++++</InstallingCliSteps>+++
 
-https://taxilang.org[Taxi] is a language for describing data sources, and how data relates.
-
+https://taxilang.org[Taxi] is a language for describing data sources, and how data relates. 
 Its CLI has tooling for creating projects and running builds.
 
 First, let's install Taxi:
@@ -66,7 +67,7 @@ Generating source directory at /dev/{short-product-name}-demo/src
 Finished
 ----
 
-You now have an empty taxi project.
+You now have an empty Taxi project.
 
 Open VSCode to take a look around:
 
@@ -75,7 +76,7 @@ Open VSCode to take a look around:
 $ code .
 ----
 
-<ImageWithCaption src=\{VSCodeExplorer} />
+image:vscode-files.png[VS Code]
 
 == Launching {short-product-name}
 
@@ -99,4 +100,4 @@ and detected inside of {short-product-name}.
 
 That's it! You're now running {short-product-name} locally, and have a brand new Taxi project ready to go.
 
-Why not take one of our Guides for a spin, and build something locally.
+Why not take one of our tutorials for a spin, and build something locally.
