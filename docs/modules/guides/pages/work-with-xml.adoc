@@ -26,8 +26,7 @@ operation findCast(FilmId):ActorList
 operation findAwards(FilmId):Award[]
 ----
 
-<ImageWithCaption src=\{ArchitectureOverview}
-                  caption={`The services in our demo`} />
+image:2architecture-overview.png[The services in our demo]
 
 We'll stitch these together, and expose a REST API that returns the data from all three services.
 
@@ -57,7 +56,42 @@ Taxi project changes.
 
 https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
 
-Write some Taxi that describes our Film service:+++<SnippetGroup>+++```taxi films.taxi import com.{code-product-name}.formats.Xml // The @Xml annotation tells {short-product-name} how to read this object @Xml model FilmList { item : Film[] } model Film { id : FilmId inherits Int title : FilmTitle inherits String yearReleased : YearReleased inherits Int } service FilmsService { @HttpOperation(url = "http://localhost:8044/films", method = "GET") operation getAllFilms():FilmList } ``` ```xml films-data.xml +++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
+Write some Taxi that describes our Film service:
+
+// AUTHORS NOTE - how best to re-format this?
+
+[tabs]
+====
+films.taxi::
++
+[source,taxi]
+----
+```import com.{code-product-name}.formats.Xml 
+// The @Xml annotation tells {short-product-name} how to read this object 
+@Xml model FilmList { 
+  item : Film[]
+   } 
+   model Film { 
+    id : FilmId inherits Int 
+    title : FilmTitle inherits String 
+    yearReleased : YearReleased inherits Int
+     } 
+     service FilmsService { 
+      @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
+      operation getAllFilms():FilmList
+       } ```
+----
+films-taxi.xml::
++
+[source,xml]
+----
+```+++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```
+----
+====
+
+// AUTHORS NOTE - the XML section above is not displaying correctly - needs the XML cleaned up. Below is the original, converted code: 
+
++++<SnippetGroup>+++```taxi films.taxi import com.{code-product-name}.formats.Xml // The @Xml annotation tells {short-product-name} how to read this object @Xml model FilmList { item : Film[] } model Film { id : FilmId inherits Int title : FilmTitle inherits String yearReleased : YearReleased inherits Int } service FilmsService { @HttpOperation(url = "http://localhost:8044/films", method = "GET") operation getAllFilms():FilmList } ``` ```xml films-data.xml +++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
 
 == Integrating the Cast Service
 
