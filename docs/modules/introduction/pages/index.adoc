@@ -128,9 +128,37 @@ namespace sales {
 These semantic types are defined in Taxi.  You can either choose to describe your APIs using Taxi (which has first class
 support for semantic metadata), or embed Taxi metadata within other schema languages, such as OpenAPI:
 
-// the following snippet isn't formatted correctly, plus there were 2 examples in the original within tabs
-
-+++<SnippetGroup>+++```# An extract of the ShoppingCartApi OpenAPI spec: components: schemas: Customer: properties: id: # Field name x-taxi-type: # \<-- Taxi extension name: CustomerId # \<-- Semantic type type: string ``` ```yaml Sales OpenAPI Spec # An extract of the CustomerApi OpenAPI spec: components: schemas: Purchase: properties: custId: # Field name x-taxi-type: # \<-- Taxi extension name: CustomerId # \<-- Semantic type type: string ```+++</SnippetGroup>+++
+[tabs]
+====
+Customer OpenAPI Spec.yaml::
++
+[source,yaml]
+----
+# An extract of the ShoppingCartApi OpenAPI spec: 
+components:
+schemas:
+Customer:
+properties:
+id: # Field name
+x-taxi-type: # \<-- Taxi extension
+name: CustomerId # \<-- Semantic type
+type: string
+----
+Sales OpenAPI Spec.yaml::
++
+[source,yaml]
+----
+# An extract of the CustomerApi OpenAPI spec: 
+components:
+schemas:
+Purchase:
+properties:
+custId: # Field name 
+x-taxi-type: # \<-- Taxi extension
+name: CustomerId # \<-- Semantic type
+type: string
+----
+====
 
 === Semantic driven integration
 

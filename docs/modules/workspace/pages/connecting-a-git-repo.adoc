@@ -14,10 +14,7 @@ A typical Git configuration consists of:
 
 Additionally, if you're connecting an OpenAPI or Protobuf source, you'll need to provide a little additional metadata.
 
-////
--
-AmandaL - I did not understand the following sentence - please ensure my edit makes sense as I took a best guess
-////
+// AmandaL - I did not understand the following sentence - please ensure my edit makes sense as I took a best guess
 
 The list of Git repositories for {short-product-name} can be modified either through the <<adding-a-git-repository-using-the-ui,{short-product-name} UI>>,
 or by editing a <<adding-a-git-repository-through-config,config file>>, which can be version controlled, and automatically deployed (self-hosted deployments only).
@@ -27,18 +24,18 @@ or by editing a <<adding-a-git-repository-through-config,config file>>, which ca
 To add a new Git repository via the UI, either navigate to http://localhost:9022/projects/project-import[/project-import], or from within the UI
 click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 
-<ImageWithCaption src=\{AddSchemaSources} addLightBackground/>
+image:add-schema-sources.png[]
+
+// Light background? <ImageWithCaption src=\{AddSchemaSources} addLightBackground/>
 
 === Completing the new Git repository form
 
 Click on the *Git Repository* tab, and provide the details of how to connect to your Git repo.
 
-<ImageWithCaption src=\{AddGitRepoForm} addLightBackground/>
+image:add-git-repo-form.png[]
 
-<Callout type='note' title={`+Tip...+`}>
-  After adding the URL of your repository, click *Test Connection*.  {short-product-name} will verify the connection works,
+TIP: After adding the URL of your repository, click *Test Connection*. {short-product-name} will verify the connection works,
   and fetch the list of branches (including the default branch) from your repository.
-</Callout>
 
 == Adding a Git repository through config
 

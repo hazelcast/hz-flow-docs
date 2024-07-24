@@ -1,8 +1,6 @@
 = Describing a Mongo database
 :description: Learn how to make a collection in a Mongo database available for {short-product-name}
 
-import \{Callout} from "@/components/docs/Callout";
-
 {short-product-name} can read data from a Mongo collection to fetch data as part of a query, as well as write data
 back to Mongo.
 

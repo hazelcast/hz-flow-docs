@@ -17,14 +17,10 @@ By convention, the `auth.conf` lives at `{short-product-name}/config/auth.conf`,
   name: com.myproject/demo
   version: 0.1.0
   sourceRoot: src/
-
-____
-additionalSources: {
+   additionalSources: {
      "@{short-product-name}/config" : "{short-product-name}/config/*.conf" +
  }
 ```
-____
-
 Here's a sample config:
 
 [,hocon]
@@ -44,7 +40,9 @@ authenticationTokens {
 
    }
 }
-----+++<Callout type="note" title="See also...">+++Also check out link:/docs/deploying/managing-secrets[Managing secrets] to see how to securely manage sensitive information in your auth tokens+++</Callout>+++
+----
+
+TIP: See also link:/docs/deploying/managing-secrets[Managing secrets] to see how to securely manage sensitive information in your auth tokens.
 
 == Authentication token types
 
@@ -63,8 +61,7 @@ authenticationTokens {
      password: password
   }
 }
-
-----
+```
 
 ### HTTP header
 ```hocon auth.conf
@@ -82,7 +79,7 @@ authenticationTokens {
       headerName: Auth
   }
 }
-----
+```
 
 === Query param
 
@@ -97,8 +94,7 @@ authenticationTokens {
      value: letMeIn
   }
 }
-
-----
+```
 
 ### Cookie
 ```hocon auth.conf
@@ -112,7 +108,7 @@ authenticationTokens {
      value: letMeIn
   }
 }
-----
+```
 
 === OAuth2
 
@@ -128,15 +124,15 @@ authenticationTokens {
      clientSecret: DEF
      scopes: [ "profile" , "image" ]
 
-....
  // One of AuthorizationCode, RefreshToken, ClientCredentials
  grantType: AuthorizationCode
  // One of Basic, Post, JWT
  method: Post
 
  // Optional. Only required if grantType is RefreshToken
- refreshToken: LMNOP   } } ```
-....
+ refreshToken: LMNOP   } 
+ }
+```
 
 === Mutual authentication (mtls)
 
@@ -156,8 +152,7 @@ authenticationTokens {
      truststorePassword: {short-product-name}
   }
 }
-
-----
+```
 
 ## Using environment variables
 Environment variables can be used in authentication config files.
@@ -169,7 +164,8 @@ authenticationTokens {
       value = ${foo} // The enviroment variable of 'foo' is read and substituted
    }
 }
-----+++<Callout type="note" title="See also...">+++Also check out link:/docs/deploying/managing-secrets[Managing secrets] to see how to securely manage sensitive information in your auth tokens+++</Callout>+++
+```
+TIP: See also link:/docs/deploying/managing-secrets[Managing secrets] to see how to securely manage sensitive information in your auth tokens.
 
 == Other configuration approaches
 
@@ -207,7 +203,7 @@ POST to `+/api/tokens/service/{serviceName}+`:
 
 ==== Deleting a token
 
-This deletes a token
+This deletes a token.
 
 DELETE to `+/api/tokens/service/{serviceName}+`
 

@@ -1,8 +1,6 @@
 = Kafka as a data source
 :description: Learn how to make a Kafka topic available for {short-product-name} to query
 
-import \{Callout} from "@/components/docs/Callout";
-
 {short-product-name} can read data from a Kafka topic to stream data as part of a query, as well as write data
 back to Kafka.
 
@@ -143,11 +141,11 @@ The message key can be accessed using the `com.orbtalhq.kafka.KafkaMessageKey` a
 
 [,taxi]
 ----
-> import com.{code-product-name}.kafka.KafkaMessageKey
+  import com.{code-product-name}.kafka.KafkaMessageKey
 
   model Movie {
     // The key from Kafka will be read into the id property
->   @KafkaMessageKey
+    @KafkaMessageKey
     id : MovieId inherits String
     title : Title inherits String
   }
@@ -182,24 +180,24 @@ For example:
 
 [,taxi]
 ----
->   import com.{code-product-name}.kafka.KafkaMessageMetadata
->   import com.{code-product-name}.kafka.KafkaMetadataType
+   import com.{code-product-name}.kafka.KafkaMessageMetadata
+   import com.{code-product-name}.kafka.KafkaMetadataType
 
-    model Movie {
->     @KafkaMessageMetadata(KafkaMetadataType.Offset)
-      offset : Int
+   model Movie {
+     @KafkaMessageMetadata(KafkaMetadataType.Offset)
+     offset : Int
 
->     @KafkaMessageMetadata(KafkaMetadataType.Timestamp)
-      timestamp : Long
+     @KafkaMessageMetadata(KafkaMetadataType.Timestamp)
+     timestamp : Long
 
->     @KafkaMessageMetadata(KafkaMetadataType.TimestampType)
-      timestampType : String
+     @KafkaMessageMetadata(KafkaMetadataType.TimestampType)
+     timestampType : String
 
->     @KafkaMessageMetadata(KafkaMetadataType.Partition)
-      partition : Int
+     @KafkaMessageMetadata(KafkaMetadataType.Partition)
+     partition : Int
 
-      // Other fields continue...
-      title : Title inherits String
+     // Other fields continue...
+     title : Title inherits String
     }
 
     // Rest of the Kafka topic declaration continues...
@@ -222,7 +220,7 @@ These headers can be accessed using the `com.{code-product-name}.kafka.KafkaHead
    import com.{code-product-name}.kafka.KafkaHeader
 
    model Movie {
->     @KafkaHeader("correlationId")
+      @KafkaHeader("correlationId")
       correlationId : CorrelationId inherits String
       title : Title inherits String
    }

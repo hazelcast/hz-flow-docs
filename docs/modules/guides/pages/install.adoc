@@ -1,5 +1,5 @@
-= Install {short-product-name}
-:description: A tutorial to Taxi running locally.
+= Installing {short-product-name}
+:description: A tutorial to get Taxi running locally.
 
 
 This guide covers getting {long-product-name} and Taxi running locally in a developer environment.

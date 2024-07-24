@@ -1,10 +1,11 @@
 = Streaming data
+:description: A tutorial showing how to build event streams
 
 This guide shows how to build bespoke, enriched event streams from Kafka.
 
 == Describing the data sources
 
-image:Architecture.png[Architecture]
+image:Architecture.png[Architecture for this demo]
 
 Our demo has a few services running, which we'll join together to create a bespoke event stream:
 

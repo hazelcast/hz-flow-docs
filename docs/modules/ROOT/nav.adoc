@@ -1,19 +1,19 @@
 .Get started
 * xref:index.adoc[Overview]
 * xref:introduction:index.adoc[What is {short-product-name}]
-* About Taxi
+* xref:introduction:about-taxi.adoc[About Taxi]
 * xref:guides:index.adoc[Tutorials]
-** xref:guides:install.adoc[]
+** xref:guides:install.adoc[Install {short-product-name}]
 ** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:apis-db-kafka.adoc[Create first integration]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
 ** xref:guides:streaming-data.adoc[Stream data]
 * xref:workspace:overview.adoc[Your workspace]
-** xref:workspace:connecting-a-git-repo.adoc[] 
-** xref:workspace:connecting-a-disk-repo.adoc[] 
+** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git] 
+** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk] 
 
 .Manage data sources
-* xref:describing-data-sources:configuring-connections.adoc[]
+* xref:describing-data-sources:configuring-connections.adoc[Configure connections]
 * xref:describing-data-sources:authentication-to-services.adoc[]
 * xref:describing-data-sources:open-api.adoc[]
 * xref:describing-data-sources:soap.adoc[]
@@ -25,8 +25,6 @@
 * xref:describing-data-sources:kafka.adoc[]
 * xref:describing-data-sources:aws-services.adoc[]
 * xref:describing-data-sources:caching.adoc[]
-* xref:describing-data-sources:intro-to-semantic-integration.adoc[]
-* xref:describing-data-sources:tips-on-taxonomies.adoc[]
 
 .Query data
 * xref:querying:writing-queries.adoc[]
@@ -53,3 +51,7 @@
 * xref:deploying:authentication.adoc[]
 * xref:deploying:data-policies.adoc[]
 * xref:deploying:distributing-work-on-a-cluster.adoc[]
+
+.Further reading
+* xref:describing-data-sources:intro-to-semantic-integration.adoc[]
+* xref:describing-data-sources:tips-on-taxonomies.adoc[]

@@ -1,7 +1,9 @@
 = Pulling API specs from disk
 :description: {short-product-name} can read schema and taxonomy definitions direct from local disk.
 
-NOTE: Using a local disk repo is a great way to get started, However, for production, consider using a +++<NextLink href="/docs/connecting-data-sources/connecting-a-git-repo">+++Git repo+++</NextLink>+++ instead.
+NOTE: Using a local disk repo is a great way to get started. However, for production, consider using a Git repo instead.
+
+// Link to this topic from 'Git repo' (broken in Orbital): /docs/connecting-data-sources/connecting-a-git-repo 
 
 When you're getting started, it's useful to store your link:./overview#your-core-taxonomy[core taxonomy], existing API specs (such as link:../describing-data-sources/open-api[OpenAPI] or link:../describing-data-sources/protobuf[Protobuf]), or link:../describing-data-sources/databases[database definitions]
 in a local disk repo, making it quick and easy to get going.
@@ -21,8 +23,9 @@ If you haven't created one yet, just provide an empty directory, and a repositor
 
 == Adding a file repository through config
 
-The schema repositories that {short-product-name} is connected to can be configured through a link:/docs/deploying/configuring-{short-product-name}[HOCON file], which by default is called `workspace.conf`.+++<Callout type="note" title="A word on file paths:">+++File paths that are absolute are resolved against the file system
- File paths that are relative are resolved relative to the location of the config file+++</Callout>+++
+The schema repositories that {short-product-name} is connected to can be configured through a link:/docs/deploying/configuring-{short-product-name}[HOCON file], which by default is called `workspace.conf`.
+
+NOTE: File paths that are absolute are resolved against the file system. File paths that are relative are resolved relative to the location of the config file 
 
 [,hocon]
 ----

@@ -1,11 +1,6 @@
 = Describing databases
 :description: Learn how to make a table in a database available for {short-product-name}
 
-import { Callout } from '@/components/docs/Callout';
-import NewDataSource from './new-data-source.png';
-import PreviewDataSource from './schema-database-preview.png';
-import TypeSearch from './type-search.png';
-
 == Overview
 
 {short-product-name} can connect to databases to fetch data when running a query.
@@ -16,7 +11,9 @@ The Taxi schema describes the table, its columns and the data they hold.
 Because we're using Taxi here, the column descriptions are richer than things like `String` or `Integer` - instead using rich semantic tags like `FirstName`,
 `LastName`, or `EmailAddress`
 
-In this guide, we'll learn how to create a Taxi schema for a specific database table, both through the user interface, and directly by editing a schema.+++<Callout type="note" title="Before you continue...">+++Before you run through this guide, make sure you've [added a database connection](../connecting-data-sources/connecting-a-database) for the table you want to connect.+++</Callout>+++
+In this guide, we'll learn how to create a Taxi schema for a specific database table, both through the user interface, and directly by editing a schema.
+
+NOTE: Before you begin, make sure you've [added a database connection](../connecting-data-sources/connecting-a-database) for the table you want to connect.
 
 == Using the UI
 
@@ -25,7 +22,11 @@ Through the UI, {short-product-name} will connect to the database, and create:
 
 * A series of types for each column in the database table
 * A model that describes the database table
-* A service that exposes query capabilities for the table+++<Callout type="note" title="Coming soon...">+++At this stage, only connecting new database tables in the UI is supported. To edit and remove existing tables, modify the [Taxi schema](#editing-a-taxi-schema) directly. Support for editing via the UI will be shipped in a future release.+++</Callout>++++++<Callout type="note" title="Before you continue...">+++Before you run through this guide, make sure you've [enabled schema editing through the UI](./enable-ui-schema-editing/). If you're running through one of our tutorials, don't worry, we've already configured this for you.+++</Callout>+++
+* A service that exposes query capabilities for the table
+
+At this stage, only connecting new database tables in the UI is supported. To edit and remove existing tables, modify the [Taxi schema](#editing-a-taxi-schema) directly. Support for editing via the UI will be shipped in a future release.
+
+NOTE: Before continuing, make sure you've [enabled schema editing through the UI](./enable-ui-schema-editing/). If you're running through one of our tutorials, don't worry, we've already configured this for you.
 
 === Importing a new table
 
@@ -33,7 +34,7 @@ Through the UI, {short-product-name} will connect to the database, and create:
  ** Alternatively, click *Schema Explorer* in the left-hand navigation menu, then click *Add new*
 * For the schema type to import, select *Database table*
 
-<img src={NewDataSource.src} />
+image:new-data-source.png[]
 
 * Click the connection name dropdown, and select the connection for your database
  ** If you haven't yet created your connection, you can click *Add new connection*. link:../connecting-data-sources/connecting-a-database#create-a-connection-when-importing-a-new-data-source[This guide] has more details
@@ -45,7 +46,7 @@ Through the UI, {short-product-name} will connect to the database, and create:
 
 A preview is shown, containing the models, fields and types that were imported from the database schema.
 
-<img src={PreviewDataSource.src} />
+image:schema-database-preview.png[]
 
 You can change any of the types (e.g., swapping a primitive type with a more specific semantic type), by clicking on the
 pencil icon next to the type name, and searching for the desired type.
@@ -116,7 +117,9 @@ jdbc { // The root element for database connections
 
 To see all the supported databases, and their connection configurations, read link:/docs/describing-data-sources/configuring-connections#database-connections[configuring database connections].
 
-== Describing tables in Taxi+++<Callout type="note" title="Before you continue...">+++Before you run through this guide, it's worth understanding the basics of [Taxi](https://taxilang.org/language-reference/taxi-language/) and how {short-product-name} uses it. Also, make sure you have a [Taxi project set up](https://taxilang.org/intro/getting-started/), and that it's been [published to {short-product-name}](docs/connecting-data-sources/connecting-a-git-repo/). If you're running through one of our tutorials, we've already taken care of this for you.+++</Callout>+++
+== Describing tables in Taxi
+
+NOTE: Before you proceed, it's worth understanding the basics of [Taxi](https://taxilang.org/language-reference/taxi-language/) and how {short-product-name} uses it. Also, make sure you have a [Taxi project set up](https://taxilang.org/intro/getting-started/), and that it's been [published to {short-product-name}](docs/connecting-data-sources/connecting-a-git-repo/). If you're running through one of our tutorials, we've already taken care of this for you.
 
 Taxi files define the mappings of data models and the services that expose them.
 In this guide, we'll describe how to expose a new database table to {short-product-name}, and make it queryable.

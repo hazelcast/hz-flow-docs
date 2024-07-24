@@ -1,10 +1,6 @@
 = Hazelcast as a data source
 :description: How to read and write data to Hazelcast as a data source
 
-import { Callout } from '@/components/docs/Callout';
-import NewDataSource from './new-data-source.png';
-import TypeSearch from './type-search.png';
-
 In addition to link:/docs/describing-data-sources/caching#using-an-external-cache[using Hazelcast as a cache], {short-product-name}
 can use Hazelcast as a source for reading and writing data, as well as a streaming data source.
 
@@ -18,9 +14,8 @@ hazelcast {
       connectionName = myHazelcast
       addresses = ["localhost:5701"]
    }
-}
-
-----
+ }
+```
 
 ## Supported formats
 When values are written to Hazelcast, they must be serialized.
@@ -36,17 +31,17 @@ format when using {short-product-name} to read/write to Hazelcast.
 To enable Compact serialization, add a `@CompactObject` annotation to your Taxi definition:
 
 ```taxi
->  import com.{code-product-name}.hazelcast.CompactObject
-   import com.{code-product-name}.hazelcast.HazelcastMap
+  import com.{code-product-name}.hazelcast.CompactObject
+  import com.{code-product-name}.hazelcast.HazelcastMap
 
-   @HazelcastMap(name = "films")
->  @CompactObject
-   closed model Film {
-      @Id
-      filmId : FilmId inherits Int
-      // ...omitted...
-   }
-----
+  @HazelcastMap(name = "films")
+  @CompactObject
+  closed model Film {
+     @Id
+     filmId : FilmId inherits Int
+     // ...omitted...
+}
+```
 
 === JsonValue
 
@@ -56,7 +51,7 @@ for working with existing caches that have stored data using JsonValue.
 Note - if you are both writing and reading the data using {short-product-name}, it is recommended to use <<compact-preferred,Compact>>,
 which has better performance.
 
-TODO.
+// TODO.
 
 == Writing data to Hazelcast
 

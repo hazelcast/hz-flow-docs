@@ -1,5 +1,5 @@
 = Working with XML and JSON
-:description: Linking services that publish XML
+:description: A tutorial showing how to link services that publish XML
 
 This guide features services publishing a mix of XML and JSON, and explains how to combine them and expose the
 composed services as a REST API.
@@ -58,15 +58,13 @@ https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e
 
 Write some Taxi that describes our Film service:
 
-// AUTHORS NOTE - how best to re-format this?
-
 [tabs]
 ====
 films.taxi::
 +
 [source,taxi]
 ----
-```import com.{code-product-name}.formats.Xml 
+import com.{code-product-name}.formats.Xml 
 // The @Xml annotation tells {short-product-name} how to read this object 
 @Xml model FilmList { 
   item : Film[]
@@ -79,23 +77,64 @@ films.taxi::
      service FilmsService { 
       @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
       operation getAllFilms():FilmList
-       } ```
+       }
 ----
 films-taxi.xml::
 +
 [source,xml]
 ----
-```+++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```
+<List>
+    <item id="0">
+      <title>ACADEMY DINOSAUR</title>
+      <yearReleased>2005</yearReleased>
+    </item>
+    <item id="1">
+      <title>ACE GOLDFINGER</title>
+      <yearReleased>1975</yearReleased>
+    </item>
+  </List>
 ----
 ====
 
-// AUTHORS NOTE - the XML section above is not displaying correctly - needs the XML cleaned up. Below is the original, converted code: 
-
-+++<SnippetGroup>+++```taxi films.taxi import com.{code-product-name}.formats.Xml // The @Xml annotation tells {short-product-name} how to read this object @Xml model FilmList { item : Film[] } model Film { id : FilmId inherits Int title : FilmTitle inherits String yearReleased : YearReleased inherits Int } service FilmsService { @HttpOperation(url = "http://localhost:8044/films", method = "GET") operation getAllFilms():FilmList } ``` ```xml films-data.xml +++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
-
 == Integrating the Cast Service
 
-Our CastService takes the ID of a Film, and returns a list of actors:+++<SnippetGroup>+++```taxi actors.taxi import com.{code-product-name}.formats.Xml @Xml model ActorList { item : Actor[] } model Actor { id : ActorId inherits Int name : ActorName inherits String } service CastService { @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList } ``` ```xml actor-data.xml +++<List>++++++<item>++++++<id>+++34+++</id>+++ +++<name>+++JUDY DEAN+++</name>++++++</item>+++ +++<item>++++++<id>+++21+++</id>+++ +++<name>+++ELVIS MARX+++</name>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
+Our CastService takes the ID of a Film, and returns a list of actors:
+
+[tabs]
+====
+actors.taxi::
++
+[source,taxi]
+----
+import com.{code-product-name}.formats.Xml 
+@Xml model ActorList { 
+  item : Actor[] 
+} 
+  model Actor { 
+    id : ActorId inherits Int 
+    name : ActorName inherits String
+} 
+     service CastService { 
+      @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") 
+      operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
+}
+----
+actor-data.xml::
++
+[source,xml]
+----
+<List>
+  <item>
+    <id>34</id>
+    <name>JUDY DEAN</name>
+  </item>
+  <item>
+    <id>21</id>
+    <name>ELVIS MARX</name>
+  </item>
+</List>
+----
+====
 
 === What connects it together
 
@@ -226,7 +265,40 @@ Which now gives us:
 
 == Adding our Awards Service
 
-We can also define a schema and service for our awards information, which is returned in JSON:+++<SnippetGroup>+++```taxi awards.taxi model Award { title : AwardTitle inherits String yearWon : YearWon inherits Int } service AwardsService { @HttpOperation(url = "http://localhost:8044/film/\{filmId}/awards", method = "GET") operation fetchAwardsForFilm(@PathVariable("filmId") filmId : FilmId):Award[] } ``` ```json awards-data.json [ { "title": "Best Makeup and Hairstyling", "yearWon": 2020 }, { "title": "Best Original Score", "yearWon": 2020 }, // snip\... ] ```+++</SnippetGroup>+++
+We can also define a schema and service for our awards information, which is returned in JSON:
+
+[tabs]
+====
+awards.taxi::
++
+[source,taxi]
+----
+model Award { 
+  title : AwardTitle inherits String 
+  yearWon : YearWon inherits Int
+} 
+   service AwardsService { 
+    @HttpOperation(url = "http://localhost:8044/film/\{filmId}/awards", method = "GET") 
+    operation fetchAwardsForFilm(@PathVariable("filmId") filmId : FilmId):Award[]
+}
+----
+awards-data.json::
++
+[source,json]
+----
+[
+  {
+    "title": "Best Makeup and Hairstyling", 
+    "yearWon": 2020
+  }, 
+  { 
+    "title": "Best Original Score", 
+    "yearWon": 2020 
+  }, 
+  // snip\... 
+]
+----
+====
 
 === Enriching our query
 
@@ -270,9 +342,12 @@ Now that we're happy with our response data, we can publish this query as a REST
 * First, we wrap the query in a `+query { ... }+` block, and save it in our Taxi project
 * Then we add an `+@HttpOperation(...)+` annotation
 
-```taxi query.taxi
-
-____
+[tabs]
+====
+query.taxi::
++
+[source,taxi]
+----
 @HttpOperation(url = '/api/q/filmsAndAwards', method = 'GET')
  query filmsAndAwards {
       find { FilmList } as (Film[]) \-> {
@@ -282,10 +357,10 @@ ____
           cast : Actor[]
       }
  }
-```
-____
+----
+====
 
-Our query is now available at `+http://localhost:9022/api/q/filmsAndAwards+`
+Our query is now available at http://localhost:9022/api/q/filmsAndAwards
 
 [,bash]
 ----

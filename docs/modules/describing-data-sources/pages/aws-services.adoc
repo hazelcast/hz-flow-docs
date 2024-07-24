@@ -1,6 +1,7 @@
 = Using AWS services
+:description: Learn how to make AWS available for {short-product-name} to query
 
-import \{Callout} from "@/components/docs/Callout";+++<Callout type="note" title="Before you begin">+++Before using AWS services, you need to define a connection to AWS in your `connections.conf` file. Read more about defining AWS connections link:/docs/describing-data-sources/configuring-connections#aws-connections[here].+++</Callout>+++
+Before you begin using AWS services, you need to define a connection to AWS in your `connections.conf` file. Read more about defining AWS connections link:/docs/describing-data-sources/configuring-connections#aws-connections[here].
 
 {short-product-name} supports reading Protobuf messages, either as a message format for HTTP endpoints or from a streaming query originating from Kafka.
 

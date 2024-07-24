@@ -1,5 +1,5 @@
-= Using SOAP to describe your services',
-:description: 'An overview of how to connect data sources to {short-product-name}'
+= Using SOAP to describe your services
+:description: An overview of how to connect data sources to {short-product-name}
 
 
 {short-product-name} can use SOAP WSDLs to understand what endpoints exist, and how to call them.

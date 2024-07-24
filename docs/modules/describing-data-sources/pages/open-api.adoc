@@ -60,8 +60,8 @@ If omitted, then the type name is inferred from the rest of the schema.
       Pet:
         # Assign a Taxi type name to the model.
         # Optional
->       x-taxi-type:
->         name: petstore.Pet
+       x-taxi-type:
+         name: petstore.Pet
         # Everything else is standard OpenApi spec...
         allOf:
           - $ref: '#/components/schemas/NewPet'
@@ -80,12 +80,12 @@ Enrich attributes with semantic type metadata
           - name
         properties:
           name:
->           x-taxi-type:
->             name: petstore.Name
+           x-taxi-type:
+             name: petstore.Name
             type: string
           tag:
->           x-taxi-type:
->             name: petstore.Tag
+           x-taxi-type:
+             name: petstore.Tag
             type: string
 ----
 
@@ -101,10 +101,10 @@ However, if you are intentionally publishing new types from your OpenAPI spec, t
           - name
         properties:
           name:
->           x-taxi-type:
->             name: petstore.Name
->             # petstore.Name will be created if not present
->             create: true
+           x-taxi-type:
+             name: petstore.Name
+             # petstore.Name will be created if not present
+             create: true
             type: string
 ----
 
@@ -130,17 +130,16 @@ Simply add a `x-taxi-type` annotation to each input, containing a `name` attribu
             schema:
               type: integer
               format: int64
->             x-taxi-type:
->               name: petstore.PetId  # <-- Name of type from core taxonomy
+             x-taxi-type:
+               name: petstore.PetId  # <-- Name of type from core taxonomy
 ----
 
 == Publishing OpenAPI specs to {short-product-name}
 
-Once you have added Taxi annotations to your OpenAPI spec, you're ready to publish it to {short-product-name}.+++<Callout type="note">+++Before you can import an OpenAPI spec into {short-product-name}, you need to ensure you have configured an editable Schema source - either a local +++<NextLink href="/docs/connecting-data-sources/connecting-a-disk-repo">+++disk repository+++</NextLink>+++ or a +++<NextLink href="/docs/connecting-data-sources/connecting-a-git-repo">+++Git repository+++</NextLink>+++
+Once you have added Taxi annotations to your OpenAPI spec, you're ready to publish it to {short-product-name}.
 
-Be sure to enable editing of the repository when adding it.
-
-This lets {short-product-name} store the converted OpenAPI spec, with some additional metadata that it creates when importing.+++</Callout>+++
+NOTE: Before you can import an OpenAPI spec into {short-product-name}, ensure you have configured an editable Schema source - either a local link:/docs/connecting-data-sources/connecting-a-disk-repo.adoc[disk repository] or a link:/docs/connecting-data-sources/connecting-a-git-repo[Git repository]. Be sure to enable editing of the repository when adding it. 
+This lets {short-product-name} store the converted OpenAPI spec, with some additional metadata that it creates when importing.
 
 === Importing through the UI
 
@@ -148,7 +147,7 @@ Navigate to http://localhost:9022/data-source-manager/add[/data-source-manager/a
 
 Next, select a project to import into, then choose "Swagger / OpenAPI" from the data source dropdown list.
 
-<ImageWithCaption src=\{SelectOpenApi} />
+image:select-open-api.png[]
 
 * Either provide the OpenAPI spec file directly, or enter a URL to load the spec from
 * Provide a default namespace.  (eg: `com.petflix.pets`).  Services from your OpenAPI spec are imported into this namespace
@@ -157,7 +156,8 @@ Next, select a project to import into, then choose "Swagger / OpenAPI" from the 
 
 ==== Preview your imported schema
 
-<ImageWithCaption src=\{OpenApiPreview} />
+image:open-api-preview.png[]
+
 
 Your imported OpenAPI spec will be available for you to browse, to make sure everything looks correct.
 

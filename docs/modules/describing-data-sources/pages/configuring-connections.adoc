@@ -18,13 +18,10 @@ By convention, this lives at `{code-product-name}/config/connections.conf`, but 
   version: 0.1.0
   sourceRoot: src/
 
-____
 additionalSources: {
      "@{code-product-name}/config" : "{code-product-name}/config/*.conf" +
  }
 ```
-____
-
 Your connections config file is a HOCON file, specifying how to connect to various resources.
 
 For example:
@@ -40,8 +37,11 @@ jdbc {
       password = $\{superSecretPassword}
       port = 5432
 
+   }
+   jdbcDriver = POSTGRES   
  }
- jdbcDriver = POSTGRES   } } ```
+}
+```
 
 ////
 ## Choosing between UI vs Config file
@@ -74,14 +74,9 @@ jdbc {
       }
    }
 }
+```
 
-----
-
-<Callout type="note" title="See also...">
-  Also check out <a href='/docs/deploying/managing-secrets'>Managing Secrets</a> to see how to securely manage sensitive information in your connections
-</Callout>
-
-
+TIP: See also link:/docs/deploying/managing-secrets.adoc[Managing Secrets] to see how to securely manage sensitive information in your connections
 
 ### Correctly handling substitutions in URLs
 Substitution of variable inside a URL using HOCON can be tricky.
@@ -95,7 +90,7 @@ query-server {
    // so the variable must be outside of quotes.
    url="http://"${MY_VARIABLE}":9305"
 }
-----
+```
 
 For more information, see https://github.com/lightbend/config/issues/633[this issue] in the HOCON library
 
@@ -216,16 +211,35 @@ To configure a Postgres connection, specify `jdbcDriver = MSSQL`
 
 Connection parameters are as follows:
 
-| Parameter name           | Description                                                                                             |
-|------------------|----------------------------------------------------------------------|
-| `host`                   | The host address of the MSSQL database                                                                  |
-| `port`                   | The port to connect to. Defaults to  `1443`                                                             |
-| `database`               | The name of the database on the MS SQL server                                                           |
-| `username`               | Optional. The username to use when connecting                                                           |
-| `password`               | Optional. The password to use when connecting                                                           |
-| `schema`                 | Optional. The schema to use - defaults to `dbo`                                                         |
-| `trustServerCertificate` | Optional. Forces {short-product-name} to trust the certificate that's provided by the SQL Server. Defaults to `true` |
-| `encrypt`                | Optional. Defines if the connection to MSSQL server should be encrypted. Defaults to `true`             |
+// working table
+
+|===
+| Parameter name | Description
+
+| `host`
+| The host address of the MSSQL database
+
+| `port`
+| The port to connect to. Defaults to  `1443`
+
+| `database`
+| The name of the database on the MS SQL server
+
+| `username`
+| Optional. The username to use when connecting
+
+| `password`
+| Optional. The password to use when connecting
+
+| `schema`
+| Optional. The schema to use - defaults to `dbo`
+
+| `trustServerCertificate`
+| Optional. Forces {short-product-name} to trust the certificate that's provided by the SQL Server. Defaults to `true`
+
+| `encrypt`
+| Optional. Defines if the connection to MSSQL server should be encrypted. Defaults to `true`
+|===
 
 ==== Example
 
@@ -358,6 +372,7 @@ AWS connections are stored under the `aws` element.
 
 You can also configure the AWS connections manually which can be useful in cases where you need to connect to various different AWS accounts from a single installation of {short-product-name}. As with any other config file value, you can either set the value explicitly, or read from an environment variable (as shown).
 
+----
 aws {
     my-aws-account {
         connectionName=my-aws-account
@@ -371,7 +386,7 @@ aws {
         endPointOverride=${?AWS_ENDPOINT_OVERRIDE}
     }
 }
-```
+----
 
 == Mongo connections
 
