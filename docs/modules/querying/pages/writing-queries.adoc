@@ -1,7 +1,5 @@
-= Querying with {short-product-name}
+= Query with {short-product-name}
 :description: Submitting queries to {short-product-name}'s API to discover data
-
-import { Callout } from '@/components/docs/Callout';
 
 {short-product-name} focuses on querying for data based on its meaning, rather than which system provides it. This allows services to
 change, and data to move, without requiring consumers to update their queries.
@@ -14,7 +12,9 @@ TODO: replace diagram
 == Writing queries
 
 Queries are written in https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], an open source
-query language for data.+++<Callout>+++[TaxiQL](https://docs.taxilang.org/language-reference/querying-with-taxiql/) is a great query language. The Taxi documentation has details on the syntax, which we haven't duplicated here. Go check it out, then come back. We'll wait.+++</Callout>+++
+query language for data.
+
+TIP: https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] is a great query language. The Taxi documentation has details on the syntax, which we haven't duplicated here. Go check it out!
 
 TaxiQL is agnostic of where data comes from - it's left to {short-product-name} to discover data from the various sources that have been
 connected.

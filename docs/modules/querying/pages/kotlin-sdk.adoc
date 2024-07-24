@@ -38,9 +38,7 @@ val singleFilm = find<Film>()
 val announcements = stream<FilmWatchedEvent>()
 ----
 
-<Callout type='note' title={"Under construction"}>
-  Currently, you can't pass any criteria through the typesafe builder. We're working on that right now.
-</Callout>
+NOTE: Currently, you can't pass any criteria through the typesafe builder. We're working on that right now.
 
 === Projecting to a response object
 
@@ -111,10 +109,8 @@ val response = find<List<Film>>()
     .toFlux()
 ----
 
-<Callout title={'Heads Up!'}>
-  `run` returns a `Publisher`, which is a reactive type. You need to subscribe to the publisher,
+NOTE: `run` returns a `Publisher`, which is a reactive type. You need to subscribe to the publisher,
   or the query won't be executed.
-</Callout>
 
 == Transports
 

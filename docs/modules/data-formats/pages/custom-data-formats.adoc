@@ -11,4 +11,4 @@ While it is possible to define your own custom format, to load it into {short-pr
 
 Support for loading custom formats via Taxi projects is planned. Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.
 
-If you need a format that's not listed here, https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us], and we'll probably just build it for you!
+// If you need a format that's not listed here, https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us], and we'll probably just build it for you!

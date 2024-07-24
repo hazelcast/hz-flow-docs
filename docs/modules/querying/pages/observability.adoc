@@ -8,7 +8,7 @@ As queries are executed by {short-product-name}, full call histories are capture
 This gives rich debugging tools to understand exactly how a query was executed,
 which services were called and what they returned.
 
-<ImageWithCaption src=\{sequenceDiagram} ></ImageWithCaption>
+image:sequence-diagram.png[]
 
 === Configuring what's captured
 
@@ -50,7 +50,7 @@ to control the level of data that is persisted.
 
 If {short-product-name} is connected to a Prometheus endpoint, performance data is made available in the endpoint's UI.
 
-<ImageWithCaption src=\{performanceMetrics} caption="Performance metrics" />
+image:performance-metrics.png[Performance metrics]
 
 === Streaming queries
 

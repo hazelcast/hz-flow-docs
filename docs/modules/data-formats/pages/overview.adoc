@@ -1,8 +1,5 @@
-export const meta = {
-  title: 'Data formats in {short-product-name}',
-  pageTitle: 'Data formats in {short-product-name}',
-  description: 'Data formats in {short-product-name} - Overview'
-}
+= Data formats in {short-product-name}
+:description: Learn about specifying data formats in {short-product-name}
 
 Data formats specify how {short-product-name} should read and write data.
 
@@ -40,9 +37,9 @@ For example:
 
 [,taxi]
 ----
-> import com.{code-product-name}.formats.Xml
+  import com.{code-product-name}.formats.Xml
 
-> @Xml
+  @Xml
   model Person {
     firstName : FirstName
   }
@@ -81,4 +78,4 @@ format-specific serialization and deserialization implementations.
 
 While it is possible to define your own custom format, to load it into {short-product-name} currently requires a custom build, which is available for Enterprise customers only.
 
-Support for loading custom formats via Taxi projects is planned - Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.
+// Support for loading custom formats via Taxi projects is planned - Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.

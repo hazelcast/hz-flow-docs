@@ -24,11 +24,11 @@ For example:
 [,taxi]
 ----
   import com.{code-product-name}.formats.Xml
-> import lang.taxi.xml.XmlAttribute
+  import lang.taxi.xml.XmlAttribute
 
   @Xml
   model Actor inherits Person {
->     @XmlAttribute
+      @XmlAttribute
       id : ActorId
 
       fullName : FullName
@@ -55,7 +55,7 @@ For example:
 ----
   @Xml
   model Movie {
->   actors : Actor[]
+   actors : Actor[]
   }
 ----
 
@@ -128,11 +128,7 @@ Then the value is read as:
 
 == Using xpath() references
 
-<Callout type={"warning"} title='Deprecated'>
-  Using the `by xpath` tag is deprecated.
-
-Field names in the model are now used to match elements and attributes
-</Callout>
+WARNING: Using the `by xpath` tag is deprecated. Field names in the model are now used to match elements and attributes. 
 
 It's possible (but discouraged) to use `by xpath("")` references to declare a column:
 

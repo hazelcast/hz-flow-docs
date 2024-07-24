@@ -1,8 +1,6 @@
 = Streaming data
 :description: Consume streams, and publish streaming data products
 
-import \{Callout} from '@/components/docs/Callout';
-
 == Writing streaming queries
 
 Streaming queries are executed in the same way as request/response
@@ -67,8 +65,7 @@ query MySavedQuery {
    stream { StockPrices }
    call MyPostgresService::upsertStockPrice
 }
-
-----
+```
 
 ### Updating streaming queries
 Streaming queries are automatically upgraded whenever their definition changes.
@@ -83,8 +80,7 @@ Note that once a streaming query has been enabled once, further updates are auto
 remains running.
 
 ### The stream server
-{short-product-name}'s stream server ships as a separate [Docker image](https://hub.docker.com/r/{code-product-name}/stream-server), responsible for
-executing saved streaming queries.
+{short-product-name}'s stream server ships as a separate https://hub.docker.com/r/{code-product-name}/stream-server[Docker image], responsible for executing saved streaming queries.
 ----
 
 version: "3.3"
@@ -100,8 +96,8 @@ The stream server exposes the following ports:
  - An RSocket port on 7755
 
 By default, {short-product-name} expects to find the stream server at `http://stream-server/`. Our default
-[Docker Compose](https://start.{code-product-name}.com)
-and [Helm Chart](https://github.com/{short-product-name}api/helm) configure this by default.
+https://start.{code-product-name}.com[Docker Compose]
+and https://github.com/{short-product-name}api/helm[Helm Chart] configure this by default.
 
 However, if you need to configure the address of the stream server, you can do so by editing the `services.conf` file
 deployed with {short-product-name}'s main component:
@@ -113,4 +109,4 @@ services {
        rsocket="tcp://localhost:7755"
     }
 }
-----
+```
