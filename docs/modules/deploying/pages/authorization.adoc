@@ -1,6 +1,8 @@
 = Enabling role-based authorization
+:description: Configuring {short-product-name} authorization
 
-import \{Callout} from "@/components/docs/Callout";+++<Callout title="Prerequisite" type="note">+++To use role-based authentication, you must have configured authorization with an OpenID Connect provider. [Learn how to enable authorization](./authentication)+++</Callout>+++
+
+NOTE: To use role-based authentication, you must have configured authorization with an OpenID Connect provider. link:authentication[Learn how to enable authorization].
 
 {short-product-name} uses role-based authorization to control which users can perform which tasks.
 

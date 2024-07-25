@@ -1,7 +1,5 @@
 = Deploying {short-product-name}
-:description: How to get {short-product-name} deployed
-
-import \{Callout} from '@/components/docs/Callout';
+:description: How to deploy {short-product-name} to production
 
 == Production concepts
 
@@ -77,8 +75,10 @@ that services are available on the configured addresses.
 | 80 (http) +
 7654 (RSocket)
 
-| https://hub.docker/com/r/{code-product-name}/stream-server[Stream server] *Optional* +
+| https://hub.docker/com/r/{code-product-name}/stream-server[Stream server] 
+*Optional* +
 Executes long-lived data streams
 | http://stream-server
-|
-|===+++<Callout title="See also" type="note">+++When {short-product-name} is configured to distribute work across a cluster, ports must also be exposed to enable multicasting. See [Distributing work across a cluster](./distributing-work-on-a-cluster) for more information.+++</Callout>+++
+|===
+
+NOTE: When {short-product-name} is configured to distribute work across a cluster, ports must also be exposed to enable multicasting. See link:distributing-work-on-a-cluster.adoc[Distributing work across a cluster] for more information.

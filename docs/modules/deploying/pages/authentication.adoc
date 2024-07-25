@@ -1,10 +1,6 @@
 = Enabling authentication
 :description: Configuring {short-product-name} to require authentication through OpenID Connect or SAML
 
-import \{Callout} from "@/components/docs/Callout";
-import oktaSamlSingleSignOnUrl from '@/img/okta-saml-sign-on-url.png'
-import oktaSamlAudienceUrl from '@/img/okta-saml-audience-url.png'
-
 == Overview
 
 {short-product-name} supports authentication through:
@@ -169,11 +165,12 @@ Use the following config settings in {short-product-name}:
 --vyne.security.openIdp.identity-token-kind=Id
 ----
 
-<Callout type={'note'} title="Don't forget!">
-  You must also configure AWS Cognito link:/deploying/authorization#aws-cognito[role-based access control] +
-</Callout>
+NOTE: You must also configure AWS Cognito link:/deploying/authorization#aws-cognito[role-based access control].
 
-=== Azure+++<Callout type="warning" title="Azure AD B2C Not Supported">+++Unfortunately, at this time Azure AD B2C is not supported, as it does not provide support for <a href={'https://learn.microsoft.com/en-us/answers/questions/818404/role-based-access-for-webapi-in-azure-b2c'}>exposing roles in the published JWT</a>. However, Azure Active Directory (Entra) is supported, as described below.+++</Callout>+++
+=== Azure
+
+Unfortunately, at this time Azure AD B2C is not supported, as it does not provide support for https://learn.microsoft.com/en-us/answers/questions/818404/role-based-access-for-webapi-in-azure-b2c[exposing roles in the published JWT].
+However, Azure Active Directory (Entra) is supported, as described below.
 
 * Log into Azure, and ensure you have an Azure AD directory active (not an Azure AD B2C directory)
 * Navigate to Microsoft Entra ID, and select "App registrations" from the left navbar
@@ -190,9 +187,7 @@ You are taken to the settings for your newly created Azure AD application.
  ** Take note of the OpenID Connect metadata document value - you'll need this shortly
  ** It should look like this: `+https://login.microsoftonline.com/YOUR-APP-ID/v2.0/.well-known/openid-configuration+`
 
-<Callout type={'note'} title="Don't forget!">
-  You must also configure Azure link:/docs/deploying/authorization#azure[role-based access control]
-</Callout>
+NOTE: You must also configure Azure link:/docs/deploying/authorization#azure[role-based access control].
 
 Launch {short-product-name} passing the following parameters:
 
@@ -325,11 +320,11 @@ http://localhost:9022/saml?client_name=SAML2Client
 
 * Use `Single sign-on Url` for `Recipient URL` and `Destination URL`.
 
-<img src={oktaSamlSingleSignOnUrl.src} />
+// The following image is missing: <img src={oktaSamlSingleSignOnUrl.src} />
 
 * Set `Audience URI (SP Entity ID)` to `+http://okta-sample.{short-product-name}.io+`
 
-<img src={oktaSamlAudienceUrl.src} />
+// The following image is missing: <img src={oktaSamlAudienceUrl.src} />
 
 * Click `Next`
 * Set `App type` to `This is an internal app that we have created`

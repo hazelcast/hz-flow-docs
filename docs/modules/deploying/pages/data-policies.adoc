@@ -1,6 +1,5 @@
 = Data access policies
-
-import \{Callout} from "@/components/docs/Callout";
+:description: Learn about {short-product-name} data access policies
 
 Taxi supports defining data access policies against types, which are evaluated at runtime.
 
@@ -128,8 +127,6 @@ policy SalaryPolicy against Employee {
 }
 ----
 
-<Callout type={"warning"} title={'Internal needs'}>
-  If an internal policy restricts {short-product-name} from reading data, values cannot be used as inputs
+WARNING: If an internal policy restricts {short-product-name} from reading data, values cannot be used as inputs
   into other services. Be careful, as this can cause queries to fail, even though there is sufficient
   data to correctly execute.
-</Callout>

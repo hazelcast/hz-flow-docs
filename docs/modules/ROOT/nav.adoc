@@ -1,6 +1,6 @@
 .Get started
 * xref:index.adoc[Overview]
-* xref:introduction:index.adoc[What is {short-product-name}]
+* xref:introduction:index.adoc[What is {short-product-name}?]
 * xref:introduction:about-taxi.adoc[About Taxi]
 * xref:guides:index.adoc[Tutorials]
 ** xref:guides:install.adoc[Install {short-product-name}]
@@ -14,17 +14,17 @@
 
 .Manage data sources
 * xref:describing-data-sources:configuring-connections.adoc[Configure connections]
-* xref:describing-data-sources:authentication-to-services.adoc[]
-* xref:describing-data-sources:open-api.adoc[]
-* xref:describing-data-sources:soap.adoc[]
-* xref:describing-data-sources:http.adoc[]
-* xref:describing-data-sources:protobuf.adoc[]
-* xref:describing-data-sources:databases.adoc[]
-* xref:describing-data-sources:hazelcast.adoc[]
-* xref:describing-data-sources:mongodb.adoc[]
-* xref:describing-data-sources:kafka.adoc[]
-* xref:describing-data-sources:aws-services.adoc[]
-* xref:describing-data-sources:caching.adoc[]
+* xref:describing-data-sources:authentication-to-services.adoc[Authenticate to services]
+* xref:describing-data-sources:open-api.adoc[Use OpenAPI specs]
+* xref:describing-data-sources:soap.adoc[Use SOAP WSDLs]
+* xref:describing-data-sources:http.adoc[Work with HTTP services]
+* xref:describing-data-sources:protobuf.adoc[Work with Protobuf]
+* xref:describing-data-sources:databases.adoc[Describe databases]
+* xref:describing-data-sources:hazelcast.adoc[Use a Hazelcast data source]
+* xref:describing-data-sources:mongodb.adoc[Describe a Mongo DB]
+* xref:describing-data-sources:kafka.adoc[Use a Kafka data source]
+* xref:describing-data-sources:aws-services.adoc[Use AWS services]
+* xref:describing-data-sources:caching.adoc[Use caching]
 
 .Query data
 * xref:querying:writing-queries.adoc[Query with {short-product-name}]
@@ -45,13 +45,14 @@
 ** xref:data-formats:custom-data-formats.adoc[Custom formats]
 
 .Deployment
-* xref:deploying:production-deployments.adoc[]
-* xref:deploying:configuring-{short-product-name}.adoc[]
-* xref:deploying:managing-secrets.adoc[]
-* xref:deploying:authentication.adoc[]
-* xref:deploying:data-policies.adoc[]
-* xref:deploying:distributing-work-on-a-cluster.adoc[]
+* xref:deploying:production-deployments.adoc[Deploy {short-product-name}]
+* xref:deploying:configuring.adoc[Configure {short-product-name}]
+* xref:deploying:managing-secrets.adoc[Manage secrets]
+* xref:deploying:authentication.adoc[Enable authentication]
+* xref:deploying:authorization.adoc[Enable authorization]
+* xref:deploying:data-policies.adoc[Data policies]
+* xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
 
 .Further reading
-* xref:describing-data-sources:intro-to-semantic-integration.adoc[]
-* xref:describing-data-sources:tips-on-taxonomies.adoc[]
+* xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic integration]
+* xref:describing-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
