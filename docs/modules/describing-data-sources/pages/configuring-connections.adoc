@@ -1,4 +1,7 @@
 = Configuring connections
+:description: Creating connections to databases, message brokers, and more
+
+== Overview
 
 The `connections.conf` file defines connections for systems that {short-product-name} understands how to connect to.
 
@@ -372,7 +375,7 @@ AWS connections are stored under the `aws` element.
 
 You can also configure the AWS connections manually which can be useful in cases where you need to connect to various different AWS accounts from a single installation of {short-product-name}. As with any other config file value, you can either set the value explicitly, or read from an environment variable (as shown).
 
-----
+```hocon
 aws {
     my-aws-account {
         connectionName=my-aws-account
@@ -386,7 +389,7 @@ aws {
         endPointOverride=${?AWS_ENDPOINT_OVERRIDE}
     }
 }
-----
+```
 
 == Mongo connections
 

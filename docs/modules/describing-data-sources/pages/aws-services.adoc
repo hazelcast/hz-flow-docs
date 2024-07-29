@@ -67,26 +67,379 @@ service MovieDb {
 
 == S3
 
-{short-product-name} can connect to S3 and read a file containing CSV data.
+{short-product-name} can use S3 as a source for both reading and writing data.
 
-We're excited to expand the functionality of our S3 adapter.  If you have a use case to discuss, please https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[get in touch on Slack].
+### Reading from S3
+To declare a data source that exposes data, take the following steps:
 
-[,taxi]
-----
-import com.{code-product-name}.formats.Csv
-@Csv
-type Orders {
-   symbol : Symbol by column(2)
-   open : Price by column(3)
-   high : Price by column(4)
-   close : Price by column(6)
-}
-@S3Service( connectionName = "myAws" )
+ - Declare a service annotated with `@S3Service` 
+ - Within that service, declare an operation with `@S3Operation`, providing the bucket name
+ - The operation should take a single parameter, of type `FilenamePattern`, indicating the filename (or pattern) to read from
+
+NOTE: Be sure to either add the imports for `S3Service`, `S3Operation` and `FilenamePattern` (as shown below), or use their fully qualified names.
+
+Here's an example:
+
+```taxi
+import com.orbitalhq.aws.s3.S3Service
+import com.orbitalhq.aws.s3.S3Operation
+import com.orbitalhq.aws.s3.FilenamePattern
+
+@S3Service(connectionName = "MyAwsConnection")
 service AwsBucketService {
-   @S3Operation(bucket = "Orders")
-   vyneQl query fetchReports(body:VyneQlQuery): OrderWindowSummary[]
+    @S3Operation(bucket = "MyBucket")
+    operation readBucket(filename:FilenamePattern = "films.csv"):Film[]
 }
-----
+```
+
+#### Filename patterns when reading from S3 
+When reading from S3 files, you can either specify a single filename (e.g., `films.csv`),
+or a pattern - such as `film*.csv`, `*.csv`, or even just `*` to read everything in the bucket.
+
+When working with a pattern, {short-product-name} will read and combine all matching files, treating them as a single
+response.
+
+For information about supported file formats, see 
+link:#s3-file-formats[file formats].
+
+### Examples - Reading from S3
+
+Each of the below examples will work with the following model of content stored on S3, so we're defining
+it once here for brevity:
+
+```taxi tradeSummary.taxi
+import com.orbitalhq.formats.Csv
+import com.orbitalhq.aws.s3.S3Service
+import com.orbitalhq.aws.s3.S3Operation
+import com.orbitalhq.aws.s3.FilenamePattern
+
+
+// Define the format we're reading.
+// This is a CSV file, so the @Csv annotation is used.
+// (Note it's also imported at the top of the file)
+
+@Csv
+type TradeSummary {
+   symbol : Symbol inherits String
+   open : OpenPrice inherits Decimal
+   high : HighPrice inherits Decimal
+   close : ClosePrice inherits Decimal
+}
+
+```
+
+#### Reading a single file
+
+```taxi s3services.taxi
+@S3Service(connectionName = "MyAwsConnection")
+service AwsBucketService {
+   @S3Operation(bucket = "MyTrades")
+    operation readBucket(filename:FilenamePattern = "trades.csv"):TradeSummary[]
+}
+``` 
+With the above schema, we can issue a simple query to return the contents of `trade.csv`:
+
+```taxi query.taxi
+find { TradeSummary[] }
+```
+
+#### Reading the contents of multiple files
+```taxi s3services.taxi
+  @S3Service(connectionName = "MyAwsConnection")
+  service AwsBucketService {
+      @S3Operation(bucket = "MyTrades")
+      // This will read all files ending in csv present in the bucket
+>     operation readBucket(filename:FilenamePattern = "*.csv"):TradeSummary[]
+  }
+```
+
+With the above schema, we can issue a simple query to return the contents of all `*.csv` files in the bucket:
+
+```taxi query.taxi
+find { TradeSummary[] }
+```
+
+#### Reading files and exposing as an HTTP endpoint
+Using the same service definition as shown above, we can expose the contents of our `*.csv` files
+with a query published as an HTTP endpoint:
+
+```query.taxi
+import taxi.http.HttpOperation
+
+@HttpOperation(url = "/api/q/trades", method = "GET")
+find { TradeSummary[] }
+```
+
+For more information, see link:/docs/querying/queries-as-endpoints.adoc[publishing queries as endpoints].
+
+#### Reading files and publishing to Kafka
+This example shows how to read a CSV file from S3, and publish each row as an individual
+message to Kafka, as a JSON object.
+
+First, we'll declare our Kafka broker and associated message format:
+
+```taxi kafka.taxi
+import com.orbitalhq.kafka.KafkaService
+import com.orbitalhq.kafka.KafkaOperation
+
+// The message format we're publishing to Kafka.
+// Because there's no format defined, it's JSON by default
+model TradeSummaryEvent {
+   ticker : Symbol
+   // field names and structure are different, but the
+   // types are the same as on our source model.
+   prices: {
+      openPrice : OpenPrice
+      highPrice : HighPrice
+      closePrice : ClosePrice
+   }
+}
+
+// Declare our Kafka service and operation
+@KafkaService( connectionName = "market-prices" )
+service MyKafkaService {
+
+   // Define an operation that writes to Kafka
+   @KafkaOperation( topic = "tradeRecords" )
+   write operation publishTrades(TradeSummaryEvent):TradeSummaryEvent 
+} 
+```
+
+With the above in place, we can write a query that reads from S3, transforms from 
+CSV to our JSON format, and writes it out to Kafka.
+
+```taxi query.taxi
+find { TradeSummary[] }
+call MyKafkaService::publishTrades
+```
+
+In the above example, {short-product-name} detects that the inbound model (`TradeSummary`) is
+different from the destination format (`TradeSummaryEvent`) and handles the transformation
+for us. 
+
+In our example, that's simple converting from CSV to JSON and restructuring the message.
+However, the transformation could be richer, doing tasks such as calling services to discover data.
+
+Finally, we might want to expose an HTTP POST operation to trigger this update:
+
+```taxi query.taxi
+   import taxi.http.HttpOperation
+   
+   @HttpOperation(url = "/api/q/publishTradeUpdates", method = "POST")
+   find { TradeSummary[] }
+   call MyKafkaService::publishTrades
+```
+
+For more information about working with Kafka, including defining connections to brokers, see our
+dedicated docs on link:/docs/describing-data-sources/kafka.adoc[Kafka].
+
+#### Reading files and saving to a database
+This example shows how to read a CSV file from S3, and save each row as a record to a database.
+  
+First, we'll define our database table, and associated service: 
+
+```taxi trades-db.taxi
+import com.orbitalhq.jdbc.Table
+import com.orbitalhq.jdbc.DatabaseService
+import com.orbitalhq.jdbc.InsertOperation
+
+@Table(connection = "trades-database", schema = "public" , table = "trades" )
+type TradeSummaryRecord {
+   symbol : Symbol
+   open : OpenPrice
+   high : HighPrice
+   close : ClosePrice
+   timestamp : Instant = now()
+}
+
+
+@DatabaseService(connection = "trades-database")
+service TradesDatabase {
+   @InsertOperation
+   write operation saveTradeSummary(TradeSummaryRecord):TradeSummaryRecord
+}
+```
+
+With the above in place, we can write a query that reads from S3, transforms from
+CSV to our database format, and performs the database inserts:
+
+```taxi query.taxi
+find { TradeSummary[] }
+call TradesDatabase::saveTradeSummary
+```
+
+In the above example, {short-product-name} detects that the inbound model (`TradeSummary`) is
+different from the destination format (`TradeSummaryRecord`) and handles the transformation
+for us.
+
+In our example, that's simple converting from CSV to JSON and restructuring the message.
+However, the transformation could be richer, doing tasks such as calling services to discover data.
+
+Finally, we might want to expose an HTTP POST operation to trigger this update:
+
+```taxi query.taxi
+   import taxi.http.HttpOperation
+   
+  @HttpOperation(url = "/api/q/publishTradeUpdates", method = "POST")
+   find { TradeSummary[] }
+   call TradesDatabase::saveTradeSummary
+```
+
+For more information about working with databases, including defining connections to databases,
+and the support for different types of databases, see link:/docs/describing-data-sources/databases.adoc[Databases].
+
+### Writing to S3
+To declare an operation that can write data to S3, take the following steps:
+
+ * Declare a service annotated with `@S3Service`
+ * Within that service, declare a `write` operation with `@S3Operation`, providing the bucket name
+ * The operation should take two parameters:
+   - One with a `@RequestPayload` annotation, which contains the contents to be written
+   - One of type `FilenamePattern` which defines the filename to write to
+
+NOTE: Be sure to either add the imports for `S3Service`, `S3Operation`, `RequestBody` and `FilenamePattern` (as shown below), or use their fully qualified names.
+
+Here's an example:
+
+```taxi
+import com.orbitalhq.aws.s3.S3Service
+import com.orbitalhq.aws.s3.S3Operation
+import com.orbitalhq.aws.s3.FilenamePattern
+import com.orbitalhq.aws.s3.RequestBody
+
+@S3Service(connectionName = "MyAwsConnection")
+service AwsBucketService {
+    @S3Operation(bucket = "MyBucket")
+    write operation writeToS3(@RequestBody films:Film[], filename:FilenamePattern = "films.csv"):Film[]
+}
+```
+
+#### Filename patterns when writing to S3
+When writing to S3 filenames, filename patterns are not supported (unlike when link:#filename-patterns-when-writing-to-s3.adoc[reading]).
+
+If you declare a filename with a pattern, an error will be thrown.
+
+### Examples - Writing to S3
+Each of the below examples will work with the following model of content stored on S3, so we're defining
+it once here for brevity:
+
+```taxi tradeSummary.taxi
+import com.orbitalhq.formats.Csv
+
+// Define the format we're reading.
+// This is a CSV file, so the @Csv annotation is used.
+// (Note it's also imported at the top of the file)
+@Csv
+type TradeSummary {
+   symbol : Symbol inherits String
+   open : OpenPrice inherits Decimal
+   high : HighPrice inherits Decimal
+   close : ClosePrice inherits Decimal
+}
+```
+
+#### Fetching from an API and writing the results to S3 as a CSV
+This example shows data fetched from a REST API (exposed as JSON),
+and stored onto S3.
+
+As part of the operation, we'll transform a tree-like JSON structure into
+a flattened CSV file.
+
+First, we'll define the API and its response object:
+
+```taxi rest-service.taxi
+model StockPriceUpdate {
+   ticker : Symbol
+   // field names and structure are different, but the
+   // types are the same as on our source model.
+   prices: {
+      openPrice : OpenPrice
+      highPrice : HighPrice
+      closePrice : ClosePrice
+   }
+}
+
+service ApiService {
+   @HttpOperation(url="http://myApi.com/prices", method = "GET")
+   operation getPrices():StockPriceUpdate[]
+}
+```
+
+And, we'll define a write operation on S3 to store the content:
+
+```taxi s3.taxi
+import com.orbitalhq.aws.s3.S3Service
+import com.orbitalhq.aws.s3.S3Operation
+import com.orbitalhq.aws.s3.FilenamePattern
+
+@S3Service( connectionName = "myAwsConnection" )
+service AwsBucketService {
+    @S3Operation(bucket = "trades")
+    write operation writeTradeSummary(@RequestBody payload: TradeSummary[], filename: FilenamePattern = "trades.csv"):StockPriceCsv[]
+}
+```
+
+
+Given the above, we can use the following query to read from our API, transform
+the data, and write to our S3 bucket:
+
+```taxi query.taxi
+find { StockPriceUpdate[] }
+call AwsBucketService::writeTradeSummary
+```
+
+This will result in the data returned from our API call to be converted
+to CSV and written to `trades.csv` on our S3 bucket.
+
+If we'd like to set the filename within our query, we could:
+
+```taxi query.taxi
+given { filename : FilenamePattern = 'todaysTrades.csv' }
+find { StockPriceUpdate[] }
+call AwsBucketService::writeTradeSummary
+```
+
+This time, the output is written to `todaysTrades.csv`
+
+### S3 file formats
+In the above examples, our content has been stored in S3 using CSV.
+
+This is defined because the model used in our operations is annotated with `@Csv`, 
+as shown in the following excerpt:
+
+
+```taxi model.csv
+import com.orbitalhq.formats.Csv
+
+@Csv
+type TradeSummary {
+  // ... omitted
+}
+
+@S3Service( connectionName = "myAwsConnection" )
+service AwsBucketService {
+    // reading CSV
+    @S3Operation(bucket = "MyTrades")
+    // This operation returns a collection of
+    // TradeSummary objects, which are defined with @Csv
+    operation readBucket(filename:FilenamePattern = "*.csv"):TradeSummary[]
+
+    // writing CSV
+    @S3Operation(bucket = "trades")
+    write operation writeTradeSummary(
+      // The requesy body is a collection
+      // of trade summaries, which are configured as CSV
+      @RequestBody payload: TradeSummary[], 
+      filename: FilenamePattern = "trades.csv"
+    ):StockPriceCsv[]
+}
+```
+
+The format can be any supported format, such as link:/docs/data-formats/avro.adoc[Avro], link:/docs/data-formats/xml.adoc[XML], link:/docs/data-formats/csv.adoc[CSV] (or any other character-delimited file), or even link:/docs/data-formats/protobuf.adoc[Protobuf]. 
+
+If no format is defined, JSON is used as the default.
+
+For more information, see link:/docs/data-formats/overview.adoc[Data formats].
 
 == SQS
 

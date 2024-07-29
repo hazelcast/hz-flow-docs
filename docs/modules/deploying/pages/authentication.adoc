@@ -320,11 +320,11 @@ http://localhost:9022/saml?client_name=SAML2Client
 
 * Use `Single sign-on Url` for `Recipient URL` and `Destination URL`.
 
-// The following image is missing: <img src={oktaSamlSingleSignOnUrl.src} />
+image:okta-saml-sign-on-url.png[]
 
 * Set `Audience URI (SP Entity ID)` to `+http://okta-sample.{short-product-name}.io+`
 
-// The following image is missing: <img src={oktaSamlAudienceUrl.src} />
+image:okta-saml-audience-url.png[]
 
 * Click `Next`
 * Set `App type` to `This is an internal app that we have created`

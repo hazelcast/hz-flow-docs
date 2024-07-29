@@ -25,6 +25,10 @@ case, you generally don't need to do anything - {short-product-name} applies the
 | SOAP
 | XML
 | link:/docs/describing-data-sources/soap[SOAP docs]
+
+| Avro
+| Avro           
+| link:/docs/describing-data-sources/avro[Avro docs]
 |===
 
 == Using message formats in Taxi

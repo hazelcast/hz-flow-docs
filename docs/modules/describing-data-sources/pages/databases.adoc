@@ -227,6 +227,31 @@ find { Customer( CustomerId == 123 ) }
 find { Customer[]( DateOfBirth <= '1989-10-01' && CountryOfBirth == 'NZ' ) }
 ----
 
+#### Join two tables
+
+```taxi
+find { Customer[] } as (customer:Customer) -> {
+  name : FirstName
+  // defines a join between the Customer and Purchase tables
+  purchases : Purchases[](CustomerId == customer.id) 
+}
+```
+
+#### Join two tables, transforming data
+```taxi
+find { Customer[] } as (customer:Customer) -> {
+  name : FirstName
+  // defines a join between the Customer and Purchase tables
+  purchases : Purchases[](CustomerId == customer.id) as {
+     // Inside this scope we have access to both Customer data and Purhcase data
+     productName : ProductName
+     price : ProductPrice
+  // Be sure to include the array marker, as we're defining an array of
+  // objects (Purchase[] -> OurType[])
+  }[] // <--- array marker
+}
+```
+
 ==== Fetching from a database, enrich from another source
 
 As with all TaxiQL queries, enriching data from multiple sources requires simply

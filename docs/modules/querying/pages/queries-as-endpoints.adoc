@@ -11,6 +11,8 @@ Any queries committed to your taxonomy that have an `@HttpOperation` annotation 
 For example:
 
 ```taxi MyQuery.taxi
+import taxi.http.HttpOperation
+
 @HttpOperation(url = '/api/q/movies/\{movieId}', method = 'GET')
 query getMoviesAndReivews(@PathVariable("movieId") movieId: MovieId) {
   given { movieId }
