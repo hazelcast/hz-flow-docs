@@ -90,7 +90,7 @@ hazelcast {
  * Hazelcast
  * Redis
 
-If you need a cache not listed, please [reach out on Slack](https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg).
+If you need a cache not listed, please contact https://support.hazelcast.com/s/[Hazelcast Support]..
 
 ### Cache TTL
 The default Cache TTL is defined in the connections file:

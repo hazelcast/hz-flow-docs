@@ -173,4 +173,4 @@ Once you're happy, click *Save* and the OpenAPI spec will be imported.
 
 We're working on a CLI to enable publishing OpenAPI specs to {short-product-name} from within CI/CD workflows.
 
-If you'd like to be an early adopter, ping us on https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[Slack]!
+// If you'd like to be an early adopter, please contact https://support.hazelcast.com/s/[Hazelcast Support].

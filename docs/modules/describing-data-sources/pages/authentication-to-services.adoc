@@ -46,7 +46,7 @@ TIP: See also link:/docs/deploying/managing-secrets[Managing secrets] to see how
 
 == Authentication token types
 
-Several type of authentication schemes are supported. If you don't see the one you need here, please https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[get in touch].
+Several type of authentication schemes are supported. If you don't see the one you need here, please contact https://support.hazelcast.com/s/[Hazelcast Support].
 
 === Basic authentication
 

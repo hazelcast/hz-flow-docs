@@ -19,7 +19,7 @@ metadata embedded inside API specs.
 
 This means that as APIs evolve, or as services are deployed or replaced, {short-product-name}'s integrations automatically adapt, without requiring clients to change.
 
-image:high-level-overview.png[Overview]
+image:Flow_high_level_overview.png[Overview of Flow]
 
 [,taxi]
 ----
