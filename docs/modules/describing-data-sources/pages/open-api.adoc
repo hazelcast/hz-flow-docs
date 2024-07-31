@@ -3,7 +3,7 @@
 
 {short-product-name} can use OpenAPI specs to understand what APIs exist, and how to call them.
 
-{short-product-name} uses link:/docs/introduction#semantic-data-schemas[Semantic schemas] to describe how data relates between systems. For OpenAPI, this
+{short-product-name} uses xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic schemas] to describe how data relates between systems. For OpenAPI, this
 means enriching return types and input parameters with metadata to describe them semantically.
 
 To do this, we embed Taxi metadata within the OpenAPI specs.
@@ -90,7 +90,7 @@ Enrich attributes with semantic type metadata
 ----
 
 By default, it's expected that types referred to in `x-taxi-type` within attributes have already been defined on the schema server, as part of your
-link:/docs/connecting-data-sources/overview#your-core-taxonomy[core taxonomy].
+xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy].
 
 However, if you are intentionally publishing new types from your OpenAPI spec, then set `create` to `true`:
 
@@ -112,7 +112,7 @@ However, if you are intentionally publishing new types from your OpenAPI spec, t
 
 Inputs into services can also be enriched, to annotate the semantic data required.
 
-Simply add a `x-taxi-type` annotation to each input, containing a `name` attribute with a reference to the name of the type from your link:/docs/connecting-data-sources/overview#your-core-taxonomy[core taxonomy].
+Simply add a `x-taxi-type` annotation to each input, containing a `name` attribute with a reference to the name of the type from your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy].
 
 [,yaml]
 ----
@@ -138,7 +138,7 @@ Simply add a `x-taxi-type` annotation to each input, containing a `name` attribu
 
 Once you have added Taxi annotations to your OpenAPI spec, you're ready to publish it to {short-product-name}.
 
-NOTE: Before you can import an OpenAPI spec into {short-product-name}, ensure you have configured an editable Schema source - either a local link:/docs/connecting-data-sources/connecting-a-disk-repo.adoc[disk repository] or a link:/docs/connecting-data-sources/connecting-a-git-repo[Git repository]. Be sure to enable editing of the repository when adding it. 
+NOTE: Before you can import an OpenAPI spec into {short-product-name}, ensure you have configured an editable Schema source - either a local xref:workspace:connecting-a-disk-repo.adoc[disk repository] or a xref:workspace:connecting-a-git-repo.adoc[Git repository]. Be sure to enable editing of the repository when adding it. 
 This lets {short-product-name} store the converted OpenAPI spec, with some additional metadata that it creates when importing.
 
 === Importing through the UI

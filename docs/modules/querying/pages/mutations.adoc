@@ -26,8 +26,8 @@ call FlightsService::sendFlightManifest
 In this example, a list of `Passengers` is fetched, and converted into a `Manifest` to call the `sendFlightManifest` operation
 of the `FlightsService`.
 
-Many different data sources support mutations, such as link:/docs/describing-data-sources/databases#writing-data-to-a-database[databases],
-link:/docs/describing-data-sources/kafka#writing-to-a-kafka-topic[Kafka], link:/docs/describing-data-sources/mongodb#writing-data-to-a-collection[MongoDB],
-and link:/docs/describing-data-sources/hazelcast#writing-data-to-hazelcast[Hazelcast].
+Many different data sources support mutations, such as xref:describing-data-sources:databases.adoc#writing-data-to-a-database[databases],
+xref:describing-data-sources:kafka.adoc#writing-to-a-kafka-topic[Kafka], xref:describing-data-sources:mongodb.adoc#writing-data-to-a-collection[MongoDB],
+and xref:describing-data-sources:hazelcast.adoc#writing-data-to-hazelcast[Hazelcast].
 
 Consult the docs for the relevant data source to learn more.

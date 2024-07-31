@@ -1,7 +1,7 @@
 = Working with HTTP sources
 :description: 'An overview of how to connect data sources to Orbital'
 
-Orbital has first-class support for working with link:./open-api[OpenAPI specs] and link:./soap[SOAP WSDLs]. The following topic is intended for consuming HTTP services without a separate spec.
+Orbital has first-class support for working with xref:open-api.adoc[OpenAPI specs] and xref:soap.adoc[SOAP WSDLs]. The following topic is intended for consuming HTTP services without a separate spec.
 
 == Describing HTTP with Taxi
 

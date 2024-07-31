@@ -65,7 +65,7 @@ The `@Collection` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your link:/docs/describing-data-sources/mongo#defining-a-connection-to-your-mongo-database[connections configuration file]
+| The name of a connection, as defined in your xref:mongodb.adoc#defining-a-connection-to-your-mongo-database[connections configuration file]
 
 | collection
 | The name of the collection
@@ -120,7 +120,7 @@ The `@MongoService` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your link:/docs/describing-data-sources/mongo#defining-a-connection-to-your-mongo-database[connections configuration file].
+| The name of a connection, as defined in your xref:mongodb.adoc#defining-a-connection-to-your-mongo-database[connections configuration file].
 |===
 
 === Sample queries

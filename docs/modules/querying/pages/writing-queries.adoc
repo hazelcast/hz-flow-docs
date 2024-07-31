@@ -279,7 +279,7 @@ Operations are invoked following the standard <<data-discovery-rules,Data Discov
 == Understanding caching in {short-product-name}
 
 By default, {short-product-name} does not maintain a long-lived cache between operations,
-but you can link:/docs/describing-data-sources/caching[add one] by configuring an external cache, such as Redis or Hazelcast.
+but you can xref:describing-data-sources:caching.adoc[add one] by configuring an external cache, such as Redis or Hazelcast.
 
 Without an external cache, {short-product-name} caches operation calls for the lifetime of a query. This prevents the same operation
 being invoked repeatedly while projecting multiple rows in a result.
@@ -480,9 +480,9 @@ as { Person[] }
 
 The following formats are supported:
 
-* link:/docs/data-formats/csv.adoc[CSV]
-* link:/docs/data-formats/xml.adoc[XML]
-* link:/docs/data-formats/protobuf.adoc[Protobuf]
-* link:/docs/data-formats/avro.adoc[Avro]
+* xref:data-formats:csv.adoc[CSV]
+* xref:data-formats:xml.adoc[XML]
+* xref:data-formats:protobuf.adoc[Protobuf]
+* xref:data-formats:avro.adoc[Avro]
 
-If you need a custom format that's not listed here, read about {short-product-name}'s support for link:/docs/data-formats/custom-data-formats.adoc[custom model formats].
+If you need a custom format that's not listed here, read about {short-product-name}'s support for xref:data-formats:custom-data-formats.adoc[custom model formats].

@@ -21,7 +21,7 @@ When fully enabled, the following detail is captured and written to a database:
 * Message payloads for streaming event sources, such as message brokers
 * Variations of the above data to build query plan charts visualized in the {short-product-name} UI
 
-The following options can be passed as parameters or link:/docs/deploying/configuring-{short-product-name}#setting-as-environment-variables[configured as environment variables]
+The following options can be passed as parameters or xref:deploying:configuring.adoc#setting-as-environment-variables[configured as environment variables]
 to control the level of data that is persisted.
 
 |===

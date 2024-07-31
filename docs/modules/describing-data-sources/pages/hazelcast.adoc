@@ -1,12 +1,12 @@
 = Hazelcast as a data source
 :description: How to read and write data to Hazelcast as a data source
 
-In addition to link:/docs/describing-data-sources/caching#using-an-external-cache[using Hazelcast as a cache], {short-product-name}
+In addition to xref:describing-data-sources:caching.adoc#using-an-external-cache[using Hazelcast as a cache], {short-product-name}
 can use Hazelcast as a source for reading and writing data, as well as a streaming data source.
 
 == Adding a Hazelcast data source
 
-To enable Hazelcast as a data source, first link:/docs/describing-data-sources/configuring-connections[define a connection] in your `connections.conf` file:
+To enable Hazelcast as a data source, first xref:describing-data-sources:configuring-connections.adoc[define a connection] in your `connections.conf` file:
 
 ```hocon connections.conf
 hazelcast {

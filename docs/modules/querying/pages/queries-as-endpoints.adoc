@@ -1,8 +1,8 @@
 = Publishing queries (http and websockets)
 :description: Let consumers invoke your queries as standard HTTP endpoints
 
-You might decide that instead of link:/docs/querying/writing-queries#submitting-queries[submitting queries] directly to {short-product-name}, or using one of our
-link:/docs/querying/kotlin-sdk[SDKs] to execute a query programmatically, you'd rather just publish the query as an HTTP(s) endpoint.
+You might decide that instead of xref:querying:writing-queries.adoc#submitting-queries[submitting queries] directly to {short-product-name}, or using one of our
+xref:querying:kotlin-sdk.adoc[SDKs] to execute a query programmatically, you'd rather just publish the query as an HTTP(s) endpoint.
 
 == Saved queries
 
@@ -107,7 +107,7 @@ curl -X GET 'http://localhost:9022/api/q/streamingTest' \
 
 Streaming queries can be exposed over either HTTP (using server-sent events), or Websocket (or both).
 
-Saved streams are executed in the background on the link:/docs/streams/streaming-data#the-stream-server[Stream Server].
+Saved streams are executed in the background on the xref:streams:streaming-data.adoc#the-stream-server[Stream Server].
 By connecting to the output stream, you can observe the results.
 
 Note that when you observe a result feed from a streaming query,

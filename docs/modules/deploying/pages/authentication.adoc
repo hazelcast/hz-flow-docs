@@ -99,7 +99,7 @@ The presented JWT is expected to have the following attributes:
 | End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
 |===
 
-Additionally, role information must be present. See the docs on link:/deploying/authorization#reading-roles-from-jwt-tokens[Authorization] for more information.
+Additionally, role information must be present. See the docs on xref:authorization.adoc#reading-roles-from-jwt-tokens[Authorization] for more information.
 
 == Configuring OpenID Providers
 
@@ -165,7 +165,7 @@ Use the following config settings in {short-product-name}:
 --vyne.security.openIdp.identity-token-kind=Id
 ----
 
-NOTE: You must also configure AWS Cognito link:/deploying/authorization#aws-cognito[role-based access control].
+NOTE: You must also configure AWS Cognito xref:authorization.adoc#aws-cognito[role-based access control].
 
 === Azure
 
@@ -187,7 +187,7 @@ You are taken to the settings for your newly created Azure AD application.
  ** Take note of the OpenID Connect metadata document value - you'll need this shortly
  ** It should look like this: `+https://login.microsoftonline.com/YOUR-APP-ID/v2.0/.well-known/openid-configuration+`
 
-NOTE: You must also configure Azure link:/docs/deploying/authorization#azure[role-based access control].
+NOTE: You must also configure Azure xref:authorization.adoc#azure[role-based access control].
 
 Launch {short-product-name} passing the following parameters:
 
@@ -346,4 +346,4 @@ image:okta-saml-audience-url.png[]
 
 == See also
 
-* link:./authorization[Role-based authorization]
+* xref:authorization.adoc[Role-based authorization]

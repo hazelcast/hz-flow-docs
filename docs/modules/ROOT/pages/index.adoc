@@ -3,16 +3,15 @@
 
 Welcome to {long-product-name}. 
 
-These topics are aimed at developers and architects who want to use Flow in their deployments.  
-
-{short-product-name} is a data gateway that automates integration for your microservices. Using {short-product-name}, you can automate the integration, transformation and discovery of data from data sources (APIs, databases, message brokers) across your enterprise.
+{short-product-name} is a data gateway that automates integration for your microservices. Using {short-product-name}, you can automate the integration, transformation and discovery of data from different data sources (APIs, databases, message brokers) across your enterprise.
 
 {short-product-name} integrates on-the-fly, automatically adjusting as your data sources change.
 
 This is powered by rich semantic schemas, which infer how data across your organization links together, and automate the integration and discovery of data.
 
-// We need the image from Orbital as can't find it in source
-// <ImageWithCaption src=\{NetworkDiagram} addLightBackground/>
+image:network-diagram.png[]
+
+These topics are aimed at developers and architects who want to harness the power of {short-product-name}, and administrators deploying and integrating {short-product-name} within an organization. 
 
 == Quickstart
 
@@ -28,12 +27,12 @@ Then visit http://localhost:9022 in your browser.
 
 == Next steps
 
-Once you have {short-product-name} running locally, connect your microservices, and start querying for data
+Once you have {short-product-name} running locally, connect your microservices, and start querying for data.
 
-* link:/docs/describing-data-sources/configuring-connections[Connect data sources] - Connect your APIs, Databases and Message Queues to {short-product-name} 
-* link:/docs/querying/writing-queries[Query data] - Query for data through {short-product-name}'s API, and let it handle the integration plumbing for you
-* link:/docs/deploying/production-deployments[Head to production] - Deploy {short-product-name} on your Kubernetes cluster or using Docker Compose
-* link:/docs/guides[Tutorials] - Use our step-by-step tutorials to quickly get productive with {short-product-name}
+* xref:describing-data-sources:configuring-connections.adoc[Connect data sources] - Connect your APIs, Databases and Message Queues to {short-product-name}
+* xref:querying:writing-queries.adoc[Query data] - Query for data through {short-product-name}'s API, and let it handle the integration plumbing for you
+* xref:deploying:production-deployments.adoc[Head to production] - Deploy {short-product-name} on your Kubernetes cluster or using Docker Compose
+* xref:guides:index.adoc[Tutorials] - Use our step-by-step tutorials to quickly get productive with {short-product-name}
 
 == Getting help
 

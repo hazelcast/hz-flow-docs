@@ -37,7 +37,7 @@ NOTE: Before continuing, make sure you've [enabled schema editing through the UI
 image:new-data-source.png[]
 
 * Click the connection name dropdown, and select the connection for your database
- ** If you haven't yet created your connection, you can click *Add new connection*. link:../connecting-data-sources/connecting-a-database#create-a-connection-when-importing-a-new-data-source[This guide] has more details
+ ** If you haven't yet created your connection, you can click *Add new connection*. describing-data-sources:databases.adoc#create-a-connection-when-importing-a-new-data-source[This guide] has more details
 * Select the table from the dropdown
 * Specify a namespace for the Taxi types, models and services that will be created
 * Click *Configure*
@@ -115,7 +115,7 @@ jdbc { // The root element for database connections
 }
 ----
 
-To see all the supported databases, and their connection configurations, read link:/docs/describing-data-sources/configuring-connections#database-connections[configuring database connections].
+To see all the supported databases, and their connection configurations, read xref:describing-data-sources:configuring-connections.adoc#database-connections[configuring database connections].
 
 == Describing tables in Taxi
 
@@ -129,8 +129,8 @@ you name it. For this example, `customers.taxi` is a good start.
 
 === Databases, and pull-based schema definitions
 
-As discussed in link:/docs/connecting-data-sources/schema-publication-methods/[Publishing schemas to {short-product-name}], there
-are different ways for {short-product-name} to consume schema information - either by data sources *_pushing_* their information
+// As discussed in link:/docs/connecting-data-sources/schema-publication-methods/[Publishing schemas to {short-product-name}]...
+There are different ways for {short-product-name} to consume schema information - either by data sources *_pushing_* their information
 directly to {short-product-name} (well suited for application APIs), or by *_pulling_* from git-based repositories that describe the
 schemas.
 
@@ -165,7 +165,8 @@ The `@Table` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your link:/docs/connecting-data-sources/connecting-a-database/#defining-a-database-connection[connections configuration file]
+| The name of a connection
+//, as defined in your link:/docs/connecting-data-sources/connecting-a-database/#defining-a-database-connection[connections configuration file]
 
 | schema
 | The name of the schema.  Optional, depending on your database

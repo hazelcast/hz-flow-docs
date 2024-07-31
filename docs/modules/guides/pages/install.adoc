@@ -12,7 +12,7 @@ Before you get started, you'll need the following:
 * https://sdkman.io/install[SDKMan] - a useful tool for installing SDKs and developer tools
 * https://code.visualstudio.com/[VSCode] - optional, but we create dev tools for VSCode that improve the developer experience
 
-== Installing Taxi+++<InstallingCliSteps>++++++</InstallingCliSteps>+++
+== Installing Taxi
 
 https://taxilang.org[Taxi] is a language for describing data sources, and how data relates. 
 Its CLI has tooling for creating projects and running builds.
@@ -89,7 +89,7 @@ Taxi has a convenient command to launch a developer environment of {short-produc
 $ taxi {short-product-name}
 ----
 
-This downloads a `docker-compose.yml` file from https://start.{code-product-name}.com/[start.{code-product-name}.com], then runs `docker compose up`.
+This downloads a `docker-compose.yml` file from https://start.flow.com/[start.flow.com], then runs `docker compose up`.
 
 === Live reload
 

@@ -10,7 +10,7 @@ enough not to require additional metadata.
 
 == Declaring in your Taxi project
 
-Connections are defined in a `connections.conf`, which lives inside a Taxi project within your link:/docs/workspace/overview[workspace].
+Connections are defined in a `connections.conf`, which lives inside a Taxi project within your xref:workspace:overview.adoc[workspace].
 
 Inside your `taxi.conf` file in your project, declare where you're keeping your config for {short-product-name}.
 
@@ -79,7 +79,7 @@ jdbc {
 }
 ```
 
-TIP: See also link:/docs/deploying/managing-secrets.adoc[Managing Secrets] to see how to securely manage sensitive information in your connections
+TIP: See also xref:deploying:managing-secrets.adoc[Managing Secrets] to see how to securely manage sensitive information in your connections
 
 ### Correctly handling substitutions in URLs
 Substitution of variable inside a URL using HOCON can be tricky.
@@ -363,7 +363,7 @@ jdbc { // The root element for database connections
 
 == Kafka connections
 
-Read about defining Kafka connections in the dedicated documentation for link:/docs/describing-data-sources/kafka#defining-a-connection-to-your-kafka-broker[Kafka].
+Read about defining Kafka connections in the dedicated documentation for xref:describing-data-sources:kafka.adoc#defining-a-connection-to-your-kafka-broker[Kafka].
 
 == AWS connections
 
@@ -393,7 +393,7 @@ aws {
 
 == Mongo connections
 
-Read about defining Mongo connections in the dedicated documentation for link:/docs/describing-data-sources/mongodb#defining-a-connection-to-your-mongo-database[Mongo].
+Read about defining Mongo connections in the dedicated documentation for xref:describing-data-sources:mongodb.adoc#defining-a-connection-to-your-mongo-database[Mongo].
 
 === Testing with Localstack
 

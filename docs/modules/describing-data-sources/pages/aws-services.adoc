@@ -1,7 +1,7 @@
 = Using AWS services
 :description: Learn how to make AWS available for {short-product-name} to query
 
-Before you begin using AWS services, you need to define a connection to AWS in your `connections.conf` file. Read more about defining AWS connections link:/docs/describing-data-sources/configuring-connections#aws-connections[here].
+Before you begin using AWS services, you need to define a connection to AWS in your `connections.conf` file. Read more about defining AWS connections xref:describing-data-sources:configuring-connections.adoc#aws-connections[here].
 
 {short-product-name} supports reading Protobuf messages, either as a message format for HTTP endpoints or from a streaming query originating from Kafka.
 
@@ -43,11 +43,11 @@ service DynamoService {
 }
 ----
 
-Write operations (such as upserts) can only be invoked in link:/docs/querying/mutations[mutations].
+Write operations (such as upserts) can only be invoked in xref:querying:mutations.adoc[mutations].
 
 == Lambda
 
-{short-product-name} can invoke a Lambda, either to discover data in a query, or in a link:/docs/querying/mutations[mutation].
+{short-product-name} can invoke a Lambda, either to discover data in a query, or in a xref:querying:mutations.adoc[mutation].
 
 A service must have the `AwsLambdaService` annotation, passing the configured connection.
 
@@ -100,7 +100,7 @@ When working with a pattern, {short-product-name} will read and combine all matc
 response.
 
 For information about supported file formats, see 
-link:#s3-file-formats[file formats].
+xref:aws-services.adoc#s3-file-formats[file formats].
 
 ### Examples - Reading from S3
 
@@ -170,7 +170,7 @@ import taxi.http.HttpOperation
 find { TradeSummary[] }
 ```
 
-For more information, see link:/docs/querying/queries-as-endpoints.adoc[publishing queries as endpoints].
+For more information, see xref:querying:queries-as-endpoints.adoc[publishing queries as endpoints].
 
 #### Reading files and publishing to Kafka
 This example shows how to read a CSV file from S3, and publish each row as an individual
@@ -231,7 +231,7 @@ Finally, we might want to expose an HTTP POST operation to trigger this update:
 ```
 
 For more information about working with Kafka, including defining connections to brokers, see our
-dedicated docs on link:/docs/describing-data-sources/kafka.adoc[Kafka].
+dedicated docs on xref:describing-data-sources:kafka.adoc[Kafka].
 
 #### Reading files and saving to a database
 This example shows how to read a CSV file from S3, and save each row as a record to a database.
@@ -286,7 +286,7 @@ Finally, we might want to expose an HTTP POST operation to trigger this update:
 ```
 
 For more information about working with databases, including defining connections to databases,
-and the support for different types of databases, see link:/docs/describing-data-sources/databases.adoc[Databases].
+and the support for different types of databases, see xref:describing-data-sources:databases.adoc[Databases].
 
 ### Writing to S3
 To declare an operation that can write data to S3, take the following steps:
@@ -315,7 +315,7 @@ service AwsBucketService {
 ```
 
 #### Filename patterns when writing to S3
-When writing to S3 filenames, filename patterns are not supported (unlike when link:#filename-patterns-when-writing-to-s3.adoc[reading]).
+When writing to S3 filenames, filename patterns are not supported (unlike when xref:aws-services.adoc#filename-patterns-when-writing-to-s3.adoc[reading]).
 
 If you declare a filename with a pattern, an error will be thrown.
 
@@ -435,11 +435,11 @@ service AwsBucketService {
 }
 ```
 
-The format can be any supported format, such as link:/docs/data-formats/avro.adoc[Avro], link:/docs/data-formats/xml.adoc[XML], link:/docs/data-formats/csv.adoc[CSV] (or any other character-delimited file), or even link:/docs/data-formats/protobuf.adoc[Protobuf]. 
+The format can be any supported format, such as xref:data-formats:avro.adoc[Avro], xref:data-formats:xml.adoc[XML], xref:data-formats:csv.adoc[CSV] (or any other character-delimited file), or even xref:data-formats:protobuf.adoc[Protobuf]. 
 
 If no format is defined, JSON is used as the default.
 
-For more information, see link:/docs/data-formats/overview.adoc[Data formats].
+For more information, see xref:data-formats:overview.adoc[Data formats].
 
 == SQS
 
@@ -483,7 +483,7 @@ service MovieService {
 }
 ----
 
-Publishing events can only be invoked in link:/docs/querying/mutations[mutations].
+Publishing events can only be invoked in xref:querying:mutations.adoc[mutations].
 
 ==== Example: Consuming from one SQS topic, and publishing to another
 

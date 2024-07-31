@@ -1,7 +1,7 @@
 = Pulling API specs from Git
 :description: {short-product-name} can read schema and taxonomy definitions direct from Git.
 
-It's common to store your link:./overview#your-core-taxonomy[core taxonomy], existing API specs (such as link:../describing-data-sources/open-api[OpenApi] or link:../describing-data-sources/protobuf[Protobuf]), or link:../describing-data-sources/databases[database definitions]
+It's common to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describing-data-sources:open-api.adoc[OpenApi] or xref:describing-data-sources:protobuf.adoc[Protobuf]), or xref:describing-data-sources:databases.adoc[database definitions]
 in a Git repository, so they're version controlled.
 
 {short-product-name} can read directly from your Git repository, pulling in updates as they're merged.
@@ -14,8 +14,6 @@ A typical Git configuration consists of:
 
 Additionally, if you're connecting an OpenAPI or Protobuf source, you'll need to provide a little additional metadata.
 
-// AmandaL - I did not understand the following sentence - please ensure my edit makes sense as I took a best guess
-
 The list of Git repositories for {short-product-name} can be modified either through the <<adding-a-git-repository-using-the-ui,{short-product-name} UI>>,
 or by editing a <<adding-a-git-repository-through-config,config file>>, which can be version controlled, and automatically deployed (self-hosted deployments only).
 
@@ -23,6 +21,8 @@ or by editing a <<adding-a-git-repository-through-config,config file>>, which ca
 
 To add a new Git repository via the UI, either navigate to http://localhost:9022/projects/project-import[/project-import], or from within the UI
 click on *Projects* on the left navigation bar, then *Add project* in the top bar.
+Authors Note - project import link does not work - what should this be to?
+
 
 image:add-schema-sources.png[]
 
@@ -39,7 +39,7 @@ TIP: After adding the URL of your repository, click *Test Connection*. {short-pr
 
 == Adding a Git repository through config
 
-The schema repositories that {short-product-name} is connected to can be configured through a link:/docs/deploying/configuring-{short-product-name}[HOCON file], which by default is called `workspace.conf`.
+The schema repositories that {short-product-name} is connected to can be configured through a xref:deploying:configuring.adoc[HOCON file], which by default is called `workspace.conf`.
 
 [,hocon]
 ----
@@ -68,7 +68,7 @@ git {
 }
 ----
 
-The full documentation for config-driven Git repositories is available link:/docs/deploying/configuring-{short-product-name}#configuring-git-repositories[here].
+The full documentation for config-driven Git repositories is available xref:deploying:configuring.adoc#configuring-git-repositories[here].
 
 === Reading OpenAPI specs from Git
 
@@ -136,7 +136,7 @@ For example:
 https://alexhamilton:glpat-dundadadadundundun@github.com/{short-product-name}/reynolds-pamphlet
 ----
 
-Support for `ssh://` connections with public/private keypairs is available in a private beta.  If you'd like to try it out, please link:/docs#getting-help[get in touch].
+Support for `ssh://` connections with public/private keypairs is available in a private beta.  If you'd like to try it out, please https://support.hazelcast.com/s/[get in touch].
 
 == Supporting edits to Git repositories
 

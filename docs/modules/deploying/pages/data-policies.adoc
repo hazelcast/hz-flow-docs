@@ -50,7 +50,8 @@ itself is resolved using the auth token presented from your IDP.
 (Note - policies are not supported when running without an IDP)
 
 Similar to how you can use link:/changelog/2024-03-08-release-announcement-0-30-0#using-jwt-claims-within-a-query[claims from your IDP] to pass
-through to a data source, these same claims are available when evaluating a policy, as the `caller` object.
+through to a data source, these same claims are available when evaluating a policy, as the `caller` object. 
+Author's note - what should the link be to?
 
 === Resolving data for policy evaluation
 

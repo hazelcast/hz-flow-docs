@@ -52,7 +52,7 @@ There are no resolvers to update, Swagger SDKs to rebuild, or API consumer contr
 {short-product-name} provides several ways for services to generate and publish their schema:
 hand-crafted schemas, automatically generated at runtime, Git-backed in a central repository, or a mix of the three.
 
-Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
+// Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
 
 == Semantic data schemas
 
@@ -98,7 +98,8 @@ This has a few shortcomings:
 
 This mapping exercise takes place because traditional schemas don't provide rich enough information to link on anything else.
 
-If a field gets renamed?  💥 Boom! Breakdown city.
+If a field gets renamed, this breaks things!
+// 💥 Boom! Breakdown city.
 
 What's missing is _semantic metadata_ - something that describes how data between systems relates to one another, independent of field names.
 
