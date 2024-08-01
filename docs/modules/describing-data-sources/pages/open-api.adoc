@@ -147,7 +147,10 @@ Navigate to http://localhost:9022/data-source-manager/add[/data-source-manager/a
 
 Next, select a project to import into, then choose "Swagger / OpenAPI" from the data source dropdown list.
 
-image:select-open-api.png[]
+// should be to the openapi dropdown i.e. image:select-open-api.png[]
+
+image:new_data_source_flow.png[]
+
 
 * Either provide the OpenAPI spec file directly, or enter a URL to load the spec from
 * Provide a default namespace.  (eg: `com.petflix.pets`).  Services from your OpenAPI spec are imported into this namespace

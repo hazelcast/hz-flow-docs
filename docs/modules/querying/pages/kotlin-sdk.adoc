@@ -85,13 +85,13 @@ val response = stream<FilmWatchedEvent>()
 
 Specifying criteria isn't yet implemented in the Kotlin SDK, but we're working on it.
 
-Subscribe for updates on https://github.com/{short-product-name}api/kotlin-sdk/issues/1[this issue] for more information.
+// Subscribe for updates on https://github.com/{short-product-name}api/kotlin-sdk/issues/1[this issue] for more information.
 
 == Querying using TaxiQL directly
 
 Passing TaxiQL directly isn't yet implemented in the Kotlin SDK, but we're working on it.
 
-Subscribe for updates on https://github.com/{short-product-name}api/kotlin-sdk/issues/2[this issue] for more information.
+// Subscribe for updates on https://github.com/{short-product-name}api/kotlin-sdk/issues/2[this issue] for more information.
 
 == Executing queries
 
@@ -116,7 +116,9 @@ NOTE: `run` returns a `Publisher`, which is a reactive type. You need to subscri
 
 Currently, transports are provided for `http` and `httpStreaming`, implemented using https://square.github.io/okhttp/[okhttp].
 
-However, the library is designed such that transports can be pluggable by implementing the https://github.com/{short-product-name}api/kotlin-sdk/blob/main/src/main/java/com/{short-product-name}/client/{short-product-name}Transport.kt[{short-product-name}Transport] interface.
+However, the library is designed such that transports can be pluggable by implementing the {short-product-name} Transport interface.
+
+// link broken to: https://github.com/{short-product-name}api/kotlin-sdk/blob/main/src/main/java/com/{short-product-name}/client/{short-product-name}Transport.kt[{short-product-name}Transport] interface.
 
 Generally, `httpStream` is a reasonable default.
 

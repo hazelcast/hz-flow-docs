@@ -174,7 +174,7 @@ Start by navigating:
 
 * Projects > Add Project
 
-image:add-project.png[]
+image:add_project_flow.png[]
 
 * Then select to add a project from either a Git Repo or Local disk
 
@@ -190,7 +190,7 @@ The Git repo is monitored, so any changes are pulled locally and automatically a
 * Set the path to the location of your Avro schema within the repo
 * Provide a unique package identifier for this Avro schema
 
-image:add-avro-from-git-repo.png[]
+image:add_avro_git_repo_flow.png[]
 
 ==== Adding an Avro project from a file
 
@@ -210,4 +210,4 @@ This workflow isn't intended for uploading an Avro schema to a remote server. In
 * Provide the path on your local machine to where the Avro file is
 * Provide a unique package identifier for this Avro schema
 
-image:add-avro-from-file.png[]
+image:add_avro_file_flow.png[]

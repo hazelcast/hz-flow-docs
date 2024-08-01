@@ -46,7 +46,7 @@ image:new-data-source.png[]
 
 A preview is shown, containing the models, fields and types that were imported from the database schema.
 
-image:schema-database-preview.png[]
+image:schema_database_preview_flow_2.png[]
 
 You can change any of the types (e.g., swapping a primitive type with a more specific semantic type), by clicking on the
 pencil icon next to the type name, and searching for the desired type.
@@ -68,7 +68,7 @@ To do this:
 * Click on the blue link for the column you wish to change the type of. A search dialog appears
 * From here, you can search for existing types in your catalog or create a new type
 
-<img src={TypeSearch.src} />
+image:type-search.png[]
 
 You can also click to edit documentation for any of the types, models and services.
 
@@ -119,7 +119,9 @@ To see all the supported databases, and their connection configurations, read xr
 
 == Describing tables in Taxi
 
-NOTE: Before you proceed, it's worth understanding the basics of [Taxi](https://taxilang.org/language-reference/taxi-language/) and how {short-product-name} uses it. Also, make sure you have a [Taxi project set up](https://taxilang.org/intro/getting-started/), and that it's been [published to {short-product-name}](docs/connecting-data-sources/connecting-a-git-repo/). If you're running through one of our tutorials, we've already taken care of this for you.
+NOTE: Before you proceed, it's worth understanding the basics of https://taxilang.org/language-reference/taxi-language[Taxi] and how {short-product-name} uses it. Also, make sure you have a https://taxilang.org/intro/getting-started[Taxi project set up], and that it's been published to {short-product-name}. If you're running through one of our tutorials, we've already taken care of this for you.
+
+// Re-instate link above to (docs/connecting-data-sources/connecting-a-git-repo/). 
 
 Taxi files define the mappings of data models and the services that expose them.
 In this guide, we'll describe how to expose a new database table to {short-product-name}, and make it queryable.
@@ -131,7 +133,7 @@ you name it. For this example, `customers.taxi` is a good start.
 
 // As discussed in link:/docs/connecting-data-sources/schema-publication-methods/[Publishing schemas to {short-product-name}]...
 There are different ways for {short-product-name} to consume schema information - either by data sources *_pushing_* their information
-directly to {short-product-name} (well suited for application APIs), or by *_pulling_* from git-based repositories that describe the
+directly to {short-product-name} (well suited for application APIs), or by *_pulling_* from Git-based repositories that describe the
 schemas.
 
 While the push model is preferred, it's not currently supported for databases.  We're looking into ways to embed
@@ -202,7 +204,8 @@ The `@DatabaseService` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your (connections configuration file)[/how-to-guides/connections/manage-database-connection/#defining-a-database-connection]
+| The name of a connection, as defined in your connections configuration file
+//Reinstate link to (connections configuration file)[/how-to-guides/connections/manage-database-connection/#defining-a-database-connection]
 |===
 
 === Sample queries

@@ -23,7 +23,7 @@ Generally, there are at least the following components:
 
 // how do I get light background? Previous code was: <ImageWithCaption src=\{PublishingFromSources} addLightBackground=\{true}/>
 
-image:publshing-from-sources.png[]
+image:publish_from_sources_flow.png[]
 
 === Your core taxonomy
 
@@ -82,7 +82,7 @@ message Customer {
 ----
 ====
 
-For more information, follow our guides on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:describing-data-sources:protobuf.adoc[Protobuf] to describe your data sources.
+For more information, see the topics on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:describing-data-sources:protobuf.adoc[Protobuf] to describe your data sources.
 
 
 ==== Using Taxi
@@ -123,7 +123,8 @@ The following publication methods are available:
 Applications can generate Taxi, direct from code, and publish to {short-product-name}.
 
 * Suits microservices and teams who prefer generating their API specs from code
-* Currently only Java / Kotlin with Spring Boot is supported, but other SDKs are planned - https://github.com/{short-product-name}api/{short-product-name}/discussions[reach out] to tell us about your usecase
+* Currently only Java / Kotlin with Spring Boot is supported, but other SDKs are planned.
+// - https://github.com/{short-product-name}api/{short-product-name}/discussions[reach out] to tell us about your usecase
 
 // Learn more about this approach link:./schema-publication-methods[here].
 

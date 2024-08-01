@@ -1,7 +1,7 @@
 = Working with XML and JSON
 :description: A tutorial showing how to link services that publish XML
 
-This guide features services publishing a mix of XML and JSON, and explains how to combine them and expose the
+This tutorial features services publishing a mix of XML and JSON, and explains how to combine them and expose the
 composed services as a REST API.
 
 It shows starting an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
@@ -79,7 +79,7 @@ import com.{code-product-name}.formats.Xml
       operation getAllFilms():FilmList
        }
 ----
-films-taxi.xml::
+films-data.xml::
 +
 [source,xml]
 ----
@@ -151,7 +151,9 @@ model Film {
 operation fetchCastForFilm(FilmId):ActorList
 ----
 
-We don't need to write any integration code or resolvers.  There's enough information in the schemas.+++<Callout type="note" title="Reminder">+++We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`+++</Callout>+++
+We don't need to write any integration code or resolvers.  There's enough information in the schemas.
+
+NOTE: We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`.
 
 == Writing Data Queries
 
@@ -310,7 +312,7 @@ Finally, to include this awards data, we just add it to our query:
       filmId : FilmId
       nameOfFilm : FilmTitle
       cast : Actor[]
->     awards : Award[]
+      awards : Award[]
   }
 ----
 

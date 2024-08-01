@@ -1,7 +1,7 @@
 = Build ETL pipelines
 
 
-NOTE: Pipelines are gradually being replaced by link:/docs/querying/streaming-data[streaming queries]. The pipeline syntax is still supported, but we aim to migrate functionality to streaming queries. For workloads that are oriented around streaming data (such as reading from Kafka), use a streaming query instead.
+NOTE: Pipelines are gradually being replaced by xref:streams:streaming-data.adoc[streaming queries]. The pipeline syntax is still supported, but we aim to migrate functionality to streaming queries. For workloads that are oriented around streaming data (such as reading from Kafka), use a streaming query instead.
 
 ## Overview
 

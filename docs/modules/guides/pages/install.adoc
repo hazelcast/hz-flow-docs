@@ -2,7 +2,7 @@
 :description: A tutorial to get Taxi running locally.
 
 
-This guide covers getting {long-product-name} and Taxi running locally in a developer environment.
+This tutorial covers getting {long-product-name} and Taxi running locally in a developer environment.
 
 == Prerequisites
 
@@ -76,7 +76,7 @@ Open VSCode to take a look around:
 $ code .
 ----
 
-image:vscode-files.png[VS Code]
+image:vscode_flow.png[VS Code]
 
 == Launching {short-product-name}
 
@@ -86,10 +86,11 @@ Taxi has a convenient command to launch a developer environment of {short-produc
 
 [,bash]
 ----
-$ taxi {short-product-name}
+$ taxi flow
 ----
 
 This downloads a `docker-compose.yml` file from https://start.flow.com/[start.flow.com], then runs `docker compose up`.
+Author's note - the link does not work.
 
 === Live reload
 
@@ -100,4 +101,4 @@ and detected inside of {short-product-name}.
 
 That's it! You're now running {short-product-name} locally, and have a brand new Taxi project ready to go.
 
-Why not take one of our tutorials for a spin, and build something locally.
+Why not take one of the other tutorials for a spin, and build something locally.

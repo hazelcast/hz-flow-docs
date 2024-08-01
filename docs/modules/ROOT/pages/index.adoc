@@ -7,9 +7,9 @@ Welcome to {long-product-name}.
 
 {short-product-name} integrates on-the-fly, automatically adjusting as your data sources change.
 
-This is powered by rich semantic schemas, which infer how data across your organization links together, and automate the integration and discovery of data.
+This is powered by rich semantic schemas, which infer how data across your organization links together, and which automate the integration and discovery of data.
 
-image:network-diagram.png[]
+image:network_diagram_flow.png[]
 
 These topics are aimed at developers and architects who want to harness the power of {short-product-name}, and administrators deploying and integrating {short-product-name} within an organization. 
 
@@ -19,7 +19,7 @@ Get started right now, by spinning up {short-product-name} on your machine:
 
 [,bash]
 ----
-curl https://start.{code-product-name}.com > docker-compose.yml
+curl https://start.flow.com > docker-compose.yml
 docker compose up -d
 ----
 

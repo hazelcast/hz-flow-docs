@@ -21,10 +21,10 @@ or by editing a <<adding-a-git-repository-through-config,config file>>, which ca
 
 To add a new Git repository via the UI, either navigate to http://localhost:9022/projects/project-import[/project-import], or from within the UI
 click on *Projects* on the left navigation bar, then *Add project* in the top bar.
-Authors Note - project import link does not work - what should this be to?
+(Author's Note - project import link does not work - what should this be to?)
 
 
-image:add-schema-sources.png[]
+image:add_schema_sources_flow.png[]
 
 // Light background? <ImageWithCaption src=\{AddSchemaSources} addLightBackground/>
 
@@ -32,7 +32,7 @@ image:add-schema-sources.png[]
 
 Click on the *Git Repository* tab, and provide the details of how to connect to your Git repo.
 
-image:add-git-repo-form.png[]
+image:add_git_repo_flow.png[]
 
 TIP: After adding the URL of your repository, click *Test Connection*. {short-product-name} will verify the connection works,
   and fetch the list of branches (including the default branch) from your repository.

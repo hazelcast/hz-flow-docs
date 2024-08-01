@@ -25,7 +25,7 @@ have access to custom Java classes, serialization formats that require classload
 (such as `Serializable`, `Externalizable` and Custom Serialization) are not supported
 
 ### Compact (preferred)
-[Compact Serialization](https://docs.hazelcast.com/hazelcast/5.3/serialization/compact-serialization) is the preferred
+https://docs.hazelcast.com/hazelcast/5.3/serialization/compact-serialization[Compact Serialization] is the preferred
 format when using {short-product-name} to read/write to Hazelcast.
 
 To enable Compact serialization, add a `@CompactObject` annotation to your Taxi definition:

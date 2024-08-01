@@ -15,6 +15,8 @@ OR
 
 To enable OpenID Connect Authentication, pass the following config options to {short-product-name} on the command line:
 
+(Author's note- some link in table are broken - please confirm what these should be)
+
 |===
 | Parameter | Sample values | Description
 

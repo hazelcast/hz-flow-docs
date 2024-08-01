@@ -80,7 +80,9 @@ Note that once a streaming query has been enabled once, further updates are auto
 remains running.
 
 ### The stream server
-{short-product-name}'s stream server ships as a separate https://hub.docker.com/r/{code-product-name}/stream-server[Docker image], responsible for executing saved streaming queries.
+{short-product-name}'s stream server ships as a separate Docker image, responsible for executing saved streaming queries.
+
+// link broken: https://hub.docker.com/r/{code-product-name}/stream-server[Docker image], responsible for executing saved streaming queries.
 ----
 
 version: "3.3"
@@ -95,9 +97,9 @@ The stream server exposes the following ports:
  - An HTTP port on 9615 (you can deploy a reverse SSL proxy in front of this)
  - An RSocket port on 7755
 
-By default, {short-product-name} expects to find the stream server at `http://stream-server/`. Our default
-https://start.{code-product-name}.com[Docker Compose]
-and https://github.com/{short-product-name}api/helm[Helm Chart] configure this by default.
+By default, {short-product-name} expects to find the stream server at `http://stream-server/`. Our default Docker Compose and Helm Char] configure this by default.
+
+// links broken to https://start.{code-product-name}.com[Docker Compose] and https://github.com/{short-product-name}api/helm[Helm Chart] configure this by default.
 
 However, if you need to configure the address of the stream server, you can do so by editing the `services.conf` file
 deployed with {short-product-name}'s main component:

@@ -2,7 +2,7 @@
 :description: Configuring {short-product-name} authorization
 
 
-NOTE: To use role-based authentication, you must have configured authorization with an OpenID Connect provider. xref:authentication.adoc[Learn how to enable authorization].
+NOTE: To use role-based authentication, you must have configured authorization with an OpenID Connect provider. xref:authentication.adoc[Learn how to enable this].
 
 {short-product-name} uses role-based authorization to control which users can perform which tasks.
 
@@ -173,7 +173,7 @@ You can configure a different path by adding the following parameters:
 
 {short-product-name} expects that each part within the token is a `Map`, except for the last path, which should be a `String[]`.
 
-If you need more complex support for your OIDC, please reach out to us on https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[Slack] to discuss your requirements.
+If you need more complex support for your OIDC, please contact us at https://support.hazelcast.com/s/[Hazelcast Support] to discuss your requirements.
 
 == Permissions
 

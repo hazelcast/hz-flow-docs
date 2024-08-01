@@ -19,7 +19,7 @@ metadata embedded inside API specs.
 
 This means that as APIs evolve, or as services are deployed or replaced, {short-product-name}'s integrations automatically adapt, without requiring clients to change.
 
-image:Flow_high_level_overview.png[Overview of Flow]
+image:high_level_overview_flow.png[Overview of Flow]
 
 [,taxi]
 ----
@@ -38,11 +38,11 @@ given {
 {short-product-name} leverages schemas to automatically work out which services to call,
 and sequences them together to pass data from service to service, in order to discover the data clients need.
 
-image:what-clients-sees.png[What clients see]
+image:what_client_sees_flow.png[What clients see]
 
 == Integration that adapts with you
 
-Services publish their schemas to {short-product-name}, which describe their APIs and the data they provide.
+Services publish their schemas to {short-product-name}, which describes their APIs and the data they provide.
 
 {short-product-name} uses this to build integration plans on the fly. This means that as your APIs change, {short-product-name} automatically adapts,
 keeping clients protected from the change.
@@ -98,10 +98,10 @@ This has a few shortcomings:
 
 This mapping exercise takes place because traditional schemas don't provide rich enough information to link on anything else.
 
-If a field gets renamed, this breaks things!
+If a field gets renamed, things break!
 // 💥 Boom! Breakdown city.
 
-What's missing is _semantic metadata_ - something that describes how data between systems relates to one another, independent of field names.
+What's missing is _semantic metadata_ - something that describes how data between systems relates, independent of field names.
 
 === Defining semantic metadata
 
@@ -131,7 +131,7 @@ support for semantic metadata), or embed Taxi metadata within other schema langu
 
 [tabs]
 ====
-Customer OpenAPI Spec.yaml::
+Customer OpenAPI Spec::
 +
 [source,yaml]
 ----
@@ -145,7 +145,7 @@ x-taxi-type: # \<-- Taxi extension
 name: CustomerId # \<-- Semantic type
 type: string
 ----
-Sales OpenAPI Spec.yaml::
+Sales OpenAPI Spec::
 +
 [source,yaml]
 ----

@@ -62,6 +62,8 @@ The following table outlines the components and the default network addresses an
 expected to be exposed.  If deploying in a network like Docker Swarm or Kubernetes, it is expected
 that services are available on the configured addresses.
 
+Author's note - links in table are broken - please confirm what these should be:
+
 |===
 | Component & Image | Default network address | Port(s)
 

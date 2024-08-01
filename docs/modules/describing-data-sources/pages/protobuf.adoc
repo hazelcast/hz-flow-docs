@@ -77,7 +77,7 @@ You can import a Protobuf schema directly through the UI.
 * Click on *Schema Explorer*, then *Add new*
 * Select *Protobuf* from the dropdown list
 
-image:protobuf-drop-down.png[]
+image:protobuf_drop_down_flow.png[]
 
 To provide the Protobuf, you can:
 
@@ -92,7 +92,7 @@ Then click *Create*.
 
 A preview is shown, containing the models, fields and types that were imported from the Protobuf schema.
 
-image:schema-protobuf-preview.png[]
+image:schema_protobuf_preview_flow.png[]
 
 You can change any of the types (e.g., swapping a primitive type with a more specific semantic type), by clicking on the
 pencil icon next to the type name, and searching for the desired type.
