@@ -26,11 +26,9 @@ Through the UI, {short-product-name} will connect to the database, and create:
 
 At this stage, only connecting new database tables in the UI is supported. To edit and remove existing tables, modify the Taxi schema directly. Support for editing via the UI will be shipped in a future release.
 
-// Author's note - need to link to missing topic i.e. [Taxi schema](#editing-a-taxi-schema) 
+NOTE: Before continuing, make sure you've xref:describing-data-sources:enable-ui-schema-editing.adoc[enabled schema editing through the UI]. 
 
-NOTE: Before continuing, make sure you've enabled schema editing through the UI. If you're running through one of our tutorials, don't worry, we've already configured this for you.
-
-// Author's note - need to link to missing topic i.e. [enabled schema editing through the UI](./enable-ui-schema-editing/). 
+If you're running through one of our tutorials, don't worry, we've already configured this for you.
 
 === Importing a new table
 
