@@ -6,9 +6,9 @@ composed services as a REST API.
 
 It shows starting an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
 
-This demo has a video walkthrough that discusses how it's built:
+// This demo has a video walkthrough that discusses how it's built:
 
-image::https://cdn.loom.com/sessions/thumbnails/d7819e1108e7401094dbdad39796bbf4-1697719617654-with-play.gif[Video walkthrough,link=https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4]
+// image::https://cdn.loom.com/sessions/thumbnails/d7819e1108e7401094dbdad39796bbf4-1697719617654-with-play.gif[Video walkthrough,link=https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4]
 
 == Overview
 
@@ -32,7 +32,7 @@ We'll stitch these together, and expose a REST API that returns the data from al
 
 == Setting up
 
-https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=92[Jump to this section of the video]
+// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=92[Jump to this section of the video]
 
 To get started, install Taxi using https://sdkman.io/[SDKMan] and create a new project:
 
@@ -54,7 +54,7 @@ Taxi project changes.
 
 == Describing the Film Service
 
-https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
+// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
 
 Write some Taxi that describes our Film service:
 
@@ -157,7 +157,7 @@ NOTE: We've written a bit more Taxi here, as we chose not to work with the servi
 
 == Writing Data Queries
 
-https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
+// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
 
 {short-product-name} uses type metadata to understand how to link things together.  Rather than writing integration code,
 we write a query for data using TaxiQL.
