@@ -46,7 +46,7 @@ taxi init
 Then launch an {short-product-name} developer environment:
 
 ----
-taxi {short-product-name}
+taxi flow
 ----
 
 This downloads a Docker Compose file which configures a local developer environment of {short-product-name} that live-reloads your

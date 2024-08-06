@@ -21,7 +21,7 @@ image:architecture-overview.png[A database, a REST API and a Kafka topic all wal
 
 === Prerequisites
 
-You should have https://docs.docker.com/engine/install/[Docker] and https://docs.docker.com/compose/install/[Docker Compose]
+You should have https://docs.docker.com/engine/install/[Docker] and https://docs.docker.com/compose/install/[Docker Compose].
 
 == Start a local instance of {short-product-name}
 
@@ -47,7 +47,8 @@ This will download the following files:
 * https://gitlab.com/vyne/demos/-/raw/master/films/docker/schema-server/schema-server.conf[schema-server.conf] - A config file for {short-product-name}'s Schema Server, which will store and publish the schemas we generate in this tutorial
 * https://gitlab.com/vyne/demos/-/raw/master/films/docker/schema-server/projects/taxi.conf[taxi.conf] - A skeleton Taxi project configuration, which contains basic information for the schemas we create
 * https://gitlab.com/vyne/demos/-/raw/master/films/services.conf[services.conf] - A service discovery configuration file to tell services where to find each other. {short-product-name} supports various service discovery mechanisms
-Author's Note - last link does not work
+
+Author's Note - last link in the above does not work
 
 After about a minute, {short-product-name} should be available at http://localhost:9022.
 
@@ -138,7 +139,7 @@ First, we need to tell {short-product-name} how to connect to the database.
 | admin
 |===
 
-* Click *Test connection* and wait for the connection test to be successful.
+* Click *Test connection* and wait for the connection test to be successful
 * Click *Save*.
 
 The connection to the database has now been created, and the pop-up should close.
@@ -176,7 +177,7 @@ To import the schema:
 | `com.petflix.films`
 |===
 
-Namespaces are used to help us group related content together - like packages in Java or namespaces in C# and Typescript.
+Namespaces are used to help us group related content together, like packages in Java or namespaces in C# and Typescript.
 
 Here, we're providing a default namespace, which will be applied to the types, models and services {short-product-name} will create
 importing this table.
@@ -201,7 +202,7 @@ image:schema_preview_flow.png[Schema view]
 Click around to explore the different models, types and services that will
 be created. For now, the defaults that have been assigned are good enough.
 
-* Click *Save*.
+* Click *Save*
 
 {short-product-name} will create the necessary schema files in a local project.
 
@@ -248,7 +249,7 @@ Fill in the form with the following values:
 | Leave this blank
 |===
 
-* Click *Create*.
+* Click *Create*
 
 === Update the service type
 
@@ -313,9 +314,9 @@ In our example, this means {short-product-name} will query the database to selec
 
 There are different options to show the result of {short-product-name} queries. These are displayed as tabs under the query editor.
 
-* Table - Nice for tabular, two-dimensional data
-* Tree - Nice for nested data
-* Raw - Raw JSON - great for larger result sets
+* Table - Ideal for tabular, two-dimensional data
+* Tree - Ideal for nested data
+* Raw - Raw JSON - ideal for larger result sets
 * Profile - What work {short-product-name} did to produce the result. Contains information about the systems called by {short-product-name}, performance stats and lineage information
 
 Once the query has completed, a list of records appears in the grid.
@@ -561,7 +562,7 @@ Fill out the form with the following details:
 | `vyne` (should already be populated)
 |===
 
-* Click *Create*.  A new Kafka connection is created, and the popup closes.
+* Click *Create*.  A new Kafka connection is created, and the popup closes
 
 Fill out the rest of the form with the following details:
 
@@ -587,7 +588,7 @@ Fill out the rest of the form with the following details:
 | Leave these blank
 |===
 
-* Click *Create*.
+* Click *Create*
 
 A preview of the schema is shown.
 
@@ -657,7 +658,7 @@ image:query-lineage-with-kafka.png[]
 
 == What's next?
 
-In this tutorial, we've set up {short-product-name} and used it to automatically integrate data from a Postgres Database, a REST API, and a Kafka topic with Protobuf.  Nice stuff!
+In this tutorial, we've set up {short-product-name} and used it to automatically integrate data from a Postgres Database, a REST API, and a Kafka topic with Protobuf.
 
 === Look under the hood
 

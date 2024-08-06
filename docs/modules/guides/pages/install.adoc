@@ -49,8 +49,8 @@ Create an empty directory, and run `taxi init`
 
 [,bash]
 ----
-$ mkdir {short-product-name}-demo
-$ cd {short-product-name}-demo
+$ mkdir flow-demo
+$ cd flow-demo
 $ taxi init
 ----
 
@@ -61,9 +61,9 @@ Project group (eg., com.acme): com.demo
 Project name: hello-world
 Project version [0.1.0]:
 Source directory [src/]:
-Creating project com.demo/hello-world v0.1.0 in directory /dev/{short-product-name}-demo
-Writing config to /dev/{short-product-name}-demo/taxi.conf
-Generating source directory at /dev/{short-product-name}-demo/src
+Creating project com.demo/hello-world v0.1.0 in directory /dev/flow-demo
+Writing config to /dev/flow-demo/taxi.conf
+Generating source directory at /dev/flow-demo/src
 Finished
 ----
 

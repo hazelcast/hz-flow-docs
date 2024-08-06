@@ -79,7 +79,7 @@ jdbc {
 }
 ```
 
-TIP: See also xref:deploying:managing-secrets.adoc[Managing Secrets] to see how to securely manage sensitive information in your connections
+TIP: See also xref:deploying:managing-secrets.adoc[Managing Secrets] to see how to securely manage sensitive information in your connections.
 
 ### Correctly handling substitutions in URLs
 Substitution of variable inside a URL using HOCON can be tricky.

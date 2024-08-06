@@ -112,7 +112,7 @@ service StreamingProviderService {
 
 === Spring Boot + Kotlin
 
-We'll configure Spring Boot to auto-publish a schema. This is a great option for teams who like to generate specs from code.This requires a little more up-front setup, but this is a one-time activity.
+We'll configure Spring Boot to auto-publish a schema. This is a great option for teams who like to generate specs from code. This requires a little more up-front setup, but this is a one-time activity.
 
 ==== Step 1 - Update taxi.conf
 
@@ -170,7 +170,7 @@ fun whereCanIWatch(
 ): StreamingProvider
 ```
 
-## Publish our API specs
+== Publish our API specs
 Now that the API specs have Taxi metadata, we can publish them to {short-product-name}:
 
 === OpenAPI and Taxi
@@ -228,7 +228,7 @@ Update the `pom.xml` file to add the Kotlin code generator:
 ```
 ==== Step 2 - Generate and publish
 
-Update our Spring Boot application to generate our schemas on startup and publish to Orbital:
+Update our Spring Boot application to generate our schemas on startup and publish to {short-product-name}:
 
 ```kotlin App.kt
 @Component
@@ -255,7 +255,7 @@ class RegisterSchemaOnStartup(
  }
 ```
 
-## Composing APIs
+== Composing APIs
 Our APIs are now described and published to {short-product-name}, so we can start writing queries to ask for data.
 
 In the Query Editor, write a query to ask for data coming from the three APIs:

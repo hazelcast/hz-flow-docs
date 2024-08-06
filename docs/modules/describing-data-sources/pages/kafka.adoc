@@ -31,7 +31,7 @@ kafka {
 }
 ----
 
-The following configuration options are supported under the `connectionParameters`
+The following configuration options are supported under the `connectionParameters`:
 
 |===
 | Config option | Purpose
@@ -74,7 +74,7 @@ It's common in Kafka configs that usernames and passwords are embedded within se
 
 It's recommended that usernames and passwords are read from env variables, which can lead to tricky https://github.com/lightbend/config/issues/113[HOCON concatenation issues].
 
-The solution is to rely on HOCON concatenation. eg:
+The solution is to rely on HOCON concatenation. For example:
 
 [,HOCON]
 ----

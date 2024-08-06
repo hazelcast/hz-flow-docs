@@ -14,7 +14,6 @@ To add a new file repository via the UI, either navigate to http://localhost:902
 click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 Authors Note - project import link does not work - what should this be to?
 
-
 image:add_schema_sources_flow.png[Add schema sources]
 
 === Completing the new file repository form
@@ -27,7 +26,7 @@ If you haven't created one yet, just provide an empty directory, and a repositor
 
 The schema repositories that {short-product-name} is connected to can be configured through a xref:deploying:configuring.adoc[HOCON file], which by default is called `workspace.conf`.
 
-NOTE: File paths that are absolute are resolved against the file system. File paths that are relative are resolved relative to the location of the config file 
+NOTE: File paths that are absolute are resolved against the file system. File paths that are relative are resolved relative to the location of the config file. 
 
 [,hocon]
 ----

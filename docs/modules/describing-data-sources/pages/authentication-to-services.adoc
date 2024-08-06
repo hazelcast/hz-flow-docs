@@ -9,7 +9,7 @@ Configuration is managed through an `auth.conf` file, present in a Taxi project 
 
 Authentication tokens are defined in a file named `auth.conf` - a https://github.com/lightbend/config#examples-of-hocon[HOCON] file which lives inside a Taxi project within your xref:workspace:overview.adoc[workspace].
 
-The location of your `auth.conf` file is configured inside the `taxi.conf` file in your project, using an `additionalSources` entry with a key of `@{short-product-name}/config`
+The location of your `auth.conf` file is configured inside the `taxi.conf` file in your project, using an `additionalSources` entry with a key of `@{short-product-name}/config`.
 
 By convention, the `auth.conf` lives at `{short-product-name}/config/auth.conf`, but this is configurable.
 

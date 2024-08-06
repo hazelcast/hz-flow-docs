@@ -22,7 +22,7 @@ When values are written to Hazelcast, they must be serialized.
 
 The following formats are supported. Note that because {short-product-name} does not
 have access to custom Java classes, serialization formats that require classloading
-(such as `Serializable`, `Externalizable` and Custom Serialization) are not supported
+(such as `Serializable`, `Externalizable` and Custom Serialization) are not supported.
 
 ### Compact (preferred)
 https://docs.hazelcast.com/hazelcast/5.3/serialization/compact-serialization[Compact Serialization] is the preferred

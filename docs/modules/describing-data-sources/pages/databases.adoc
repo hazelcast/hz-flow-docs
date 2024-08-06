@@ -11,7 +11,7 @@ The Taxi schema describes the table, its columns and the data they hold.
 Because we're using Taxi here, the column descriptions are richer than things like `String` or `Integer` - instead using rich semantic tags like `FirstName`,
 `LastName`, or `EmailAddress`
 
-In this guide, we'll learn how to create a Taxi schema for a specific database table, both through the user interface, and directly by editing a schema.
+In this topic, we'll learn how to create a Taxi schema for a specific database table, both through the user interface, and directly by editing a schema.
 
 NOTE: Before you begin, make sure you've xref:connecting-data-sources:connecting-a-database.adoc[added a database connection] for the table you want to connect.
 
