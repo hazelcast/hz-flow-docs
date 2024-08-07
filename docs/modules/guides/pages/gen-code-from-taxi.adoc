@@ -1,0 +1,183 @@
+= Generating code from Taxi
+:description: A tutorial explaining how to generate Kotlin code from Taxi.
+
+This tutorial explores generating code from your Taxi project. As your usage of Taxi scales, it's 
+good practice to xref:describing-data-sources:tips-on-taxonomies.adoc#types-are-intended-for-sharing[extract your types into a standalone, shared taxonomy project].
+
+However, many teams will want to adopt a code-first approach, generating their Service and API specs directly from code (we cover this in detail in our xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code] tutorial.)
+
+To help with this, Taxi supports generating code from Taxi.
+
+// NOTE: This guide focuses on JVM languages. If you'd like support in your own language, please <a href={'https://join.slack.com/t/orbitalapi/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg'}>reach out to us</a>, and we'll build it for you. 
+
+== Creating a Taxi Project
+There's a detailed tutorial on xref:guides:install.adoc[creating your first Taxi project], so we'll keep this short. Assuming you've
+already xref:guides:install.adoc#installing-taxi[installed Taxi], do the following to create a Taxi project:
+
+```bash
+mdkir my-taxi-project
+cd my-taxi-project
+taxi init
+```
+
+Follow the prompts to create an empty Taxi project, then open the project in your IDE.
+
+== Creating some types
+Under the `src/` directory, create a file that contains our types. The name of the file doesn't matter (so long as it has a `.taxi` extension).
+
+We'll generate the corresponding types from our xref:guides:gen-taxi-from-code.adoc[code-first tutorial].
+
+```taxi types.taxi
+type FilmId inherits Int
+type FilmTitle inherits String
+type ReviewScore inherits Int
+type ReviewText inherits String
+```
+
+With this in place, we can run a Taxi build to verify that everything compiles. From the command line, in the same
+directory you ran `taxi init` in (where a `taxi.conf` file now sits), run the build command: 
+
+```bash
+taxi build
+```
+
+At this point, you should see something like:
+
+```bash
+Taxi 1.54.0 @57be173 
+Fetching dependencies for com.foo/films-api/0.1.0 
+Compilation succeeded 
+No sources were generated. Consider adding a source generator in the taxi.conf  
+```
+
+As the output suggests, no sources have been generated, as we haven't provided a code generation plugin.
+
+== Generating Kotlin code
+Update the `taxi.conf` file, to add a plugin to generate code for the JVM.  The Kotlin code generates
+code suitable for both Java and Kotlin.
+
+NOTE: The code generated from the Kotlin plugin is suitable for use in both Java and Kotlin projects.
+
+```hocon taxi.conf
+   name: com.foo/films-api
+   version: 0.1.0
+   sourceRoot: src/
+   additionalSources: {}
+   dependencies: {}
+   plugins: {
+       taxi/kotlin {}
+   }
+```
+
+Now, running `taxi.build` will generate Kotlin code for us:
+
+```bash
+taxi build
+
+Taxi 1.54.0 @57be173 
+Fetching dependencies for com.foo/films-api/0.1.0 
+Running generator @taxi/kotlin 
+Generator @taxi/kotlin generated 5 files 
+Compilation succeeded 
+Wrote 5 files to /home/myname/dev/tmp/taxi-tutorial/dist 
+```
+
+The following files have been created:
+
+image:generatedKotlinOutput.png[Generated Kotlin code]
+
+== Generating Maven files
+The last missing piece is a `pom.xml` to let us build this code with Maven.
+
+To update, simply add a `maven` block into our `taxi/kotlin` plugin in the `taxi.conf` file.
+
+```taxi taxi.conf
+   name: com.foo/films-api
+   version: 0.1.0
+   sourceRoot: src/
+   additionalSources: {}
+   dependencies: {
+   }
+   plugins: {
+       taxi/kotlin {
+           maven {}
+       }
+   }
+```
+
+The Maven plugin is https://taxilang.org/taxi-cli/kotlin-plugin/#generating-a-maven-pomxml[very extensible], but we'll work with the defaults for now.
+
+Note that adding in the Maven plugin means the build will now adopt Maven conventions. It's best to clear out our `dist` directory before building again.
+
+```bash
+rm -rf dist
+taxi build
+```
+
+image:generatingMavenOutput.png[Generated Maven output]
+
+== Consuming in an application
+The Kotlin plugin has generated code we can consume in our Java and Kotlin applications.
+
+Using the Spring Boot application from our xref:guides:gen-taxi-from-code.adoc[Spring Boot example], we can update
+our code to use the generated artefacts, in both our response object definitions, and our API definitions.
+
+[tabs]
+====
+Kotlin::
++
+[source,kotlin]
+----
+data class FilmReview(
+      val score: ReviewScore,
+      val review: ReviewText
+    )
+
+    @GetMapping("/films/{filmId}/review")
+    fun getFilmReview(
+           @PathVariable("filmId") filmId: FilmId
+        ): FilmReview {
+        return FilmReview(
+            score = Random.nextInt(1,5),
+            review = listOf("Good","Bad","Meh").random()
+        )
+    }
+----
+Java::
++
+[source,java]
+----
+import com.foo.TypeNames; // This class was generated  
+    import lang.taxi.annotations.DataType;  
+  
+    // our domain classes can now be annotated:
+    public class Film {
+    
+    @DataType(TypeNames.FilmId)
+      private final Integer id;
+    @DataType(TypeNames.FilmTitle)
+      private final String title;
+    
+      // getters etc omitted.
+    }
+
+  
+     // Or, to specify parameters into a service class:
+     @RestController
+     public class ReviewsService {
+     
+       @GetMapping("/films/{filmId}/review")
+       public FilmReview getFilmReview(
+               @PathVariable("filmId")
+             @DataType(TypeNames.FilmId) int filmId
+       ) {} // impl. omitted
+     }
+----
+====
+
+These annotations inform the Taxi code generator to use the correct Taxi type when generating Taxi from code. 
+
+For more details on generating Taxi from code, see our xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code tutorial].
+  
+== Summary
+This tutorial has shown how to create a simple Taxi project, and generate Kotlin (including Java) and Maven code, ready to install and start consuming within your projects.

@@ -3,9 +3,11 @@
 
 Taxi is a simple query language for describing how data and APIs across an ecosystem relate to one another.
 
-You can use Taxi to document data models and data sources; for example, you might use Taxi to describe a database, a Kafka topic, and a REST API. 
+You can use Taxi to document data models and data sources; for example, you might use it to describe a database, a Kafka topic, and a REST API. 
 
-Because Taxi describes data _semantically_ using rich semantic types rather than field names, this allows powerful tooling to discover and map data based upon its _meaning_. Therefore, when consuming APIs - rather than having to write integration code and being tightly coupled to a spec - the software can work out how to orchestrate APIs together automatically. 
+Taxi is _semantic_ type system which essentially allows you to state that "This Thing is the same as That Thing". 
+
+Because Taxi describes data semantically using rich semantic types rather than field names, this allows powerful tooling to discover and map data based upon its _meaning_. Therefore, when consuming APIs - rather than having to write integration code and being tightly coupled to a spec - the software can work out how to orchestrate APIs together automatically. 
 
 Engineers no longer have to work out which API to call, what data to pass for inputs, and then write code to stitch it all together. Using Taxi, teams are also free to choose names that make sense to their domain, and to change their APIs easily, without cascading these changes onto consumers. 
 

@@ -8,7 +8,7 @@ As queries are executed by {short-product-name}, full call histories are capture
 This gives rich debugging tools to understand exactly how a query was executed,
 which services were called and what they returned.
 
-image:sequence-diagram.png[]
+image:sequence_diagram_flow.png[]
 
 === Configuring what's captured
 

@@ -8,6 +8,8 @@
 ** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
 ** xref:guides:streaming-data.adoc[Stream data]
+** xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code]
+** xref:guides:gen-code-from-taxi.adoc[Generating code from Taxi]
 * xref:workspace:overview.adoc[Your workspace]
 ** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git] 
 ** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk] 
