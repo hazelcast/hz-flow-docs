@@ -259,7 +259,7 @@ public class RegisterSchemaTask {
 
 Now, if you start your Spring Boot application, you should see it register within {short-product-name}'s Project view.
 
-// placeholder for graphic - RegisteredInProjectView
+image:register_project_view_flow.png[The project registered in {short-product-name}]
 
 == Generating service code
 To start, we'll publish an API. We don't need to do anything special other than standard Spring Boot things, as we're already scanning for any Spring Boot
@@ -294,12 +294,12 @@ If we restart our Spring Boot application now, we'll see it publish Taxi code fo
 
 To see the published source code, head to the http://localhost:9022/projects[Projects] panel, click the `films-listings` project, and then click *Source*.
 
-// placeholder for graphic - <ImageWithCaption src={FirstServiceRegistration} caption={'The service has been published to {short-product-name}'}></ImageWithCaption> 
+image:1st_service_registration_flow.png[The service has been published to {short-product-name}]
 
 At this point, {short-product-name}'s catalog contains information about our Service, and its rest endpoint. For example, heading to the http://localhost:9022/catalog/diagram[services diagram]
 will show our API and its returned model:
 
-// placeholder for graphic - <ImageWithCaption src={FirstServiceDiagram} caption={'The service is shown in {short-product-name}\'s service diagrams'}></ImageWithCaption> 
+image:1st_service-diagram_flow.png[The service is shown in {short-product-name}'s service diagrams]
 
 === Creating a second service
 {short-product-name}'s real strength is in orchestrating multiple services together, so let's add a second service - this time, that provides film reviews. The full code 
