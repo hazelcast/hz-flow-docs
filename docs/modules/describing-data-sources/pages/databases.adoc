@@ -139,7 +139,7 @@ Taxi metadata into DDL schema definitions.  For now, you'll need to maintain a T
 
 === Defining a table mapping
 
-Tables are exposed to {short-product-name} using the annotation `@com.{code-product-name}.jdbc.Table` on a model.
+Tables are exposed to {short-product-name} using the annotation `@flow.jdbc.Table` on a model.
 
 Field names in the model are expected to align with column names from the database.
 
@@ -147,7 +147,7 @@ Here's an example:
 
 [,taxi]
 ----
-import com.{code-product-name}.jdbc.Table
+import flow.jdbc.Table
 
 @Table(connection = "films-database", schema = "public" , table = "customer" )
 model Customer {
@@ -186,7 +186,7 @@ Here's an example:
 
 [,taxi]
 ----
-import com.{code-product-name}.jdbc.DatabaseService
+import com.flow.jdbc.DatabaseService
 
 @DatabaseService(connection = "films-database")
 service CustomerService {
@@ -260,8 +260,8 @@ Assuming a schema with a database such as:
 
 [,taxi]
 ----
-import com.{code-product-name}.jdbc.Table
-import com.{code-product-name}.jdbc.DatabaseService
+import flow.jdbc.Table
+import flow.jdbc.DatabaseService
 
 @Table(connection = "customers-database", schema = "public" , table = "customer" )
 closed model Customer {
@@ -319,9 +319,9 @@ specifying the write behavior:
 
 [,taxi]
 ----
-import com.{code-product-name}.jdbc.Table
-import com.{code-product-name}.jdbc.DatabaseService
-import com.{code-product-name}.jdbc.UpsertOperation
+import flow.jdbc.Table
+import flow.jdbc.DatabaseService
+import flow.jdbc.UpsertOperation
 
 @Table(connection = "customers-database", schema = "public" , table = "customer" )
 closed model Customer {
@@ -345,15 +345,15 @@ In this example, the `saveCustomer` operation will attempt to perform an upsert.
 | Write behavior | Annotation | Comments
 
 | Insert
-| `com.{code-product-name}.jdbc.InsertOperation`
+| `flow.jdbc.InsertOperation`
 |
 
 | Update
-| `com.{code-product-name}.jdbc.UpdateOperation`
+| `flow.jdbc.UpdateOperation`
 | Requires an `@Id` field
 
 | Upsert
-| `com.{code-product-name}.jdbc.UpsertOperation`
+| `flow.jdbc.UpsertOperation`
 | Falls back to an insert if no `@Id` is defined
 |===
 
@@ -396,9 +396,9 @@ call CustomerService::saveCustomer
 
 [,taxi]
 ----
-import com.{code-product-name}.jdbc.Table
-import com.{code-product-name}.jdbc.DatabaseService
-import com.{code-product-name}.jdbc.UpsertOperation
+import flow.jdbc.Table
+import flow.jdbc.DatabaseService
+import flow.jdbc.UpsertOperation
 
 // Common, shared types:
 type StockSymbol inherits String

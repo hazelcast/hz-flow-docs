@@ -41,7 +41,7 @@ For example:
 
 [,taxi]
 ----
-  import com.{code-product-name}.formats.Xml
+  import flow.formats.Xml
 
   @Xml
   model Person {
@@ -59,11 +59,11 @@ You only need to apply the annotation to the top level entity.
 | -
 
 | Xml
-| `com.{code-product-name}.formats.Xml`
+| `flow.formats.Xml`
 | xref:data-formats:xml.adoc[Xml annotation docs]
 
 | Csv
-| `com.{code-product-name}.formats.Csv`
+| `flow.formats.Csv`
 | xref:data-formats:csv.adoc[Csv annotation docs]
 
 | Protobuf

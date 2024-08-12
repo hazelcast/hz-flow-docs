@@ -51,8 +51,8 @@ services {
     analytics-server {
         url="http://vyne-analytics-server"
     }
-    {short-product-name}-server {
-        url="http://{short-product-name}"
+    flow-server {
+        url="http://flow"
         rsocket-port=7655
     }
 }

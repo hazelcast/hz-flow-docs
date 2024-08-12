@@ -166,8 +166,8 @@ Kotlin::
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 
-import com.flowhq.PackageMetadata
-import com.flowhq.schema.publisher.SchemaPublisherService
+import flow.PackageMetadata
+import flow.schema.publisher.SchemaPublisherService
 import lang.taxi.generators.java.TaxiGenerator
 import lang.taxi.generators.java.spring.SpringMvcExtension
 
@@ -212,8 +212,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import javax.annotation.PostConstruct;
 
-import com.flowhq.PackageMetadata;
-import com.flowhq.schema.publisher.SchemaPublisherService;
+import flow.PackageMetadata;
+import flow.schema.publisher.SchemaPublisherService;
 import lang.taxi.generators.java.TaxiGenerator;
 import lang.taxi.generators.java.spring.SpringMvcExtension;
   

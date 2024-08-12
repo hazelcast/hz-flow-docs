@@ -16,13 +16,13 @@ Querying against key is supported, as are write operations.
 
 To expose a DynamoDb service, the following two annotations are required:
 
-* Add a ` @com.{code-product-name}.aws.dynamo.Table` to a model
-* Add a `@com.{code-product-name}.aws.dynamo.DynamoService` annotation to the service
+* Add a ` @flow.aws.dynamo.Table` to a model
+* Add a `@flow.aws.dynamo.DynamoService` annotation to the service
 
 [,taxi]
 ----
-import com.{code-product-name}.aws.dynamo.DynamoService
-import com.{code-product-name}.aws.dynamo.Table
+import flow.aws.dynamo.DynamoService
+import flow.aws.dynamo.Table
 
 // connectionName must match the defined connection.
 @Table( connectionName = "myAws" , tableName = "reviews" )
@@ -55,8 +55,8 @@ Operations have the `LambdaOperation` annotation.
 
 [,taxi]
 ----
-import com.{code-product-name}.aws.lambda.AwsLambdaService
-import com.{code-product-name}.aws.lambda.LambdaOperation
+import flow.aws.lambda.AwsLambdaService
+import flow.aws.lambda.LambdaOperation
 
 @AwsLambdaService( connectionName = "myAws" )
 service MovieDb {
@@ -81,9 +81,9 @@ NOTE: Be sure to either add the imports for `S3Service`, `S3Operation` and `File
 Here's an example:
 
 ```taxi
-import com.orbitalhq.aws.s3.S3Service
-import com.orbitalhq.aws.s3.S3Operation
-import com.orbitalhq.aws.s3.FilenamePattern
+import flow.aws.s3.S3Service
+import flow.aws.s3.S3Operation
+import flow.aws.s3.FilenamePattern
 
 @S3Service(connectionName = "MyAwsConnection")
 service AwsBucketService {
@@ -108,10 +108,10 @@ Each of the below examples will work with the following model of content stored 
 it once here for brevity:
 
 ```taxi tradeSummary.taxi
-import com.orbitalhq.formats.Csv
-import com.orbitalhq.aws.s3.S3Service
-import com.orbitalhq.aws.s3.S3Operation
-import com.orbitalhq.aws.s3.FilenamePattern
+import flow.formats.Csv
+import flow.aws.s3.S3Service
+import flow.aws.s3.S3Operation
+import flow.aws.s3.FilenamePattern
 
 
 // Define the format we're reading.
@@ -179,8 +179,8 @@ message to Kafka, as a JSON object.
 First, we'll declare our Kafka broker and associated message format:
 
 ```taxi kafka.taxi
-import com.orbitalhq.kafka.KafkaService
-import com.orbitalhq.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // The message format we're publishing to Kafka.
 // Because there's no format defined, it's JSON by default
@@ -239,9 +239,9 @@ This example shows how to read a CSV file from S3, and save each row as a record
 First, we'll define our database table, and associated service: 
 
 ```taxi trades-db.taxi
-import com.orbitalhq.jdbc.Table
-import com.orbitalhq.jdbc.DatabaseService
-import com.orbitalhq.jdbc.InsertOperation
+import flow.jdbc.Table
+import flow.jdbc.DatabaseService
+import flow.jdbc.InsertOperation
 
 @Table(connection = "trades-database", schema = "public" , table = "trades" )
 type TradeSummaryRecord {
@@ -302,10 +302,10 @@ NOTE: Be sure to either add the imports for `S3Service`, `S3Operation`, `Request
 Here's an example:
 
 ```taxi
-import com.orbitalhq.aws.s3.S3Service
-import com.orbitalhq.aws.s3.S3Operation
-import com.orbitalhq.aws.s3.FilenamePattern
-import com.orbitalhq.aws.s3.RequestBody
+import flow.aws.s3.S3Service
+import flow.aws.s3.S3Operation
+import flow.aws.s3.FilenamePattern
+import flow.aws.s3.RequestBody
 
 @S3Service(connectionName = "MyAwsConnection")
 service AwsBucketService {
@@ -324,7 +324,7 @@ Each of the below examples will work with the following model of content stored 
 it once here for brevity:
 
 ```taxi tradeSummary.taxi
-import com.orbitalhq.formats.Csv
+import flow.formats.Csv
 
 // Define the format we're reading.
 // This is a CSV file, so the @Csv annotation is used.
@@ -368,9 +368,9 @@ service ApiService {
 And, we'll define a write operation on S3 to store the content:
 
 ```taxi s3.taxi
-import com.orbitalhq.aws.s3.S3Service
-import com.orbitalhq.aws.s3.S3Operation
-import com.orbitalhq.aws.s3.FilenamePattern
+import flow.aws.s3.S3Service
+import flow.aws.s3.S3Operation
+import flow.aws.s3.FilenamePattern
 
 @S3Service( connectionName = "myAwsConnection" )
 service AwsBucketService {
@@ -409,7 +409,7 @@ as shown in the following excerpt:
 
 
 ```taxi model.csv
-import com.orbitalhq.formats.Csv
+import flow.formats.Csv
 
 @Csv
 type TradeSummary {
@@ -449,8 +449,8 @@ For more information, see xref:data-formats:overview.adoc[Data formats].
 
 [,taxi]
 ----
-import com.{code-product-name}.aws.sqs.SqsService
-import com.{code-product-name}.aws.sqs.SqsOperation
+import flow.aws.sqs.SqsService
+import flow.aws.sqs.SqsOperation
 
 @SqsService( connectionName = "moviesConnection" )
 service MovieService {
@@ -473,8 +473,8 @@ stream { Movie }
 
 [,taxi]
 ----
-import com.{code-product-name}.aws.sqs.SqsService
-import com.{code-product-name}.aws.sqs.SqsOperation
+import flow.aws.sqs.SqsService
+import flow.aws.sqs.SqsOperation
 
 @SqsService( connectionName = "moviesConnection" )
 service MovieService {
@@ -489,8 +489,8 @@ Publishing events can only be invoked in xref:querying:mutations.adoc[mutations]
 
 [,taxi]
 ----
-import com.{code-product-name}.aws.sqs.SqsService
-import com.{code-product-name}.aws.sqs.SqsOperation
+import flow.aws.sqs.SqsService
+import flow.aws.sqs.SqsOperation
 
 @SqsService( connectionName = "moviesConnection" )
 service MovieService {

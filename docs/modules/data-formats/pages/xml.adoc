@@ -1,11 +1,11 @@
 = XML
 :description: 'Working with XML data in {short-product-name}'
 
-To declare that a type should be read/written as XML, add the `com.{code-product-name}.formats.Xml` annotation to a model:
+To declare that a type should be read/written as XML, add the `flow.formats.Xml` annotation to a model:
 
 [,taxi]
 ----
-import com.{code-product-name}.formats.Xml
+import flow.formats.Xml
 
 @Xml
 model Person {
@@ -23,7 +23,7 @@ For example:
 
 [,taxi]
 ----
-  import com.{code-product-name}.formats.Xml
+  import flow.formats.Xml
   import lang.taxi.xml.XmlAttribute
 
   @Xml
@@ -93,7 +93,7 @@ If there's no value present, then the expression is evaluated.
 
 [,taxi]
 ----
-import com.{code-product-name}.formats.Xml
+import flow.formats.Xml
 import lang.taxi.xml.XmlAttribute
 
 @Xml

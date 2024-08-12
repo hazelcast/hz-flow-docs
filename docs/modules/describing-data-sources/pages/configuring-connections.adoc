@@ -22,7 +22,7 @@ By convention, this lives at `{code-product-name}/config/connections.conf`, but 
   sourceRoot: src/
 
 additionalSources: {
-     "@{code-product-name}/config" : "{code-product-name}/config/*.conf" +
+     "@flow/config" : "flow/config/*.conf" +
  }
 ```
 Your connections config file is a HOCON file, specifying how to connect to various resources.
@@ -379,9 +379,9 @@ You can also configure the AWS connections manually which can be useful in cases
 aws {
     my-aws-account {
         connectionName=my-aws-account
-        // Optional Parameter. When not provided {short-product-name} will use the https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-default[AWS default credentials provider] by default.
+        // Optional Parameter. When not provided Flow will use the https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-default[AWS default credentials provider] by default.
         accessKey=${?AWS_ACCESS_KEY_ID}
-        // Optional Parameter. When not provided {short-product-name} will use the https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-default[AWS default credentials provider] by default.
+        // Optional Parameter. When not provided Flow will use the https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-default[AWS default credentials provider] by default.
         secretKey=${?AWS_SECRET_ACCESS_KEY}
         // Mandatory
         region=$\{AWS_REGION}

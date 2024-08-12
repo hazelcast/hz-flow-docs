@@ -18,14 +18,14 @@ kafka {
       connectionName=my-kafka-connection
       connectionParameters {
          brokerAddress="localhost:29092,localhost:39092"
-         groupId="{short-product-name}"
+         groupId="flow"
       }
    }
    another-kafka-connection {
       connectionName=another-kafka-connection
       connectionParameters {
          brokerAddress="localhost:29092,localhost:39092"
-         groupId="{short-product-name}"
+         groupId="flow"
       }
    }
 }
@@ -57,7 +57,7 @@ kafka {
       connectionName=my-kafka-connection
       connectionParameters {
          brokerAddress="localhost:29092,localhost:39092"
-         groupId="{short-product-name}"
+         groupId="flow"
          "security.protocol"="SASL_PLAINTEXT"
          "sasl.mechanism"="PLAIN"
          "sasl.jaas.config"="org.apache.kafka.common.security.plain.PlainLoginModule required username='myKafkaUser' password="${KAFKA_PASSWORD}";"
@@ -110,8 +110,8 @@ return a stream of data.
 [,taxi]
 ----
 // 1: Add the required imports
-import com.{code-product-name}.kafka.KafkaService
-import com.{code-product-name}.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // 2: Annotate the service as a `KafkaService`.
 @KafkaService( connectionName = "market-prices" )
@@ -137,11 +137,11 @@ into a Taxi model using annotations.
 
 ==== Message key
 
-The message key can be accessed using the `com.orbtalhq.kafka.KafkaMessageKey` annotation on a field:
+The message key can be accessed using the `flow.kafka.KafkaMessageKey` annotation on a field:
 
 [,taxi]
 ----
-  import com.{code-product-name}.kafka.KafkaMessageKey
+  import flow.kafka.KafkaMessageKey
 
   model Movie {
     // The key from Kafka will be read into the id property
@@ -180,8 +180,8 @@ For example:
 
 [,taxi]
 ----
-   import com.{code-product-name}.kafka.KafkaMessageMetadata
-   import com.{code-product-name}.kafka.KafkaMetadataType
+   import flow.kafka.KafkaMessageMetadata
+   import flow.kafka.KafkaMetadataType
 
    model Movie {
      @KafkaMessageMetadata(KafkaMetadataType.Offset)
@@ -217,7 +217,7 @@ These headers can be accessed using the `com.{code-product-name}.kafka.KafkaHead
 
 [,taxi]
 ----
-   import com.{code-product-name}.kafka.KafkaHeader
+   import flow.kafka.KafkaHeader
 
    model Movie {
       @KafkaHeader("correlationId")
@@ -319,8 +319,8 @@ To make a topic writable, declare a `write operation` in a Kafka service:
 [,taxi]
 ----
 // 1: Add the required imports
-import com.{code-product-name}.kafka.KafkaService
-import com.{code-product-name}.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // 2: Annotate the service as a `KafkaService`.
 @KafkaService( connectionName = "market-prices" )

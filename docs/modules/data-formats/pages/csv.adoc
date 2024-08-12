@@ -5,7 +5,7 @@ To declare that a type should be read/written as CSV, add the `com.{code-product
 
 [,taxi]
 ----
-import com.{code-product-name}.formats.Csv
+import flow.formats.Csv
 
 @Csv
 model Person {
@@ -45,7 +45,7 @@ For example:
 
 [,taxi]
 ----
-import com.{code-product-name}.formats.Csv
+import flow.formats.Csv
 
 @Csv(
   delimiter = "|",

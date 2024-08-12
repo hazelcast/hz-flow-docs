@@ -24,8 +24,8 @@ Queries start with a verb - either `find` (for finite result sets) or `stream` (
 
 [,kotlin]
 ----
-import com.{short-product-name}.client.find
-import com.{short-product-name}.client.stream
+import flow.client.find
+import flow.client.stream
 
 // Will look for a service that exposes Film[]
 val listOfFilms = find<List<Film>>()
@@ -101,7 +101,7 @@ Once you have your query defined, you need to execute, using `run()`.
 
 [,kotlin]
 ----
-import com.{short-product-name}.client.converter.run
+import flow.client.converter.run
 
 val response = find<List<Film>>()
     .asA<List<Response>>()
@@ -150,9 +150,9 @@ sooner.
 
 [,kotlin]
 ----
-import com.{short-product-name}.client.converter.run
-import com.{short-product-name}.client.find
-import com.{short-product-name}.client.transport.okhttp.http
+import flow.client.converter.run
+import flow.client.find
+import flow.client.transport.okhttp.http
 
 val response:Flux<List<Response>> = find<List<Film>>()
     .asA<List<Response>>()

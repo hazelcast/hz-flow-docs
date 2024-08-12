@@ -50,7 +50,7 @@ In short, here's how substitutions need to be defined:
 [,hocon]
 ----
 query-server {
-   // The Url has specifal characters (:), so needs to be inside of quotes.
+   // The Url has special characters (:), so needs to be inside of quotes.
    // However, variable substitution doesn't work inside of quotes,
    // so the variable must be outside of quotes.
    url="http://"${MY_VARIABLE}":9305"
@@ -71,8 +71,8 @@ In a Docker / Docker Compose file, pass variables using the `OPTIONS` environmen
 
 ----
 services:
-   {short-product-name}:
-      image: {code-product-name}/{short-product-name}:latest
+   flow:
+      image: flow/flow:latest
       environment:
          OPTIONS: >-
             --vyne.db.username={short-product-name}

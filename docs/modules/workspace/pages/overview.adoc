@@ -210,7 +210,7 @@ file {
    projects=[
       {
         isEditable=true
-        path="/opt/var/{short-product-name}/schemas/taxi"
+        path="/opt/var/flow/schemas/taxi"
       }
    ]
    pollFrequency=PT5S

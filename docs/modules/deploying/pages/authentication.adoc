@@ -54,15 +54,15 @@ A typical Docker config might look as follows:
 [,yaml]
 ----
   vyne:
-    image: {code-product-name}/{short-product-name}:${ORBITAL_VERSION}
+    image: flow/flow:${FLOW_VERSION}
     volumes:
       - ./vyne-config:/opt/service/config
     environment:
       OPTIONS: >-
         --vyne.security.openIdp.enabled=true
-        --vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/{short-product-name}/protocol/openid-connect/certs
-        --vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/{short-product-name}
-        --vyne.security.openIdp.clientId={short-product-name}
+        --vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/flow/protocol/openid-connect/certs
+        --vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/flow
+        --vyne.security.openIdp.clientId=flow
 ----
 
 When a user attempts to access {short-product-name}, they will be redirected to the login page as configured with the OpenID Connect provider.
@@ -113,16 +113,16 @@ Keycloak is the default IDP (it's what the {short-product-name} team tests with)
 ----
 # Set to true to enable Auth
 --vyne.security.openIdp.enabled=true
---vyne.security.openIdp.clientId={short-product-name}
+--vyne.security.openIdp.clientId=flow
 
 # The url that the browser will redirect to for authentication.
 # Ensure this is accessible from browsers
---vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/{short-product-name}
+--vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/flow
 
-# The url that {short-product-name} will connect to, to validate the JWT's presented.
-# Ensure this is accessible from the {short-product-name} server
+# The url that flow will connect to, to validate the JWT's presented.
+# Ensure this is accessible from the Flow server
 # This normally follows the convention of ${issuerUrl}/protocol/openid-connect/certs
---vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/{short-product-name}/protocol/openid-connect/certs
+--vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/flow/protocol/openid-connect/certs
 ----
 
 === AWS Cognito
@@ -337,13 +337,13 @@ image:okta-saml-audience-url.png[]
 
 ----
 --vyne.security.saml.enabled=true
---vyne.security.saml.keyStorePath=/opt/serviuce/{short-product-name}/saml.jks
---vyne.security.saml.keyStorePassword={short-product-name}
---vyne.security.saml.privateKeyPassword={short-product-name}
---vyne.security.saml.idpMetadataFilePath=/op/service/{short-product-name}/okta-idp-metadata.xml
---vyne.security.saml.serviceProviderEntityId=http://okta-sample.{short-product-name}.io
+--vyne.security.saml.keyStorePath=/opt/service/flow/saml.jks
+--vyne.security.saml.keyStorePassword=flow
+--vyne.security.saml.privateKeyPassword=flow
+--vyne.security.saml.idpMetadataFilePath=/op/service/flow/okta-idp-metadata.xml
+--vyne.security.saml.serviceProviderEntityId=http://okta-sample.flow.io
 --vyne.security.saml.callbackBaseUrl=http://localhost:9022
---vyne.security.saml.serviceProviderMetadataResourcePath=/opt/service/{short-product-name}/sp-{short-product-name}-metadata.xml
+--vyne.security.saml.serviceProviderMetadataResourcePath=/opt/service/flow/sp-flow-metadata.xml
 ----
 
 == See also

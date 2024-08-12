@@ -461,7 +461,7 @@ For example:
 
 [,taxi]
 ----
-import com.orbitalhq.formats.Csv
+import flow.formats.Csv
 
 @Csv(delimiter = "|", nullValue = "NULL")
 

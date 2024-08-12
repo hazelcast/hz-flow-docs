@@ -18,7 +18,7 @@ By convention, the `auth.conf` lives at `{short-product-name}/config/auth.conf`,
   version: 0.1.0
   sourceRoot: src/
    additionalSources: {
-     "@{short-product-name}/config" : "{short-product-name}/config/*.conf" +
+     "@flow/config" : "flow/config/*.conf" +
  }
 ```
 Here's a sample config:
@@ -144,12 +144,12 @@ authenticationTokens {
   "com.foo.TestService" {
      type: MutualTls
      // Absolute Path of the KeyStore Path containing private keys for mutual Authentication
-     keystorePath: /opt/service/{short-product-name}/test-service-mtls.jks
+     keystorePath: /opt/service/flow/test-service-mtls.jks
      // Password for the Key Store
-     keystorePassword: {short-product-name}
+     keystorePassword: flow
      // Absolute Path of the Trust Store
      truststorePath: /opt/service/{short-product-name}/test-trust-service-mtls.jks
-     truststorePassword: {short-product-name}
+     truststorePassword: flow
   }
 }
 ```

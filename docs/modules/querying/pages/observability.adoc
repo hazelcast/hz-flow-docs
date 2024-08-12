@@ -69,7 +69,7 @@ An example Prometheus configuration is shown below:
 [,yaml]
 ----
 scrape_configs:
-   - job_name: '{short-product-name} Stream Server Metrics'
+   - job_name: 'Flow Stream Server Metrics'
      metrics_path: '/api/actuator/prometheus'
      scrape_interval: 3s
      static_configs:
@@ -77,8 +77,8 @@ scrape_configs:
 #        from within docker
         - targets: ['172.17.0.1:9615']
           labels:
-             application: '{short-product-name} - Stream Server'
-   - job_name: '{short-product-name} Metrics'
+             application: 'Flow - Stream Server'
+   - job_name: 'Flow Metrics'
      metrics_path: '/api/actuator/prometheus'
      scrape_interval: 3s
      static_configs:
@@ -86,5 +86,5 @@ scrape_configs:
         #        from within docker
         - targets: ['172.17.0.1:9022']
           labels:
-             application: '{short-product-name}'
+             application: 'Flow'
 ----

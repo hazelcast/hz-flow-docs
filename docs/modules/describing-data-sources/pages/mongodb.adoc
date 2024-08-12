@@ -37,7 +37,7 @@ The following configuration options are mandatory under the `connectionParameter
 
 === Defining a collection mapping
 
-Collections are exposed to {short-product-name} using the annotation `@com.{code-product-name}.mongo.Collection` on a model.
+Collections are exposed to {short-product-name} using the annotation `@flow.mongo.Collection` on a model.
 
 Fields names in the model are expected to align with field names from the collection.
 
@@ -45,7 +45,7 @@ Here's an example:
 
 [,taxi]
 ----
-import com.{code-product-name}.mongo.Collection
+import flow.mongo.Collection
 
 type FirstName inherits String
 type Password inherits String
@@ -79,7 +79,7 @@ Here's an example:
 
 [,taxi]
 ----
-import com.{code-product-name}.mongo.Collection
+import flow.mongo.Collection
 
 type FirstName inherits String
 type Password inherits String
@@ -103,7 +103,7 @@ To expose a Mongo database as a source for queries, the database must have a ser
 [,taxi]
 ----
 // 1: Add the required imports
-import com.{code-product-name}.mongo.MongoService
+import flow.mongo.MongoService
 
 // 2: Annotate the service as a `MongoService`.
 @MongoService( connectionName = "usersMongo" )
@@ -245,8 +245,8 @@ updating based off the symbol:
 
 [,taxi]
 ----
-import com.{code-product-name}.kafka.KafkaService
-import com.{code-product-name}.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // Kafka model and service emitting prices:
 model StockPrice {

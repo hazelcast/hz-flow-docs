@@ -36,7 +36,7 @@ file {
             // Optional (defaults to false).  Indciates if the project can receive edits through the UI
             isEditable=true
             // Path to the folder containing a taxi.conf file.
-            path="/opt/var/{short-product-name}/schemas/taxi"
+            path="/opt/var/flow/schemas/taxi"
         }
     ]
 

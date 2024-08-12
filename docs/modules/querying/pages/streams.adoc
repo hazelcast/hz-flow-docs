@@ -23,7 +23,7 @@ version: "3.3"
 services:
   ## Other services omitted
   pipeline-engine:
-    image: {code-product-name}/pipeline:latest
+    image: flow/pipeline:latest
 ```
 
 ## Creating a pipeline
@@ -35,8 +35,8 @@ Pipelines are created and stored as a series of HOCON files, within a Taxi proje
    version: 0.1.0
    sourceRoot: src/
    additionalSources: {
-        "@{short-product-name}/config" : "{short-product-name}/config/*.conf",
-        "@{short-product-name}/pipelines" : "pipelines/*.conf"
+        "@flow/config" : "flow/config/*.conf",
+        "@flow/pipelines" : "pipelines/*.conf"
    }
 ```
 

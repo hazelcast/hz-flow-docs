@@ -221,7 +221,7 @@ Update the `pom.xml` file to add the Kotlin code generator:
 
 ```xml pom.xml
 <dependency>
-    <groupId>com.orbitalhq</groupId>
+    <groupId>com.flow</groupId>
     <artifact>schema-rsocket-publisher</artifact>
     <version>\${orbital.version}</version>
 </dependency>

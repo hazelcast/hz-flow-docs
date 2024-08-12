@@ -36,7 +36,7 @@ kafka {
         connectionName=myKafkaBroker
         connectionParameters {
             brokerAddress="localhost:9092"
-            groupId={short-product-name}
+            groupId=flow
         }
     }
 }
@@ -72,7 +72,7 @@ We can create a dedicated event stream with the data we need by submitting the f
 ```taxi
 stream { NewReviewPostedMessage } as {
   // We define the field names that matter to us.
-  // {short-product-name} matches on data types, as field names often differ between systems.
+  // Flow matches on data types, as field names often differ between systems.
   id : FilmId
   review : ReviewText
 
@@ -91,7 +91,7 @@ kafka {
         connectionName=myKafkaBroker
         connectionParameters {
             brokerAddress="localhost:9092"
-            groupId={short-product-name}
+            groupId=flow
         }
     }
 }

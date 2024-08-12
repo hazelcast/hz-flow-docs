@@ -31,8 +31,8 @@ format when using {short-product-name} to read/write to Hazelcast.
 To enable Compact serialization, add a `@CompactObject` annotation to your Taxi definition:
 
 ```taxi
-  import com.{code-product-name}.hazelcast.CompactObject
-  import com.{code-product-name}.hazelcast.HazelcastMap
+  import flow.hazelcast.CompactObject
+  import flow.hazelcast.HazelcastMap
 
   @HazelcastMap(name = "films")
   @CompactObject
@@ -60,10 +60,10 @@ with a write operation:
 
 [,taxi]
 ----
-import com.{code-product-name}.hazelcast.HazelcastService
-import com.{code-product-name}.hazelcast.HazelcastMap
-import com.{code-product-name}.hazelcast.UpsertOperation
-import com.{code-product-name}.hazelcast.CompactObject
+import flow.hazelcast.HazelcastService
+import flow.hazelcast.HazelcastMap
+import flow.hazelcast.UpsertOperation
+import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
@@ -155,9 +155,9 @@ Here's a complete example:
 
 [,taxi]
 ----
-import com.{code-product-name}.hazelcast.HazelcastService
-import com.{code-product-name}.hazelcast.HazelcastMap
-import com.{code-product-name}.hazelcast.CompactObject
+import flow.hazelcast.HazelcastService
+import flow.hazelcast.HazelcastMap
+import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
@@ -248,9 +248,9 @@ Here's a complete example:
 
 [,taxi]
 ----
-import com.{code-product-name}.hazelcast.HazelcastService
-import com.{code-product-name}.hazelcast.HazelcastMap
-import com.{code-product-name}.hazelcast.CompactObject
+import flow.hazelcast.HazelcastService
+import flow.hazelcast.HazelcastMap
+import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf

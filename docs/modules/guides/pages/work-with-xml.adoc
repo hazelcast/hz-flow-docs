@@ -64,8 +64,8 @@ films.taxi::
 +
 [source,taxi]
 ----
-import com.{code-product-name}.formats.Xml 
-// The @Xml annotation tells {short-product-name} how to read this object 
+import flow.formats.Xml 
+// The @Xml annotation tells Flow how to read this object 
 @Xml model FilmList { 
   item : Film[]
    } 
@@ -106,7 +106,7 @@ actors.taxi::
 +
 [source,taxi]
 ----
-import com.{code-product-name}.formats.Xml 
+import flow.formats.Xml 
 @Xml model ActorList { 
   item : Actor[] 
 } 

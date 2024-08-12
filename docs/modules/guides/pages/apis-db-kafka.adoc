@@ -32,12 +32,12 @@ Everything you need is packaged up in a Docker Compose file to make getting star
 
 [,bash]
 ----
-mkdir {code-product-name}-films-demo
-cd {code-product-name}-films-demo
-wget https://github.com/{code-product-name}api/demos/raw/main/importing-through-ui/docker-compose.yml
-wget https://github.com/{code-product-name}api/demos/raw/main/importing-through-ui/docker/schema-server/schema-server.conf -P {code-product-name}/schema-server
-wget https://github.com/{code-product-name}api/demos/raw/main/importing-through-ui/docker/schema-server/projects/taxi.conf -P {code-product-name}/schema-server/projects
-wget https://github.com/{code-product-name}api/demos/raw/main/importing-through-ui/services.conf -P {code-product-name}/config
+mkdir flow-films-demo
+cd flow-films-demo
+wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker-compose.yml
+wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker/schema-server/schema-server.conf -P flow/schema-server
+wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker/schema-server/projects/taxi.conf -P flow/schema-server/projects
+wget https://github.com/flowapi/demos/raw/main/importing-through-ui/services.conf -P flow/config
 docker compose up -d
 ----
 
@@ -65,7 +65,7 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 |===
 | Docker Image | Part of {short-product-name} stack or Demo? | Description
 
-| {code-product-name}hq/{code-product-name}
+| {code-product-name}/{code-product-name}
 | {short-product-name}
 | The core {short-product-name} server, which provides our UI, and runs all our integration for us
 
@@ -209,7 +209,7 @@ be created. For now, the defaults that have been assigned are good enough.
 {short-product-name} also creates a series of https://taxilang.org[Taxi] schema files that contain the schemas we've just imported. You can explore these files locally. 
 
 ----
-cd {code-product-name}/schema-server/projects
+cd flow/schema-server/projects
 ----
 
 Taxi ships a great https://marketplace.visualstudio.com/items?itemName=taxi-lang.taxi-language-server[VS Code plugin] which provides click-to-navigate, syntax highlighting, autocompletion and more.
