@@ -1,7 +1,7 @@
 = Deploying {short-product-name}
 :description: How to deploy {short-product-name} to production
 
-Out recommended deployment method is with `docker compose` or deploying the docker container directly using the orchestrator of your choice.
+Our recommended deployment method is with `docker compose` or deploying the Docker container directly using the orchestrator of your choice.
 
 == Deploying using Docker Compose
 
@@ -9,7 +9,7 @@ A sample `docker-compose.yml` file is maintained on https://github.com/hazelcast
 
 With examples for:
 
-* Running with an external hazelcast cluster
+* Running with an external Hazelcast cluster
 * Using external IDP config
 * Configuring to include metrics
 
@@ -26,7 +26,7 @@ When deploying to production, there are common tasks you may wish to perform:
 * Understand how xref:deploying:managing-secrets.adoc[secrets are handled] in {short-product-name}
 * Understand how to configure {short-product-name} via xref:deploying:configuring.adoc#docker[application properties] or xref:deploying:configuring.adoc#passing-{short-product-name}-application-configuration[environment variables]
 
-== Further Deployment Templates
+== Further deployment templates
 
 These further templates provide code samples for provisioning infrastructure and deploying into orchestration platforms
 

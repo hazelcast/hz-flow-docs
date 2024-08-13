@@ -1,13 +1,13 @@
 = Deploying {short-product-name}
 :description: How to get started with {short-product-name}
 
-To get up and running you can quickly bring up a fully working {short-product-name} environment locally using docker compose to start testing or developing your integrations.
+To get up and running quickly, you can bring up a fully working {short-product-name} environment locally using Docker Compose to start testing or developing your integrations.
 
 == Development setup
 
-The easiest way to get started with {short-product-name} is using Hazelcasts command line too `clc`, this gives you a:
+The easiest way to get started with {short-product-name} is using Hazelcast's command-line tool `clc`. This gives you a:
 
-* Workspace for developing your Flows
+* Workspace for developing your flows
 * `docker-compose.yml` file to be able to run locally
 
 CLC can be installed using our installation script:
@@ -51,10 +51,10 @@ This gives you the following containers:
 |===
 
 
-== Advanced Setup
+== Advanced setup
 
 * Enable xref:deploying:authentication.adoc[authentication] and xref:deploying:authorization.adoc[authorization] in {short-product-name}
-* Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file], to align with IAC
+* Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
 * Understand how xref:deploying:managing-secrets.adoc[secrets are handled] in {short-product-name}
 * Understand how to configure {short-product-name} via xref:deploying:configuring.adoc#docker[application properties] or xref:deploying:configuring.adoc#setting-as-environment-variables[environment variables]
 
@@ -66,6 +66,6 @@ https://github.com/hazelcast/hazelcast-flow-docker-compose
 
 With examples for:
 
-* Running with an external hazelcast cluster
+* Running with an external Hazelcast cluster
 * Using external IDP config
 * Configuring to include metrics
