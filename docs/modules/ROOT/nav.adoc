@@ -6,7 +6,7 @@
 
 .Deploy and Operate
 * xref:deploying:development-deployments.adoc[Quickstart]
-* xref:deploying:production-deployments.adoc[Production Deployment]
+* xref:deploying:production-deployments.adoc[Production deployment]
 * xref:deploying:configuring.adoc[Configuration]
 * xref:guides:index.adoc[Tutorials]
 ** xref:guides:install.adoc[Install {short-product-name}]
@@ -60,8 +60,8 @@
 
 .Architecture
 * {short-product-name} components
-* Jet Jobs
-* Roles and Permissions
+* Jet jobs
+* Roles and permissions
 
 .Security
 * xref:deploying:authentication.adoc[Enable authentication]
