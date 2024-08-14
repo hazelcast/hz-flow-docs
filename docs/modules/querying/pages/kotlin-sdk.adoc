@@ -1,6 +1,8 @@
 = Kotlin SDK
 :description: Using the Kotlin SDK for querying with {short-product-name}.
 
+// Author's Note - This topic has been removed from the TOC/navdoc for now as we do not support the Kotlin use case. Content retained here for future use, if needed.  
+
 == Installation
 
 Install the library using the following Maven dependency.
@@ -105,7 +107,7 @@ import flow.client.converter.run
 
 val response = find<List<Film>>()
     .asA<List<Response>>()
-    .run(http("http://localhost:9022"))
+    .run(http("http://localhost:9021"))
     .toFlux()
 ----
 
@@ -156,6 +158,6 @@ import flow.client.transport.okhttp.http
 
 val response:Flux<List<Response>> = find<List<Film>>()
     .asA<List<Response>>()
-    .run(http("http://localhost:9022"))
+    .run(http("http://localhost:9021"))
     .toFlux()
 ----

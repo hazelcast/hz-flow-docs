@@ -143,7 +143,7 @@ This lets {short-product-name} store the converted OpenAPI spec, with some addit
 
 === Importing through the UI
 
-Navigate to http://localhost:9022/data-source-manager/add[/data-source-manager/add] within your {short-product-name} UI.
+Navigate to http://localhost:9021/data-source-manager/add[/data-source-manager/add] within your {short-product-name} UI.
 
 Next, select a project to import into, then choose *Swagger / OpenAPI* from the data source dropdown list.
 
@@ -169,8 +169,8 @@ At this point, you can edit types (by clicking on the
 pencil icon next to the type name) to further refine your schema.
 Once you're happy, click *Save* and the OpenAPI spec will be imported.
 
-=== Pushing using the Taxi CLI
+// === Pushing using the Taxi CLI
 
-We're working on a CLI to enable publishing OpenAPI specs to {short-product-name} from within CI/CD workflows.
+// We're working on a CLI to enable publishing OpenAPI specs to {short-product-name} from within CI/CD workflows.
 
 // If you'd like to be an early adopter, please contact https://support.hazelcast.com/s/[Hazelcast Support].

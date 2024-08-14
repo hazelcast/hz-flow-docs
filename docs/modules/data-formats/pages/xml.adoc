@@ -126,6 +126,8 @@ Then the value is read as:
 }
 ----
 
+////
+
 == Using xpath() references
 
 WARNING: Using the `by xpath` tag is deprecated. Field names in the model are now used to match elements and attributes. 
@@ -138,3 +140,5 @@ model Person {
   firstName : FirstName by xpath("//fName")
 }
 ----
+
+////

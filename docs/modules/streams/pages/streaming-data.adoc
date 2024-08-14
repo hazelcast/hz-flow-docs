@@ -79,6 +79,7 @@ You can enable a streaming query either via the UI, or an API call.
 Note that once a streaming query has been enabled once, further updates are automatically deployed and the stream
 remains running.
 
+////
 ### The stream server
 {short-product-name}'s stream server ships as a separate Docker image, responsible for executing saved streaming queries.
 
@@ -112,3 +113,4 @@ services {
     }
 }
 ```
+////

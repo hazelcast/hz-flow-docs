@@ -56,7 +56,7 @@ hand-crafted schemas, automatically generated at runtime, Git-backed in a centra
 
 == Semantic data schemas
 
-Semantic schemas describe the meaning of their data in a way that's shareable between systems.
+Semantic schemas describe the meaning of their data in a way that's shareable between systems, for example:
 
 |===
 | Schema attribute | What it tells us
@@ -66,10 +66,9 @@ Semantic schemas describe the meaning of their data in a way that's shareable be
 
 | Data type
 | How to read / write from the wire
-
-| ???
-| What the data means in a broader ecosystem
 |===
+
+But how do you define what the data means in a broader ecosystem? 
 
 === Today's schemas aren't semantic
 
@@ -101,7 +100,7 @@ This mapping exercise takes place because traditional schemas don't provide rich
 If a field gets renamed, things break!
 // 💥 Boom! Breakdown city.
 
-What's missing is _semantic metadata_ - something that describes how data between systems relates, independent of field names.
+What's missing is _semantic metadata_ - something that describes how data across systems relates, independent of field names.
 
 === Defining semantic metadata
 
@@ -163,7 +162,7 @@ type: string
 
 === Semantic driven integration
 
-Once we understand how data between systems relates, we can use the rest of the API specs to work out how to connect them together.
+Once we understand how data across systems relates, we can use the rest of the API specs to work out how to connect them together.
 
 For example, given a `Purchase` from our Orders system, we can understand how to look up information about the customer from the Customer system.
 

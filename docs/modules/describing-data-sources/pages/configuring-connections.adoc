@@ -37,7 +37,7 @@ jdbc {
       database = ordersdb
       host = localhost
       username = martypitt
-      password = $\{superSecretPassword}
+      password = ${superSecretPassword}
       port = 5432
 
    }
@@ -73,7 +73,7 @@ jdbc {
       jdbcDriver = POSTGRES
       connectionParameters {
          // .. other params omitted for bevity ..
-         password = $\{postgres_password} // Reads the environment variable "postgres_password"
+         password = ${postgres_password} // Reads the environment variable "postgres_password"
       }
    }
 }
@@ -210,7 +210,7 @@ jdbc {
 
 === MSSQL Server
 
-To configure a Postgres connection, specify `jdbcDriver = MSSQL`
+To configure a MSSQL connection, specify `jdbcDriver = MSSQL`
 
 Connection parameters are as follows:
 
@@ -268,7 +268,7 @@ jdbc {
 
 === Redshift
 
-To configure a Postgres connection, specify `jdbcDriver = REDSHIFT`
+To configure a Redshift connection, specify `jdbcDriver = REDSHIFT`
 
 Connection parameters are as follows:
 
@@ -312,7 +312,7 @@ jdbc { // The root element for database connections
 
 === Snowflake
 
-To configure a Postgres connection, specify `jdbcDriver = SNOWFLAKE`
+To configure a Snowflake connection, specify `jdbcDriver = SNOWFLAKE`
 
 Connection parameters are as follows:
 
@@ -384,7 +384,7 @@ aws {
         // Optional Parameter. When not provided Flow will use the https://docs.aws.amazon.com/sdk-for-java/v1/developer-guide/credentials.html#credentials-default[AWS default credentials provider] by default.
         secretKey=${?AWS_SECRET_ACCESS_KEY}
         // Mandatory
-        region=$\{AWS_REGION}
+        region=${AWS_REGION}
         // Optional parameter for development and testing purposes to point to a different endpoint such as a LocalStack installation.
         endPointOverride=${?AWS_ENDPOINT_OVERRIDE}
     }

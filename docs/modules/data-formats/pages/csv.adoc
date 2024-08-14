@@ -58,6 +58,8 @@ model Person {
 }
 ----
 
+////
+
 == Using column() references
 
 WARNING: Using the `by column` tag is deprecated. Field names in the model are now used to match columns.
@@ -70,3 +72,5 @@ model Person {
   firstName : FirstName by column("fName")
 }
 ----
+
+////

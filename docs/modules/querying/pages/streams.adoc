@@ -1,5 +1,6 @@
 = Build ETL pipelines
 
+// Author's Note - this topic has been removed from the Flow docs and does not appear in the TOC/navdoc. The content is retained for future use.
 
 NOTE: Pipelines are gradually being replaced by xref:streams:streaming-data.adoc[streaming queries]. The pipeline syntax is still supported, but we aim to migrate functionality to streaming queries. For workloads that are oriented around streaming data (such as reading from Kafka), use a streaming query instead.
 

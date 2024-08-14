@@ -17,7 +17,7 @@ Taxi can partially describe:
 
 * Databases
 * HTTP APIs
-* Message queues, like Kafka and Rabbit
+* Message queues, like Kafka and RabbitMQ
 
 == Related links
 

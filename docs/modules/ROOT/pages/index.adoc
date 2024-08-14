@@ -23,7 +23,7 @@ curl https://start.flow.com > docker-compose.yml
 docker compose up -d
 ----
 
-Then visit http://localhost:9022 in your browser.
+Then visit http://localhost:9021 in your browser.
 
 == Next steps
 

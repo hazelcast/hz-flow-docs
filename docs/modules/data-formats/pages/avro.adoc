@@ -109,11 +109,11 @@ file {
             loader {
                 // All projects in {short-product-name} require a unique identifier
                 identifier {
-                    id="com.marty/avro-test/1.0.0"
+                    id="com.hazelcast/avro-test/1.0.0"
                     name=avro-test
-                    organisation="com.marty"
-                    unversionedId="com.marty/avro-test"
-                    uriSafeId="com.marty:avro-test:1.0.0"
+                    organisation="com.hazelcast"
+                    unversionedId="com.hazelcast/avro-test"
+                    uriSafeId="com.hazelcast:avro-test:1.0.0"
                     version="1.0.0"
                 }
                 // set the packageType to Avro
@@ -121,11 +121,11 @@ file {
             }
             packageIdentifier {
                 name=avro-test
-                organisation="com.marty"
+                organisation="com.hazelcast"
                 version="1.0.0"
             }
             // The path on your local machine to the avro schema
-            path="/home/martypitt/dev/vyne/schema-server-core/src/test/resources/avro/addressBook.avsc"
+            path="/opt/resources/avro/addressBook.avsc"
         }
     ]
 }
@@ -160,7 +160,7 @@ git {
             // The path to the avro file within your Git repository
             path="/addressBook.avsc"
             // The url of your git repo
-            uri="https://gitlab.com/acne/my-avro-project.git"
+            uri="https://gitlab.com/acme/my-avro-project.git"
         }
     ]
 }

@@ -50,9 +50,9 @@ This will download the following files:
 
 Author's Note - last link in the above does not work
 
-After about a minute, {short-product-name} should be available at http://localhost:9022.
+After about a minute, {short-product-name} should be available at http://localhost:9021.
 
-To make sure everything is ready to go, head to the http://localhost:9022/projects[Projects Explorer] to make sure that some schemas are registered.
+To make sure everything is ready to go, head to the http://localhost:9021/projects[Projects Explorer] to make sure that some schemas are registered.
 It should look like the screenshot below.  If you see a message saying there's nothing registered, wait a few moments longer.
 
 image:schema_explorer_flow.png[The Projects screen]
@@ -101,14 +101,14 @@ This demo ships with an instance of the Postgres demo DB called https://github.c
 Pagila contains several tables related to running a fictional DVD Rental store, including details of all sorts of different
 films, actors, etc.  We'll use this database as part of our walk through.
 
-To get started, click *Add a data source* on the home page of {short-product-name}, or navigate to http://localhost:9022/data-source-manager/add
+To get started, click *Add a data source* on the home page of {short-product-name}, or navigate to http://localhost:9021/data-source-manager/add
 Author's note - broken link
 
 === Define the database connection
 
 First, we need to tell {short-product-name} how to connect to the database.
 
-* Navigate to http://localhost:9022/data-source-manager/add
+* Navigate to http://localhost:9021/data-source-manager/add
 * Select *Database Table* as the data source to add
 * For Connection, select *Add a new connection...*
 * A pop-up window appears, allowing you to create a connection to our database
@@ -230,7 +230,7 @@ We'll use the UI of {short-product-name} to import a Swagger definition of our R
 
 * Click on the {short-product-name} logo in the top-left corner to navigate back to the home page
 * Once again, click *Add a data source*
-* Alternatively, navigate to http://localhost:9022/data-source-manager/add
+* Alternatively, navigate to http://localhost:9021/data-source-manager/add
 * From the drop-down list, select *Swagger / Open API* as the type of schema to import
 * For the Swagger Source, select a URL
 
@@ -298,7 +298,7 @@ This means we can write queries for data without worrying where the data is serv
 
 Our first query is very simple - it just finds all the films.
 
-* Head over to the Query Builder, and select the Query Editor tab (or navigate to http://localhost:9022/query/editor)
+* Head over to the Query Builder, and select the Query Editor tab (or navigate to http://localhost:9021/query/editor)
 * Paste in the below query:
 
 [,taxi]
@@ -444,7 +444,7 @@ We can use curl to get the results of our query as a JSON document.
 
 [,shell]
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Accept: text/event-stream;charset-UTF-8' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Film[] } as {
@@ -484,7 +484,7 @@ Our new releases topic emits a Protobuf message which {short-product-name} needs
 To keep things simple in our demo, the Protobuf message is available via one of our APIs.  You can view the Protobuf yourself by clicking on http://localhost:9981/proto.
 For {short-product-name} (running inside the Docker Compose network), this is visible as `+http://films-api/proto+`.
 
-Import the spec by clicking *Add a data source* on the front page of {short-product-name}, or by navigating to http://localhost:9022/data-source-manager/add.
+Import the spec by clicking *Add a data source* on the front page of {short-product-name}, or by navigating to http://localhost:9021/data-source-manager/add.
 
 * Select *Protobuf* as the type of schema to import
 * Set the Protobuf Source as a URL
@@ -540,7 +540,7 @@ We've now imported a Protobuf schema, and linked its fields to other fields in o
 Next we need to tell {short-product-name} about the Kafka topic.
 
 * Click the {short-product-name} logo in the navigation bar to return to the {short-product-name} home page.
-* Click *Add a Data Source* or navigate to http://localhost:9022/data-source-manager/add
+* Click *Add a Data Source* or navigate to http://localhost:9021/data-source-manager/add
 * From the drop-down, select *Kafka Topic*
 * In the *Connection Name*, select *Add a new connection...*
 
@@ -604,7 +604,7 @@ Take a look around, and then click *Save*.
 
 It's time to explore writing some queries that join data from across all three sources.
 
-First, let's start with querying our Kafka topic. Head over to the http://localhost:9022/query/editor[Query Editor],
+First, let's start with querying our Kafka topic. Head over to the http://localhost:9021/query/editor[Query Editor],
 and paste the following query:
 
 [,taxi]

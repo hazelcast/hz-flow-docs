@@ -317,7 +317,7 @@ To configure {short-product-name} as a Service Provider and authenticate users a
 * Assuming {short-product-name} will be running on your local with its default port, set the `Single sign-on URL` as:
 
 ----
-http://localhost:9022/saml?client_name=SAML2Client
+http://localhost:9021/saml?client_name=SAML2Client
 ----
 
 * Use `Single sign-on Url` for `Recipient URL` and `Destination URL`.
@@ -342,7 +342,7 @@ image:okta-saml-audience-url.png[]
 --vyne.security.saml.privateKeyPassword=flow
 --vyne.security.saml.idpMetadataFilePath=/op/service/flow/okta-idp-metadata.xml
 --vyne.security.saml.serviceProviderEntityId=http://okta-sample.flow.io
---vyne.security.saml.callbackBaseUrl=http://localhost:9022
+--vyne.security.saml.callbackBaseUrl=http://localhost:9021
 --vyne.security.saml.serviceProviderMetadataResourcePath=/opt/service/flow/sp-flow-metadata.xml
 ----
 

@@ -31,13 +31,11 @@
 .Query data
 * xref:querying:writing-queries.adoc[Query with {short-product-name}]
 * xref:querying:mutations.adoc[Perform mutations]
-* xref:querying:kotlin-sdk.adoc[Use Kotlin SDK]
 * xref:querying:queries-as-endpoints.adoc[Publish queries]
 * xref:querying:observability.adoc[Observe queries]
 
 .Data streams & formats
 * xref:streams:streaming-data.adoc[Stream data]
-* xref:querying:streams.adoc[Data pipelines]
 * xref:data-formats:overview.adoc[Data formats]
 ** xref:data-formats:avro.adoc[Avro]
 ** xref:data-formats:csv.adoc[CSV]

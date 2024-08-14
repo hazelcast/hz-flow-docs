@@ -23,7 +23,7 @@ Maven::
   </properties>
   <dependencies>
     <dependency>
-      <groupId>com.flowhq</groupId>
+      <groupId>flow</groupId>
       <artifactId>schema-rsocket-publisher</artifactId>
       <version>${flow.version}</version>
     </dependency>
@@ -41,12 +41,12 @@ Maven::
   <repositories>
     <repository>
       <id>flow-releases</id>
-      <url>https://repo.flowhq.com/release</url>
+      <url>https://repo.flow.com/release</url>
     </repository>
     <!-- Snapshot repository - only required if using a snapshot version -->
     <repository>
       <id>flow-snapshots</id>
-      <url>https://repo.flowhq.com/snapshot</url>
+      <url>https://repo.flow.com/snapshot</url>
       <snapshots>
         <enabled>true</enabled>
       </snapshots>
@@ -64,11 +64,11 @@ ext {
 
 repositories {
     maven {
-        url "https://repo.flowhq.com/release"
+        url "https://repo.flow.com/release"
     }
     // Only required if you're using a snapshot dependency
     maven {
-        url "https://repo.flowhq.com/snapshot"
+        url "https://repo.flow.com/snapshot"
         mavenContent {
             snapshotsOnly()
         }
@@ -76,7 +76,7 @@ repositories {
 }
 
 dependencies {
-    implementation "com.flowhq:schema-rsocket-publisher:${flowVersion}"
+    implementation "flow:schema-rsocket-publisher:${flowVersion}"
     implementation "org.taxilang:java2taxi:${taxiVersion}"
     implementation "org.taxilang:java-spring-taxi:${taxiVersion}"
 }

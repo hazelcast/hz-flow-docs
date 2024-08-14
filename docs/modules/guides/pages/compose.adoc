@@ -327,7 +327,7 @@ Now, send a request to the endpoint you selected. As we're getting JSON back, we
 
 [,bash]
 ----
-curl http://localhost:9022/api/q/films-and-reviews | jq
+curl http://localhost:9021/api/q/films-and-reviews | jq
 ----
 
 [,json]

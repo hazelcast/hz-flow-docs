@@ -19,7 +19,7 @@ or by editing a <<adding-a-git-repository-through-config,config file>>, which ca
 
 == Adding a Git repository using the UI
 
-To add a new Git repository via the UI, either navigate to http://localhost:9022/projects/project-import[/project-import], or from within the UI
+To add a new Git repository via the UI, either navigate to http://localhost:9021/projects/project-import[/project-import], or from within the UI
 click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 (Author's Note - project import link does not work - what should this be to?)
 

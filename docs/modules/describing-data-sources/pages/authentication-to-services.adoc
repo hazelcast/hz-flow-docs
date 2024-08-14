@@ -18,7 +18,7 @@ By convention, the `auth.conf` lives at `{short-product-name}/config/auth.conf`,
   version: 0.1.0
   sourceRoot: src/
    additionalSources: {
-     "@flow/config" : "flow/config/*.conf" +
+     "@flow/config" : "flow/config/*.conf"
  }
 ```
 Here's a sample config:

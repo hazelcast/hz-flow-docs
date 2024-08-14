@@ -279,7 +279,7 @@ Operations are invoked following the standard <<data-discovery-rules,Data Discov
 == Understanding caching in {short-product-name}
 
 By default, {short-product-name} does not maintain a long-lived cache between operations,
-but you can xref:describing-data-sources:caching.adoc[add one] by configuring an external cache, such as Redis or Hazelcast.
+but you can xref:describing-data-sources:caching.adoc[add one] by configuring an external cache, such as Hazelcast.
 
 Without an external cache, {short-product-name} caches operation calls for the lifetime of a query. This prevents the same operation
 being invoked repeatedly while projecting multiple rows in a result.
@@ -287,8 +287,7 @@ being invoked repeatedly while projecting multiple rows in a result.
 When caching, responses are cached for a given operation and set of inputs.  If an operation is invoked with
 different parameters, the cache is not used.
 
-Operations that return an array of results, and which return more than 10 values, will not have their responses cached.  (This is not
-currently configurable, but reach out on Slack if you need to configure this).
+Operations that return an array of results, and which return more than 10 values, will not have their responses cached.  (This is not currently configurable, but https://support.hazelcast.com/s/[contact Hazelcast Support] if you need to configure this).
 
 == Recovering from failure
 

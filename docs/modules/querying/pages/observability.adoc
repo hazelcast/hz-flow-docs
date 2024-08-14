@@ -84,7 +84,7 @@ scrape_configs:
      static_configs:
         #        172.17.0.1 is the ip address of localhost
         #        from within docker
-        - targets: ['172.17.0.1:9022']
+        - targets: ['172.17.0.1:9021']
           labels:
              application: 'Flow'
 ----
