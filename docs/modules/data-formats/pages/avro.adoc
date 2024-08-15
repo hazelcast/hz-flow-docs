@@ -174,7 +174,7 @@ Start by navigating:
 
 * Projects > Add Project
 
-image:add_project_flow.png[]
+image:add_project_avro_flow.png[]
 
 * Then select to add a project from either a Git Repo or Local disk
 
