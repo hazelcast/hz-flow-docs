@@ -74,12 +74,3 @@ You only need to apply the annotation to the top level entity.
 | Not supported directly in Taxi - Use an Avro spec
 | xref:data-formats:avro.adoc[Avro]
 |===
-
-== Defining custom formats
-
-Internally, {short-product-name} uses a https://github.com/{short-product-name}api/{short-product-name}/blob/develop/vyne-core-types/src/main/java/com/{code-product-name}/models/format/ModelFormatSpec.kt[ModelFormatSpec] to provide
-format-specific serialization and deserialization implementations.
-
-While it is possible to define your own custom format, to load it into {short-product-name} currently requires a custom build.
-
-// Support for loading custom formats via Taxi projects is planned - Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.
