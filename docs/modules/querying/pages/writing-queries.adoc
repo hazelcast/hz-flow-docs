@@ -382,7 +382,7 @@ integrate using {short-product-name}'s REST API.
 Queries to {short-product-name} are submitted to the `/api/taxiql` endpoint:
 
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
 ----
@@ -406,7 +406,7 @@ To address this, {short-product-name} supports pushing results over server-sent 
 the `Accept` header to `text/event-stream`:
 
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Accept: text/event-stream' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
@@ -421,7 +421,7 @@ Results are pushed out from {short-product-name} as they are available.
 To enable this, append  `?resultMode=TYPED` to the API call:
 
 ----
-curl 'http://localhost:9022/api/taxiql?resultMode=TYPED' \
+curl 'http://localhost:9021/api/taxiql?resultMode=TYPED' \
   -H 'Accept: text/event-stream' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
