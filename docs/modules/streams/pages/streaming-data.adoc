@@ -53,8 +53,6 @@ stream { StockQuotes.filterEach( StockSymbol -> StockSymbol == 'AAPL' ) }
 
 {short-product-name}'s query editor is great for running short-lived streaming queries. However, oftentimes you want a streaming query to continue in the background.
 
-{short-product-name}'s <<the-stream-server,stream server>> is responsible for long-lived streaming queries.
-
 To deploy a long-lived streaming query, simply define a query in one of your taxonomy projects.  Typically,
 this is checked into a Git repository.
 
