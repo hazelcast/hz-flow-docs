@@ -362,11 +362,11 @@ query.taxi::
 ----
 ====
 
-Our query is now available at http://localhost:9022/api/q/filmsAndAwards
+Our query is now available at http://localhost:9021/api/q/filmsAndAwards
 
 [,bash]
 ----
-$ curl http://localhost:9022/api/q/filmsAndAwards | jq
+$ curl http://localhost:9021/api/q/filmsAndAwards | jq
 ----
 
 Which gives us:
