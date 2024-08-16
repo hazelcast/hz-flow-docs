@@ -57,6 +57,7 @@ This creates the following containers:
 * Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
 * Understand how xref:deploying:managing-secrets.adoc[secrets are handled] in {short-product-name}
 * Understand how to configure {short-product-name} via xref:deploying:configuring.adoc#docker[application properties] or xref:deploying:configuring.adoc#setting-as-environment-variables[environment variables]
+* Continue on to your xref:deploying:production-deployments.adoc[Production deployment]
 
 == Deploying without CLC
 
