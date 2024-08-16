@@ -405,6 +405,3 @@ In this guide, we've:
 * Written a query stitching three services together
 * Published that query as an HTTP service
 
-The code for this guide is available on https://github.com/{short-product-name}api/demos/tree/main/xml-demo[Github].
-
-Remember, if you haven't already done so, head to the https://github.com/{short-product-name}api/{short-product-name}[{short-product-name} github repo] and give us a star!
