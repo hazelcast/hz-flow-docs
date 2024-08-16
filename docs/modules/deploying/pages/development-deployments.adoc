@@ -1,0 +1,71 @@
+= Deploying {short-product-name}
+:description: How to get started with {short-product-name}
+
+To get up and running you can quickly bring up a fully working {short-product-name} environment locally using docker compose to start testing or developing your integrations.
+
+== Development setup
+
+The easiest way to get started with {short-product-name} is using Hazelcasts command line too `clc`, this gives you a:
+
+* Workspace for developing your Flows
+* `docker-compose.yml` file to be able to run locally
+
+CLC can be installed using our installation script:
+[,shell]
+----
+curl https://hazelcast.com/clc/install.sh | bash
+----
+
+Set up your {short-product-name} workspace with:
+[,shell]
+----
+clc project create -t hazelcast-flow-starter
+----
+
+Now you can simply start your local {short-product-name} using:
+[,shell]
+----
+docker compose up
+----
+
+This gives you the following containers:
+|===
+| Name | Purpose | Interface
+
+| {short-product-name}
+| Runs the main {short-product-name} server
+| http://localhost:9021
+
+| Postgres
+| Data store for your projects
+| psql 25432
+
+| Hazelcast
+| An external Hazelcast cluster for storing your data
+| hz 5701
+
+| Management Center
+| An interface into the workings of Hazelcast
+| https://localhost:8080
+
+|===
+
+
+== Advanced Setup
+
+* Enable xref:deploying:authentication.adoc[authentication] and xref:deploying:authorization.adoc[authorization] in {short-product-name}
+* Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file], to align with IAC
+* Understand how xref:deploying:managing-secrets.adoc[secrets are handled] in {short-product-name}
+* Understand how to configure {short-product-name} via xref:deploying:configuring.adoc#docker[application properties] or xref:deploying:configuring.adoc#setting-as-environment-variables[environment variables]
+
+== Deploying without CLC
+
+A sample `docker-compose.yml` file is maintained at:
+
+https://github.com/hazelcast/hazelcast-flow-docker-compose
+
+With examples for:
+
+* Running with an external hazelcast cluster
+* Using external IDP config
+* Configuring to include metrics
