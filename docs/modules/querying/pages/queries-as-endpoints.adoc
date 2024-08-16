@@ -107,8 +107,7 @@ curl -X GET 'http://localhost:9021/api/q/streamingTest' \
 
 Streaming queries can be exposed over either HTTP (using server-sent events), or Websocket (or both).
 
-Saved streams are executed in the background on the xref:streams:streaming-data.adoc#the-stream-server[Stream Server].
-By connecting to the output stream, you can observe the results.
+Saved streams are executed in the background. By connecting to the output stream, you can observe the results.
 
 Note that when you observe a result feed from a streaming query,
 results are published from the point the request is received.
