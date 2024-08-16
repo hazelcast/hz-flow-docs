@@ -27,6 +27,8 @@ who then sends the results back to the query issuer.
 When sharing work across a cluster of {short-product-name} nodes, the workers will use multicast to discover each other
 and share work.
 
+If you're using our Docker Compose template then this is configured for you by default.
+
 {short-product-name} uses Hazelcast for multicast discovery.  Read more about how multicast works in Hazelcast https://docs.hazelcast.com/imdg/latest/clusters/discovering-by-multicast[here].
 
 === HTTP Caches
@@ -61,7 +63,28 @@ For projection work to be distributed across all {short-product-name} nodes in a
 | 10
 |===
 
-== Cluster Configuration
+== Advanced Cluster Configuration
+
+This section may only be required if you're configuring the Docker orchestration yourself and not using one of our preconfigured templates.
+
+=== Cluster discovery types
+
+{short-product-name} services can form a cluster discovering other nodes via one of three discovery mechanisms:
+
+|===
+| Mechanism | Description
+
+| `multicast`
+| {short-product-name} services attempt to use multicast to discover other cluster nodes
+
+| `aws`
+| {short-product-name} services attempt use AWS metadata to discover other cluster nodes
+
+| `eureka`
+| {short-product-name} services use Eureka metadata to discover other cluster nodes
+|===
+
+=== Cluster discover options
 
 |===
 | Config parameter | Description | Default setting
@@ -99,26 +122,9 @@ For projection work to be distributed across all {short-product-name} nodes in a
 | 0
 |===
 
-=== Cluster formation and discovery
+=== Example configurations
 
-{short-product-name} services can form a cluster discovering other nodes via one of three discovery mechanisms:
-
-|===
-| Mechanism | Description
-
-| `multicast`
-| {short-product-name} services attempt to use multicast to discover other cluster nodes
-
-| `aws`
-| {short-product-name} services attempt use AWS metadata to discover other cluster nodes
-
-| `eureka`
-| {short-product-name} services use Eureka metadata to discover other cluster nodes
-|===
-
-== Example configurations
-
-=== Multicast
+==== Multicast
 
 Enable clustering using discovery via local network multicast with distributed projections
 
@@ -132,7 +138,7 @@ vyne:
         discovery: multicast
 ----
 
-=== AWS
+==== AWS
 
 Enable clustering using AWS discovery with distributed projections.
 
@@ -151,7 +157,7 @@ vyne:
         discovery: aws
 ----
 
-=== Eureka
+==== Eureka
 
 Enable clustering using Eureka discovery with distributed projections
 

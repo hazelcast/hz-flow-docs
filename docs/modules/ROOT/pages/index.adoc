@@ -15,15 +15,7 @@ These topics are aimed at developers and architects who want to harness the powe
 
 == Quickstart
 
-Get started right now, by spinning up {short-product-name} on your machine:
-
-[,bash]
-----
-curl https://start.flow.com > docker-compose.yml
-docker compose up -d
-----
-
-Then visit http://localhost:9021 in your browser.
+Get started right now, check out our xref:deploying:development-deployments.adoc[Development Quickstart] guide.
 
 == Next steps
 
