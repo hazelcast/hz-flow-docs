@@ -1,6 +1,22 @@
 = Deploying {short-product-name}
 :description: How to deploy {short-product-name} to production
 
+Out recommended deployment method is with `docker compose` or deploying the docker container directly using the orchestrator of your choice.
+
+== Deploying using Docker Compose
+
+A sample `docker-compose.yml` file is maintained on https://github.com/hazelcast/hazelcast-flow-docker-compose[Github]
+
+With examples for:
+
+* Running with an external hazelcast cluster
+* Using external IDP config
+* Configuring to include metrics
+
+Note that, by default, {short-product-name} does not enable
+authentication or role-based authorization, and you'll need to enable these.
+
+
 == Production concepts
 
 When deploying to production, there are common tasks you may wish to perform:
@@ -10,80 +26,12 @@ When deploying to production, there are common tasks you may wish to perform:
 * Understand how xref:deploying:managing-secrets.adoc[secrets are handled] in {short-product-name}
 * Understand how to configure {short-product-name} via xref:deploying:configuring.adoc#docker[application properties] or xref:deploying:configuring.adoc#passing-{short-product-name}-application-configuration[environment variables]
 
-== Deploying using Docker Compose
+== Further Deployment Templates
 
-A sample `docker-compose.yml` is maintained by the {short-product-name} team and published at https://start.{code-product-name}.com[start.{code-product-name}.com]. 
-Author's note - link used to be to start.orbital.com - what should it be now?
+These further templates provide code samples for provisioning infrastructure and deploying into orchestration platforms
 
-It contains reasonable defaults for getting a local environment running.  Note that, by default, {short-product-name} does not enable
-authentication or role-based authorization, and you'll need to enable these.
+=== Deploying with Terraform
 
-== Deploying with Terraform
+{short-product-name} maintains example deployment scripts for production configurations of {short-product-name} in Terraform.
 
-{short-product-name} maintains deployment scripts for production configurations of {short-product-name} in Terraform.
-
-// These are available https://github.com/{short-product-name}api/deploy[here].
-
-Author's note - there used to be a link to https://github.com/orbitalapi/deploy - what should it be now?
-
-== Networking between components
-
-{short-product-name} is packaged as a collection of container images, which need to be able to communicate between one another.
-
-The addresses used are configured in a file, which by default is loaded from  `config/services.conf`.
-
-The location of the config file can be set by passing `--vyne.services.config-file` in the command line when starting {short-product-name}.
-
-|===
-| Config setting | Default value
-
-| `vyne.services.config-file`
-| `config/services.conf`
-|===
-
-If the config file doesn't exist, then a default file with reasonable defaults is written on startup.
-
-An example of the config file is shown below:
-
-[,hocon]
-----
-services {
-    analytics-server {
-        url="http://vyne-analytics-server"
-    }
-    flow-server {
-        url="http://flow"
-        rsocket-port=7655
-    }
-}
-----
-
-The following table outlines the components and the default network addresses and ports that are
-expected to be exposed.  If deploying in a network like Docker Swarm or Kubernetes, it is expected
-that services are available on the configured addresses.
-
-Author's note - links in table are broken - please confirm what these should be:
-
-|===
-| Component & Image | Default network address | Port(s)
-
-| https://hub.docker.com/r/{code-product-name}/{short-product-name}[{short-product-name} Server] +
-*Required* +
-(UI and Query execution)
-| http://{short-product-name}
-| 80
-
-| https://hub.docker.com/r/{code-product-name}/analytics-server[Analytics server] +
-*Optional* +
-(Stores query history and lineage, as well as pipeline logs)
-| http://{short-product-name}-analytics-server
-| 80 (http) +
-7654 (RSocket)
-
-| https://hub.docker/com/r/{code-product-name}/stream-server[Stream server] 
-*Optional* +
-Executes long-lived data streams
-| http://stream-server
-|===
-
-NOTE: When {short-product-name} is configured to distribute work across a cluster, ports must also be exposed to enable multicasting. See xref:distributing-work-on-a-cluster.adoc[Distributing work across a cluster] for more information.
+These are available on https://github.com/hazelcast/hazelcast-flow-terraform[Github]

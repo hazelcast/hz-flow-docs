@@ -1,0 +1,11 @@
+= Security Recommendations
+:description Best practises for deploying into production
+
+When deploying to production, there are common tasks you may wish to perform:
+
+== Additional config
+
+* Enable xref:deploying:authentication.adoc[authentication] and xref:deploying:authorization.adoc[authorization] in {short-product-name}
+
+
+// MP - flesh this out with config
