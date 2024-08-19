@@ -1,0 +1,12 @@
+= Glossary
+
+// Authors note - this is based on the main HZC glossary. It contains only Flow terms. We need to decide where it goes 
+
+[glossary]
+Hazelcast Flow:: Flow is a data gateway that automates the integration of microservices across your enterprise, allowing data to flow between different systems.
+K8s:: Kubernetes (often abbreviated to K8s) is an open-source system that manages and deploys containerized applications.
+Query:: A request built using Flow's ability to retrieve and analyze data from different sources across an ecosystem.
+Semantic data type:: A method of encoding data that allows software to discover and map data based upon its human-centric meaning.
+SSE:: Server-sent events.
+Taxi:: A simple query language for describing how data and APIs across an ecosystem relate to one another.
+Time to live (TTL):: A value that determines how long data is retained, before it is discarded from Flow's internal cache.
