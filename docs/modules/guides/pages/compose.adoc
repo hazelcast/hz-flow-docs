@@ -129,6 +129,7 @@ plugins: {
 
 Run the taxi build which generates Kotlin classes for all our types, and outputs them in the `dist` folder:
 
+// TODO: look into replacement for taxi build commands
 ```terminal Terminal
 taxi build
 ```

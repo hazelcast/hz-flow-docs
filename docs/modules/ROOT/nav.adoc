@@ -9,7 +9,6 @@
 * xref:deploying:production-deployments.adoc[Production deployment]
 * xref:deploying:configuring.adoc[Configuration]
 * xref:guides:index.adoc[Tutorials]
-** xref:guides:install.adoc[Install {short-product-name}]
 ** xref:guides:apis-db-kafka.adoc[Connect APIs, a database & Kafka]
 ** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
