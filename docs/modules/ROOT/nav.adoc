@@ -54,5 +54,6 @@
 * xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
 
 .Further reading
+* xref:glossary.adoc[Glossary]
 * xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic integration]
 * xref:describing-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
