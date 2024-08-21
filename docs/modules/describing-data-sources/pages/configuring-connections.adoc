@@ -36,7 +36,7 @@ jdbc {
     connectionParameters {
       database = ordersdb
       host = localhost
-      username = martypitt
+      username = bradpitt
       password = ${superSecretPassword}
       port = 5432
 
@@ -72,7 +72,7 @@ jdbc {
       connectionName = another-connection
       jdbcDriver = POSTGRES
       connectionParameters {
-         // .. other params omitted for bevity ..
+         // .. other params omitted for brevity ..
          password = ${postgres_password} // Reads the environment variable "postgres_password"
       }
    }

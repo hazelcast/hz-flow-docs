@@ -14,7 +14,7 @@ To add a new file repository via the UI, either navigate to http://localhost:902
 click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 Authors Note - project import link does not work - what should this be to?
 
-image:add_schema_sources_flow.png[Add schema sources]
+image:add_schema_sources_flow_1.png[Add schema sources]
 
 === Completing the new file repository form
 

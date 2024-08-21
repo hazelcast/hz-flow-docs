@@ -166,7 +166,7 @@ Once we understand how data across systems relates, we can use the rest of the A
 
 For example, given a `Purchase` from our Orders system, we can understand how to look up information about the customer from the Customer system.
 
-image:linked-services.png[Linked services]
+image:linked_services_flow.png[Linked services]
 
 {short-product-name} performs this integration for us.
 

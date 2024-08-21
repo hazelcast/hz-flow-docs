@@ -1,7 +1,7 @@
 = Glossary
 :description: Glossary of {short-product-name} terms, acronyms and abbreviations 
 
-For a full list of the terms, acronyms and abbreviations used in our documentation, see the: https://docs.hazelcast.com/hazelcast/latest/glossary[Hazelcast glossary].
+For a full list of the terms, acronyms and abbreviations used in our documentation, see the https://docs.hazelcast.com/hazelcast/latest/glossary[Hazelcast glossary].
 
 [glossary]
 BFF:: Backend-for-frontend.
