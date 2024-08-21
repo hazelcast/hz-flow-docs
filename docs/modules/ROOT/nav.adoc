@@ -24,7 +24,7 @@
 ** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
 ** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk]
 ** xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code]
-** xref:guides:gen-code-from-taxi.adoc[Generating code from Taxi]
+//** xref:guides:gen-code-from-taxi.adoc[Generating code from Taxi]
 
 * Manage data sources
 ** xref:describing-data-sources:configuring-connections.adoc[Configure connections]
