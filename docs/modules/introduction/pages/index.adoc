@@ -140,8 +140,8 @@ schemas:
 Customer:
 properties:
 id: # Field name
-x-taxi-type: # \<-- Taxi extension
-name: CustomerId # \<-- Semantic type
+x-taxi-type: # <-- Taxi extension
+name: CustomerId # <-- Semantic type
 type: string
 ----
 Sales OpenAPI Spec::

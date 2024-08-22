@@ -57,7 +57,7 @@ Taxi ships with some standard annotations, as part of its https://gitlab.com/tax
 | `@PathVariable(name)`
 | Indicates a property from the path that should be populated with a variable passed to the operation
 
-| `@HttpHeader(name,value, prefix)`
+| `@HttpHeader(name,value,prefix)`
 | Defines how headers are passed. See below
 |===
 
@@ -191,7 +191,7 @@ As shown above, attribute constraints may either be:
 * A reference to an attribute of another parameter
 * Nested syntax is supported (ie., `foo.bar.baz`)
 
-These constraints are applicable on types too. See +++<link to="../taxi-language#type-constraints">++++++</link>+++type constraints</Link> for an example.
+These constraints are applicable on types too. 
 
 == Retry policies
 

@@ -5,7 +5,9 @@
 {short-product-name} has support for several data formats, however, if you need a format that's not here, it's possible
 to implement your own.
 
-{short-product-name} uses a https://github.com/{short-product-name}api/{short-product-name}/blob/develop/vyne-core-types/src/main/java/com/{code-product-name}/models/format/ModelFormatSpec.kt[ModelFormatSpec] to provide format-specific serialization and deserialization implementations.
+{short-product-name} uses a ModelFormatSpec to provide format-specific serialization and deserialization mplementations.
+
+//Link broken in the original: {short-product-name} uses a https://github.com/{short-product-name}api/{short-product-name}/blob/develop/vyne-core-types/src/main/java/com/{code-product-name}/models/format/ModelFormatSpec.kt[ModelFormatSpec] to provide format-specific serialization and deserialization implementations.
 
 While it is possible to define your own custom format, to load it into {short-product-name} currently requires a custom build.
 

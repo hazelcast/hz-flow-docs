@@ -16,7 +16,7 @@ Querying against key is supported, as are write operations.
 
 To expose a DynamoDb service, the following two annotations are required:
 
-* Add a ` @flow.aws.dynamo.Table` to a model
+* Add a `@flow.aws.dynamo.Table` to a model
 * Add a `@flow.aws.dynamo.DynamoService` annotation to the service
 
 [,taxi]

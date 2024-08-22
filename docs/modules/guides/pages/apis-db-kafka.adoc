@@ -48,7 +48,7 @@ This will download the following files:
 * https://gitlab.com/vyne/demos/-/raw/master/films/docker/schema-server/projects/taxi.conf[taxi.conf] - A skeleton Taxi project configuration, which contains basic information for the schemas we create
 * https://gitlab.com/vyne/demos/-/raw/master/films/services.conf[services.conf] - A service discovery configuration file to tell services where to find each other. {short-product-name} supports various service discovery mechanisms
 
-Author's Note - last link in the above does not work
+#Author's Note - last link in the above does not work#
 
 After about a minute, {short-product-name} should be available at http://localhost:9021.
 
@@ -102,7 +102,7 @@ Pagila contains several tables related to running a fictional DVD Rental store, 
 films, actors, etc.  We'll use this database as part of our walk through.
 
 To get started, click *Add a data source* on the home page of {short-product-name}, or navigate to http://localhost:9021/data-source-manager/add
-Author's note - broken link
+#Author's note - broken link#
 
 === Define the database connection
 

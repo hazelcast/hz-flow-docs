@@ -152,7 +152,7 @@ model Film {
   cast : Actor[]
 }
 
-find { Film ) as { 
+find { Film } as { 
    // this scope contains an entire film record
 }
 ```
@@ -161,7 +161,7 @@ You can modify this by specifying the type of the variable in scope:
 
 ```taxi
 find { Film } as (Actor[]) -> { // note that film has been removed from the scope...
-  title : Title //... therfore title isn't knowable -- this field will return null
+  title : Title //... therefore title isn't knowable -- this field will return null
   actorName : ActorName
 }[]
 ```
@@ -254,7 +254,7 @@ service CustomerService {
    findCustomer(CustomerId):Customer
 
    // Cannot be called when projecting, because
-   // Person has an @Id, and it isn't PersonName
+   // Customer has an @Id, and it isn't CustomerName
    findCustomerByName(CustomerName):Customer
 }
 ----
@@ -382,7 +382,7 @@ integrate using {short-product-name}'s REST API.
 Queries to {short-product-name} are submitted to the `/api/taxiql` endpoint:
 
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
 ----
@@ -406,7 +406,7 @@ To address this, {short-product-name} supports pushing results over server-sent 
 the `Accept` header to `text/event-stream`:
 
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Accept: text/event-stream' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
@@ -421,7 +421,7 @@ Results are pushed out from {short-product-name} as they are available.
 To enable this, append  `?resultMode=TYPED` to the API call:
 
 ----
-curl 'http://localhost:9022/api/taxiql?resultMode=TYPED' \
+curl 'http://localhost:9021/api/taxiql?resultMode=TYPED' \
   -H 'Accept: text/event-stream' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
@@ -446,7 +446,7 @@ The following Accept headers are supported:
 | `application/csv`
 | CSV
 
-| `text/event-stream
+| `text/event-stream`
 | JSON with server-sent events
 |===
 

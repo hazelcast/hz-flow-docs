@@ -26,7 +26,7 @@ The following options are available:
 
 | firstRecordAsHeader
 | Indicates if the first record should be read as a header
-| true
+| `true`
 
 | nullValue
 | Specify a custom string to be read as `null`
@@ -34,7 +34,7 @@ The following options are available:
 
 | containsTrailingDelimiters
 | Indicates if each row contains a delimiter which should be ignored
-| false
+| `false`
 
 | quoteChar
 | Specifies which character should be read as a quoting character

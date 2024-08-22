@@ -33,7 +33,7 @@ If you're running through one of our tutorials, don't worry, we've already confi
 === Importing a new table
 
 * From the home page, click *Add a data source*.
- ** Alternatively, click *Schema Explorer* in the left-hand navigation menu, then click *Add new*
+ ** Alternatively, click *Data Sources* in the left-hand navigation menu, then click *Add data source*
 * For the schema type to import, select *Database table*
 
 image:new-data-source.png[]
@@ -63,7 +63,7 @@ Once you're satisfied, click *Save*, and the schema will be updated.
 * Foreign keys have been mapped
 * For all other fields, new semantic types have been created
 
-If the columns in your database map to exisitng semantic types, you may wish to update the definitions.
+If the columns in your database map to existing semantic types, you may wish to update the definitions.
 To do this:
 
 * Select a model from the table on the left-hand side

@@ -90,7 +90,7 @@ $ taxi flow
 ----
 
 This downloads a `docker-compose.yml` file from https://start.flow.com/[start.flow.com], then runs `docker compose up`.
-Author's note - the link does not work.
+#Author's note - the link does not work.#
 
 === Live reload
 
