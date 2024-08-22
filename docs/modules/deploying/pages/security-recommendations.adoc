@@ -1,4 +1,4 @@
-= Security Recommendations
+= Security recommendations
 :description Best practices for deploying into production
 
 By default your {short-product-name} setup doesn't have authentication for easy development.
