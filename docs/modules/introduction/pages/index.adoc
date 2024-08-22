@@ -19,7 +19,7 @@ metadata embedded inside API specs.
 
 This means that as APIs evolve, or as services are deployed or replaced, {short-product-name}'s integrations automatically adapt, without requiring clients to change.
 
-image:high-level-overview.png[Overview]
+image:high_level_overview_flow.png[Overview of Flow]
 
 [,taxi]
 ----
@@ -38,11 +38,11 @@ given {
 {short-product-name} leverages schemas to automatically work out which services to call,
 and sequences them together to pass data from service to service, in order to discover the data clients need.
 
-image:what-clients-sees.png[What clients see]
+image:what_client_sees_flow.png[What clients see]
 
 == Integration that adapts with you
 
-Services publish their schemas to {short-product-name}, which describe their APIs and the data they provide.
+Services publish their schemas to {short-product-name}, which describes their APIs and the data they provide.
 
 {short-product-name} uses this to build integration plans on the fly. This means that as your APIs change, {short-product-name} automatically adapts,
 keeping clients protected from the change.
@@ -52,11 +52,11 @@ There are no resolvers to update, Swagger SDKs to rebuild, or API consumer contr
 {short-product-name} provides several ways for services to generate and publish their schema:
 hand-crafted schemas, automatically generated at runtime, Git-backed in a central repository, or a mix of the three.
 
-Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
+// Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
 
 == Semantic data schemas
 
-Semantic schemas describe the meaning of their data in a way that's shareable between systems.
+Semantic schemas describe the meaning of their data in a way that's shareable between systems, for example:
 
 |===
 | Schema attribute | What it tells us
@@ -66,10 +66,9 @@ Semantic schemas describe the meaning of their data in a way that's shareable be
 
 | Data type
 | How to read / write from the wire
-
-| ???
-| What the data means in a broader ecosystem
 |===
+
+But how do you define what the data means in a broader ecosystem? 
 
 === Today's schemas aren't semantic
 
@@ -98,9 +97,10 @@ This has a few shortcomings:
 
 This mapping exercise takes place because traditional schemas don't provide rich enough information to link on anything else.
 
-If a field gets renamed?  💥 Boom! Breakdown city.
+If a field gets renamed, things break!
+// 💥 Boom! Breakdown city.
 
-What's missing is _semantic metadata_ - something that describes how data between systems relates to one another, independent of field names.
+What's missing is _semantic metadata_ - something that describes how data across systems relates, independent of field names.
 
 === Defining semantic metadata
 
@@ -126,20 +126,52 @@ namespace sales {
 ----
 
 These semantic types are defined in Taxi.  You can either choose to describe your APIs using Taxi (which has first class
-support for semantic metadata), or embed Taxi metadata within other schema languages, such as OpenAPI:+++<SnippetGroup>+++```yml Customer OpenAPI Spec # An extract of the ShoppingCartApi OpenAPI spec: components: schemas: Customer: properties: id: # Field name x-taxi-type: # \<-- Taxi extension name: CustomerId # \<-- Semantic type type: string ``` ```yaml Sales OpenAPI Spec # An extract of the CustomerApi OpenAPI spec: components: schemas: Purchase: properties: custId: # Field name x-taxi-type: # \<-- Taxi extension name: CustomerId # \<-- Semantic type type: string ```+++</SnippetGroup>+++
+support for semantic metadata), or embed Taxi metadata within other schema languages, such as OpenAPI:
+
+[tabs]
+====
+Customer OpenAPI Spec::
++
+[source,yaml]
+----
+# An extract of the ShoppingCartApi OpenAPI spec: 
+components:
+schemas:
+Customer:
+properties:
+id: # Field name
+x-taxi-type: # \<-- Taxi extension
+name: CustomerId # \<-- Semantic type
+type: string
+----
+Sales OpenAPI Spec::
++
+[source,yaml]
+----
+# An extract of the CustomerApi OpenAPI spec: 
+components:
+schemas:
+Purchase:
+properties:
+custId: # Field name 
+x-taxi-type: # \<-- Taxi extension
+name: CustomerId # \<-- Semantic type
+type: string
+----
+====
 
 === Semantic driven integration
 
-Once we understand how data between systems relates, we can use the rest of the API specs to work out how to connect them together.
+Once we understand how data across systems relates, we can use the rest of the API specs to work out how to connect them together.
 
 For example, given a `Purchase` from our Orders system, we can understand how to look up information about the customer from the Customer system.
 
-image:linked-services.png[Linked services]
+image:linked_services_flow.png[Linked services]
 
 {short-product-name} performs this integration for us.
 
 By sending a request in https://taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], we can ask for data, without specifying how data
-relates, or which systems to get them from.
+relates, or which systems to get the data from.
 
 [,taxi]
 ----

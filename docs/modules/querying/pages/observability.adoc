@@ -8,7 +8,7 @@ As queries are executed by {short-product-name}, full call histories are capture
 This gives rich debugging tools to understand exactly how a query was executed,
 which services were called and what they returned.
 
-<ImageWithCaption src=\{sequenceDiagram} ></ImageWithCaption>
+image:sequence_diagram_flow.png[]
 
 === Configuring what's captured
 
@@ -21,7 +21,7 @@ When fully enabled, the following detail is captured and written to a database:
 * Message payloads for streaming event sources, such as message brokers
 * Variations of the above data to build query plan charts visualized in the {short-product-name} UI
 
-The following options can be passed as parameters or link:/docs/deploying/configuring-{short-product-name}#setting-as-environment-variables[configured as environment variables]
+The following options can be passed as parameters or xref:deploying:configuring.adoc#setting-as-environment-variables[configured as environment variables]
 to control the level of data that is persisted.
 
 |===
@@ -50,7 +50,7 @@ to control the level of data that is persisted.
 
 If {short-product-name} is connected to a Prometheus endpoint, performance data is made available in the endpoint's UI.
 
-<ImageWithCaption src=\{performanceMetrics} caption="Performance metrics" />
+image:performance-metrics.png[Performance metrics]
 
 === Streaming queries
 
@@ -69,7 +69,7 @@ An example Prometheus configuration is shown below:
 [,yaml]
 ----
 scrape_configs:
-   - job_name: '{short-product-name} Stream Server Metrics'
+   - job_name: 'Flow Stream Server Metrics'
      metrics_path: '/api/actuator/prometheus'
      scrape_interval: 3s
      static_configs:
@@ -77,14 +77,14 @@ scrape_configs:
 #        from within docker
         - targets: ['172.17.0.1:9615']
           labels:
-             application: '{short-product-name} - Stream Server'
-   - job_name: '{short-product-name} Metrics'
+             application: 'Flow - Stream Server'
+   - job_name: 'Flow Metrics'
      metrics_path: '/api/actuator/prometheus'
      scrape_interval: 3s
      static_configs:
         #        172.17.0.1 is the ip address of localhost
         #        from within docker
-        - targets: ['172.17.0.1:9022']
+        - targets: ['172.17.0.1:9021']
           labels:
-             application: '{short-product-name}'
+             application: 'Flow'
 ----

@@ -1,10 +1,6 @@
 = Enabling authentication
 :description: Configuring {short-product-name} to require authentication through OpenID Connect or SAML
 
-import \{Callout} from "@/components/docs/Callout";
-import oktaSamlSingleSignOnUrl from '@/img/okta-saml-sign-on-url.png'
-import oktaSamlAudienceUrl from '@/img/okta-saml-audience-url.png'
-
 == Overview
 
 {short-product-name} supports authentication through:
@@ -18,6 +14,8 @@ OR
 == OpenID Connect setup
 
 To enable OpenID Connect Authentication, pass the following config options to {short-product-name} on the command line:
+
+(Author's note- some link in table are broken - please confirm what these should be)
 
 |===
 | Parameter | Sample values | Description
@@ -56,15 +54,15 @@ A typical Docker config might look as follows:
 [,yaml]
 ----
   vyne:
-    image: {code-product-name}/{short-product-name}:${ORBITAL_VERSION}
+    image: flow/flow:${FLOW_VERSION}
     volumes:
       - ./vyne-config:/opt/service/config
     environment:
       OPTIONS: >-
         --vyne.security.openIdp.enabled=true
-        --vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/{short-product-name}/protocol/openid-connect/certs
-        --vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/{short-product-name}
-        --vyne.security.openIdp.clientId={short-product-name}
+        --vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/flow/protocol/openid-connect/certs
+        --vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/flow
+        --vyne.security.openIdp.clientId=flow
 ----
 
 When a user attempts to access {short-product-name}, they will be redirected to the login page as configured with the OpenID Connect provider.
@@ -103,7 +101,7 @@ The presented JWT is expected to have the following attributes:
 | End-User's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the End-User's locale and preferences
 |===
 
-Additionally, role information must be present. See the docs on link:/deploying/authorization#reading-roles-from-jwt-tokens[Authorization] for more information.
+Additionally, role information must be present. See the docs on xref:authorization.adoc#reading-roles-from-jwt-tokens[Authorization] for more information.
 
 == Configuring OpenID Providers
 
@@ -115,16 +113,16 @@ Keycloak is the default IDP (it's what the {short-product-name} team tests with)
 ----
 # Set to true to enable Auth
 --vyne.security.openIdp.enabled=true
---vyne.security.openIdp.clientId={short-product-name}
+--vyne.security.openIdp.clientId=flow
 
 # The url that the browser will redirect to for authentication.
 # Ensure this is accessible from browsers
---vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/{short-product-name}
+--vyne.security.openIdp.issuerUrl=http://keycloak-server/realms/flow
 
-# The url that {short-product-name} will connect to, to validate the JWT's presented.
-# Ensure this is accessible from the {short-product-name} server
+# The url that flow will connect to, to validate the JWT's presented.
+# Ensure this is accessible from the Flow server
 # This normally follows the convention of ${issuerUrl}/protocol/openid-connect/certs
---vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/{short-product-name}/protocol/openid-connect/certs
+--vyne.security.openIdp.jwks-uri=http://keycloak-server/realms/flow/protocol/openid-connect/certs
 ----
 
 === AWS Cognito
@@ -169,11 +167,12 @@ Use the following config settings in {short-product-name}:
 --vyne.security.openIdp.identity-token-kind=Id
 ----
 
-<Callout type={'note'} title="Don't forget!">
-  You must also configure AWS Cognito link:/deploying/authorization#aws-cognito[role-based access control] +
-</Callout>
+NOTE: You must also configure AWS Cognito xref:authorization.adoc#aws-cognito[role-based access control].
 
-=== Azure+++<Callout type="warning" title="Azure AD B2C Not Supported">+++Unfortunately, at this time Azure AD B2C is not supported, as it does not provide support for <a href={'https://learn.microsoft.com/en-us/answers/questions/818404/role-based-access-for-webapi-in-azure-b2c'}>exposing roles in the published JWT</a>. However, Azure Active Directory (Entra) is supported, as described below.+++</Callout>+++
+=== Azure
+
+Unfortunately, at this time Azure AD B2C is not supported, as it does not provide support for https://learn.microsoft.com/en-us/answers/questions/818404/role-based-access-for-webapi-in-azure-b2c[exposing roles in the published JWT].
+However, Azure Active Directory (Entra) is supported, as described below.
 
 * Log into Azure, and ensure you have an Azure AD directory active (not an Azure AD B2C directory)
 * Navigate to Microsoft Entra ID, and select "App registrations" from the left navbar
@@ -190,9 +189,7 @@ You are taken to the settings for your newly created Azure AD application.
  ** Take note of the OpenID Connect metadata document value - you'll need this shortly
  ** It should look like this: `+https://login.microsoftonline.com/YOUR-APP-ID/v2.0/.well-known/openid-configuration+`
 
-<Callout type={'note'} title="Don't forget!">
-  You must also configure Azure link:/docs/deploying/authorization#azure[role-based access control]
-</Callout>
+NOTE: You must also configure Azure xref:authorization.adoc#azure[role-based access control].
 
 Launch {short-product-name} passing the following parameters:
 
@@ -320,16 +317,16 @@ To configure {short-product-name} as a Service Provider and authenticate users a
 * Assuming {short-product-name} will be running on your local with its default port, set the `Single sign-on URL` as:
 
 ----
-http://localhost:9022/saml?client_name=SAML2Client
+http://localhost:9021/saml?client_name=SAML2Client
 ----
 
 * Use `Single sign-on Url` for `Recipient URL` and `Destination URL`.
 
-<img src={oktaSamlSingleSignOnUrl.src} />
+image:okta-saml-sign-on-url.png[]
 
 * Set `Audience URI (SP Entity ID)` to `+http://okta-sample.{short-product-name}.io+`
 
-<img src={oktaSamlAudienceUrl.src} />
+image:okta-saml-audience-url.png[]
 
 * Click `Next`
 * Set `App type` to `This is an internal app that we have created`
@@ -340,15 +337,15 @@ http://localhost:9022/saml?client_name=SAML2Client
 
 ----
 --vyne.security.saml.enabled=true
---vyne.security.saml.keyStorePath=/opt/serviuce/{short-product-name}/saml.jks
---vyne.security.saml.keyStorePassword={short-product-name}
---vyne.security.saml.privateKeyPassword={short-product-name}
---vyne.security.saml.idpMetadataFilePath=/op/service/{short-product-name}/okta-idp-metadata.xml
---vyne.security.saml.serviceProviderEntityId=http://okta-sample.{short-product-name}.io
---vyne.security.saml.callbackBaseUrl=http://localhost:9022
---vyne.security.saml.serviceProviderMetadataResourcePath=/opt/service/{short-product-name}/sp-{short-product-name}-metadata.xml
+--vyne.security.saml.keyStorePath=/opt/service/flow/saml.jks
+--vyne.security.saml.keyStorePassword=flow
+--vyne.security.saml.privateKeyPassword=flow
+--vyne.security.saml.idpMetadataFilePath=/op/service/flow/okta-idp-metadata.xml
+--vyne.security.saml.serviceProviderEntityId=http://okta-sample.flow.io
+--vyne.security.saml.callbackBaseUrl=http://localhost:9021
+--vyne.security.saml.serviceProviderMetadataResourcePath=/opt/service/flow/sp-flow-metadata.xml
 ----
 
 == See also
 
-* link:./authorization[Role-based authorization]
+* xref:authorization.adoc[Role-based authorization]

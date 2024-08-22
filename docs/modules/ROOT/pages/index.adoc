@@ -1,36 +1,41 @@
-= Quickstart
-:description: Connect all your APIs & data sources dynamically, without writing integration code.
+= Overview
+:description: Connect all your APIs and data sources dynamically, without writing integration code.
 
-{long-product-name} automates integration for your microservices.
+Welcome to {long-product-name}. 
 
-Get started right now, by spinning up {short-product-name} on your machine
-
-[,bash]
-----
-curl https://start.{code-product-name}.com > docker-compose.yml
-docker compose up -d
-----
-
-Then visit http://localhost:9022 in your browser.
-
-== What is {long-product-name}?
-
-{short-product-name} is a data gateway that automates the integration, transformation and discovery of data from data sources (API's, databases, message brokers) across your enterprise.
+{short-product-name} is a data gateway that automates integration for your microservices. Using {short-product-name}, you can automate the integration, transformation and discovery of data from different data sources (APIs, databases, message brokers) across your enterprise.
 
 {short-product-name} integrates on-the-fly, automatically adjusting as your data sources change.
 
-This is powered by rich semantic schemas, which infer how data across your organisation links together, and automate the integration and discovery of data.
+This is powered by rich semantic schemas, which infer how data across your organization links together, and which automate the integration and discovery of data.
 
-<ImageWithCaption src=\{NetworkDiagram} addLightBackground/>
+image:network_diagram_flow.png[]
 
-== Quick Links
+These topics are aimed at developers and architects who want to harness the power of {short-product-name}, and administrators deploying and integrating {short-product-name} within an organization. 
 
-Once you have {short-product-name} running locally, connect your microservices, and start querying for data+++<QuickLinks>++++++<QuickLink title="Connecting data sources" icon="connect" href="docs/describing-data-sources/configuring-connections" description="Connect your APIs, Databases and Message Queues to {short-product-name}.">++++++</QuickLink>+++ +++<QuickLink title="Querying" icon="query" href="/docs/querying/writing-queries" description="Query for data through {short-product-name}'s API, and let {short-product-name} handle the integration plumbing for you.">++++++</QuickLink>+++ +++<QuickLink title="Follow a guide" icon="guides" href="/docs/guides" description="A handful of guides to help get productive with {short-product-name}">++++++</QuickLink>+++ +++<QuickLink title="Head to production" icon="production" href="/docs/deploying/production-deployments" description="Deploy {short-product-name} on your Kubernetes cluster or using Docker Compose">++++++</QuickLink>++++++</QuickLinks>+++
+== Quickstart
+
+Get started right now, by spinning up {short-product-name} on your machine:
+
+[,bash]
+----
+curl https://start.flow.com > docker-compose.yml
+docker compose up -d
+----
+
+Then visit http://localhost:9021 in your browser.
+
+== Next steps
+
+Once you have {short-product-name} running locally, connect your microservices, and start querying for data.
+
+* xref:describing-data-sources:configuring-connections.adoc[Connect data sources] - Connect your APIs, Databases and Message Queues to {short-product-name}
+* xref:querying:writing-queries.adoc[Query data] - Query for data through {short-product-name}'s API, and let it handle the integration plumbing for you
+* xref:deploying:production-deployments.adoc[Head to production] - Deploy {short-product-name} on your Kubernetes cluster or using Docker Compose
+* xref:guides:index.adoc[Tutorials] - Use our step-by-step tutorials to quickly get productive with {short-product-name}
 
 == Getting help
 
-Stuck?  Need help?  Have an idea?  We'd love to hear from your.
+Need help?  Have an idea?  We'd love to hear from you.
 
-You can connect with the {short-product-name} team in a number of ways
-
-
+You can connect with the {short-product-name} team at https://support.hazelcast.com/s/[Hazelcast Support].

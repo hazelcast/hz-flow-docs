@@ -1,6 +1,5 @@
 = Data access policies
-
-import \{Callout} from "@/components/docs/Callout";
+:description: Learn about {short-product-name} data access policies
 
 Taxi supports defining data access policies against types, which are evaluated at runtime.
 
@@ -50,8 +49,9 @@ Policies are defined against the `caller` - the person or service requesting the
 itself is resolved using the auth token presented from your IDP.
 (Note - policies are not supported when running without an IDP)
 
-Similar to how you can use link:/changelog/2024-03-08-release-announcement-0-30-0#using-jwt-claims-within-a-query[claims from your IDP] to pass
-through to a data source, these same claims are available when evaluating a policy, as the `caller` object.
+Similar to how you can use claims from your IDP, to pass through to a data source, these same claims are available when evaluating a policy, as the `caller` object. 
+
+// broken link to 'claims from your IDP' /changelog/2024-03-08-release-announcement-0-30-0#using-jwt-claims-within-a-query[claims from your IDP] 
 
 === Resolving data for policy evaluation
 
@@ -109,7 +109,7 @@ For example:
 
 ----
 policy SalaryPolicy against Employee {
-   // It's ok for {short-product-name} to access all employee data, provided
+   // It's ok for Flow to access all employee data, provided
    // the data isn't leaked out to the user.
    read internal {
       permit
@@ -128,8 +128,6 @@ policy SalaryPolicy against Employee {
 }
 ----
 
-<Callout type={"warning"} title={'Internal needs'}>
-  If an internal policy restricts {short-product-name} from reading data, values cannot be used as inputs
+WARNING: If an internal policy restricts {short-product-name} from reading data, values cannot be used as inputs
   into other services. Be careful, as this can cause queries to fail, even though there is sufficient
   data to correctly execute.
-</Callout>

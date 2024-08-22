@@ -1,8 +1,8 @@
 = Publishing queries (http and websockets)
 :description: Let consumers invoke your queries as standard HTTP endpoints
 
-You might decide that instead of link:/docs/querying/writing-queries#submitting-queries[submitting queries] directly to {short-product-name}, or using one of our
-link:/docs/querying/kotlin-sdk[SDKs] to execute a query programmatically, you'd rather just publish the query as an HTTP(s) endpoint.
+You might decide that instead of xref:querying:writing-queries.adoc#submitting-queries[submitting queries] directly to {short-product-name}, or using one of our
+xref:querying:kotlin-sdk.adoc[SDKs] to execute a query programmatically, you'd rather just publish the query as an HTTP(s) endpoint.
 
 == Saved queries
 
@@ -11,7 +11,9 @@ Any queries committed to your taxonomy that have an `@HttpOperation` annotation 
 For example:
 
 ```taxi MyQuery.taxi
-@HttpOperation(url = '/api/q/movies/\{movieId}', method = 'GET')
+import taxi.http.HttpOperation
+
+@HttpOperation(url = '/api/q/movies/{movieId}', method = 'GET')
 query getMoviesAndReivews(@PathVariable("movieId") movieId: MovieId) {
   given { movieId }
   find {
@@ -19,23 +21,25 @@ query getMoviesAndReivews(@PathVariable("movieId") movieId: MovieId) {
     reviewScore : ReviewScore
   }
 }
-
-----
+```
 Any declared `query` that's in a Taxi project published to {short-product-name} can be converted into an HTTP operation.
 
 ### HttpOperation annotation
 Queries need to have an `@HttpOperation` annotation:
 
-| Param  | Description                                                                                     |
-|--------|-------------------------------------------------------------------------------------------------|
-| url    | The URL the query is exposed under. It *must* start `/api/q`.  Any other query URLs are ignored |
-| method | The HTTP method to respond to, one of `GET`,`POST`,`PUT`, or `DELETE`                           |
+|===
+| Parameter | Description
+
+| url
+| The URL the query is exposed under. It *must* start `/api/q`.  Any other query URLs are ignored 
+
+| method
+| The HTTP method to respond to, one of `GET`,`POST`,`PUT`, or `DELETE`
+|===
 
 Variables can be defined in your path using `{myVar}`, which are then made available in your query declaration using a `@PathVariable` annotation.
 
-<Callout type="note" title="Heads up!">
-  For security reasons, queries are only exposed under the <code>/api/q</code> endpoint. Any queries where URL in the <code>@HttpOperation</code> annotation starts with something other than <code>/api/q</code> are ignored
-</Callout>
+NOTE: For security reasons, queries are only exposed under the `/api/q` endpoint. Any queries where URL in the `@HttpOperation` annotation starts with something other than `/api/q` are ignored.
 
 ### Declaring the query
 Named queries are defined using a `query` syntax:
@@ -47,7 +51,7 @@ query getMoviesAndReviews(
    // Define variables to be passed in
    @PathVariable("movieId") movieId: MovieId
 ) { ... }
-----
+```
 
 [discrete]
 ==== Request Body
@@ -95,7 +99,7 @@ Example request using `curl`:
 
 [,bash]
 ----
-curl -X GET 'http://localhost:9022/api/q/streamingTest' \
+curl -X GET 'http://localhost:9021/api/q/streamingTest' \
   -H 'Accept: text/event-stream;charset-UTF-8'
 ----
 
@@ -103,16 +107,20 @@ curl -X GET 'http://localhost:9022/api/q/streamingTest' \
 
 Streaming queries can be exposed over either HTTP (using server-sent events), or Websocket (or both).
 
-Saved streams are executed in the background on the link:/docs/streams/streaming-data#the-stream-server[Stream Server].
+Saved streams are executed in the background on the xref:streams:streaming-data.adoc#the-stream-server[Stream Server].
 By connecting to the output stream, you can observe the results.
 
 Note that when you observe a result feed from a streaming query,
 results are published from the point the request is received.
-Previous results are not published on result stream.+++<Callout type="note" title="Heads up!">+++You can expose streaming queries on _both_ server-sent event endpoints and Websockets - simply add both the annotations.+++</Callout>+++
+Previous results are not published on result stream.
+
+NOTE: You can expose streaming queries on _both_ server-sent event endpoints and Websockets - simply add both the annotations.
 
 === Publishing on WebSocket
 
-To publish a query over a websocket, annotate the query with the `WebsocketOperation` annotation, declaring the `path`:+++<Callout type="note" title="Heads up!">+++For security reasons, websocket streams are only exposed under the `/api/s` path. Any queries where path in the `@WebsocketOperation` annotation starts with something other than `/api/s` are ignored+++</Callout>+++
+To publish a query over a websocket, annotate the query with the `WebsocketOperation` annotation, declaring the `path`:
+
+NOTE: For security reasons, websocket streams are only exposed under the `/api/s` path. Any queries where path in the `@WebsocketOperation` annotation starts with something other than `/api/s` are ignored.
 
 [,taxi]
 ----
@@ -145,7 +153,7 @@ Once this is published, results can be streamed by requesting a `text/event-stre
 
 [,bash]
 ----
-curl -X GET 'http://localhost:9022/api/q/newReleases' \
+curl -X GET 'http://localhost:9021/api/q/newReleases' \
   -H 'Accept: text/event-stream;charset-UTF-8'
 ----
 

@@ -1,14 +1,14 @@
 = Working with XML and JSON
-:description: Linking services that publish XML
+:description: A tutorial showing how to link services that publish XML
 
-This guide features services publishing a mix of XML and JSON, and explains how to combine them and expose the
+This tutorial features services publishing a mix of XML and JSON, and explains how to combine them and expose the
 composed services as a REST API.
 
 It shows starting an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
 
-This demo has a video walkthrough that discusses how it's built:
+// This demo has a video walkthrough that discusses how it's built:
 
-image::https://cdn.loom.com/sessions/thumbnails/d7819e1108e7401094dbdad39796bbf4-1697719617654-with-play.gif[Video walkthrough,link=https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4]
+// image::https://cdn.loom.com/sessions/thumbnails/d7819e1108e7401094dbdad39796bbf4-1697719617654-with-play.gif[Video walkthrough,link=https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4]
 
 == Overview
 
@@ -26,14 +26,13 @@ operation findCast(FilmId):ActorList
 operation findAwards(FilmId):Award[]
 ----
 
-<ImageWithCaption src=\{ArchitectureOverview}
-                  caption={`The services in our demo`} />
+image:2architecture-overview.png[The services in our demo]
 
 We'll stitch these together, and expose a REST API that returns the data from all three services.
 
 == Setting up
 
-https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=92[Jump to this section of the video]
+// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=92[Jump to this section of the video]
 
 To get started, install Taxi using https://sdkman.io/[SDKMan] and create a new project:
 
@@ -47,7 +46,7 @@ taxi init
 Then launch an {short-product-name} developer environment:
 
 ----
-taxi {short-product-name}
+taxi flow
 ----
 
 This downloads a Docker Compose file which configures a local developer environment of {short-product-name} that live-reloads your
@@ -55,13 +54,87 @@ Taxi project changes.
 
 == Describing the Film Service
 
-https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
+// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
 
-Write some Taxi that describes our Film service:+++<SnippetGroup>+++```taxi films.taxi import com.{code-product-name}.formats.Xml // The @Xml annotation tells {short-product-name} how to read this object @Xml model FilmList { item : Film[] } model Film { id : FilmId inherits Int title : FilmTitle inherits String yearReleased : YearReleased inherits Int } service FilmsService { @HttpOperation(url = "http://localhost:8044/films", method = "GET") operation getAllFilms():FilmList } ``` ```xml films-data.xml +++<List>++++++<item id="0">++++++<title>+++ACADEMY DINOSAUR+++</title>+++ +++<yearReleased>+++2005+++</yearReleased>++++++</item>+++ +++<item id="1">++++++<title>+++ACE GOLDFINGER+++</title>+++ +++<yearReleased>+++1975+++</yearReleased>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
+Write some Taxi that describes our Film service:
+
+[tabs]
+====
+films.taxi::
++
+[source,taxi]
+----
+import flow.formats.Xml 
+// The @Xml annotation tells Flow how to read this object 
+@Xml model FilmList { 
+  item : Film[]
+   } 
+   model Film { 
+    id : FilmId inherits Int 
+    title : FilmTitle inherits String 
+    yearReleased : YearReleased inherits Int
+     } 
+     service FilmsService { 
+      @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
+      operation getAllFilms():FilmList
+       }
+----
+films-data.xml::
++
+[source,xml]
+----
+<List>
+    <item id="0">
+      <title>ACADEMY DINOSAUR</title>
+      <yearReleased>2005</yearReleased>
+    </item>
+    <item id="1">
+      <title>ACE GOLDFINGER</title>
+      <yearReleased>1975</yearReleased>
+    </item>
+  </List>
+----
+====
 
 == Integrating the Cast Service
 
-Our CastService takes the ID of a Film, and returns a list of actors:+++<SnippetGroup>+++```taxi actors.taxi import com.{code-product-name}.formats.Xml @Xml model ActorList { item : Actor[] } model Actor { id : ActorId inherits Int name : ActorName inherits String } service CastService { @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList } ``` ```xml actor-data.xml +++<List>++++++<item>++++++<id>+++34+++</id>+++ +++<name>+++JUDY DEAN+++</name>++++++</item>+++ +++<item>++++++<id>+++21+++</id>+++ +++<name>+++ELVIS MARX+++</name>++++++</item>++++++</List>+++ ```+++</SnippetGroup>+++
+Our CastService takes the ID of a Film, and returns a list of actors:
+
+[tabs]
+====
+actors.taxi::
++
+[source,taxi]
+----
+import flow.formats.Xml 
+@Xml model ActorList { 
+  item : Actor[] 
+} 
+  model Actor { 
+    id : ActorId inherits Int 
+    name : ActorName inherits String
+} 
+     service CastService { 
+      @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") 
+      operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
+}
+----
+actor-data.xml::
++
+[source,xml]
+----
+<List>
+  <item>
+    <id>34</id>
+    <name>JUDY DEAN</name>
+  </item>
+  <item>
+    <id>21</id>
+    <name>ELVIS MARX</name>
+  </item>
+</List>
+----
+====
 
 === What connects it together
 
@@ -78,11 +151,13 @@ model Film {
 operation fetchCastForFilm(FilmId):ActorList
 ----
 
-We don't need to write any integration code or resolvers.  There's enough information in the schemas.+++<Callout type="note" title="Reminder">+++We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`+++</Callout>+++
+We don't need to write any integration code or resolvers.  There's enough information in the schemas.
+
+NOTE: We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`.
 
 == Writing Data Queries
 
-https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
+// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
 
 {short-product-name} uses type metadata to understand how to link things together.  Rather than writing integration code,
 we write a query for data using TaxiQL.
@@ -192,7 +267,40 @@ Which now gives us:
 
 == Adding our Awards Service
 
-We can also define a schema and service for our awards information, which is returned in JSON:+++<SnippetGroup>+++```taxi awards.taxi model Award { title : AwardTitle inherits String yearWon : YearWon inherits Int } service AwardsService { @HttpOperation(url = "http://localhost:8044/film/\{filmId}/awards", method = "GET") operation fetchAwardsForFilm(@PathVariable("filmId") filmId : FilmId):Award[] } ``` ```json awards-data.json [ { "title": "Best Makeup and Hairstyling", "yearWon": 2020 }, { "title": "Best Original Score", "yearWon": 2020 }, // snip\... ] ```+++</SnippetGroup>+++
+We can also define a schema and service for our awards information, which is returned in JSON:
+
+[tabs]
+====
+awards.taxi::
++
+[source,taxi]
+----
+model Award { 
+  title : AwardTitle inherits String 
+  yearWon : YearWon inherits Int
+} 
+   service AwardsService { 
+    @HttpOperation(url = "http://localhost:8044/film/\{filmId}/awards", method = "GET") 
+    operation fetchAwardsForFilm(@PathVariable("filmId") filmId : FilmId):Award[]
+}
+----
+awards-data.json::
++
+[source,json]
+----
+[
+  {
+    "title": "Best Makeup and Hairstyling", 
+    "yearWon": 2020
+  }, 
+  { 
+    "title": "Best Original Score", 
+    "yearWon": 2020 
+  }, 
+  // snip\... 
+]
+----
+====
 
 === Enriching our query
 
@@ -204,7 +312,7 @@ Finally, to include this awards data, we just add it to our query:
       filmId : FilmId
       nameOfFilm : FilmTitle
       cast : Actor[]
->     awards : Award[]
+      awards : Award[]
   }
 ----
 
@@ -236,9 +344,12 @@ Now that we're happy with our response data, we can publish this query as a REST
 * First, we wrap the query in a `+query { ... }+` block, and save it in our Taxi project
 * Then we add an `+@HttpOperation(...)+` annotation
 
-```taxi query.taxi
-
-____
+[tabs]
+====
+query.taxi::
++
+[source,taxi]
+----
 @HttpOperation(url = '/api/q/filmsAndAwards', method = 'GET')
  query filmsAndAwards {
       find { FilmList } as (Film[]) \-> {
@@ -248,10 +359,10 @@ ____
           cast : Actor[]
       }
  }
-```
-____
+----
+====
 
-Our query is now available at `+http://localhost:9022/api/q/filmsAndAwards+`
+Our query is now available at http://localhost:9022/api/q/filmsAndAwards
 
 [,bash]
 ----

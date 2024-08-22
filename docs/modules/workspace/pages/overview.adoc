@@ -2,7 +2,7 @@
 :description: An overview of how to connect data sources to {short-product-name}.
 
 
-An {short-product-name} Workspace is a collection of schemas, API specs and Taxi projects that describe
+A {short-product-name} Workspace is a collection of schemas, API specs and Taxi projects that describe
 data sources (APIs, Databases, Message queues and Serverless functions) and provide a description
 of the data and capabilities they provide.
 
@@ -21,7 +21,9 @@ Generally, there are at least the following components:
 * A taxonomy project (built using Taxi) that defines the terms embedded in your API contracts.  This is most commonly stored in Git, or locally on your machine (when you're first getting started).
 * A series of API specs, enriched with metadata using terms from your taxonomy project.
 
-<ImageWithCaption src=\{PublishingFromSources} addLightBackground=\{true}/>
+// how do I get light background? Previous code was: <ImageWithCaption src=\{PublishingFromSources} addLightBackground=\{true}/>
+
+image:publish_from_sources_flow.png[]
 
 === Your core taxonomy
 
@@ -44,18 +46,48 @@ A common pattern for building a core taxonomy is:
 
 * It is created as a standalone project, independent of any specific API / Service
 * It lives in a Git repository
-* {short-product-name} link:/docs/connecting-data-sources/connecting-a-git-repo[monitors the Git repository] and automatically deploys changes
+* {short-product-name} xref:connecting-a-git-repo.adoc[monitors the Git repository] and automatically deploys changes
 
 === Services and data sources
 
 Services and data sources are described using existing API specs (OpenAPI / Protobuf / JSON Schema, etc), enriched
-with semantic tags from <<your-core-taxonomy,your core taxonomy>>.+++<SnippetGroup>+++```yml ShoppingCart OpenAPI Spec # An extract of the ShoppingCartApi OpenAPI spec: components: schemas: ShoppingCart: properties: custId: # Field name x-taxi-type: > name: CustomerId # \<-- Semantic type type: string ``` ```protobuf Example.proto import "org/taxilang/dataType.proto"; message Customer { optional string customer_name = 1 [(taxi.dataType)="CustomerName"]; > optional int32 customer_id = 2 [(taxi.dataType)="CustomerId"]; } ```+++</SnippetGroup>+++
+with semantic tags from <<your-core-taxonomy,your core taxonomy>>.
 
-For more information, follow our guides on using link:/docs/describing-data-sources/open-api[OpenApi] or link:/docs/describing-data-sources/protobuf[Protobuf] to describe your data sources.
+[tabs]
+====
+ShoppingCart OpenAPI Spec::
++
+[source,yml]
+----
+# An extract of the ShoppingCartApi OpenAPI spec:
+components:
+schemas:
+ShoppingCart:
+properties:
+custId: # Field name
+x-taxi-type:
+> name: CustomerId # \<-- Semantic type type
+string
+----
+Example.proto::
++
+[source,protobuf]
+----
+import "org/taxilang/dataType.proto";
+ 
+message Customer { 
+   optional string customer_name = 1 [(taxi.dataType)="CustomerName"]; 
+   > optional int32 customer_id = 2 [(taxi.dataType)="CustomerId"];
+}
+----
+====
+
+For more information, see the topics on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:describing-data-sources:protobuf.adoc[Protobuf] to describe your data sources.
+
 
 ==== Using Taxi
 
-Another option is authoring your API specs directly in link:/docs/describing-data-sources/taxi[Taxi]:
+Another option is authoring your API specs directly in xref:introduction:about-taxi.adoc[Taxi]:
 
 [,taxi]
 ----
@@ -72,7 +104,7 @@ service CustomerService {
 
 Alternatively, you can just generate schema definitions directly from code, or author your definitions in Taxi.
 
-Once you choose how to describe your services, you simply need to <<publishing-and-updating,publish>> your specs to {short-product-name}.
+Once you've chosen how to describe your services, next publish your specs to {short-product-name}. 
 
 == Publishing and updating your specs
 
@@ -90,10 +122,12 @@ The following publication methods are available:
 
 Applications can generate Taxi, direct from code, and publish to {short-product-name}.
 
-* Suits microservices and teams who prefer generating their API specs from code
-* Currently only Java / Kotlin with Spring Boot is supported, but other SDKs are planned - https://github.com/{short-product-name}api/{short-product-name}/discussions[reach out] to tell us about your usecase
+This suits microservices and teams who prefer generating their API specs from code.
 
-Learn more about this approach link:./schema-publication-methods[here].
+// * Currently only Java / Kotlin with Spring Boot is supported, but other SDKs are planned.
+// - https://github.com/{short-product-name}api/{short-product-name}/discussions[reach out] to tell us about your usecase
+
+// Learn more about this approach link:./schema-publication-methods[here].
 
 // TODO: Flesh this out
 
@@ -117,7 +151,7 @@ a Git repository.
 
 {short-product-name} will poll your Git repo, and automatically update as changes are merged into your target branch.
 
-For more information, read about link:./connecting-a-git-repo[pulling API specs from Git] or link:./connecting-a-disk-repo[reading API specs from local disk].
+For more information, read about xref:connecting-a-git-repo.adoc[pulling API specs from Git] or xref:connecting-a-disk-repo.adoc[reading API specs from local disk].
 
 == Workspace.conf file
 
@@ -177,7 +211,7 @@ file {
    projects=[
       {
         isEditable=true
-        path="/opt/var/{short-product-name}/schemas/taxi"
+        path="/opt/var/flow/schemas/taxi"
       }
    ]
    pollFrequency=PT5S

@@ -1,8 +1,6 @@
 = Describing a Mongo database
 :description: Learn how to make a collection in a Mongo database available for {short-product-name}
 
-import \{Callout} from "@/components/docs/Callout";
-
 {short-product-name} can read data from a Mongo collection to fetch data as part of a query, as well as write data
 back to Mongo.
 
@@ -39,7 +37,7 @@ The following configuration options are mandatory under the `connectionParameter
 
 === Defining a collection mapping
 
-Collections are exposed to {short-product-name} using the annotation `@com.{code-product-name}.mongo.Collection` on a model.
+Collections are exposed to {short-product-name} using the annotation `@flow.mongo.Collection` on a model.
 
 Fields names in the model are expected to align with field names from the collection.
 
@@ -47,7 +45,7 @@ Here's an example:
 
 [,taxi]
 ----
-import com.{code-product-name}.mongo.Collection
+import flow.mongo.Collection
 
 type FirstName inherits String
 type Password inherits String
@@ -67,7 +65,7 @@ The `@Collection` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your link:/docs/describing-data-sources/mongo#defining-a-connection-to-your-mongo-database[connections configuration file]
+| The name of a connection, as defined in your xref:mongodb.adoc#defining-a-connection-to-your-mongo-database[connections configuration file]
 
 | collection
 | The name of the collection
@@ -81,7 +79,7 @@ Here's an example:
 
 [,taxi]
 ----
-import com.{code-product-name}.mongo.Collection
+import flow.mongo.Collection
 
 type FirstName inherits String
 type Password inherits String
@@ -105,7 +103,7 @@ To expose a Mongo database as a source for queries, the database must have a ser
 [,taxi]
 ----
 // 1: Add the required imports
-import com.{code-product-name}.mongo.MongoService
+import flow.mongo.MongoService
 
 // 2: Annotate the service as a `MongoService`.
 @MongoService( connectionName = "usersMongo" )
@@ -122,7 +120,7 @@ The `@MongoService` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your link:/docs/describing-data-sources/mongo#defining-a-connection-to-your-mongo-database[connections configuration file].
+| The name of a connection, as defined in your xref:mongodb.adoc#defining-a-connection-to-your-mongo-database[connections configuration file].
 |===
 
 === Sample queries
@@ -247,8 +245,8 @@ updating based off the symbol:
 
 [,taxi]
 ----
-import com.{code-product-name}.kafka.KafkaService
-import com.{code-product-name}.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // Kafka model and service emitting prices:
 model StockPrice {

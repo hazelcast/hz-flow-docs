@@ -1,8 +1,19 @@
 = Tutorials
-:description: A collection of tutorial guides to get you started.
+:description: A collection of tutorial-style guides to get you started.
 
 
-These guides are designed to walk you through getting started quickly with {short-product-name}, all the way to creating
+These tutorials are designed to guide you through getting started quickly with {short-product-name}, all the way to creating
 amazing integration projects.
 
-+++<QuickLinks>++++++<QuickLink title="Installing and Creating a Project" icon="power" href="/docs/guides/installing" description="Start here">++++++</QuickLink>+++ +++<QuickLink title="BFF - Composing APIs and Databases" icon="cloudComputing" href="/docs/guides/composing-api-and-database" description="Exposing a Backend for Frontend (BFF) that links data between a database and several APIs">++++++</QuickLink>+++ +++<QuickLink title="Working with XML and JSON" icon="xml" href="/docs/guides/working-with-xml" description="Combine data from XML and JSON data sources">++++++</QuickLink>+++ +++<QuickLink title="Streaming data" icon="live" href="/docs/guides/streaming-data" description="Join and enrich Kafka streams to deliver bespoke data feeds">++++++</QuickLink>+++ +++<QuickLink title="Pipelines - Ingest, Normalize and Enrich data" icon="pipeline" href="/docs/pipelines" description="Use {short-product-name} to deploy a data pipeline to normalize data formats to a standard">++++++</QuickLink>+++ +++<QuickLink title="Caching" icon="cache" href="/docs/guides/caching" description="Understand how to deploy and configure a caching layer">++++++</QuickLink>+++ +++<QuickLink title="Working with Spring Boot" icon="production" href="/docs/deploying/production-deployments" description="{short-product-name}'s Spring SDK publishes APIs automatically directly from your application. Learn how">++++++</QuickLink>++++++</QuickLinks>+++
+== Quick Links
+
+* xref:install.adoc[Install and Create a Project] - Start here
+* xref:apis-db-kafka.adoc[Integrate a DB, REST API, and Kafka] - Deploy {spn} locally, then integrate a database, a REST API, and Kafka. Ideal for beginners
+* xref:compose.adoc[BFF - Compose APIs and Databases] - Exposing a Backend for Frontend (BFF) that links data between a database and several APIs
+* xref:work-with-xml.adoc[Work with XML and JSON] - Combine data from XML and JSON data sources
+* xref:streaming-data.adoc[Stream data] - Join and enrich Kafka streams to deliver bespoke data feeds
+
+// AUTHORS NOTES: 2 new tutorials need to be added. The pipeline link is a 404 in Orbital's docs
+// * link:/docs//deploying/production-deployments[Working with Spring Boot] - {short-product-name}'s Spring SDK publishes APIs automatically directly from your application. Learn how 
+// * link:/docs/pipelines[Pipelines - Ingest, Normalize and Enrich data] - Use {short-product-name} to deploy a data pipeline to normalize data formats to a standard
+// * link:/docs/modules/describing-data-sources/pages/caching.adoc[Installing and Creating a Project] - Understand how to deploy and configure a caching layer

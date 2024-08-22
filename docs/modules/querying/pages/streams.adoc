@@ -1,23 +1,18 @@
 = Build ETL pipelines
 
+// Author's Note - this topic has been removed from the Flow docs and does not appear in the TOC/navdoc. The content is retained for future use.
 
-<Callout type='warning' title="Deprecated">
-  <p>Pipelines are gradually being replaced by <a href={'/docs/querying/streaming-data'}>streaming queries</a>.</p>
-  
-  The pipeline syntax is still supported, but we aim to migrate functionality to streaming queries.
-  <br />
-  For workloads that are oriented around streaming data (such as reading from Kafka), use a streaming query instead. 
-</Callout>
-
+NOTE: Pipelines are gradually being replaced by xref:streams:streaming-data.adoc[streaming queries]. The pipeline syntax is still supported, but we aim to migrate functionality to streaming queries. For workloads that are oriented around streaming data (such as reading from Kafka), use a streaming query instead.
 
 ## Overview
 
 Where queries in {short-product-name} are great for on-demand data transformation, pipelines provide continuously streaming data between source and destination, using {short-product-name} to transform data along the way.
 
-
 Pipelines work by reading content from a source, transforming it using {short-product-name}, then writing to a sink.
 
-Pipelines can be defined either in a [config file](#pipeline-config-spec), or using the UI.
+Pipelines can be defined either in a config file, or using the UI.
+
+// Above, link to config file topic if/when available
 
 ## Starting pipeline engine
 The pipeline engine ships as a separate Docker image.
@@ -29,7 +24,7 @@ version: "3.3"
 services:
   ## Other services omitted
   pipeline-engine:
-    image: {code-product-name}/pipeline:latest
+    image: flow/pipeline:latest
 ```
 
 ## Creating a pipeline
@@ -41,8 +36,8 @@ Pipelines are created and stored as a series of HOCON files, within a Taxi proje
    version: 0.1.0
    sourceRoot: src/
    additionalSources: {
-        "@{short-product-name}/config" : "{short-product-name}/config/*.conf",
->       "@{short-product-name}/pipelines" : "pipelines/*.conf"
+        "@flow/config" : "flow/config/*.conf",
+        "@flow/pipelines" : "pipelines/*.conf"
    }
 ```
 
@@ -90,5 +85,6 @@ or authored as JSON directly.
 ### Creating a pipeline through configuration
 Pipelines are authored and stored in JSON files, with a file per pipeline.
 
-Files should adhere to the pipeline spec, which has its own dedicated [reference documentation](/docs/pipelines/reference).
+Files should adhere to the pipeline spec, which has its own dedicated reference documentation.
 
+// Above, link to reference doc if/when available: /docs/pipelines/reference[reference documentation].

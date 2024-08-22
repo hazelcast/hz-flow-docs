@@ -1,19 +1,20 @@
-= Install {short-product-name}
+= Installing {short-product-name}
+:description: A tutorial to get Taxi running locally.
 
-This guide covers getting {long-product-name} and Taxi running locally in a developer environment.
+
+This tutorial covers getting {long-product-name} and Taxi running locally in a developer environment.
 
 == Prerequisites
 
 Before you get started, you'll need the following:
 
 * https://docs.docker.com/engine/install/[Docker] and Docker Compose (installed by default with Docker)
-* https://sdkman.io/install[SDKMan] - A fantastic tool for installing SDKs and developer tools
-* https://code.visualstudio.com/[VSCode] - Optional, but we create dev tools for VSCode that improve the developer experience
+* https://sdkman.io/install[SDKMan] - a useful tool for installing SDKs and developer tools
+* https://code.visualstudio.com/[VSCode] - optional, but we create dev tools for VSCode that improve the developer experience
 
-== Installing Taxi+++<InstallingCliSteps>++++++</InstallingCliSteps>+++
+== Installing Taxi
 
-https://taxilang.org[Taxi] is a language for describing data sources, and how data relates.
-
+https://taxilang.org[Taxi] is a language for describing data sources, and how data relates. 
 Its CLI has tooling for creating projects and running builds.
 
 First, let's install Taxi:
@@ -48,8 +49,8 @@ Create an empty directory, and run `taxi init`
 
 [,bash]
 ----
-$ mkdir {short-product-name}-demo
-$ cd {short-product-name}-demo
+$ mkdir flow-demo
+$ cd flow-demo
 $ taxi init
 ----
 
@@ -60,13 +61,13 @@ Project group (eg., com.acme): com.demo
 Project name: hello-world
 Project version [0.1.0]:
 Source directory [src/]:
-Creating project com.demo/hello-world v0.1.0 in directory /dev/{short-product-name}-demo
-Writing config to /dev/{short-product-name}-demo/taxi.conf
-Generating source directory at /dev/{short-product-name}-demo/src
+Creating project com.demo/hello-world v0.1.0 in directory /dev/flow-demo
+Writing config to /dev/flow-demo/taxi.conf
+Generating source directory at /dev/flow-demo/src
 Finished
 ----
 
-You now have an empty taxi project.
+You now have an empty Taxi project.
 
 Open VSCode to take a look around:
 
@@ -75,7 +76,7 @@ Open VSCode to take a look around:
 $ code .
 ----
 
-<ImageWithCaption src=\{VSCodeExplorer} />
+image:vscode_flow.png[VS Code]
 
 == Launching {short-product-name}
 
@@ -85,10 +86,11 @@ Taxi has a convenient command to launch a developer environment of {short-produc
 
 [,bash]
 ----
-$ taxi {short-product-name}
+$ taxi flow
 ----
 
-This downloads a `docker-compose.yml` file from https://start.{code-product-name}.com/[start.{code-product-name}.com], then runs `docker compose up`.
+This downloads a `docker-compose.yml` file from https://start.flow.com/[start.flow.com], then runs `docker compose up`.
+Author's note - the link does not work.
 
 === Live reload
 
@@ -99,4 +101,4 @@ and detected inside of {short-product-name}.
 
 That's it! You're now running {short-product-name} locally, and have a brand new Taxi project ready to go.
 
-Why not take one of our Guides for a spin, and build something locally.
+Why not take one of the other tutorials for a spin, and build something locally.

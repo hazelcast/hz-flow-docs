@@ -1,8 +1,6 @@
 = Kafka as a data source
 :description: Learn how to make a Kafka topic available for {short-product-name} to query
 
-import \{Callout} from "@/components/docs/Callout";
-
 {short-product-name} can read data from a Kafka topic to stream data as part of a query, as well as write data
 back to Kafka.
 
@@ -20,20 +18,20 @@ kafka {
       connectionName=my-kafka-connection
       connectionParameters {
          brokerAddress="localhost:29092,localhost:39092"
-         groupId="{short-product-name}"
+         groupId="flow"
       }
    }
    another-kafka-connection {
       connectionName=another-kafka-connection
       connectionParameters {
          brokerAddress="localhost:29092,localhost:39092"
-         groupId="{short-product-name}"
+         groupId="flow"
       }
    }
 }
 ----
 
-The following configuration options are supported under the `connectionParameters`
+The following configuration options are supported under the `connectionParameters`:
 
 |===
 | Config option | Purpose
@@ -59,7 +57,7 @@ kafka {
       connectionName=my-kafka-connection
       connectionParameters {
          brokerAddress="localhost:29092,localhost:39092"
-         groupId="{short-product-name}"
+         groupId="flow"
          "security.protocol"="SASL_PLAINTEXT"
          "sasl.mechanism"="PLAIN"
          "sasl.jaas.config"="org.apache.kafka.common.security.plain.PlainLoginModule required username='myKafkaUser' password="${KAFKA_PASSWORD}";"
@@ -76,7 +74,7 @@ It's common in Kafka configs that usernames and passwords are embedded within se
 
 It's recommended that usernames and passwords are read from env variables, which can lead to tricky https://github.com/lightbend/config/issues/113[HOCON concatenation issues].
 
-The solution is to rely on HOCON concatenation. eg:
+The solution is to rely on HOCON concatenation. For example:
 
 [,HOCON]
 ----
@@ -112,8 +110,8 @@ return a stream of data.
 [,taxi]
 ----
 // 1: Add the required imports
-import com.{code-product-name}.kafka.KafkaService
-import com.{code-product-name}.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // 2: Annotate the service as a `KafkaService`.
 @KafkaService( connectionName = "market-prices" )
@@ -139,15 +137,15 @@ into a Taxi model using annotations.
 
 ==== Message key
 
-The message key can be accessed using the `com.orbtalhq.kafka.KafkaMessageKey` annotation on a field:
+The message key can be accessed using the `flow.kafka.KafkaMessageKey` annotation on a field:
 
 [,taxi]
 ----
-> import com.{code-product-name}.kafka.KafkaMessageKey
+  import flow.kafka.KafkaMessageKey
 
   model Movie {
     // The key from Kafka will be read into the id property
->   @KafkaMessageKey
+    @KafkaMessageKey
     id : MovieId inherits String
     title : Title inherits String
   }
@@ -182,24 +180,24 @@ For example:
 
 [,taxi]
 ----
->   import com.{code-product-name}.kafka.KafkaMessageMetadata
->   import com.{code-product-name}.kafka.KafkaMetadataType
+   import flow.kafka.KafkaMessageMetadata
+   import flow.kafka.KafkaMetadataType
 
-    model Movie {
->     @KafkaMessageMetadata(KafkaMetadataType.Offset)
-      offset : Int
+   model Movie {
+     @KafkaMessageMetadata(KafkaMetadataType.Offset)
+     offset : Int
 
->     @KafkaMessageMetadata(KafkaMetadataType.Timestamp)
-      timestamp : Long
+     @KafkaMessageMetadata(KafkaMetadataType.Timestamp)
+     timestamp : Long
 
->     @KafkaMessageMetadata(KafkaMetadataType.TimestampType)
-      timestampType : String
+     @KafkaMessageMetadata(KafkaMetadataType.TimestampType)
+     timestampType : String
 
->     @KafkaMessageMetadata(KafkaMetadataType.Partition)
-      partition : Int
+     @KafkaMessageMetadata(KafkaMetadataType.Partition)
+     partition : Int
 
-      // Other fields continue...
-      title : Title inherits String
+     // Other fields continue...
+     title : Title inherits String
     }
 
     // Rest of the Kafka topic declaration continues...
@@ -219,10 +217,10 @@ These headers can be accessed using the `com.{code-product-name}.kafka.KafkaHead
 
 [,taxi]
 ----
-   import com.{code-product-name}.kafka.KafkaHeader
+   import flow.kafka.KafkaHeader
 
    model Movie {
->     @KafkaHeader("correlationId")
+      @KafkaHeader("correlationId")
       correlationId : CorrelationId inherits String
       title : Title inherits String
    }
@@ -242,7 +240,7 @@ By default, models are expected to be JSON.
 
 However, this can be controlled by annotating the model with a format annotation.
 
-Two common formats link:/docs/describing-data-sources/protobuf/[Protobuf] and link:/docs/data-formats/avro[Avro] are supported.
+Two common formats xref:protobuf.adoc[Protobuf] and xref:data-formats:avro.adoc[Avro] are supported.
 
 === Example queries
 
@@ -283,7 +281,7 @@ stream { StockPrice.filterEach( ( StockTicker ) -> StockTicker == 'AAPL' ) }
 ==== Streaming from Kafka to a database
 
 Streams from Kafka can be inserted into a database (or any other writable source, such as
-link:/hazelcast#writing-data-to-hazelcast[Hazelcast] or link:[Dynamo]) using a mutating query.
+xref:describing-data-sources:hazelcast.adoc#writing-data-to-hazelcast[Hazelcast] or xref:describing-data-sources:kafka.adoc[Dynamo]) using a mutating query.
 
 As with all mutating queries, it's not
 necessary for the data from Kafka to align with the format of the
@@ -321,8 +319,8 @@ To make a topic writable, declare a `write operation` in a Kafka service:
 [,taxi]
 ----
 // 1: Add the required imports
-import com.{code-product-name}.kafka.KafkaService
-import com.{code-product-name}.kafka.KafkaOperation
+import flow.kafka.KafkaService
+import flow.kafka.KafkaOperation
 
 // 2: Annotate the service as a `KafkaService`.
 @KafkaService( connectionName = "market-prices" )
