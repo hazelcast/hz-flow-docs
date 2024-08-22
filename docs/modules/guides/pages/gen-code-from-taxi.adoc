@@ -10,7 +10,7 @@ To help with this, Taxi supports generating code from Taxi.
 
 // NOTE: This guide focuses on JVM languages. If you'd like support in your own language, please <a href={'https://join.slack.com/t/orbitalapi/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg'}>reach out to us</a>, and we'll build it for you. 
 
-== Creating a Flow Project
+== Creating a Flow project
 
 Follow the xref:deploying:development-deployments.adoc[Development Quickstart] to get your {short-product-name} server running and ready to build your models.
 
