@@ -63,7 +63,7 @@ For projection work to be distributed across all {short-product-name} nodes in a
 | 10
 |===
 
-== Advanced Cluster Configuration
+== Advanced cluster configuration
 
 This section may only be required if you're configuring the Docker orchestration yourself and not using one of our preconfigured templates.
 
