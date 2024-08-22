@@ -296,7 +296,7 @@ To see the published source code, head to the http://localhost:9021/projects[Pro
 
 image:1st_service_registration_flow.png[The service has been published to {short-product-name}]
 
-At this point, {short-product-name}'s catalog contains information about our Service, and its rest endpoint. For example, heading to the http://localhost:9021/catalog/diagram[services diagram]
+At this point, {short-product-name}'s catalog contains information about our Service, and its REST endpoint. For example, heading to the http://localhost:9021/catalog/diagram[services diagram]
 will show our API and its returned model:
 
 image:1st_service-diagram_flow.png[The service is shown in {short-product-name}'s service diagrams]
