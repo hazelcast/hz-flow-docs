@@ -78,7 +78,7 @@ This section may only be required if you're configuring the Docker orchestration
 | {short-product-name} services attempt to use multicast to discover other cluster nodes
 
 | `aws`
-| {short-product-name} services attempt use AWS metadata to discover other cluster nodes
+| {short-product-name} services attempt to use AWS metadata to discover other cluster nodes
 
 | `eureka`
 | {short-product-name} services use Eureka metadata to discover other cluster nodes

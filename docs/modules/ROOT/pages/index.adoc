@@ -15,7 +15,7 @@ These topics are aimed at developers and architects who want to harness the powe
 
 == Quickstart
 
-Get started right now, check out our xref:deploying:development-deployments.adoc[Development Quickstart] guide.
+Get started right now by reading our xref:deploying:development-deployments.adoc[Development Quickstart] guide.
 
 == Next steps
 

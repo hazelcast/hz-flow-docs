@@ -15,7 +15,7 @@ Before you get started, you’ll need the following:
 
 === Creating your project
 
-The easiest way to get started with {short-product-name} is using Hazelcast's command-line tool `clc`. This gives you a:
+The easiest way to get started with {short-product-name} is by using Hazelcast's command-line tool `clc`. This gives you a:
 
 * Workspace for developing your queries
 * `docker-compose.yml` file to be able to run locally
@@ -63,11 +63,11 @@ The following containers will now be running:
 
 |===
 
-Once this has had a minute or two to start the application and set everything up, you can navigate to:
+After the application starts and everything is set up, navigate to:
 http://localhost:9021 and start using {short-product-name}.
 
 === Live reload
-The devleoper environment of {short-product-name} is configured with live reload, so any changes you make in your taxi project are automatically picked up.
+The developer environment of {short-product-name} is configured with live reload, so any changes you make in your Taxi project are automatically picked up.
 
 == Advanced setup
 
@@ -75,7 +75,7 @@ The devleoper environment of {short-product-name} is configured with live reload
 * Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
 * Understand how xref:deploying:managing-secrets.adoc[secrets are handled] in {short-product-name}
 * Understand how to configure {short-product-name} via xref:deploying:configuring.adoc#docker[application properties] or xref:deploying:configuring.adoc#setting-as-environment-variables[environment variables]
-* Continue on to your xref:deploying:production-deployments.adoc[Production deployment]
+* Continue on to your xref:deploying:production-deployments.adoc[production deployment]
 
 == Deploying without CLC
 
