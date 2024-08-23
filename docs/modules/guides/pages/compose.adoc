@@ -4,9 +4,6 @@
 
 This tutorial focuses on stitching together APIs and a database to create a custom API for our needs. Typically, you'd use this in a Backend-for-frontend (BFF) pattern.
 
-TIP: There's code for this guide available on https://github.com/{short-product-name}api/demos/tree/main/composing-apis-and-db[Github]
-Author's note - link does not work. 
-
 This {lpn} demo takes place in a fictitious film studio. Our goal is to stitch together data about our Films catalog, along with data from REST APIs, like the reviews of each film, and where we can watch it.
 
 == Our demo services
@@ -132,6 +129,7 @@ plugins: {
 
 Run the taxi build which generates Kotlin classes for all our types, and outputs them in the `dist` folder:
 
+// TODO: look into replacement for taxi build commands
 ```terminal Terminal
 taxi build
 ```

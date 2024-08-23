@@ -10,17 +10,9 @@ To help with this, Taxi supports generating code from Taxi.
 
 // NOTE: This guide focuses on JVM languages. If you'd like support in your own language, please <a href={'https://join.slack.com/t/orbitalapi/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg'}>reach out to us</a>, and we'll build it for you. 
 
-== Creating a Taxi Project
-There's a detailed tutorial on xref:guides:install.adoc[creating your first Taxi project], so we'll keep this short. Assuming you've
-already xref:guides:install.adoc#installing-taxi[installed Taxi], do the following to create a Taxi project:
+== Creating a Flow project
 
-```bash
-mdkir my-taxi-project
-cd my-taxi-project
-taxi init
-```
-
-Follow the prompts to create an empty Taxi project, then open the project in your IDE.
+Follow the xref:deploying:development-deployments.adoc[Development Quickstart] to get your {short-product-name} server running and ready to build your models.
 
 == Creating some types
 Under the `src/` directory, create a file that contains our types. The name of the file doesn't matter (so long as it has a `.taxi` extension).
@@ -35,7 +27,7 @@ type ReviewText inherits String
 ```
 
 With this in place, we can run a Taxi build to verify that everything compiles. From the command line, in the same
-directory you ran `taxi init` in (where a `taxi.conf` file now sits), run the build command: 
+directory as you created the project (where a `taxi.conf` file now sits), run the build command:
 
 ```bash
 taxi build

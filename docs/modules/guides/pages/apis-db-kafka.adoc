@@ -34,10 +34,10 @@ Everything you need is packaged up in a Docker Compose file to make getting star
 ----
 mkdir flow-films-demo
 cd flow-films-demo
-wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker-compose.yml
-wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker/schema-server/schema-server.conf -P flow/schema-server
-wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker/schema-server/projects/taxi.conf -P flow/schema-server/projects
-wget https://github.com/flowapi/demos/raw/main/importing-through-ui/services.conf -P flow/config
+curl https://github.com/flowapi/demos/raw/main/importing-through-ui/docker-compose.yml -odocker-compose.yml
+curl https://github.com/flowapi/demos/raw/main/importing-through-ui/docker/schema-server/schema-server.conf -oflow/schema-server
+curl https://github.com/flowapi/demos/raw/main/importing-through-ui/docker/schema-server/projects/taxi.conf -oflow/schema-server/projects
+curl https://github.com/flowapi/demos/raw/main/importing-through-ui/services.conf -oflow/config
 docker compose up -d
 ----
 

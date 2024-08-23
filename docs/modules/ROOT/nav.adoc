@@ -1,57 +1,76 @@
-.Get started
+.xref:index.adoc[Get started]
+// .Get started
 * xref:index.adoc[Overview]
 * xref:introduction:index.adoc[What is {short-product-name}?]
 * xref:introduction:about-taxi.adoc[About Taxi]
+
+.Deploy and Operate
+* xref:deploying:development-deployments.adoc[Quickstart]
+* xref:deploying:production-deployments.adoc[Production deployment]
+* xref:deploying:configuring.adoc[Configuration]
 * xref:guides:index.adoc[Tutorials]
-** xref:guides:install.adoc[Install {short-product-name}]
 ** xref:guides:apis-db-kafka.adoc[Connect APIs, a database & Kafka]
 ** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
 ** xref:guides:streaming-data.adoc[Stream data]
-** xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code]
-** xref:guides:gen-code-from-taxi.adoc[Generating code from Taxi]
+* Advanced
+** xref:deploying:managing-secrets.adoc[Manage secrets]
+** xref:deploying:security-recommendations.adoc[Security recommendations]
+** xref:deploying:data-policies.adoc[Data policies]
+** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
+
+.Developing
 * xref:workspace:overview.adoc[Your workspace]
-** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git] 
-** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk] 
+** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
+** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk]
+** xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code]
+//** xref:guides:gen-code-from-taxi.adoc[Generating code from Taxi]
 
-.Manage data sources
-* xref:describing-data-sources:configuring-connections.adoc[Configure connections]
-* xref:describing-data-sources:authentication-to-services.adoc[Authenticate to services]
-* xref:describing-data-sources:open-api.adoc[Use OpenAPI specs]
-* xref:describing-data-sources:soap.adoc[Use SOAP WSDLs]
-* xref:describing-data-sources:http.adoc[Work with HTTP services]
-* xref:describing-data-sources:protobuf.adoc[Work with Protobuf]
-* xref:describing-data-sources:databases.adoc[Describe databases]
-* xref:describing-data-sources:hazelcast.adoc[Use a Hazelcast data source]
-* xref:describing-data-sources:mongodb.adoc[Describe a Mongo DB]
-* xref:describing-data-sources:kafka.adoc[Use a Kafka data source]
-* xref:describing-data-sources:aws-services.adoc[Use AWS services]
-* xref:describing-data-sources:caching.adoc[Use caching]
+* Manage data sources
+** xref:describing-data-sources:configuring-connections.adoc[Configure connections]
+** xref:describing-data-sources:authentication-to-services.adoc[Authenticate to services]
+** xref:describing-data-sources:open-api.adoc[Use OpenAPI specs]
+** xref:describing-data-sources:soap.adoc[Use SOAP WSDLs]
+** xref:describing-data-sources:http.adoc[Work with HTTP services]
+** xref:describing-data-sources:protobuf.adoc[Work with Protobuf]
+** xref:describing-data-sources:databases.adoc[Describe databases]
+** xref:describing-data-sources:hazelcast.adoc[Use a Hazelcast data source]
+** xref:describing-data-sources:mongodb.adoc[Describe a Mongo DB]
+** xref:describing-data-sources:kafka.adoc[Use a Kafka data source]
+** xref:describing-data-sources:aws-services.adoc[Use AWS services]
+** xref:describing-data-sources:caching.adoc[Use caching]
 
-.Query data
-* xref:querying:writing-queries.adoc[Query with {short-product-name}]
-* xref:querying:mutations.adoc[Perform mutations]
-* xref:querying:queries-as-endpoints.adoc[Publish queries]
-* xref:querying:observability.adoc[Observe queries]
+* Query data
+** xref:querying:writing-queries.adoc[Query with {short-product-name}]
+** xref:querying:mutations.adoc[Perform mutations]
+** xref:querying:queries-as-endpoints.adoc[Publish queries]
+** xref:querying:observability.adoc[Observe queries]
 
-.Data streams & formats
-* xref:streams:streaming-data.adoc[Stream data]
-* xref:data-formats:overview.adoc[Data formats]
-** xref:data-formats:avro.adoc[Avro]
-** xref:data-formats:csv.adoc[CSV]
-** xref:data-formats:json.adoc[JSON]
-** xref:data-formats:xml.adoc[XML]
-** xref:data-formats:protobuf.adoc[Protobuf]
-** xref:data-formats:custom-data-formats.adoc[Custom formats]
+* Data streams & formats
+** xref:streams:streaming-data.adoc[Stream data]
+** xref:data-formats:overview.adoc[Data formats]
+*** xref:data-formats:avro.adoc[Avro]
+*** xref:data-formats:csv.adoc[CSV]
+*** xref:data-formats:json.adoc[JSON]
+*** xref:data-formats:xml.adoc[XML]
+*** xref:data-formats:protobuf.adoc[Protobuf]
 
-.Deployment
-* xref:deploying:production-deployments.adoc[Deploy {short-product-name}]
-* xref:deploying:configuring.adoc[Configure {short-product-name}]
-* xref:deploying:managing-secrets.adoc[Manage secrets]
+
+.Architecture
+* {short-product-name} components
+* Jet jobs
+* Roles and permissions
+
+.Security
 * xref:deploying:authentication.adoc[Enable authentication]
 * xref:deploying:authorization.adoc[Enable authorization]
-* xref:deploying:data-policies.adoc[Data policies]
-* xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
+
+
+.Performance
+* Benchmarks
+
+.Support
+* How to report issues
 
 .Reference
 * xref:glossary.adoc[Glossary]
