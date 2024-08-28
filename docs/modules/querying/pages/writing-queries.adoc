@@ -47,6 +47,7 @@ model Purchase {
    transactionId : TransactionId
    customerId : CustomerId
 }
+
 model CustomerTransaction {
   transactionId : TransactionId
   name : CustomerName

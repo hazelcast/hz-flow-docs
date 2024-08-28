@@ -62,7 +62,7 @@ Finally, declare the Kafka topic:
 ```taxi reviews.taxi
 service KafkaService {
   stream reviews : Stream<NewReviewPostedMessage>
-}
+  }
 ```
 
 ## Creating an event stream

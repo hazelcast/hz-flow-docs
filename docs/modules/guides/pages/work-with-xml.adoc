@@ -67,21 +67,18 @@ films.taxi::
   import flow.formats.Xml 
 
 // The @Xml annotation tells Flow how to read this object 
-@Xml
-model FilmList { 
+@Xml model FilmList { 
   item : Film[]
-} 
-   
+   } 
 model Film { 
   id : FilmId inherits Int 
   title : FilmTitle inherits String 
   yearReleased : YearReleased inherits Int
-} 
-
-service FilmsService { 
-  @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
+   } 
+   service FilmsService { 
+    @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
   operation getAllFilms():FilmList
-}
+   }
 ----
 films-data.xml::
 +
