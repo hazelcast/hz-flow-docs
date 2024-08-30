@@ -11,6 +11,8 @@ This is powered by rich semantic schemas, which infer how data across your organ
 
 image:network_diagram_flow.png[]
 
+// image:network_diagram_flow_background_test2.png[]
+
 These topics are aimed at developers and architects who want to harness the power of {short-product-name}, and administrators deploying and integrating {short-product-name} within an organization. 
 
 == Quickstart
