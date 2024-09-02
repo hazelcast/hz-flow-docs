@@ -3,12 +3,31 @@
 
 {short-product-name} does not provide a user interface for managing users or roles. Instead, it relies on the https://docs.hazelcast.com/management-center/5.5[Management Center] (MC) for identity management, utilizing https://docs.hazelcast.com/management-center/5.5/deploy-manage/security-providers[MC security providers] as identity providers. When a user attempts to access Flow, they will be redirected to the identity provider's login page as configured with the MC.
 
-Single Sign-On (SSO) and Single Logout (SLO) are pre-configured between Flow and MC, ensuring a seamless authentication and logout experiences. This means that when a user logs in or out of one product, they are automatically logged in or out of the other.
+Single Sign-On (SSO) and Single Logout (SLO) are pre-configured between Flow and MC, ensuring a seamless login and logout experiences. This means that when a user logs in or out of one product, they are automatically logged in or out of the other.
+
+== Identity provider configuration through Management Center
+Users *must* configure their identity providers through MC. This can be done either on user interface of MC or https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool].
 
 There are 2 ways to use MC as an identity provider:
 
-. MC can act as the identity provider itself, such as using its https://docs.hazelcast.com/management-center/5.5/deploy-manage/local-security-provider[local security provider].
-. MC can be configured to use an external identity provider such as https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[Open ID connect].
+. MC can act as the identity provider itself for the following security providers:
+  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/local-security-provider[Local Security Provider]
+  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/active-directory[Active Directory]
+  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/jaas[JAAS]
+  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/ldap[LDAP]
+. MC can be configured to use an external identity provider for the following security providers:
+  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML]
+  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[Open ID connect]
+
+== Steps to run Flow with Management Center as the identity provider:
+
+. Run docker compose file to spin up Flow and MC. Security provider can be configured in 2 ways:
+  a. Through https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool]. An example can be found below.
+  b. Through user interface of MC. To do this, open the landing page of Flow or MC. An example can be found below.
+. After security provider is configured through MC, go to the landing page of Flow or MC.
+  * Flow is configured to run on http://localhost:9021 unless overridden.
+  * MC is configured to run on http://localhost:8080 unless overridden.
+. Enter your credentials and login. Thanks to SSO, you are logged into both applications.
 
 ////
 Internal notes to Hazelcast employees:
@@ -62,9 +81,9 @@ The presented JWT is expected to have the following attributes:
 
 ////
 
-Below you can find a quick start where MC is the identity provider and a more complex scenario where MC is configured to use an external identity provider.
+Below you can find example docker compose files where MC is the identity provider and a more complex scenario where MC is configured to use an external identity provider.
 
-== Quick start with local security configuration with hz-mc tool
+=== Example docker compose file with local security configuration via hz-mc tool
 Run the following docker compose file with username `admin` and password `Hazelcast135!`:
 
 // The following docker compose file needs to be merged with security pre-configuration of Flow with MC above.
@@ -114,11 +133,13 @@ services:
          POSTGRES_USER: postgres
          POSTGRES_PASSWORD: changeme
 ----
-Once the containers have started, you will see the following login screen:
+Notice usage of `./bin/mc-conf.sh`.
+
+Once the containers have started, go to the landing page of MC or Flow, and you will see the following login screen:
 
 image:mc-local-security-provider-login.png[]
 
-== External identity provider configuration with oidc through user interface
+=== Example docker compose file with external identity provider configuration through user interface
 Run the following docker compose file:
 
 // The following docker compose file needs to be merged with security pre-configuration of Flow with MC above.
@@ -169,7 +190,7 @@ services:
          POSTGRES_PASSWORD: changeme
 ----
 
-Once the containers have started, configure your external identity provider https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[as described], and you will see the following login screen:
+Once the containers have started, configure your external identity provider with https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[OIDC] or https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML], go to the landing page of MC or Flow, and you will see the following login screen:
 
 image:external-idp-oidc-login.png[]
 
