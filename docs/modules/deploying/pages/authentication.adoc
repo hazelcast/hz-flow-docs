@@ -12,10 +12,10 @@ There are 2 ways to use MC as an identity provider:
 
 . MC can act as the identity provider itself for the following security providers:
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/local-security-provider[Local Security Provider]
+. MC can be configured to use an external identity provider for the following security providers:
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/active-directory[Active Directory]
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/jaas[JAAS]
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/ldap[LDAP]
-. MC can be configured to use an external identity provider for the following security providers:
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML]
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[Open ID connect]
 
