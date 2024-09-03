@@ -84,6 +84,7 @@ that services are available on the configured addresses.
 *Optional* +
 Executes long-lived data streams
 | http://stream-server
+|
 |===
 
 NOTE: When {short-product-name} is configured to distribute work across a cluster, ports must also be exposed to enable multicasting. See xref:distributing-work-on-a-cluster.adoc[Distributing work across a cluster] for more information.
