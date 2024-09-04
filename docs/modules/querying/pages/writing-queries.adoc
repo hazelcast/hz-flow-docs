@@ -486,5 +486,3 @@ The following formats are supported:
 * xref:data-formats:xml.adoc[XML]
 * xref:data-formats:protobuf.adoc[Protobuf]
 * xref:data-formats:avro.adoc[Avro]
-
-If you need a custom format that's not listed here, read about {short-product-name}'s support for xref:data-formats:custom-data-formats.adoc[custom model formats].

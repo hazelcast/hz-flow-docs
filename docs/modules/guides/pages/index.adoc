@@ -7,7 +7,7 @@ amazing integration projects.
 
 == Quick Links
 
-* xref:install.adoc[Install] - Start here to install {short-product-name} and create a project
+* xref:deploying:development-deployments.adoc[Development Quickstart] - Start here
 * xref:apis-db-kafka.adoc[Connect APIs, a database and Kafka] - Deploy {spn} locally, then integrate a database, a REST API, and Kafka. Ideal for beginners
 * xref:compose.adoc[Compose APIs and a Database] - Exposing a Backend for Frontend (BFF) that links data between a database and several APIs
 * xref:work-with-xml.adoc[Work with XML and JSON] - Combine data from XML and JSON data sources

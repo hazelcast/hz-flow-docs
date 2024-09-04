@@ -125,7 +125,6 @@ Applications can generate Taxi, direct from code, and publish to {short-product-
 This suits microservices and teams who prefer generating their API specs from code.
 
 // * Currently only Java / Kotlin with Spring Boot is supported, but other SDKs are planned.
-// - https://github.com/{short-product-name}api/{short-product-name}/discussions[reach out] to tell us about your usecase
 
 // Learn more about this approach link:./schema-publication-methods[here].
 

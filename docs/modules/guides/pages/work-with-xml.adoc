@@ -32,29 +32,9 @@ We'll stitch these together, and expose a REST API that returns the data from al
 
 == Setting up
 
-// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=92[Jump to this section of the video]
-
-To get started, install Taxi using https://sdkman.io/[SDKMan] and create a new project:
-
-[,bash]
-----
-sdk install taxi
-taxi init
-# follow prompts to create your taxi project
-----
-
-Then launch an {short-product-name} developer environment:
-
-----
-taxi flow
-----
-
-This downloads a Docker Compose file which configures a local developer environment of {short-product-name} that live-reloads your
-Taxi project changes.
+To get started working on {short-product-name}, follow the instructions at xref:deploying:development-deployments.adoc[Development Quickstart guide]
 
 == Describing the Film Service
-
-// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=247[Jump to this section of the video]
 
 Write some Taxi that describes our Film service:
 
@@ -404,11 +384,11 @@ Which gives us:
 
 In this guide, we've:
 
-* Created a Taxi project
+* Created a new project
 * Exposed XML services and modelled their responses
 * Written a query stitching three services together
 * Published that query as an HTTP service
 
-// The code for this guide is available on https://github.com/{short-product-name}api/demos/tree/main/xml-demo[Github].
+The code for this guide is available on https://github.com/{short-product-name}api/demos/tree/main/xml-demo[Github].
 
-// Remember, if you haven't already done so, head to the https://github.com/{short-product-name}api/{short-product-name}[{short-product-name} github repo] and give us a star!
+Remember, if you haven't already done so, head to the https://github.com/{short-product-name}api/{short-product-name}[{short-product-name} github repo] and give us a star!

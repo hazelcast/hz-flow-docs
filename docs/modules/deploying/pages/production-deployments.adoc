@@ -1,6 +1,8 @@
 = Deploying {short-product-name}
 :description: How to deploy {short-product-name} to production
 
+Our recommended deployment method is with `docker compose` or deploying the Docker container directly using the orchestrator of your choice.
+
 == Production concepts
 
 When deploying to production, there are common tasks you may wish to perform:
@@ -18,13 +20,22 @@ A sample `docker-compose.yml` is maintained by the {short-product-name} team and
 It contains reasonable defaults for getting a local environment running.  Note that, by default, {short-product-name} does not enable
 authentication or role-based authorization, and you'll need to enable these.
 
-== Deploying with Terraform
 
-{short-product-name} maintains deployment scripts for production configurations of {short-product-name} in Terraform.
+== Further deployment templates
+
+These further templates provide code samples for provisioning infrastructure and deploying into orchestration platforms:
+
+=== Deploying with Terraform
+
+A sample `docker-compose.yml` is maintained by the {short-product-name} team and published at https://start.{code-product-name}.com[start.{code-product-name}.com]. 
+#Author's note - link used to be to start.orbital.com - what should it be now?#
+
+It contains reasonable defaults for getting a local environment running.  Note that, by default, {short-product-name} does not enable
+authentication or role-based authorization, and you'll need to enable these.
+
+{short-product-name} maintains example deployment scripts for production configurations of {short-product-name} in Terraform.
 
 // These are available https://github.com/{short-product-name}api/deploy[here].
-
-#Author's note - there used to be a link to https://github.com/orbitalapi/deploy - what should it be now?#
 
 == Networking between components
 
@@ -62,7 +73,7 @@ The following table outlines the components and the default network addresses an
 expected to be exposed.  If deploying in a network like Docker Swarm or Kubernetes, it is expected
 that services are available on the configured addresses.
 
-#Author's note - links in table are broken - please confirm what these should be:#
+Author's note - links in table are broken - please confirm what these should be:
 
 |===
 | Component & Image | Default network address | Port(s)
@@ -84,7 +95,6 @@ that services are available on the configured addresses.
 *Optional* +
 Executes long-lived data streams
 | http://stream-server
-|
 |===
 
 NOTE: When {short-product-name} is configured to distribute work across a cluster, ports must also be exposed to enable multicasting. See xref:distributing-work-on-a-cluster.adoc[Distributing work across a cluster] for more information.
