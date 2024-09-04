@@ -4,6 +4,6 @@
 
 Protobuf is supported when using a dedicated Protobuf spec.
 
-Using Protobuf without a spec is technically link:/docs/describing-data-sources/protobuf#generated-taxi[possible], but discouraged, and not currently supported.
+Using Protobuf without a spec is technically xref:describing-data-sources:protobuf.adoc#generated-taxi[possible], but discouraged, and not currently supported.
 
-Instead, use a dedicated link:/docs/describing-data-sources/protobuf[Protobuf] spec.
+Instead, use a dedicated xref:describing-data-sources:protobuf.adoc[Protobuf] spec.

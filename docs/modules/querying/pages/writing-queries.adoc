@@ -1,7 +1,5 @@
-= Querying with {short-product-name}
+= Query with {short-product-name}
 :description: Submitting queries to {short-product-name}'s API to discover data
-
-import { Callout } from '@/components/docs/Callout';
 
 {short-product-name} focuses on querying for data based on its meaning, rather than which system provides it. This allows services to
 change, and data to move, without requiring consumers to update their queries.
@@ -14,10 +12,11 @@ TODO: replace diagram
 == Writing queries
 
 Queries are written in https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], an open source
-query language for data.+++<Callout>+++[TaxiQL](https://docs.taxilang.org/language-reference/querying-with-taxiql/) is a great query language. The Taxi documentation has details on the syntax, which we haven't duplicated here. Go check it out, then come back. We'll wait.+++</Callout>+++
+query language for data.
 
-TaxiQL is agnostic of where data comes from - it's left to {short-product-name} to discover data from the various sources that have been
-connected.
+TIP: https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] is a powerful query language, and  the Taxi documentation has details on the syntax, which we haven't duplicated here.
+
+TaxiQL is agnostic of where data comes from - it's left to {short-product-name} to discover data from the various sources that have been connected.
 
 Here are some sample queries:
 
@@ -40,7 +39,25 @@ Projections are a way of taking data from one place, then transforming and combi
 
 {short-product-name} uses the information present on the object being projected in order to call services and find other information.
 
-For example:
+For example, you can project from a pre-defined type to another predefined type - such as:
+
+```taxi
+model Purchase {
+   transactionId : TransactionId
+   customerId : CustomerId
+}
+
+model CustomerTransaction {
+  transactionId : TransactionId
+  name : CustomerName
+  price : Price
+}
+
+find { Purchases[] } as CustomerTransaction[] 
+```
+
+It's also very common to project from a predefined type to a type defined inline within your query
+(called 'anonymous types'). For example:
 
 [,taxi]
 ----
@@ -59,6 +76,158 @@ as {
 }
 ----
 
+### Projection scopes
+Creating a projection requires the syntax `something as { ... }`, which defines a projection scope:
+
+```taxi
+find { Customer } as { // start a projection scope, containing a customer
+   // ... omitted ...
+}
+```
+
+If you're projecting an array, then each item within the array is projected separately:
+
+```taxi
+find { Customer[] } as { // start a projection scope. 
+   // Within the scope, each item is an individual Customer instance
+   firstName : FirstName
+}[] // Be sure to include the array marker at the end, as the object is an array.
+```
+
+If you need to, you can assign a name to the item within the scope. This can be useful 
+for nested scopes, or controlling inputs into a function. For example:
+
+```taxi
+find { Customer[] } as (customer:Customer) -> {
+   // referencing a field by it's name on Customer
+   firstName : upperCase(customer.firstName)
+   // referencing as field by it's type on Customer
+   lastName : upperCase(customer::LastName)
+
+   // using a variable within a constraint:
+   purchases: Purchase[](CustomerId == customer::CustomerId)
+   // without referring to a variable, Age is resolved against all variables in scope
+   age : Age  
+}[]
+```
+
+Or, when using nested scopes:
+
+```taxi
+find { Customer[] } as (customer:Customer) -> {
+  name : CustomerName
+  orders : Order[] as (order:Order) -> {
+     ageAppropriate : Boolean = customer.age >= order.recommendedAge
+  }
+}
+```
+
+Or, to provide inputs into functions:
+
+```taxi
+model Film {
+   title : FilmTitle inherits String
+   headliner : ActorId
+   cast: Actor[]
+}
+
+find { Film[] } as (film:Film) -> {
+   title : FilmTitle
+   // singleBy selects a single item from
+   // an array (film.cast, an array of Actor), that matches a predicate
+   // (in this case, there the actor ID is the same as the headliner id)
+   star : singleBy(film.cast, (Actor) -> Actor::ActorId, film.headliner) as (actor:Actor) -> {
+      name : actor.name
+      title : film.title
+   }
+}[]
+```
+
+#### Using variables to modify what's in scope
+By default, the scope contains the entire source object. For example:
+
+```taxi
+model Film {
+  title : Title
+  cast : Actor[]
+}
+
+find { Film } as { 
+   // this scope contains an entire film record
+}
+```
+
+You can modify this by specifying the type of the variable in scope:
+
+```taxi
+find { Film } as (Actor[]) -> { // note that film has been removed from the scope...
+  title : Title //... therefore title isn't knowable -- this field will return null
+  actorName : ActorName
+}[]
+```
+
+You can also use functions to further reduce the scope:
+
+```taxi
+find { Film } as (first(Actor[])) -> {
+   // Now, the scope only contains a single actor
+   headliner : ActorName
+} //  We're not projecting an array anymore, so no aray marker here
+```
+
+Finally, if the data defined in the scope isn't available on the source,
+{short-product-name} triggers a query to find it. For example:
+
+```taxi
+// Define a few models
+model Film {
+   id : FilmId inherits Int
+   title : Title inherits String
+}
+model Actor {
+   name : ActorName inherits String
+}
+model Cast {
+   actors : Actor[]
+}
+
+// And some services that return them
+service Films {
+   operation getFilm():Film
+   operation getCast(FilmId):Cast
+}
+
+
+// Here's a query:
+find { Film } as (Actor[]) -> {
+  actorName : Name
+  filmTitle : Title // should be null, as it's out-of-scope on Actor
+}[]
+```
+
+In the above query:
+
+ * `getFilm()` is called, to fetch the `Film`
+ * The projection requests an `Actor[]` in the scope, which isn't available, so...
+ ** A call to `getCast()` is made, passing the `FilmId` to fetch the `Actor[]`
+ ** Because it's an array, each `Actor` within the array of `Actor[]` is projected individually
+ ** `actorName` is read from the `name` field on `Actor`, because the requested field asks for the type `Name`
+ ** `filmTitle` is out-of-scope, so returned as null
+
+#### Declaring multiple variables in scope
+
+In the previous example, we saw that `filmTitle` was returned as null, because
+the `Film` was removed from scope.
+
+To run the same query with `Film` in scope, simply add it to the projection:
+
+```taxi
+find { Film } as (Film, Actor[]) -> {
+  actorName : Name
+  filmTitle : Title // Title is now discoverable, as Film is in scope
+}[]
+```
+
 === Data discovery rules
 
 When projecting, {short-product-name} will use information present on the source object to discover data
@@ -70,9 +239,7 @@ of operations to return the value.
 ==== Operations with @Id fields on return types
 
 If the result of an operation is an object that exposes an `@Id` field, then only operations which accept that `@Id` field as
-an input will be called.
-
-For example:
+an input will be called. For example:
 
 [,taxi]
 ----
@@ -87,7 +254,7 @@ service CustomerService {
    findCustomer(CustomerId):Customer
 
    // Cannot be called when projecting, because
-   // Person has an @Id, and it isn't PersonName
+   // Customer has an @Id, and it isn't CustomerName
    findCustomerByName(CustomerName):Customer
 }
 ----
@@ -112,7 +279,7 @@ Operations are invoked following the standard <<data-discovery-rules,Data Discov
 == Understanding caching in {short-product-name}
 
 By default, {short-product-name} does not maintain a long-lived cache between operations,
-but you can link:/docs/describing-data-sources/caching[add one] by configuring an external cache, such as Redis or Hazelcast.
+but you can xref:describing-data-sources:caching.adoc[add one] by configuring an external cache, such as Hazelcast.
 
 Without an external cache, {short-product-name} caches operation calls for the lifetime of a query. This prevents the same operation
 being invoked repeatedly while projecting multiple rows in a result.
@@ -120,8 +287,10 @@ being invoked repeatedly while projecting multiple rows in a result.
 When caching, responses are cached for a given operation and set of inputs.  If an operation is invoked with
 different parameters, the cache is not used.
 
-Operations that return an array of results, and which return more than 10 values, will not have their responses cached.  (This is not
-currently configurable, but reach out on Slack if you need to configure this).
+Operations that return an array of results and which return more than 10 values, will not have their responses cached.
+
+// AUTHORS NOTE - Marty says that if we want this as a configurable parameter, just let him know and Orbital can expose it. In the meantime, I've commented this bit out: 
+// (This is not currently configurable, but https://support.hazelcast.com/s/[contact Hazelcast Support] if you need to configure this).
 
 == Recovering from failure
 
@@ -216,7 +385,7 @@ integrate using {short-product-name}'s REST API.
 Queries to {short-product-name} are submitted to the `/api/taxiql` endpoint:
 
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
 ----
@@ -240,7 +409,7 @@ To address this, {short-product-name} supports pushing results over server-sent 
 the `Accept` header to `text/event-stream`:
 
 ----
-curl 'http://localhost:9022/api/taxiql' \
+curl 'http://localhost:9021/api/taxiql' \
   -H 'Accept: text/event-stream' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
@@ -255,7 +424,7 @@ Results are pushed out from {short-product-name} as they are available.
 To enable this, append  `?resultMode=TYPED` to the API call:
 
 ----
-curl 'http://localhost:9022/api/taxiql?resultMode=TYPED' \
+curl 'http://localhost:9021/api/taxiql?resultMode=TYPED' \
   -H 'Accept: text/event-stream' \
   -H 'Content-Type: application/taxiql' \
   --data-raw 'find { Movie[] }'
@@ -280,32 +449,28 @@ The following Accept headers are supported:
 | `application/csv`
 | CSV
 
-| `text/event-stream
+| `text/event-stream`
 | JSON with server-sent events
 |===
 
-== Defining output formats with model formats
+== Controlling output formats
 
-Fine-grained control is supported with custom model specs defined on model types.
-At present, only limited support is provided, but we plan to provide additional formats
-in a future release, along with the ability to register bespoke formats.
-
-Formats are defined by adding an annotation to the model defined as the output type.
+By default, data is written in JSON format.
+However, this can be controlled by placing an annotation on the model
+defining the output of a query.
 
 For example:
 
 [,taxi]
 ----
-import io.vyne.formats.Csv
+import flow.formats.Csv
 
-@Csv(
-   delimiter = "|",
-   nullValue = "NULL"
-)
+@Csv(delimiter = "|", nullValue = "NULL")
+
 model Person {
-   firstName : String by column("firstName")
-   lastName : String by column("lastName")
-   age : Int by column("age")
+   firstName : FirstName inherits String
+   lastName : LastName inherits String
+   age : Age inherits Int
 }
 
 // Query:
@@ -315,35 +480,9 @@ find { Customer[] }
 as { Person[] }
 ----
 
-=== CSV
+The following formats are supported:
 
-The full definition of the CSV model format is as follows:
-
-|===
-| Parameter | Description | Required | Default Value
-
-| delimiter
-| Defines the delimiter to use between columns
-| false
-| ,
-
-| firstRecordAsHeader
-| Indicates if the first line should be treated as a header
-| false
-| true
-
-| nullValue
-| Defines a custom token to use in place of null
-| false
-| null
-
-| containsTrailingDelimiters
-| Indicates if the last delimiter is an empty column which should be ignored
-| false
-| false
-
-| withQuote
-| Defines a quote character used if content needs to be escaped
-| false
-| "
-|===
+* xref:data-formats:csv.adoc[CSV]
+* xref:data-formats:xml.adoc[XML]
+* xref:data-formats:protobuf.adoc[Protobuf]
+* xref:data-formats:avro.adoc[Avro]

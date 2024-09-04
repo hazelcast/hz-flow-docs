@@ -1,8 +1,6 @@
 = Streaming data
 :description: Consume streams, and publish streaming data products
 
-import \{Callout} from '@/components/docs/Callout';
-
 == Writing streaming queries
 
 Streaming queries are executed in the same way as request/response
@@ -55,8 +53,6 @@ stream { StockQuotes.filterEach( StockSymbol -> StockSymbol == 'AAPL' ) }
 
 {short-product-name}'s query editor is great for running short-lived streaming queries. However, oftentimes you want a streaming query to continue in the background.
 
-{short-product-name}'s <<the-stream-server,stream server>> is responsible for long-lived streaming queries.
-
 To deploy a long-lived streaming query, simply define a query in one of your taxonomy projects.  Typically,
 this is checked into a Git repository.
 
@@ -67,8 +63,7 @@ query MySavedQuery {
    stream { StockPrices }
    call MyPostgresService::upsertStockPrice
 }
-
-----
+```
 
 ### Updating streaming queries
 Streaming queries are automatically upgraded whenever their definition changes.
@@ -77,40 +72,7 @@ Streaming queries are automatically upgraded whenever their definition changes.
 When each streaming query is detected for the first time, it's disabled by default to prevent accidental
 data changes (as streams are often mutating).
 
-You can enable a streaming query either via the UI, or an API call.
+You can enable a streaming query either via the UI, or an API call from the Endpoints page.
 
 Note that once a streaming query has been enabled once, further updates are automatically deployed and the stream
 remains running.
-
-### The stream server
-{short-product-name}'s stream server ships as a separate [Docker image](https://hub.docker.com/r/{code-product-name}/stream-server), responsible for
-executing saved streaming queries.
-----
-
-version: "3.3"
-services:
-  ## Other services omitted
-  stream-server:
-    image: {code-product-name}/stream-server:latest
-
-----
-
-The stream server exposes the following ports:
- - An HTTP port on 9615 (you can deploy a reverse SSL proxy in front of this)
- - An RSocket port on 7755
-
-By default, {short-product-name} expects to find the stream server at `http://stream-server/`. Our default
-[Docker Compose](https://start.{code-product-name}.com)
-and [Helm Chart](https://github.com/{short-product-name}api/helm) configure this by default.
-
-However, if you need to configure the address of the stream server, you can do so by editing the `services.conf` file
-deployed with {short-product-name}'s main component:
-
-```hocon
-services {
-    stream-server {
-       url="http://localhost:9615"
-       rsocket="tcp://localhost:7755"
-    }
-}
-----

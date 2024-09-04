@@ -1,7 +1,7 @@
 = Working with HTTP sources
-:description: 'An overview of how to connect data sources to Orbital'
+:description: 'An overview of how to connect data sources to {short-product-name}'
 
-+++<Callout type="note" title="See also: OpenAPI">+++Orbital has first-class support for working with link:./open-api[OpenAPI specs] and link:./soap[SOAP WSDLs]. The following guide is intended for consuming HTTP services without a separate spec.+++</Callout>+++
+{short-product-name} has first-class support for working with xref:open-api.adoc[OpenAPI specs] and xref:soap.adoc[SOAP WSDLs]. The following topic is intended for consuming HTTP services without a separate spec.
 
 == Describing HTTP with Taxi
 
@@ -57,7 +57,7 @@ Taxi ships with some standard annotations, as part of its https://gitlab.com/tax
 | `@PathVariable(name)`
 | Indicates a property from the path that should be populated with a variable passed to the operation
 
-| `@HttpHeader(name,value, prefix)`
+| `@HttpHeader(name,value,prefix)`
 | Defines how headers are passed. See below
 |===
 
@@ -191,13 +191,13 @@ As shown above, attribute constraints may either be:
 * A reference to an attribute of another parameter
 * Nested syntax is supported (ie., `foo.bar.baz`)
 
-These constraints are applicable on types too. See +++<link to="../taxi-language#type-constraints">++++++</link>+++type constraints</Link> for an example.
+These constraints are applicable on types too. 
 
 == Retry policies
 
 When integrating with external REST APIs, handling intermittent failures such as HTTP 500 errors is crucial for maintaining application reliability.
 
-Taxi allows defining retry policies, which Orbital will honour when things go wrong.
+Taxi allows defining retry policies, which {short-product-name} will honour when things go wrong.
 
 === Fixed delay retry policy
 
@@ -238,7 +238,7 @@ service ReviewsApi {
 }
 ----
 
-With the above definition, Orbital will try invoking the rest at most 10 times in case of HTTP 500 or HTTP 502 errors.
+With the above definition, {short-product-name} will try invoking the rest at most 10 times in case of HTTP 500 or HTTP 502 errors.
 
 However, the delay between retries will increase exponentially.
 

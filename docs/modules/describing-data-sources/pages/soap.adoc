@@ -1,10 +1,10 @@
-= Using SOAP to describe your services',
-:description: 'An overview of how to connect data sources to {short-product-name}'
+= Using SOAP to describe your services
+:description: An overview of how to connect data sources to {short-product-name}
 
 
 {short-product-name} can use SOAP WSDLs to understand what endpoints exist, and how to call them.
 
-{short-product-name} uses link:/docs/introduction#semantic-data-schemas[Semantic schemas] to describe how data relates between systems. For SOAP WSDLs, this
+{short-product-name} uses xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic schemas] to describe how data relates between systems. For SOAP WSDLs, this
 means embedding references to Taxi types within your SOAP WSDLs.
 
 To do this, we embed Taxi metadata within the WSDL.
@@ -29,9 +29,9 @@ Elements then have Taxi-type references embedded with them like this:
    <xs:complexType name="tCurrency">
       <xs:sequence>
          <xs:element name="sISOCode" type="xs:string"
->              taxi:type="com.{code-product-name}.CurrencyIsoCode"/>
+>              taxi:type="flow.CurrencyIsoCode"/>
          <xs:element name="sName" type="xs:string"
->              taxi:type="com.{code-product-name}.CurrencyName"/>
+>              taxi:type="flow.CurrencyName"/>
       </xs:sequence>
    </xs:complexType>
 ----

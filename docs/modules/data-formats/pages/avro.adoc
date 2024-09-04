@@ -1,11 +1,6 @@
 = Avro
 :description: Working with Avro data in {short-product-name}
 
-<Callout type={"note"} title={"Preview"}>
-  Avro support is in preview, and expected to be released as part of 0.32. To use it ahead of release, pull the
-  Docker images tagged `next`
-</Callout>
-
 == Reading and writing Avro
 
 {short-product-name} can read and write data using https://avro.apache.org/[Avro].
@@ -14,10 +9,9 @@ To declare that a type should be read as CSV, add the `lang.taxi.formats.AvroMes
 
 [,taxi]
 ----
->  import lang.taxi.formats.AvroMessage
+  import lang.taxi.formats.AvroMessage
 
->  @AvroMessage
-   closed model People {
+  @AvroMessage closed model People {
        name : Name
        id : sId
        email : Email?
@@ -31,11 +25,11 @@ When writing Avro, serialization order is important. Therefore, you should also 
 [,taxi]
 ----
    import lang.taxi.formats.AvroMessage
->  import lang.taxi.formats.AvroField
+   import lang.taxi.formats.AvroField
 
    @AvroMessage
    closed model People {
->     @AvroField(ordinal = 0) name : Name
+      @AvroField(ordinal = 0) name : Name
       @AvroField(ordinal = 1) id : Id
       @AvroField(ordinal = 2) email : Email?
       @AvroField(ordinal = 3) phones : Phones[]
@@ -61,7 +55,7 @@ Here's an example assigning a Taxi type name to a record / object:
      "name": "AddressBook",
      // without this annotation, a type of simple.AddressBook would've
      // been created, based off the namespace and name
->    "taxi.dataType": "com.example.AddressBook",
+     "taxi.dataType": "com.example.AddressBook",
      "fields": [
        //... continues ...
 ----
@@ -77,12 +71,12 @@ Or, to define a Taxi type for a field:
         {
           "name": "name",
           "type": "string",
->         "taxi.dataType": "foo.PersonName"
+          "taxi.dataType": "foo.PersonName"
         },
         {
            "name": "id",
            "type": "int",
->          "taxi.dataType": "foo.PersonId"
+           "taxi.dataType": "foo.PersonId"
         },
 ----
 
@@ -100,7 +94,8 @@ or through the UI.
 
 ==== Local file projects
 
-You can add Avro schemas that are present locally on the file system of the server by adding the following declaration to your `workspace.conf` file:+++<Callout title="Beta bits...">+++The project identifier is duplicated below. This is currently necessary, but we'll fix that before this goes GA.+++</Callout>+++
+You can add Avro schemas that are present locally on the file system of the server by adding the following declaration to your `workspace.conf` file:
+
 
 [,hocon]
 ----
@@ -110,11 +105,11 @@ file {
             loader {
                 // All projects in {short-product-name} require a unique identifier
                 identifier {
-                    id="com.marty/avro-test/1.0.0"
+                    id="com.hazelcast/avro-test/1.0.0"
                     name=avro-test
-                    organisation="com.marty"
-                    unversionedId="com.marty/avro-test"
-                    uriSafeId="com.marty:avro-test:1.0.0"
+                    organisation="com.hazelcast"
+                    unversionedId="com.hazelcast/avro-test"
+                    uriSafeId="com.hazelcast:avro-test:1.0.0"
                     version="1.0.0"
                 }
                 // set the packageType to Avro
@@ -122,11 +117,11 @@ file {
             }
             packageIdentifier {
                 name=avro-test
-                organisation="com.marty"
+                organisation="com.hazelcast"
                 version="1.0.0"
             }
             // The path on your local machine to the avro schema
-            path="/home/martypitt/dev/vyne/schema-server-core/src/test/resources/avro/addressBook.avsc"
+            path="/opt/resources/avro/addressBook.avsc"
         }
     ]
 }
@@ -136,7 +131,8 @@ file {
 
 You can add Avro schemas that are present within a Git repository by adding the following declaration to your `workspace.conf` file:
 
-The Git repo is monitored, so any changes are pulled locally and automatically applied inside of {short-product-name}.+++<Callout title="Beta bits...">+++The project identifier is duplicated below. That's necessary today, but we'll fix that before this goes GA.+++</Callout>+++
+The Git repo is monitored, so any changes are pulled locally and automatically applied inside of {short-product-name}.
+
 
 [,hocon]
 ----
@@ -159,7 +155,7 @@ git {
             // The path to the avro file within your Git repository
             path="/addressBook.avsc"
             // The url of your git repo
-            uri="https://gitlab.com/acne/my-avro-project.git"
+            uri="https://gitlab.com/acme/my-avro-project.git"
         }
     ]
 }
@@ -173,7 +169,7 @@ Start by navigating:
 
 * Projects > Add Project
 
-<BlogImageWithCaption src=\{AddProject}></BlogImageWithCaption>
+image:add_project_avro_flow_2.png[]
 
 * Then select to add a project from either a Git Repo or Local disk
 
@@ -189,20 +185,24 @@ The Git repo is monitored, so any changes are pulled locally and automatically a
 * Set the path to the location of your Avro schema within the repo
 * Provide a unique package identifier for this Avro schema
 
-<BlogImageWithCaption src=\{AddProjectFromGit} />
+image:add_avro_git_repo_flow.png[]
 
 ==== Adding an Avro project from a file
 
 This workflow lets you add a reference to an Avro schema that's already local on the server.
 
-Any changes made to the file are automatically detected, and updated inside of {short-product-name}.+++<Callout type="note" title="'Local' means local to the server">+++This workflow adds a reference to an Avro file that's *on the disk of the server*. +
+Any changes made to the file are automatically detected, and updated inside of {short-product-name}.
+
+NOTE: 'Local' means local to the server.
+
+This workflow adds a reference to an Avro file that's *on the disk of the server*. +
  +
 It's intended for developers who are running {short-product-name} in a Docker image on their local machine. +
  +
-This workflow isn't intended for uploading an Avro schema to a remote server. Instead, use a Git repository+++</Callout>+++
+This workflow isn't intended for uploading an Avro schema to a remote server. Instead, use a Git repository
 
 * Set the project type to *Avro*
 * Provide the path on your local machine to where the Avro file is
 * Provide a unique package identifier for this Avro schema
 
-<BlogImageWithCaption src=\{AddProjectFromFile} />
+image:add_avro_file_flow.png[]

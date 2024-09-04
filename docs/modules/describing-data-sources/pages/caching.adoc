@@ -1,18 +1,18 @@
 = Caching
+:description: Using caching with {short-product-name}
 
-<Callout type='warning' title="We're working on it...">
-  This guide is under construction. If you hit some rough edges, or find it confusing, come yell at us <a href={'https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg'} target="_blank">on slack</a>.
-</Callout>
+// AUTHORS NOTE - Orbital ships with a local cache that should not be taken to production, while Flow ships with a full Hazelcast cache. Sections are commented out below to reflect this. 
+
+{short-product-name} ships out-of-the box with a full production-grade Hazelcast cache. 
 
 ## Caching requests
-By default, {short-product-name} will cache requests throughout a query only. i.e., {short-product-name} will only call a service with the same set of
-parameters once within a query. 
+By default, {short-product-name} will cache requests throughout a query only. In other words, {short-product-name} will only call a service with the same set of parameters once within a query. 
 However, caches are destroyed at the end of each query.
 
 To enable caching, simply add `@Cache` to the top of your query:
 
 ```taxi
-> @Cache
+  @Cache
   find { Film[] } as {
     id : FilmId
     // Fetched from a remote service.
@@ -22,13 +22,12 @@ To enable caching, simply add `@Cache` to the top of your query:
 ```
 
 
-
 ### Scoping caches
-By default, all queries share the same cache.  If you want cache isolation, so that
+By default, all queries share the same cache.  If you want cache isolation so that
 population and invalidation are isolated from each other, you can apply a name to the cache:
 
 ```taxi
-> @Cache("myCache")
+  @Cache("myCache")
   find { Film[] } as {
     id : FilmId
     // Fetched from a remote service.
@@ -43,12 +42,11 @@ population and invalidation are isolated from each other, you can apply a name t
 
 It's the default cache that's enabled if no connection is provided.
 
-It's helpful for development, but shouldn't be taken to production,
-as excessive caching can cause Out-of-Memory failures and degrade performance.
+// This is helpful for development, but shouldn't be taken to production, as excessive caching can cause Out-of-Memory failures and degrade performance.
 
 ```taxi
   // This query uses the default, local cache
-> @Cache
+  @Cache
   find { Film[] } as {
     id : FilmId
     // Fetched from a remote service
@@ -59,7 +57,7 @@ as excessive caching can cause Out-of-Memory failures and degrade performance.
 ### Cache TTL
 {short-product-name}'s internal cache contains a TTL of 5 minutes.
 
-This can't currently be configured, as the cache is not intended for production use.
+// This can't currently be configured, as the cache is not intended for production use.
 
 
 ## Using an external cache
@@ -79,7 +77,7 @@ hazelcast {
 ```
 
 ```taxi query.taxi
-> @Cache(connection = "myHazelcast")
+  @Cache(connection = "myHazelcast")
   find { Film[] } as {
     id : FilmId
     // Fetched from a remote service
@@ -87,13 +85,13 @@ hazelcast {
   }
 ```
 
-### Supported caches
-{short-product-name} supports caching with the following platforms:
-
- * Hazelcast
- * Redis
-
-If you need a cache not listed, please [reach out on Slack](https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg).
+// ### Supported caches
+// {short-product-name} supports caching with the following platforms:
+//
+// * Hazelcast
+// * Redis
+//
+// If you need a cache not listed, please contact https://support.hazelcast.com/s/[Hazelcast Support].
 
 ### Cache TTL
 The default Cache TTL is defined in the connections file:
@@ -103,14 +101,14 @@ The default Cache TTL is defined in the connections file:
      myHazelcast {
         connectionName = myHazelcast
         addresses = ["localhost:5701"]
->       ttl = 20 minutes
+        ttl = 20 minutes
      }
   }
 ```
 
 ### Max-age headers
 {short-product-name} will honour max-age headers when caching responses from HTTP services:
-<ImageWithCaption src={httpResponseCacheControl} />
+
+image:http-response-cache-control.png[]
 
 Setting the `cache-control: max-age=` header will cause the entry to be automatically evicted after the `max-age` expires.
-

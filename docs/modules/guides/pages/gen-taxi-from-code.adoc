@@ -1,0 +1,456 @@
+= Generating Taxi from code
+:description: A tutorial explaining how to generate Taxi from code.
+
+This tutorial explores generating Taxi schemas directly from your application code. This approach is ideal for teams following a Code-First approach (versus a Design-First, sometimes referred to as a Spec-First approach).
+
+Currently, this tutorial focuses on JVM languages (Java and Kotlin). We also showcase a Spring Boot application.
+
+// If you'd like to see a version for your preferred language or framework, please [reach out](https://join.slack.com/t/orbitalapi/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg) to us on Slack.
+
+== Adding dependencies
+
+First, you'll need to add the following dependencies to your project:
+
+[tabs]
+====
+Maven::
++
+[source,xml]
+----
+ <properties>
+    <flow.version>0.32.0</flow.version>
+    <taxi.version>1.53.0</taxi.version>
+  </properties>
+  <dependencies>
+    <dependency>
+      <groupId>flow</groupId>
+      <artifactId>schema-rsocket-publisher</artifactId>
+      <version>${flow.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.taxilang</groupId>
+      <artifactId>java2taxi</artifactId>
+      <version>${taxi.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.taxilang</groupId>
+      <artifactId>java-spring-taxi</artifactId>
+      <version>${taxi.version}</version>
+    </dependency>    
+  </dependencies>
+  <repositories>
+    <repository>
+      <id>flow-releases</id>
+      <url>https://repo.flow.com/release</url>
+    </repository>
+    <!-- Snapshot repository - only required if using a snapshot version -->
+    <repository>
+      <id>flow-snapshots</id>
+      <url>https://repo.flow.com/snapshot</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+----
+Gradle::
++
+[source,groovy]
+----
+ext {
+    flowVersion = '0.32.0'
+    taxiVersion = '1.53.0'
+}
+
+repositories {
+    maven {
+        url "https://repo.flow.com/release"
+    }
+    // Only required if you're using a snapshot dependency
+    maven {
+        url "https://repo.flow.com/snapshot"
+        mavenContent {
+            snapshotsOnly()
+        }
+    }
+}
+
+dependencies {
+    implementation "flow:schema-rsocket-publisher:${flowVersion}"
+    implementation "org.taxilang:java2taxi:${taxiVersion}"
+    implementation "org.taxilang:java-spring-taxi:${taxiVersion}"
+}
+====
+
+A quick explanation of the dependencies:
+
+ * `schema-rsocket-publisher` provides {short-product-name} specific schema publication code
+ * Taxi's `java2taxi` is responsible for generating Taxi code from Java code
+ * `java-spring-taxi` contains Spring specific extensions to `java2taxi`.
+
+Both Taxi and {short-product-name} dependencies are hosted in the {short-product-name} Maven repository, so be sure to configure your repositories section, as shown above.
+
+== Publishing to {short-product-name}
+
+Next, we'll configure our Spring Boot application to publish to {short-product-name} on startup.
+
+First, we'll define the transport responsible for sending code to {short-product-name}:
+
+[tabs]
+====
+Kotlin::
++
+[source,kotlin]
+----
+import org.springframework.context.annotation.Bean
+import org.springframework.context.annotation.Configuration
+  
+@Configuration
+class FlowConfig {
+
+    @Bean
+    fun schemaPublisher(): SchemaPublisherService =
+        SchemaPublisherService(
+            // Provide a unique id for this publisher.
+            // Often, the name of your Spring Boot app (as defined in 
+            // spring.application.name
+            // or even the ArtifactId of your project is fine -- so long as it's unique
+            "films-listings", 
+            RSocketSchemaPublisherTransport(
+                // The address of your Flow instance.
+                // We'll assume this is running on localhost.
+                // The default RSocket port for Flow is 7655
+                TcpAddress("localhost", 7655)
+            )
+        )
+}
+----
+Java::
++
+[source,java]
+----
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class FlowConfig {
+
+    @Bean
+    public SchemaPublisherService schemaPublisher() {
+        return new SchemaPublisherService(
+            // Provide a unique id for this publisher.
+            // Often, the name of your Spring Boot app (as defined in 
+            // spring.application.name
+            // or even the ArtifactId of your project is fine -- so long as it's unique
+            "films-listings", 
+            new RSocketSchemaPublisherTransport(
+                // The address of your Flow instance.
+                // We'll assume this is running on localhost.
+                // The default RSocket port for Flow is 7655
+                new TcpAddress("localhost", 7655) 
+            )
+        );
+    }
+}
+----
+====
+
+Next, we'll configure a Taxi generator which introspects our Spring Boot application, and generates corresponding Taxi code.
+
+[tabs]
+====
+Kotlin::
++
+[source,kotlin]
+----
+import org.springframework.beans.factory.annotation.Value
+import org.springframework.stereotype.Component
+
+import flow.PackageMetadata
+import flow.schema.publisher.SchemaPublisherService
+import lang.taxi.generators.java.TaxiGenerator
+import lang.taxi.generators.java.spring.SpringMvcExtension
+
+@Component
+class RegisterSchemaTask(
+    // Inject the publisher we created earlier
+    publisher: SchemaPublisherService,
+    // The server port - by default this is 8080
+    @Value("\${server.port:8080}") private val serverPort: String
+) {
+    init {
+        // When the server starts, publish the generated code to Flow
+        publisher.publish(
+            // Each Taxi project (including the one we're about to generate)
+            // needs a unique package identifier - similar to how a pom.xml
+            // or package.json needs a project id.
+            // Here, we're defining an organisation of io.petflix.demos
+            // and a project of films-listings
+            // Change these to suit your own project.
+            // Typically, re-using your maven co-ordinates here is fine
+            PackageMetadata.from("io.petflix.demos", "films-listings"),
+            // The Spring generator looks for Spring specific annotations
+            // on our Spring Boot application and generates the corresponding
+            // Taxi schema.
+            // You need to pass the base url of your project here.
+            // We'll assume this is running on localhost, but typically
+            // this is provided by Spring config
+            SpringTaxiGenerator.forBaseUrl("http://localhost:${serverPort}")
+              // The generator will scan for anything found
+              // under this package
+              .forPackage(FilmsListingApp::class.java)
+              .generate()
+        ).subscribe()
+    }
+}
+----
+Java::
++
+[source,java]
+----
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
+import javax.annotation.PostConstruct;
+
+import flow.PackageMetadata;
+import flow.schema.publisher.SchemaPublisherService;
+import lang.taxi.generators.java.TaxiGenerator;
+import lang.taxi.generators.java.spring.SpringMvcExtension;
+  
+
+@Component
+public class RegisterSchemaTask {
+
+    private final SchemaPublisherService publisher;
+    private final String serverPort;
+
+    public RegisterSchemaTask(SchemaPublisherService publisher, @Value("${server.port:8080}") String serverPort) {
+        this.publisher = publisher;
+        this.serverPort = serverPort;
+    }
+
+    @PostConstruct
+    public void init() {
+        publisher.publish(
+            // Each Taxi project (including the one we're about to generate)
+            // needs a unique package identifier - similar to how a pom.xml
+            // or package.json needs a project id.
+            // Here, we're defining an organisation of io.petflix.demos
+            // and a project of films-listings
+            // Change these to suit your own project.
+            // Typically, re-using your maven coordinates here is fine
+            PackageMetadata.from("io.petflix.demos", "films-listings"),
+            // The Spring generator looks for Spring specific annotations
+            // on our Spring Boot application and generates the corresponding
+            // Taxi schema.
+            // You need to pass the base url of your project here.
+            // We'll assume this is running on localhost, but typically
+            // this is provided by Spring config
+            SpringTaxiGenerator.forBaseUrl("http://localhost:${serverPort}")
+            // The generator will scan for anything found
+            // under this package
+            .forPackage(FilmsListingApp.class)
+            .generate()
+        ).subscribe();
+    }
+}
+----
+====
+
+Now, if you start your Spring Boot application, you should see it register within {short-product-name}'s Project view.
+
+image:register_project_view_flow.png[The project registered in {short-product-name}]
+
+== Generating service code
+To start, we'll publish an API. We don't need to do anything special other than standard Spring Boot things, as we're already scanning for any Spring Boot
+services within the same package as the `FilmsListingApp`
+
+Here's a standard Spring Boot REST API endpoint:
+
+```kotlin
+package com.petflix.films
+
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
+
+@RestController
+class FilmListingsService {
+
+    data class Film(
+        val id: Int,
+        val title: String,
+    )
+
+    @GetMapping("/films")
+    fun listFilms(): List<Film> = listOf(
+        Film(1, "A New Hope"),
+        Film(2, "Empire Strikes Back"),
+        Film(3, "Return of the Jedi"),
+    )
+}
+```
+
+If we restart our Spring Boot application now, we'll see it publish Taxi code for our service to {short-product-name}.
+
+To see the published source code, head to the http://localhost:9021/projects[Projects] panel, click the `films-listings` project, and then click *Source*.
+
+image:1st_service_registration_flow.png[The service has been published to {short-product-name}]
+
+At this point, {short-product-name}'s catalog contains information about our Service, and its REST endpoint. For example, heading to the http://localhost:9021/catalog/diagram[services diagram]
+will show our API and its returned model:
+
+image:1st_service-diagram_flow.png[The service is shown in {short-product-name}'s service diagrams]
+
+=== Creating a second service
+{short-product-name}'s real strength is in orchestrating multiple services together, so let's add a second service - this time, that provides film reviews. The full code 
+is listed here. Again, there's nothing special here, other than standard Spring Boot stuff.
+
+```kotlin
+package com.petflix.films
+
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.RestController
+import kotlin.random.Random
+
+@RestController
+class ReviewsService {
+
+    data class FilmReview(
+        val score: Int,
+        val review: String
+    )
+
+    @GetMapping("/films/{filmId}/review")
+    fun getFilmReview(@PathVariable("filmId") filmId: Int): FilmReview {
+        return FilmReview(
+            score = Random.nextInt(1,5),
+            review = listOf("Good","Bad","Meh").random()
+        )
+    }
+}
+```
+
+If we restart our Spring Boot application now, we'll see both services published: 
+
+// placeholder for graphic - <ImageWithCaption src={SecondServiceDiagram} caption={'Both our services are now registered with {short-product-name}'}></ImageWithCaption>
+
+== Creating a link between services
+So far, we have two services:
+
+* One that exposes a list of films
+* One that takes a `filmId (Int)` and returns a `FilmReview`
+
+What we'd like to do is be able to automatically link between these services - indicating that the `filmId` property on our 
+`Film` object can be passed to the `getFilmReview` method.
+
+To do this, we're going to indicate that both these values mean the same thing. This is where Taxi starts to come in.
+Taxi is semantic type system, which allows us to say "This Thing is the same as That Thing".
+
+First, let's declare a type on our Films object:
+
+```kotlin
+    import lang.taxi.annotations.DataType
+    
+    data class Film(
+        @field:DataType("FilmId")
+        val id: Int,
+        val title: String,
+    )
+```
+
+Then, let's indicate on the `getFilmReview` method that the argument accepts the `FilmId` property:
+
+```kotlin
+    import lang.taxi.annotations.DataType
+
+    @GetMapping("/films/{filmId}/review")
+    fun getFilmReview(@PathVariable("filmId") @DataType("FilmId") filmId: Int): FilmReview {
+        return FilmReview(
+            score = Random.nextInt(1,5),
+            review = listOf("Good","Bad","Meh").random()
+    )
+```
+
+// placeholder for graphic - <ImageWithCaption src={ThirdServiceDiagram} caption={'{short-product-name} now understands the relationship of data between two services '}></ImageWithCaption>
+
+Given this, we can run a query fetching data automatically from both services. {short-product-name} uses TaxiQL, a query language for asking for data declaratively.
+
+Here's a TaxiQL query asking for Films data, enriched with Reviews:
+
+```taxi
+find { Film[] } as {
+    film : Film
+    review: FilmReview
+    }[]
+```
+
+// AUTHORS NOTE - how do we recreate the playground feature below in asciidoc? As a temp measure I've recreated the code snippet manually above.
+
+////
+<PlaygroundSnippet message={{
+  "schema": "namespace com.petflix.films {\n   model Film {\n      id : FilmId\n      title : String\n   }\n   \n   type FilmId inherits Int\n   \n   model FilmReview {\n      review : String\n      score : Int\n   }\n   \n   service FilmListingsService {\n      @taxi.http.HttpOperation(method = \"GET\" , url = \"http://localhost:8080/films\")\n      operation listFilms(  ) : Film[]\n   }\n   service ReviewsService {\n      @taxi.http.HttpOperation(method = \"GET\" , url = \"http://localhost:8080/films/{com.petflix.films.FilmId}/review\")\n      operation getFilmReview(  filmId : FilmId ) : FilmReview\n   }\n}",
+  "query": "find { Film[] } as {\n    film : Film\n    review: FilmReview\n}[]",
+  "stubs": [
+    {
+      "operationName": "listFilms",
+      "response": "[\n   {\n      \"id\": 1,\n      \"title\": \"A New Hope\"\n   },\n   {\n      \"id\": 2,\n      \"title\": \"Empire Strikes Back\"\n   },\n   {\n      \"id\": 3,\n      \"title\": \"Return of the Jedi\"\n   }\n]"
+    },
+    {
+      "operationName": "getFilmReview",
+      "response": "{\n   \"score\": 3,\n   \"review\": \"Good\"\n}"
+    }
+  ],
+  "parameters": {}
+}}></PlaygroundSnippet>
+////
+
+This query, in https://taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] asks for data from two different sources. {short-product-name} works out how to orchestrate our two APIs together, enriching our Films data with reviews.
+
+== Using typealias to keep our code DRY
+Inside our Kotlin code, we just added a two `@DataType("FilmId")` annotations indicating that the two pieces of information were the same.
+
+In Kotlin, we can extract those out to a type alias:
+
+```kotlin FilmId.kt
+import lang.taxi.annotations.DataType
+
+@DataType("FilmId")
+typealias FilmId = Int
+```
+
+This lets us clean up our code, and make it more descriptive: 
+
+```kotlin
+   data class Film(
+       val id: FilmId,
+       val title: String,
+   )
+```
+and in our controller:
+
+```kotlin
+
+    @GetMapping("/films/{filmId}/review")
+    fun getFilmReview(@PathVariable("filmId") filmId: FilmId): FilmReview {
+        return FilmReview(
+            score = Random.nextInt(1,5),
+            review = listOf("Good","Bad","Meh").random()
+    )
+```
+
+== Going further - extracting shared types to a library
+At this point, we're successfully generating Taxi code directly from our Spring Boot services, and publishing to {short-product-name}.
+
+As you start to grow and scale, you need to think about how to structure common types for sharing across teams.
+
+One of the principals of Taxi is to xref:describing-data-sources:tips-on-taxonomies.adoc[share types, not models], as this
+keeps systems decoupled, meaning when one API changes its model, other APIs are protected.
+
+Therefore, you have a couple of options to help you grow:
+
+ * If your team is entirely JVM based, you can extract your shared types out to a JAR, which teams depend on
+ * More commonly, teams choose to move their core taxonomy types (the scalars - not the domain classes) into a dedicated Taxi project, and 
+   generate Java, Kotlin and other classes from there 
+
+// Re-instate link above when available - Read more about generating app code from Taxi in our [dedicated guide](/docs/guides/generating-kotlin-from-taxi) 

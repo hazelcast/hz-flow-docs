@@ -6,11 +6,7 @@ JSON is the default format for reading/writing data to/from {short-product-name}
 
 == Using jsonPath() references
 
-<Callout type={"warning"} title='Deprecated'>
-  Using the `by jsonPath()` tag is deprecated.
-
-Field names in the model are now used to match elements and attributes
-</Callout>
+// WARNING: Using the `by jsonPath()` tag is deprecated. Field names in the model are now used to match elements and attributes.
 
 It's possible (but discouraged) to use `by jsonPath("")` references to declare a field:
 

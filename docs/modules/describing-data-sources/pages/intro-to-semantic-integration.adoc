@@ -1,8 +1,6 @@
 = Structural versus semantic integration
 :description: Why structural integration is so brittle, and how semantic integration is different
 
-import { Callout } from "@/components/docs/Callout"
-
 == Overview
 
 {short-product-name} is a data integration and querying platform, built on top of the Taxi schema language.
@@ -22,7 +20,9 @@ A schema plays multiple roles:
 // [](./parts-of-a-contract.png)
 
 Most schema languages focus entirely on addressing labelling and structure, but offer little to model the semantics of a contract. And, when you're trying
-to consume data, the semantics are the most important thing.+++<Callout title="Core principle" type="note" size="large">+++Producers of data need to be careful about labels, structure and semantics of the data they emit. For consumers, the only thing that really matters is the content. Labelling and structure are just addresses to access the information that consumers need.+++</Callout>+++
+to consume data, the semantics are the most important thing.
+
+NOTE: Producers of data need to be careful about labels, structure and semantics of the data they emit. For consumers, the only thing that really matters is the content. Labelling and structure are just addresses to access the information that consumers need.
 
 == Structure-first schemas
 
@@ -62,7 +62,9 @@ differed from the way producers originally labelled the data (simply - `name`).
 The only way we could build this was by becoming tightly coupled to the producer's contract.
 
 That's a problem because tight coupling makes it hard for producers to evolve their APIs, and brittle
-for consumers when they do.+++<Callout title="Core principle" type="note" size="large">+++Integration based on structure is brittle - changes by producers have expensive knock-on effects to consumers.+++</Callout>+++
+for consumers when they do.
+
+NOTE: Integration based on structure is brittle - changes by producers have expensive knock-on effects to consumers.
 
 == Semantic integration
 
@@ -96,7 +98,9 @@ The column in the middle - `System Type` - describes how a system might read or 
 The column on the right - `Semantic Type` - describes the actual meaning of the text in a business sense.
 
 By defining a semantic contract, we introduce a way for producers and consumers to discuss data that's not coupled
-to structure.+++<Callout title="Core principle" type="note" size="large">+++Semantic contracts provide a shared language for producers and consumers to discuss data that's not coupled to structure, so it's not as brittle when structural contracts change.+++</Callout>+++
+to structure.
+
+NOTE: Semantic contracts provide a shared language for producers and consumers to discuss data that's not coupled to structure, so it's not as brittle when structural contracts change.
 
 Semantic contracts allow you to request data based on its meaning, irrespective of the shape producers are emitting it in.
 
@@ -133,7 +137,9 @@ data they need, and left it to the querying layer to solve. There's enough seman
 to understand what data is needed.
 
 This is possible because we've separated the structural concept from the semantic concept. Field names are now entirely
-up to the consumer to decide - the way it should be.+++<Callout title="Core principle" type="note" size="large">+++Semantic querying is centered around what data the consumer needs, and how the consumer needs it. Producer concepts are abstracted away.+++</Callout>+++
+up to the consumer to decide - the way it should be.
+
+NOTE: Semantic querying is centered around what data the consumer needs, and how the consumer needs it. Producer concepts are abstracted away.
 
 == Enhancing structural contracts with semantic metadata
 
@@ -155,9 +161,7 @@ paths:
     get:
       description: |
         Returns all pets from the system that the user has access to
-        Nam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Aenean at gravida augue, ac iaculis sem. Curabitur odio lorem, ornare eget elementum nec, cursus id lectus. Duis mi turpis, pulvinar ac eros ac, tincidunt varius justo. In hac habitasse platea dictumst. Integer at adipiscing ante, a sagittis ligula. Aenean pharetra tempor ante molestie imperdiet. Vivamus id aliquam diam. Cras quis velit non tortor eleifend sagittis. Praesent at enim pharetra urna volutpat venenatis eget eget mauris. In eleifend fermentum facilisis. Praesent enim enim, gravida ac sodales sed, placerat id erat. Suspendisse lacus dolor, consectetur non augue vel, vehicula interdum libero. Morbi euismod sagittis libero sed lacinia.
-
-        Sed tempus felis lobortis leo pulvinar rutrum. Nam mattis velit nisl, eu condimentum ligula luctus nec. Phasellus semper velit eget aliquet faucibus. In a mattis elit. Phasellus vel urna viverra, condimentum lorem id, rhoncus nibh. Ut pellentesque posuere elementum. Sed a varius odio. Morbi rhoncus ligula libero, vel eleifend nunc tristique vitae. Fusce et sem dui. Aenean nec scelerisque tortor. Fusce malesuada accumsan magna vel tempus. Quisque mollis felis eu dolor tristique, sit amet auctor felis gravida. Sed libero lorem, molestie sed nisl in, accumsan tempor nisi. Fusce sollicitudin massa ut lacinia mattis. Sed vel eleifend lorem. Pellentesque vitae felis pretium, pulvinar elit eu, euismod sapien.
+        Nam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Ad nauseum.
       operationId: findPets
       parameters:
         - name: tags

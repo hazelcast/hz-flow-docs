@@ -1,12 +1,11 @@
 = CSV
-:description: 'Working with CSV data in {short-product-name}'
-
+:description: Working with CSV data in {short-product-name}
 
 To declare that a type should be read/written as CSV, add the `com.{code-product-name}.formats.Csv` annotation to a model:
 
 [,taxi]
 ----
-import com.{code-product-name}.formats.Csv
+import flow.formats.Csv
 
 @Csv
 model Person {
@@ -27,7 +26,7 @@ The following options are available:
 
 | firstRecordAsHeader
 | Indicates if the first record should be read as a header
-| true
+| `true`
 
 | nullValue
 | Specify a custom string to be read as `null`
@@ -35,7 +34,7 @@ The following options are available:
 
 | containsTrailingDelimiters
 | Indicates if each row contains a delimiter which should be ignored
-| false
+| `false`
 
 | quoteChar
 | Specifies which character should be read as a quoting character
@@ -46,7 +45,7 @@ For example:
 
 [,taxi]
 ----
-import com.{code-product-name}.formats.Csv
+import flow.formats.Csv
 
 @Csv(
   delimiter = "|",
@@ -59,13 +58,11 @@ model Person {
 }
 ----
 
+////
+
 == Using column() references
 
-<Callout type={"warning"} title='Deprecated'>
-  Using the `by column` tag is deprecated.
-
-Field names in the model are now used to match columns
-</Callout>
+WARNING: Using the `by column` tag is deprecated. Field names in the model are now used to match columns.
 
 It's possible (but discouraged) to use `by column("")` references to declare a column:
 
@@ -75,3 +72,5 @@ model Person {
   firstName : FirstName by column("fName")
 }
 ----
+
+////

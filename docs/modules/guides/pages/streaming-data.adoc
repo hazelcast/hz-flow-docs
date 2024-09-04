@@ -1,10 +1,11 @@
 = Streaming data
+:description: A tutorial showing how to build event streams
 
-This guide shows how to build bespoke, enriched event streams from Kafka.
+This tutorial shows how to build bespoke, enriched event streams from Kafka.
 
 == Describing the data sources
 
-image:Architecture.png[Architecture]
+image:Architecture.png[Architecture for this demo]
 
 Our demo has a few services running, which we'll join together to create a bespoke event stream:
 
@@ -35,7 +36,7 @@ kafka {
         connectionName=myKafkaBroker
         connectionParameters {
             brokerAddress="localhost:9092"
-            groupId={short-product-name}
+            groupId=flow
         }
     }
 }
@@ -60,8 +61,8 @@ Finally, declare the Kafka topic:
 
 ```taxi reviews.taxi
 service KafkaService {
-  stream reviews : Stream+++<NewReviewPostedMessage>+++}+++</NewReviewPostedMessage>+++
-
+  stream reviews : Stream<NewReviewPostedMessage>
+  }
 ```
 
 ## Creating an event stream
@@ -71,7 +72,7 @@ We can create a dedicated event stream with the data we need by submitting the f
 ```taxi
 stream { NewReviewPostedMessage } as {
   // We define the field names that matter to us.
-  // {short-product-name} matches on data types, as field names often differ between systems.
+  // Flow matches on data types, as field names often differ between systems.
   id : FilmId
   review : ReviewText
 
@@ -90,7 +91,7 @@ kafka {
         connectionName=myKafkaBroker
         connectionParameters {
             brokerAddress="localhost:9092"
-            groupId={short-product-name}
+            groupId=flow
         }
     }
 }

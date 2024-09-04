@@ -1,8 +1,10 @@
 /node_modules/
-/docs/
+/docs/*.mdx
 /build/
 /test/
+/docs/*.mdx
 .DS_Store
 package-lock.json
 /pdf-docs/
 Gemfile.lock
+.vscode

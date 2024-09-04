@@ -1,8 +1,6 @@
 = Tips on taxonomies
 :description: Practices and pitfalls when creating an enterprise taxonomy
 
-import \{Callout} from "@/components/docs/Callout";
-
 == Overview
 
 {short-product-name} is a data integration and querying platform, built on top of the Taxi schema language.
@@ -30,13 +28,15 @@ enterprise domain models.
 Types don't have structure.  In software terms, types are referred to as _scalar_, i.e., they don't contain any
 attributes or fields.  Things like `String` or `Number` are typical examples of scalars.
 
-In {short-product-name} and Taxi, types take on a semantic meaning, i.e., `CustomerFirstName` instead of `String`.+++<Callout title="Best practice recommendation" type="note">+++Types shouldn't have structure or fields, as this makes it harder to share them between systems and teams. Instead, favor lots of small types with clearly defined meanings. Getting teams to agree on the meaning of a field is easier than getting teams to agree on how to structure or name it.+++</Callout>++++++<Callout title="Best practice recommendation" type="note">+++Build a set of well defined types that form the basis of your glossary. This set of types is commonly called a *Taxonomy*. These types should change infrequently, so spend the time to ensure they're well documented, with clear definitions of meaning.+++</Callout>+++
+In {short-product-name} and Taxi, types take on a semantic meaning, i.e., `CustomerFirstName` instead of `String`.
+
+TIP: Types shouldn't have structure or fields, as this makes it harder to share them between systems and teams. Instead, favor lots of small types with clearly defined meanings. Getting teams to agree on the meaning of a field is easier than getting teams to agree on how to structure or name it. It is best practice to build a set of well defined types that form the basis of your glossary. This set of types is commonly called a *Taxonomy*. These types should change infrequently, so spend the time to ensure they're well documented, with clear definitions of meaning.
 
 === Models are intended for systems
 
 Models represent a strict contract that a system exposes.  As such, the team that designs the system
 is best placed to design the contract as it makes sense to them.
 
-Avoid trying to design models via consensus.  As <<avoiding-common-domain-models,discussed above>>, getting
+Avoid trying to design models via consensus.  As discussed above, getting
 consensus on shared models is tough, and most of the reasons for adopting shared models are solved using
 semantic types.

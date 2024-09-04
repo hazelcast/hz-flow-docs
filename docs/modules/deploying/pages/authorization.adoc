@@ -1,6 +1,8 @@
 = Enabling role-based authorization
+:description: Configuring {short-product-name} authorization
 
-import \{Callout} from "@/components/docs/Callout";+++<Callout title="Prerequisite" type="note">+++To use role-based authentication, you must have configured authorization with an OpenID Connect provider. [Learn how to enable authorization](./authentication)+++</Callout>+++
+
+NOTE: To use role-based authentication, you must have configured authorization with an OpenID Connect provider. xref:authentication.adoc[Learn how to enable this].
 
 {short-product-name} uses role-based authorization to control which users can perform which tasks.
 
@@ -66,7 +68,7 @@ EditConnections
 
 == Assigning users to roles
 
-Roles are assigned based on the JWT token presented by your link:/docs/deploying/authentication[OIDC server].
+Roles are assigned based on the JWT token presented by your xref:authentication.adoc[OIDC server].
 
 By default, if your OIDC server does not present any roles, a user who logs in will not be able to do anything, and will
 see an empty navbar.
@@ -116,12 +118,12 @@ After this, {short-product-name} should now work with authentication and authori
 
 === Azure
 
-Ensure you've first set up {short-product-name} as an AD Application, as described in the Configuring link:/docs/deploying/authentication#azure[Azure Authentication].
+Ensure you've first set up {short-product-name} as an AD Application, as described in the Configuring xref:authentication.adoc#azure[Azure Authentication].
 
 ==== Creating roles
 
 . Inside Azure, navigate to Microsoft Entra ID, then select *App registrations* from the left navigation bar
-. Select the application you created link:/docs/deploying/authentication#azure[earlier]
+. Select the application you created xref:authentication.adoc#azure[earlier]
 . Select *App roles*
 . Select *Create App role*:
  ** The display name and value should match a configured <<roles,role>> (e.g.: `Admin`).
@@ -171,7 +173,7 @@ You can configure a different path by adding the following parameters:
 
 {short-product-name} expects that each part within the token is a `Map`, except for the last path, which should be a `String[]`.
 
-If you need more complex support for your OIDC, please reach out to us on https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[Slack] to discuss your requirements.
+If you need more complex support for your OIDC, please contact us at https://support.hazelcast.com/s/[Hazelcast Support] to discuss your requirements.
 
 == Permissions
 

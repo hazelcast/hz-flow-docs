@@ -1,16 +1,12 @@
 = Hazelcast as a data source
 :description: How to read and write data to Hazelcast as a data source
 
-import { Callout } from '@/components/docs/Callout';
-import NewDataSource from './new-data-source.png';
-import TypeSearch from './type-search.png';
-
-In addition to link:/docs/describing-data-sources/caching#using-an-external-cache[using Hazelcast as a cache], {short-product-name}
+In addition to xref:describing-data-sources:caching.adoc#using-an-external-cache[using Hazelcast as a cache], {short-product-name}
 can use Hazelcast as a source for reading and writing data, as well as a streaming data source.
 
 == Adding a Hazelcast data source
 
-To enable Hazelcast as a data source, first link:/docs/describing-data-sources/configuring-connections[define a connection] in your `connections.conf` file:
+To enable Hazelcast as a data source, first xref:describing-data-sources:configuring-connections.adoc[define a connection] in your `connections.conf` file:
 
 ```hocon connections.conf
 hazelcast {
@@ -18,35 +14,34 @@ hazelcast {
       connectionName = myHazelcast
       addresses = ["localhost:5701"]
    }
-}
-
-----
+ }
+```
 
 ## Supported formats
 When values are written to Hazelcast, they must be serialized.
 
 The following formats are supported. Note that because {short-product-name} does not
 have access to custom Java classes, serialization formats that require classloading
-(such as `Serializable`, `Externalizable` and Custom Serialization) are not supported
+(such as `Serializable`, `Externalizable` and Custom Serialization) are not supported.
 
 ### Compact (preferred)
-[Compact Serialization](https://docs.hazelcast.com/hazelcast/5.3/serialization/compact-serialization) is the preferred
+https://docs.hazelcast.com/hazelcast/5.3/serialization/compact-serialization[Compact Serialization] is the preferred
 format when using {short-product-name} to read/write to Hazelcast.
 
 To enable Compact serialization, add a `@CompactObject` annotation to your Taxi definition:
 
 ```taxi
->  import com.{code-product-name}.hazelcast.CompactObject
-   import com.{code-product-name}.hazelcast.HazelcastMap
+  import flow.hazelcast.CompactObject
+  import flow.hazelcast.HazelcastMap
 
-   @HazelcastMap(name = "films")
->  @CompactObject
-   closed model Film {
-      @Id
-      filmId : FilmId inherits Int
-      // ...omitted...
-   }
-----
+  @HazelcastMap(name = "films")
+  @CompactObject
+  closed model Film {
+     @Id
+     filmId : FilmId inherits Int
+     // ...omitted...
+}
+```
 
 === JsonValue
 
@@ -56,7 +51,7 @@ for working with existing caches that have stored data using JsonValue.
 Note - if you are both writing and reading the data using {short-product-name}, it is recommended to use <<compact-preferred,Compact>>,
 which has better performance.
 
-TODO.
+// TODO.
 
 == Writing data to Hazelcast
 
@@ -65,10 +60,10 @@ with a write operation:
 
 [,taxi]
 ----
-import com.{code-product-name}.hazelcast.HazelcastService
-import com.{code-product-name}.hazelcast.HazelcastMap
-import com.{code-product-name}.hazelcast.UpsertOperation
-import com.{code-product-name}.hazelcast.CompactObject
+import flow.hazelcast.HazelcastService
+import flow.hazelcast.HazelcastMap
+import flow.hazelcast.UpsertOperation
+import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
@@ -160,9 +155,9 @@ Here's a complete example:
 
 [,taxi]
 ----
-import com.{code-product-name}.hazelcast.HazelcastService
-import com.{code-product-name}.hazelcast.HazelcastMap
-import com.{code-product-name}.hazelcast.CompactObject
+import flow.hazelcast.HazelcastService
+import flow.hazelcast.HazelcastMap
+import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
@@ -253,9 +248,9 @@ Here's a complete example:
 
 [,taxi]
 ----
-import com.{code-product-name}.hazelcast.HazelcastService
-import com.{code-product-name}.hazelcast.HazelcastMap
-import com.{code-product-name}.hazelcast.CompactObject
+import flow.hazelcast.HazelcastService
+import flow.hazelcast.HazelcastMap
+import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf

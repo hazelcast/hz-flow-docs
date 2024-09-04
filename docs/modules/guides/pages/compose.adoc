@@ -1,12 +1,14 @@
 = Composing APIs and a Database
+:description: A tutorial showing how to link a database and APIs.
 
-This guide focuses on stitching together APIs and a Database to create a custom API for our needs. Typically, you'd use this in a Backend-for-frontend (BFF) pattern.+++<Callout type="note" title="Get the source...">+++There's code for this guide available on https://github.com/{short-product-name}api/demos/tree/main/composing-apis-and-db[Github]+++</Callout>+++
+
+This tutorial focuses on stitching together APIs and a database to create a custom API for our needs. Typically, you'd use this in a Backend-for-frontend (BFF) pattern.
 
 This {lpn} demo takes place in a fictitious film studio. Our goal is to stitch together data about our Films catalog, along with data from REST APIs, like the reviews of each film, and where we can watch it.
 
 == Our demo services
 
-<ImageWithCaption src=\{Architecture} caption="The architecture for this demo"></ImageWithCaption>
+image:2architecture-overview.png[The architecture for this demo]
 
 This demo deploys the following:
 
@@ -32,21 +34,229 @@ Then we'll embed those types in our REST APIs.
 
 We've shown this approach in a few different ways, depending on your preference for describing APIs:
 
-<DescribingServices />
+=== OpenAPI and Taxi
 
-<div className={'not-prose pt-6'}>
-  <hr className='border-slate-600' />
-</div>
+[tabs]
+====
+OpenAPI.yml::
++
+[source,yaml]
+----
+paths:
+   /reviews/{filmId}:
+      get:
+         parameters:
+            -  name: filmId
+               in: path
+               schema:
+                  type: string
+                  x-taxi-type:
+                     name: films.reviews.SquashedTomatoesFilmId
+   /films/{filmId}/streamingProviders:
+      get:
+         parameters:
+            -  name: filmId
+               in: path
+               schema:
+                  type: integer
+                  format: int32
+                  x-taxi-type:
+                     name: films.FilmId
+components:
+   schemas:
+      StreamingProvider:
+         type: object
+         properties:
+            name:
+               type: string
+               x-taxi-type:
+                  name: films.StreamingProviderName
+            pricePerMonth:
+               type: number
+               x-taxi-type:
+                  name: films.StreamingProviderPrice
+      FilmReview:
+         type: object
+         properties:
+            filmId:
+               type: string
+               x-taxi-type:
+                  name: films.reviews.SquashedTomatoesFilmId
+            score:
+               type: number
+               x-taxi-type:
+                  name: films.reviews.FilmReviewScore
+            filmReview:
+               type: string
+               x-taxi-type:
+                  name: films.reviews.ReviewText
+----
+services.taxi::
++
+[source,taxi]
+----
+model StreamingProvider {
+  name : StreamingProviderName
+  pricePerMonth: StreamingProviderPrice
+}
 
-## Publish our API specs
+service StreamingProviderService {
+  @HttpOperation(method = "GET", url = "/films/{filmId}/streamingProviders")
+  operation findStreamingService(FilmId):StreamingProvider
+}
+----
+====
+
+=== Spring Boot + Kotlin
+
+We'll configure Spring Boot to auto-publish a schema. This is a great option for teams who like to generate specs from code. This requires a little more up-front setup, but this is a one-time activity.
+
+==== Step 1 - Update taxi.conf
+
+Update the `taxi.conf` file to add the Kotlin code generator:
+
+```hocon taxi.conf
+plugins: {
+  taxi/kotlin: {
+      maven: {
+         groupId: "com.petflix"
+         artifactId: "films"
+        }
+    }
+}
+```
+==== Step 2 - Run the taxi build
+
+Run the taxi build which generates Kotlin classes for all our types, and outputs them in the `dist` folder:
+
+// TODO: look into replacement for taxi build commands
+```terminal Terminal
+taxi build
+```
+
+==== Step 3 - Add the dependency to our maven pom
+
+Update the `pom.xml` file our newly created project:
+
+```xml pom.xml
+<dependency>
+    <groupId>com.petflix</groupId>
+    <artifact>films</artifact>
+    <version>0.1.0</version>
+</dependency>
+```
+
+==== Step 4 - Add our type metadata to our response types
+
+Update our data classes to use the new semantic types created in step 2:
+
+```kotlin pom.xml
+data class StreamingProvider(
+    val name: StreamingProviderName,
+    val pricePerMonth: StreamingProviderPrice
+)
+```
+
+==== Step 5 - Add our type metadata to our services
+
+Update our data classes to use the new semantic types created in step 2:
+
+```kotlin pom.xml
+@GetMapping("/films/{filmId}/streamingProviders")
+fun whereCanIWatch(
+  @PathVariable("filmId") filmId: FilmId
+): StreamingProvider
+```
+
+== Publish our API specs
 Now that the API specs have Taxi metadata, we can publish them to {short-product-name}:
 
-<PublishingApiSpecsSteps />
+=== OpenAPI and Taxi
 
-## Composing APIs
+[tabs]
+====
+workspace.conf (OpenAPI)::
++
+[source,hocon]
+----
+file {
+   projects = [
+      {path: "taxi/taxi.conf"},
+      {
+         path: "services/api-docs.yaml",
+         loader: {
+            packageType: OpenApi
+            identifier: {
+               organisation: "com.petflix"
+               name: "PetflixServices"
+               version: "0.1.20"
+            },
+            defaultNamespace: "com.petflix"
+         }
+      }
+   ]
+}
+----
+workspace.conf (Taxi)::
++
+[source,taxi]
+----
+file {
+   projects = [
+      {path: "taxi/taxi.conf"},
+   ]
+}
+----
+====
+
+=== Spring Boot + Kotlin
+
+Our Spring boot services are now self-describing, we just need to publish them on startup.
+
+==== Step 1 - Add maven dependency
+
+Update the `pom.xml` file to add the Kotlin code generator:
+
+```xml pom.xml
+<dependency>
+    <groupId>com.flow</groupId>
+    <artifact>schema-rsocket-publisher</artifact>
+    <version>\${orbital.version}</version>
+</dependency>
+```
+==== Step 2 - Generate and publish
+
+Update our Spring Boot application to generate our schemas on startup and publish to {short-product-name}:
+
+```kotlin App.kt
+@Component
+class RegisterSchemaOnStartup(
+    @Value("\${server.port}")
+    private val serverPort: String,
+    @Value("\${spring.application.name}")
+    private val appName: String
+) {
+  init {
+    val publisher = SchemaPublisherService(
+        appName,
+        RSocketSchemaPublisherTransport(
+            TcpAddress("localhost", 7655)
+        )
+    )
+    publisher.publish(
+        PackageMetadata.from("io.petflix.demos", appName),
+        SpringTaxiGenerator.forBaseUrl("http://localhost:\${serverPort}")
+            .forPackage(StreamingMoviesProvider::class.java)
+            .generate()
+    ).subscribe()
+  }
+ }
+```
+
+== Composing APIs
 Our APIs are now described and published to {short-product-name}, so we can start writing queries to ask for data.
 
-In the Query Editor, write a query to ask for data coming from the 3 APIs:
+In the Query Editor, write a query to ask for data coming from the three APIs:
 
 ```taxi
 find { Film[] } as {
@@ -63,7 +273,7 @@ find { Film[] } as {
 
 Notice that as you type, you'll get helpful code completion.
 
-<ImageWithCaption src=\{CodeEditing} caption="Auto completing like a boss."></ImageWithCaption>
+image:code-editing.gif[Auto completion]
 
 Run this query, and you'll get the results back, linking together data from our database, and three different REST APIs.
 
@@ -72,7 +282,7 @@ Run this query, and you'll get the results back, linking together data from our 
 Click on the Profiler tab, and you'll see an architecture diagram, showing all
 the services that were called for each field:
 
-<ImageWithCaption src=\{ProfilerView} caption="The profiler shows the services invoked to execute our query."></ImageWithCaption>
+image:profiler-view.png[The profiler shows the services invoked to execute our query]
 
 Note that:
 
@@ -96,7 +306,8 @@ Now we have the data we want to expose, we can publish this on an API.
 * For the query name, enter `filmsAndReviews` (or any name you choose)
 * Click *Save*
 
-<ImageWithCaption src=\{SaveQuery} caption="Saving a query writes it to disk in developer mode, so you can commit to Git."></ImageWithCaption>
+image:save-query.png[Saving a query writes it to disk in developer mode, so you can commit to Git]
+
 
 If you take a look in the source code, a new file has appeared at `taxi/src/filmsAndReviews.taxi`.
 
@@ -108,13 +319,13 @@ Next, let's expose this saved query as an HTTP endpoint.
 * Click *Update*
 * Click *Save*
 
-<ImageWithCaption src=\{PublishAsHttp} caption="Publish your query as an HTTP endpoint, to consume from UIs."></ImageWithCaption>
+image:publish-as-http.gif[Publish your query as an HTTP endpoint, to consume from UIs]
 
 Now, send a request to the endpoint you selected. As we're getting JSON back, we'll pipe it to `jq` so it's nicely formatted:
 
 [,bash]
 ----
-curl http://localhost:9022/api/q/films-and-reviews | jq
+curl http://localhost:9021/api/q/films-and-reviews | jq
 ----
 
 [,json]
@@ -137,4 +348,4 @@ curl http://localhost:9022/api/q/films-and-reviews | jq
   },
 ----
 
-<ImageWithCaption src=\{CliQuery} caption="Curly."></ImageWithCaption>
+image:cli-query.gif[Curly]

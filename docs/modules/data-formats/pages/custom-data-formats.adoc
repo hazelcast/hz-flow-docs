@@ -1,14 +1,20 @@
 = Custom data formats in {short-product-name}
 :description: 'Custom data formats in {short-product-name}'
 
+{short-product-name} has support for several data formats.
 
-{short-product-name} has support for several data formats, however, if you need a format that's not here, it's possible
-to implement your own.
+//, however, if you need a format that's not here, it's possible to implement your own.
 
-{short-product-name} uses a https://github.com/{short-product-name}api/{short-product-name}/blob/develop/vyne-core-types/src/main/java/com/{code-product-name}/models/format/ModelFormatSpec.kt[ModelFormatSpec] to provide format-specific serialization and deserialization implementations.
+{short-product-name} uses a ModelFormatSpec to provide format-specific serialization and deserialization implementations.
 
-While it is possible to define your own custom format, to load it into {short-product-name} currently requires a custom build. This is available for Enterprise customers only.
+//Link broken in the original: {short-product-name} uses a https://github.com/{short-product-name}api/{short-product-name}/blob/develop/vyne-core-types/src/main/java/com/{code-product-name}/models/format/ModelFormatSpec.kt[ModelFormatSpec] to provide format-specific serialization and deserialization implementations.
 
-Support for loading custom formats via Taxi projects is planned. Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.
+// While it is possible to define your own custom format, to load it into {short-product-name} currently requires a custom build.
 
-If you need a format that's not listed here, https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us], and we'll probably just build it for you!
+//AUTHORS NOTE - Orbital put this statement into the docs to encourage customers to get in touch. There are plans by the end of the year for this to be extensible, so Hazelcast can add their own loaders. At that point it's a Hazelcast product decision as to whether or not you want to allow your customers to create their own loaders, their own connections, or whether you  want to hide that. Orbital probably won't just make it publicly available to begin with. We've got one or two partners that we work with who know our product really well, so we'll probably let them build custom connectors including Hazelcast.
+
+// Support for loading custom formats via Taxi projects is planned. 
+
+// Vote for https://github.com/{short-product-name}api/{short-product-name}/issues/8[this issue] or https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us] if you'd like to discuss getting this feature supported.
+
+// If you need a format that's not listed here, https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[reach out to us], and we'll probably just build it for you!

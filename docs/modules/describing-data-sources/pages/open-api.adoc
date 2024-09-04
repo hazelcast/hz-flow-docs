@@ -3,7 +3,7 @@
 
 {short-product-name} can use OpenAPI specs to understand what APIs exist, and how to call them.
 
-{short-product-name} uses link:/docs/introduction#semantic-data-schemas[Semantic schemas] to describe how data relates between systems. For OpenAPI, this
+{short-product-name} uses xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic schemas] to describe how data relates between systems. For OpenAPI, this
 means enriching return types and input parameters with metadata to describe them semantically.
 
 To do this, we embed Taxi metadata within the OpenAPI specs.
@@ -60,8 +60,8 @@ If omitted, then the type name is inferred from the rest of the schema.
       Pet:
         # Assign a Taxi type name to the model.
         # Optional
->       x-taxi-type:
->         name: petstore.Pet
+       x-taxi-type:
+         name: petstore.Pet
         # Everything else is standard OpenApi spec...
         allOf:
           - $ref: '#/components/schemas/NewPet'
@@ -80,17 +80,17 @@ Enrich attributes with semantic type metadata
           - name
         properties:
           name:
->           x-taxi-type:
->             name: petstore.Name
+           x-taxi-type:
+             name: petstore.Name
             type: string
           tag:
->           x-taxi-type:
->             name: petstore.Tag
+           x-taxi-type:
+             name: petstore.Tag
             type: string
 ----
 
 By default, it's expected that types referred to in `x-taxi-type` within attributes have already been defined on the schema server, as part of your
-link:/docs/connecting-data-sources/overview#your-core-taxonomy[core taxonomy].
+xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy].
 
 However, if you are intentionally publishing new types from your OpenAPI spec, then set `create` to `true`:
 
@@ -101,10 +101,10 @@ However, if you are intentionally publishing new types from your OpenAPI spec, t
           - name
         properties:
           name:
->           x-taxi-type:
->             name: petstore.Name
->             # petstore.Name will be created if not present
->             create: true
+           x-taxi-type:
+             name: petstore.Name
+             # petstore.Name will be created if not present
+             create: true
             type: string
 ----
 
@@ -112,7 +112,7 @@ However, if you are intentionally publishing new types from your OpenAPI spec, t
 
 Inputs into services can also be enriched, to annotate the semantic data required.
 
-Simply add a `x-taxi-type` annotation to each input, containing a `name` attribute with a reference to the name of the type from your link:/docs/connecting-data-sources/overview#your-core-taxonomy[core taxonomy].
+Simply add a `x-taxi-type` annotation to each input, containing a `name` attribute with a reference to the name of the type from your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy].
 
 [,yaml]
 ----
@@ -130,25 +130,23 @@ Simply add a `x-taxi-type` annotation to each input, containing a `name` attribu
             schema:
               type: integer
               format: int64
->             x-taxi-type:
->               name: petstore.PetId  # <-- Name of type from core taxonomy
+             x-taxi-type:
+               name: petstore.PetId  # <-- Name of type from core taxonomy
 ----
 
 == Publishing OpenAPI specs to {short-product-name}
 
-Once you have added Taxi annotations to your OpenAPI spec, you're ready to publish it to {short-product-name}.+++<Callout type="note">+++Before you can import an OpenAPI spec into {short-product-name}, you need to ensure you have configured an editable Schema source - either a local +++<NextLink href="/docs/connecting-data-sources/connecting-a-disk-repo">+++disk repository+++</NextLink>+++ or a +++<NextLink href="/docs/connecting-data-sources/connecting-a-git-repo">+++Git repository+++</NextLink>+++
+Once you have added Taxi annotations to your OpenAPI spec, you're ready to publish it to {short-product-name}.
 
-Be sure to enable editing of the repository when adding it.
-
-This lets {short-product-name} store the converted OpenAPI spec, with some additional metadata that it creates when importing.+++</Callout>+++
+NOTE: Before you can import an OpenAPI spec into {short-product-name}, ensure you have configured an editable Schema source - either a local xref:workspace:connecting-a-disk-repo.adoc[disk repository] or a xref:workspace:connecting-a-git-repo.adoc[Git repository]. Be sure to enable editing of the repository when adding it. 
+This lets {short-product-name} store the converted OpenAPI spec, with some additional metadata that it creates when importing.
 
 === Importing through the UI
 
-Navigate to http://localhost:9022/data-source-manager/add[/data-source-manager/add] within your {short-product-name} UI.
+* Choose *Data Sources* in the left navigation bar, then *Add data source*. 
+* Select a project to import into, then choose *Swagger / OpenAPI* from the data source dropdown list.
 
-Next, select a project to import into, then choose "Swagger / OpenAPI" from the data source dropdown list.
-
-<ImageWithCaption src=\{SelectOpenApi} />
+image:select_open_api_flow.png[]
 
 * Either provide the OpenAPI spec file directly, or enter a URL to load the spec from
 * Provide a default namespace.  (eg: `com.petflix.pets`).  Services from your OpenAPI spec are imported into this namespace
@@ -157,7 +155,8 @@ Next, select a project to import into, then choose "Swagger / OpenAPI" from the 
 
 ==== Preview your imported schema
 
-<ImageWithCaption src=\{OpenApiPreview} />
+image:open-api-preview.png[]
+
 
 Your imported OpenAPI spec will be available for you to browse, to make sure everything looks correct.
 
@@ -169,8 +168,8 @@ At this point, you can edit types (by clicking on the
 pencil icon next to the type name) to further refine your schema.
 Once you're happy, click *Save* and the OpenAPI spec will be imported.
 
-=== Pushing using the Taxi CLI
+// === Pushing using the Taxi CLI
 
-We're working on a CLI to enable publishing OpenAPI specs to {short-product-name} from within CI/CD workflows.
+// We're working on a CLI to enable publishing OpenAPI specs to {short-product-name} from within CI/CD workflows.
 
-If you'd like to be an early adopter, ping us on https://join.slack.com/t/{short-product-name}api/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg[Slack]!
+// If you'd like to be an early adopter, please contact https://support.hazelcast.com/s/[Hazelcast Support].
