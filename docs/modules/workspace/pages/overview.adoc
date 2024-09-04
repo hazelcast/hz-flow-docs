@@ -66,8 +66,8 @@ ShoppingCart:
 properties:
 custId: # Field name
 x-taxi-type:
-> name: CustomerId # \<-- Semantic type type
-string
+> name: CustomerId # <-- Semantic type 
+type: string
 ----
 Example.proto::
 +

@@ -27,8 +27,8 @@ Here's a sample config:
 ----
 authenticationTokens {
 
-   // The fully qualified name of a service, as defined in a taxi schema.
-  // Should be surrounded in quotes.
+// The fully qualified name of a service, as defined in a taxi schema.
+   // Should be surrounded in quotes.
    "com.acme.MyService" {
       type = OAuth2
       // ... see below for examples
@@ -67,10 +67,10 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-  // The fully qualified name of a service, as defined in a taxi schema.
-  // Should be surrounded in quotes.
-  "com.foo.TestService" {
-     type: HttpHeader
+// The fully qualified name of a service, as defined in a taxi schema.
+   // Should be surrounded in quotes.
+   "com.foo.TestService" {
+      type: HttpHeader
       // Mandatory
       value: letMeIn
       // Optional, defaults to Bearer
@@ -100,13 +100,13 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-  // The fully qualified name of a service, as defined in a taxi schema.
-  // Should be surrounded in quotes.
-  "com.foo.TestService" {
-     type: Cookie
-     cookieName: authKey
-     value: letMeIn
-  }
+// The fully qualified name of a service, as defined in a taxi schema.
+   // Should be surrounded in quotes.
+   "com.foo.TestService" {
+      type: Cookie
+      cookieName: authKey
+      value: letMeIn
+   }
 }
 ```
 

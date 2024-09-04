@@ -37,6 +37,6 @@ TIP: Types shouldn't have structure or fields, as this makes it harder to share 
 Models represent a strict contract that a system exposes.  As such, the team that designs the system
 is best placed to design the contract as it makes sense to them.
 
-Avoid trying to design models via consensus.  As <<avoiding-common-domain-models,discussed above>>, getting
+Avoid trying to design models via consensus.  As discussed above, getting
 consensus on shared models is tough, and most of the reasons for adopting shared models are solved using
 semantic types.

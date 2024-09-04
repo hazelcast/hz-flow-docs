@@ -1,9 +1,6 @@
 = Avro
 :description: Working with Avro data in {short-product-name}
 
-NOTE: Avro support is in preview, and expected to be released as part of 0.32. To use it ahead of release, pull the
-  Docker images tagged `next`
-
 == Reading and writing Avro
 
 {short-product-name} can read and write data using https://avro.apache.org/[Avro].
@@ -99,7 +96,6 @@ or through the UI.
 
 You can add Avro schemas that are present locally on the file system of the server by adding the following declaration to your `workspace.conf` file:
 
-NOTE: The project identifier is duplicated below. This is currently necessary, but we'll fix that before this goes GA.
 
 [,hocon]
 ----
@@ -137,7 +133,6 @@ You can add Avro schemas that are present within a Git repository by adding the 
 
 The Git repo is monitored, so any changes are pulled locally and automatically applied inside of {short-product-name}.
 
-NOTE: The project identifier is duplicated below. That's necessary today, but we'll fix that before this goes GA.
 
 [,hocon]
 ----
@@ -174,7 +169,7 @@ Start by navigating:
 
 * Projects > Add Project
 
-image:add_project_avro_flow.png[]
+image:add_project_avro_flow_2.png[]
 
 * Then select to add a project from either a Git Repo or Local disk
 

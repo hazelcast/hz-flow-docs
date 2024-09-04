@@ -143,9 +143,8 @@ This lets {short-product-name} store the converted OpenAPI spec, with some addit
 
 === Importing through the UI
 
-Navigate to http://localhost:9021/data-source-manager/add[/data-source-manager/add] within your {short-product-name} UI.
-
-Next, select a project to import into, then choose *Swagger / OpenAPI* from the data source dropdown list.
+* Choose *Data Sources* in the left navigation bar, then *Add data source*. 
+* Select a project to import into, then choose *Swagger / OpenAPI* from the data source dropdown list.
 
 image:select_open_api_flow.png[]
 
