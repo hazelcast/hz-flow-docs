@@ -15,7 +15,7 @@ When deploying to production, there are common tasks you may wish to perform:
 == Deploying using Docker Compose
 
 A sample `docker-compose.yml` is maintained by the {short-product-name} team and published at https://start.{code-product-name}.com[start.{code-product-name}.com]. 
-#Author's note - link used to be to start.orbital.com - what should it be now?#
+#Author's note - link broken - please confirm#
 
 It contains reasonable defaults for getting a local environment running.  Note that, by default, {short-product-name} does not enable
 authentication or role-based authorization, and you'll need to enable these.
@@ -28,7 +28,7 @@ These further templates provide code samples for provisioning infrastructure and
 === Deploying with Terraform
 
 A sample `docker-compose.yml` is maintained by the {short-product-name} team and published at https://start.{code-product-name}.com[start.{code-product-name}.com]. 
-#Author's note - link used to be to start.orbital.com - what should it be now?#
+#Author's note - link broken - please confirm. Also, this seems a repetition of the above - is this intended or has something gone wrong with the merge?#
 
 It contains reasonable defaults for getting a local environment running.  Note that, by default, {short-product-name} does not enable
 authentication or role-based authorization, and you'll need to enable these.
@@ -39,7 +39,7 @@ authentication or role-based authorization, and you'll need to enable these.
 
 == Networking between components
 
-{short-product-name} is packaged as a collection of container images, which need to be able to communicate between one another.
+{short-product-name} is packaged as a collection of container images which need to be able to communicate with one another.
 
 The addresses used are configured in a file, which by default is loaded from  `config/services.conf`.
 
@@ -73,7 +73,7 @@ The following table outlines the components and the default network addresses an
 expected to be exposed.  If deploying in a network like Docker Swarm or Kubernetes, it is expected
 that services are available on the configured addresses.
 
-Author's note - links in table are broken - please confirm what these should be:
+#Author's note - links in table are broken - please confirm what these should be:#
 
 |===
 | Component & Image | Default network address | Port(s)
@@ -91,10 +91,11 @@ Author's note - links in table are broken - please confirm what these should be:
 | 80 (http) +
 7654 (RSocket)
 
-| https://hub.docker/com/r/{code-product-name}/stream-server[Stream server] 
+| https://hub.docker/com/r/{code-product-name}/stream-server[Stream server] +
 *Optional* +
 Executes long-lived data streams
 | http://stream-server
+|
 |===
 
 NOTE: When {short-product-name} is configured to distribute work across a cluster, ports must also be exposed to enable multicasting. See xref:distributing-work-on-a-cluster.adoc[Distributing work across a cluster] for more information.

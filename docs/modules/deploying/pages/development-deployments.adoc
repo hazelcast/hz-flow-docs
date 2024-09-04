@@ -9,9 +9,9 @@ This guide will walk you through setting up {short-product-name} in a developmen
 
 === Prerequisites
 
-Before you get started, you’ll need the following:
+Before you get started, you'll need the following:
 
-* https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
+* https://docs.docker.com/engine/install/[Docker] and Docker Compose (installed by default with Docker)
 
 === Creating your project
 

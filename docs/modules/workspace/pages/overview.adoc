@@ -61,13 +61,13 @@ ShoppingCart OpenAPI Spec::
 ----
 # An extract of the ShoppingCartApi OpenAPI spec:
 components:
-schemas:
-ShoppingCart:
-properties:
-custId: # Field name
-x-taxi-type:
-> name: CustomerId # <-- Semantic type 
-type: string
+  schemas:
+    ShoppingCart:
+      properties:
+        custId:         # Field name
+          x-taxi-type:  # <-- Taxi extension
+          name: CustomerId  # <-- Semantic type
+          type: string
 ----
 Example.proto::
 +
