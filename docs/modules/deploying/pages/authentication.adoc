@@ -1,12 +1,12 @@
 = Enabling authentication
 :description: Configuring {short-product-name} to require authentication through Management Center
 
-{short-product-name} does not provide a user interface for managing users or roles. Instead, it relies on the https://docs.hazelcast.com/management-center/5.5[Management Center] (MC) for identity management, utilizing https://docs.hazelcast.com/management-center/5.5/deploy-manage/security-providers[MC security providers] as identity providers. When a user attempts to access Flow, they will be redirected to the identity provider's login page as configured with the MC.
+{short-product-name} does not provide a user interface for managing users or roles. Instead, it relies on the https://docs.hazelcast.com/management-center/5.5[Management Center] (MC) for identity management, utilizing https://docs.hazelcast.com/management-center/5.5/deploy-manage/security-providers[MC security providers] as identity providers. When a user attempts to access {short-product-name}, they will be redirected to the identity provider's login page as configured with the MC.
 
-Single Sign-On (SSO) and Single Logout (SLO) are pre-configured between Flow and MC, ensuring a seamless login and logout experiences. This means that when a user logs in or out of one product, they are automatically logged in or out of the other.
+Single Sign-On (SSO) and Single Logout (SLO) are pre-configured between {short-product-name} and MC, ensuring a seamless login and logout experience. This means that when a user logs in or out of one product, they are automatically logged in or out of the other.
 
 == Identity provider configuration through Management Center
-Users *must* configure their identity providers through MC. This can be done either on user interface of MC or https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool].
+Users *must* configure their identity providers through MC. This can be done using either the MC user interface or the https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool].
 
 There are 2 ways to use MC as an identity provider:
 
@@ -19,22 +19,22 @@ There are 2 ways to use MC as an identity provider:
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML]
   * https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[Open ID connect]
 
-== Steps to run Flow with Management Center as the identity provider:
+== Steps to run {short-product-name} with Management Center as the identity provider:
 
-. Run docker compose file to spin up Flow and MC. Security provider can be configured in 2 ways:
-  a. Through https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool]. An example can be found below.
-  b. Through user interface of MC. To do this, open the landing page of Flow or MC. An example can be found below.
-. After security provider is configured through MC, go to the landing page of Flow or MC.
-  * Flow is configured to run on http://localhost:9021 unless overridden.
+. Run one of the Docker Compose files given below to spin up {short-product-name} and MC. The security provider can be configured in 2 ways:
+  a. Through the https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool]. An example can be found below.
+  b. Through the user interface of MC. To do this, open the landing page of {short-product-name} or MC. An example can be found below.
+. After the security provider is configured through MC, go to the landing page of {short-product-name} or MC.
+  * {short-product-name} is configured to run on http://localhost:9021 unless overridden.
   * MC is configured to run on http://localhost:8080 unless overridden.
 . Enter your credentials and login. Thanks to SSO, you are logged into both applications.
 
 ////
 Internal notes to Hazelcast employees:
 
-Flow is distributed to customers with MC pre-configured as the single source of authentication. For Flow-MC Single-Sign-On integration, Open ID connect authentication service, via authorization code flow with PKCE pattern is used. Flow’s security configuration will not be disclosed to customers to prevent potential misuse.
+Flow is distributed to customers with MC pre-configured as the single source of authentication. For Flow-MC Single-Sign-On integration, Open ID connect authentication service is used via authorization code flow with PKCE pattern. Flow’s security configuration will not be disclosed to customers to prevent potential misuse.
 
-Here is an example docker compose file for security pre-configuration of Flow with MC:
+Here is an example Docker Compose file for security pre-configuration of Flow with MC:
 
 environment:
     VYNE_SECURITY_OPENIDP_SCOPE: "openid email profile"
@@ -54,13 +54,13 @@ environment:
 #       Indicates if auth must be performed over https. Defaults to true.
         --vyne.security.openIdp.require-https=false
 
-#       To configure Flow to read the roles from the JWT, set to path to provide a custom path.
+#       To configure Flow to read the roles from the JWT, set the path to provide a custom path.
         --vyne.security.open-idp.roles.format=path
 
-#       To configure Flow to read the roles from the JWT, set to the path within the JWT for the roles.
+#       To configure Flow to read the roles from the JWT, set the path within the JWT for the roles.
         --vyne.security.open-idp.roles.path=roles
 
-#       To disable refresh tokens. When disabled, Flow performs silent refresh for OIDC implicit flow via hidden iframe. Defaults to false.
+#       When refresh tokens are disabled, Flow performs a silent refresh for OIDC implicit flow via hidden iframe. Defaults to false.
         --vyne.security.open-idp.refreshTokensDisabled=true
 
 #       Optional. A URL where authenticated users may be redirected, to manage their account
@@ -72,41 +72,41 @@ environment:
 ------------------------------------
 
 The presented JWT is expected to have the following attributes:
- * sub: Required, subject - identifier for the end-user at the issuer.
- * iss: Required, issuer - the OIDC provider who authenticated the user.
- * One of preferred_username or first_name and last_name: Required, shorthand name by which the end-user wishes to be referred to at the RP, such as janedoe or j.doe.
- * One of email or clientId: Required, something that uniquely identifies the user.
- * One of picture or picture_url: Optional, the user's avatar.
- * name: Optional, end-user's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the end-user's locale and preferences.
+ * sub: Required, subject - identifier for the end-user at the issuer
+ * iss: Required, issuer - the OIDC provider who authenticated the user
+ * One of preferred_username or first_name and last_name: Required, shorthand name by which the end-user wishes to be referred to at the RP, such as janedoe or j.doe
+ * One of email or clientId: Required, something that uniquely identifies the user
+ * One of picture or picture_url: Optional, the user's avatar
+ * name: Optional, end-user's full name in displayable form including all name parts, possibly including titles and suffixes, ordered according to the end-user's locale and preferences
 
 ////
 
-Below you can find example docker compose files where MC is the identity provider and a more complex scenario where MC is configured to use an external identity provider.
+Below you can find example Docker Compose files where MC is the identity provider and a more complex scenario where MC is configured to use an external identity provider.
 
-NOTE: MC is preconfigured as the identity provider for Flow with the configuration prefixed `vyne.security` in the docker compose files below. Changing these may lead to unexpected results.
+NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `vyne.security` in the Docker Compose files below. Changing these may lead to unexpected results.
 
-=== Example: Local security preconfiguration with via hz-mc tool
-Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp-local-sec-preconfigured.yml[this docker compose file] with usernames `admin`, `user`, `user`, `readonly` or `metricsonly` and password `changeMe!135`.
+=== Example: Local security pre-configuration with via hz-mc tool
+Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp-local-sec-preconfigured.yml[this Docker Compose file] with usernames `admin`, `user`, `user`, `readonly` or `metricsonly` and password `changeMe!135`.
 
-Notice usage of `./bin/mc-conf.sh` in the docker compose file.
+Notice usage of `./bin/mc-conf.sh` in the Docker Compose file.
 
-Once the containers have started, go to the landing page of MC or Flow, and you will see the following login screen:
+Once the containers have started, go to the landing page of MC or {short-product-name}, and you will see the following login screen:
 
 image:mc-local-security-provider-login.png[]
 
 === Example: External identity provider configuration through user interface
-Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp.yml[this docker compose file].
+Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp.yml[this Docker Compose file].
 
-Once the containers have started, configure your external identity provider with https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[OIDC] or https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML], go to the landing page of MC or Flow, and you will see the following login screen:
+Once the containers have started, configure your external identity provider with https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[OIDC] or https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML], go to the landing page of MC or {short-product-name}, and you will see the following login screen:
 
 image:external-idp-oidc-login.png[]
 
-== Authentication for api consumers
-If your application needs machine-to-machine communication with Flow, MC utilizes client credentials flow under the hood. Here are the steps:
+== Authentication for API consumers
+If your application needs machine-to-machine communication with {short-product-name}, MC utilizes client credentials flow under the hood. Here are the steps:
 
 . Set the MC_APPLICATION_CLIENT_SECRET environment variable, MC will create a client with a client credential grant type named `application-client`. For simplicity, let's assume the environment variable is set to `qqq` for a quick example.
-. Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp.yml[this docker compose file].
-. Get an access token from MC and use it as bearer token in subsequent requests to Flow, example curl request for Viewer role:
+. Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp.yml[this Docker Compose file].
+. Get an access token from MC and use it as bearer token in subsequent requests to {short-product-name}. Example curl request for Viewer role:
 [,curl]
 ----
 curl --location '{MC-host}/oauth2/token' \
@@ -118,9 +118,9 @@ curl --location '{MC-host}/oauth2/token' \
 
 Notices:
 
-* The {MC-host} in the example curl request defaults to http://localhost:8080 unless overridden.
-* `YXBwbGljYXRpb24tY2xpZW50OnFxcQ==` is the base64 encoded version of application-client:qqq.
-* If `flow` is not set in scope, the admin role will be assigned.
+* The {MC-host} in the example curl request defaults to http://localhost:8080 unless overridden
+* `YXBwbGljYXRpb24tY2xpZW50OnFxcQ==` is the base64 encoded version of application-client:qqq
+* If `flow` is not set in scope, the admin role will be assigned
 * Multiple roles are also supported, example curl request for Viewer and MetricsViewer:
 [,curl]
 ----
