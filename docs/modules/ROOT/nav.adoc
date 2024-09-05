@@ -26,6 +26,7 @@
 *** Roles & permissions
 // ** xref:deploying:data-policies.adoc[Data policies]
 ** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
+** xref:deploying:load-balancer.adoc[Load Balancer]
 
 .Develop
 * xref:workspace:overview.adoc[Your workspace]
