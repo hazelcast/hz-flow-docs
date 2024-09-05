@@ -1,28 +1,29 @@
 = Enabling role-based authorization
 :description: Configuring {short-product-name} authorization
 
-
-NOTE: To use role-based authentication, you must have configured authorization with an OpenID Connect provider. xref:authentication.adoc[Learn how to enable this].
+NOTE: To use role-based authorization, you must have configured authentication with an Management Center (MC). xref:authentication.adoc[Learn how to do this].
 
 {short-product-name} uses role-based authorization to control which users can perform which tasks.
 
-== Roles
+== {short-product-name} roles
 
-Roles are used to grant <<permissions,permissions>> to users, which allow
-users to perform different actions on the {short-product-name} platform.
+Roles are used to grant <<permissions,permissions>> to users, which allow users to perform different actions on the {short-product-name} platform.
 
-The roles themselves are configurable.  {short-product-name} ships with a set of reasonable
-default roles, but you may choose to modify these or build your own.
+////
+Internal note to Hazelcast employees:
 
-Roles are configured in a config file, typically found at `config/roles.conf`.
+Roles cannot be configured on the MC side, but they can be configured in Flow. Flow comes with a reasonable set of default roles, but we can choose to create our own.
+For the first release, we chose to use the default Flow roles.
 
 If the file is not present on startup, a new file is created the first time a user logs in.
+Roles are configured in a config file, typically found at `config/roles.conf`.
 
+Example role configuration in Flow:
 [,hocon]
 ----
 // Defines roles, and assigns them authorities.
-// Users who are granted these roles will be authorised to perform
-// the related activities
+// Users who are granted these roles will be authorized to perform
+// the related activities.
 grantedAuthorityMappings {
    Admin {
       grantedAuthorities = [ "RunQuery","CancelQuery"]
@@ -33,10 +34,9 @@ grantedAuthorityMappings {
    }
 }
 ----
+////
 
-=== List of default roles
-
-The following roles are shipped by default:
+{short-product-name} roles and corresponding authorities can be found below:
 
 |===
 | Role | Granted Authorities
@@ -46,6 +46,9 @@ The following roles are shipped by default:
 
 | Viewer
 | BrowseCatalog
+
+| MetricsViewer
+| ViewMetrics
 
 | QueryRunner
 | RunQuery
@@ -66,122 +69,12 @@ ViewConnections +
 EditConnections
 |===
 
-== Assigning users to roles
-
-Roles are assigned based on the JWT token presented by your xref:authentication.adoc[OIDC server].
-
-By default, if your OIDC server does not present any roles, a user who logs in will not be able to do anything, and will
-see an empty navbar.
-
-To grant roles, you'll need to assign one of the <<list-of-default-roles,roles>> to your users within your OIDC platform.
-
-{short-product-name} will work with any OIDC compliant server. {short-product-name} ships with defaults against Keycloak, which is a common OSS OIDC server.
-However, you can use whichever OIDC server you wish.
-
-== Configuring specific IDPs
-
-=== Keycloak
-
-The following steps were tested against Keycloak 22. Actual steps may vary depending on your version or configuration. Use Keycloak's docs to configure accordingly.
-
-* Log into the realm admin in Keycloak
-* Navigate to your realm, and select Realm roles in the left-hand navbar
-* Click *Create Role*
-* Add a role from above. (e.g., Admin), and click *Save*
-* Navigate to Users, and select the user you wish to manage
-* Click *Role Mapping*
-* Click *Assign Role*, select the Admin role, and click *Assign*
-
-If your user was previously logged into {short-product-name}, they'll need to log out and in again to refresh their token.
-
-=== AWS Cognito
-
-AWS uses Groups to populate the `cognito:groups` claim in the provided JWT. Here's how to configure this:
-
-==== Create the group / role
-
-. In AWS Cognito, navigate to the User Pool for {short-product-name}
-. Click Groups and create a group. The name of the group should match a <<roles,role>>. (e.g.: `Admin`)
-. Assign users to the role
-
-==== Configuring {short-product-name}
-
-To configure {short-product-name} to read the roles from the JWT passed by Cognito, the following params are required:
-
-[,bash]
-----
---vyne.security.openIdp.roles.format=path
---vyne.security.openIdp.roles.path="cognito:groups"
-----
-
-After this, {short-product-name} should now work with authentication and authorization via Cognito.
-
-=== Azure
-
-Ensure you've first set up {short-product-name} as an AD Application, as described in the Configuring xref:authentication.adoc#azure[Azure Authentication].
-
-==== Creating roles
-
-. Inside Azure, navigate to Microsoft Entra ID, then select *App registrations* from the left navigation bar
-. Select the application you created xref:authentication.adoc#azure[earlier]
-. Select *App roles*
-. Select *Create App role*:
- ** The display name and value should match a configured <<roles,role>> (e.g.: `Admin`).
- ** Set *Allowed member types* to Users/Groups
- ** Click *Apply*
-
-==== Assigning users to roles
-
-. Inside Azure, navigate to *Enterprise Applications*
-. Select the application you created earlier
-. Click *Assign users and groups*
-. Select the checkbox next to a user, and then click *Edit Assignment* and select the role
-
-Repeat to assign roles as required.
-
-==== Configuring {short-product-name}
-
-To configure {short-product-name} to read the roles from the JWT passed by Azure, the following params are required:
-
-[,bash]
-----
---vyne.security.openIdp.roles.format=path
---vyne.security.openIdp.roles.path="roles"
-----
-
-After restarting {short-product-name}, user roles will now be passed from Azure to {short-product-name} and read from the JWT.
-
-=== Other IDPs: Reading roles from JWT Tokens
-
-{short-product-name} expects the user roles to be present in the claims, as a list of strings provided under a `roles` key.
-
-There is no universal standard of how OIDC servers provide roles within JWT tokens, therefore some configuration may be required.
-
-{short-product-name} is configured to work with https://www.keycloak.org/[Keycloak] by default, which publishes roles at `realm_access.roles`.
-
-You can configure a different path by adding the following parameters:
-
-|===
-| Parameter | Description
-
-| `vyne.security.open-idp.roles.format`
-| Set to `path` to provide a custom path
-
-| `vyne.security.open-idp.roles.path`
-| Set to the path within the JWT for the roles. Eg: `realm_access.roles`
-|===
-
-{short-product-name} expects that each part within the token is a `Map`, except for the last path, which should be a `String[]`.
-
-If you need more complex support for your OIDC, please contact us at https://support.hazelcast.com/s/[Hazelcast Support] to discuss your requirements.
-
+[#permissions]
 == Permissions
 
-{short-product-name} ships with the following permissions.
+To perform an activity, users must be associated with a role that grants the related authority.
 
-To perform an activity, users must be associated with a role that
-grants the related authority.
-
+// Permission → endpoint mapping can be found in detail here: https://hazelcast.atlassian.net/browse/HZX-10?focusedCommentId=102270
 |===
 | Activity | Required permission
 
@@ -234,24 +127,23 @@ grants the related authority.
 | EditConnections
 |===
 
-== Authorization parameters
+== Assigning users to roles
 
-The following parameters are configurable, by passing values
-to {short-product-name} on startup.  The values all have reasonable defaults, and it's uncommon to change
-these.  However, they can be configured as required.
+Since authentication is done via MC, users must already have https://docs.hazelcast.com/management-center/5.5/deploy-manage/user-management#user-roles[MC roles] assigned.
+Once a user has a valid MC role, the user will have the corresponding role in Flow.
+The role mapping can be found <<role-mapping,here>>.
 
-|===
-| Parameter | Description | Default value
+If a user does not have any roles in MC, they will not have a corresponding role in Flow, meaning a logged-in user will not be able to do anything and will see a blank navigation bar.
 
-| `vyne.security.authorisation.role-definitions-file`
-| Path to a file which defines roles and their granted authorities
-| `config/roles.conf`
+[#role-mapping]
+== Role mapping between MC and {short-product-name}
 
-| `vyne.security.authorisation.user-to-role-mappings-file`
-| Path to a file which lists users, and their assigned roles
-| `config/user-role-mappings.conf`
+Admin → Admin
 
-| `vyne.security.authorisation.admin-role`
-| The name of the role which grants admin privileges
-| `Admin`
-|===
+User → PlatformManager + QueryRunner + Viewer
+
+Read-Only User → Viewer
+
+Metrics-Only User → MetricsViewer
+
+Example: If a user has `User` role in MC, they will have `PlatformManager`,` QueryRunner` and `Viewer` roles in Flow.
