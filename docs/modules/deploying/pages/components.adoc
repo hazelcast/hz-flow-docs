@@ -1,18 +1,18 @@
 
-= {short-product-name} Components
+= {short-product-name} components
 :description: A '{short-product-name} deployment consists of several components
 
 
 image:flow-components.png[]
 
-== {short-product-name} Server
-{short-product-name} Server is a combination of several components:
+== {short-product-name} server
+{short-product-name} server is a combination of several components:
 
 {short-product-name} UI provides the Front End capability
 
 {short-product-name} API provides all of the REST endpoints and ability to execute taxi queries and expose taxi queries as REST endpoints.
 
-{short-product-name} Stream capability executes Jet Jobs when a streaming query is published as a REST or websockets endpoint.
+{short-product-name} stream capability executes Jet Jobs when a streaming query is published as a REST or websockets endpoint.
 
 
 == {short-product-name} Postgres Database
@@ -20,12 +20,12 @@ image:flow-components.png[]
 
 
 == Git Repository
-{short-product-name} supports pulling the Project configuration from a git repository.  This is useful for environments where there is no persistent storage, and is recommended for production.  
+{short-product-name} supports pulling the Project configuration from one or more git repositories.  This is useful for environments where there is no persistent storage, and is recommended for production.  
 For information on configuring a git repository, see xref:workspace:connecting-a-git-repo.adoc[Connecting a Git Repository].
 
 
 == Load Balancer
-In production, a load balancer is used to distribute traffic across multiple instances of {short-product-name} Server.  This is useful for scaling out the number of instances to handle more traffic.  For more information on configuring a load balancer, see xref:deploying:load-balancer.adoc[Load Balancer].
+In production, a load balancer is used to distribute traffic across multiple instances of {short-product-name} server.  This is useful for scaling out the number of instances to handle more traffic.  For more information on configuring a load balancer, see xref:deploying:load-balancer.adoc[Load Balancer].
 
 == Prometheus
 Prometheus is an open-source monitoring and alerting toolkit.  {short-product-name} exposes metrics that can be scraped by Prometheus.  For more information on configuring Prometheus, see xref:querying:observability.adoc[Observability].
