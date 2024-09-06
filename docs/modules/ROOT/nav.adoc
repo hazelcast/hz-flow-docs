@@ -72,5 +72,5 @@
 * xref:describing-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
 
 * Architecture
-** Flow components
+** xref:deploying:components.adoc[{short-product-name} components] 
 ** Jet jobs
