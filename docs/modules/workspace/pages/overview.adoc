@@ -23,7 +23,7 @@ Generally, there are at least the following components:
 
 // how do I get light background? Previous code was: <ImageWithCaption src=\{PublishingFromSources} addLightBackground=\{true}/>
 
-image:publish_from_sources_flow.png[]
+image:publish_from_sources_flow2.png[]
 
 === Your core taxonomy
 
