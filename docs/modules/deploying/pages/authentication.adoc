@@ -119,9 +119,9 @@ curl --location '{MC-host}/oauth2/token' \
 Notices:
 
 * `MC_APPLICATION_CLIENT_SECRET` can be omitted from the environment variables to disable client credential grants
-* `MC_APPLICATION_CLIENT_SECRET` should be treated as a secret and set to a secure string, consider using the following or similar to generate a secure secret +
+* `MC_APPLICATION_CLIENT_SECRET` should be treated as a secret and set to a secure string. Consider using the following or similar to generate a secure secret +
  `openssl rand -base64 32`
-* The `{MC-host}` in the example should be set to the Management Center hostname, the default config listens on http://localhost:8080 unless overridden
+* The `{MC-host}` in the example should be set to the Management Center hostname. The default config listens on http://localhost:8080 unless overridden
 * The example Authorization header: `YXBwbGljYXRpb24tY2xpZW50OnFxcQ==` is the base64 encoded version of `application-client:qqq`
 * If `flow` is not set in scope, the admin role will be assigned
 * Multiple roles are also supported, example curl request for Viewer and MetricsViewer:
