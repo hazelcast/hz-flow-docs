@@ -3,7 +3,7 @@
 
 When deploying multiple {short-product-name} servers, they can be deployed behind a load balancer to scale out the system.  https://traefik.io/traefik[Traefik] is used as an example in this section, although any other load balancer can be used (e.g. nginx).
 
-== When is a load balancer Required?
+== When is a load balancer required?
 
 A load balancer, or reverse proxy is required when deploying multiple {short-product-name} instances (for example in a production deployment of several {short-product-name} instances).  It will distribute the load from incoming requests across each {short-product-name} instance.
 
@@ -20,7 +20,7 @@ The *WebSocket API* enables a two-way interactive communication session between 
 {short-product-name} uses WebSocket in a number of areas : between the UI and the {short-product-name} server, and also optionally when publishing an endpoint as a Websocket endpoint.  The UI performs a periodic heartbeat on the WebSocket connection to keep the connection open with a default interval of 5 seconds. This is important to keep in mind when configuring the load balancer since the load balancer connection timeout should be set to a value greater than the heartbeat interval.
 
 
-It’s important that the load balancer is configured to expose the HTTP headers required to Upgrade the HTTP connection to a WebSocket connection.
+It’s important that the load balancer is configured to expose the HTTP headers required to upgrade the HTTP connection to a WebSocket connection.
 
 For traefik it’s done like this:
 
