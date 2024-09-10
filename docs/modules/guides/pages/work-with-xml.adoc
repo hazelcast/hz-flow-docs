@@ -44,35 +44,36 @@ films.taxi::
 +
 [source,taxi]
 ----
-import flow.formats.Xml 
+  import flow.formats.Xml 
+
 // The @Xml annotation tells Flow how to read this object 
 @Xml model FilmList { 
   item : Film[]
    } 
-   model Film { 
-    id : FilmId inherits Int 
-    title : FilmTitle inherits String 
-    yearReleased : YearReleased inherits Int
-     } 
-     service FilmsService { 
-      @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
-      operation getAllFilms():FilmList
-       }
+model Film { 
+  id : FilmId inherits Int 
+  title : FilmTitle inherits String 
+  yearReleased : YearReleased inherits Int
+   } 
+   service FilmsService { 
+    @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
+  operation getAllFilms():FilmList
+   }
 ----
 films-data.xml::
 +
 [source,xml]
 ----
 <List>
-    <item id="0">
-      <title>ACADEMY DINOSAUR</title>
-      <yearReleased>2005</yearReleased>
-    </item>
-    <item id="1">
-      <title>ACE GOLDFINGER</title>
-      <yearReleased>1975</yearReleased>
-    </item>
-  </List>
+  <item id="0">
+    <title>ACADEMY DINOSAUR</title>
+    <yearReleased>2005</yearReleased>
+  </item>
+  <item id="1">
+    <title>ACE GOLDFINGER</title>
+    <yearReleased>1975</yearReleased>
+  </item>
+</List>
 ----
 ====
 
@@ -86,17 +87,20 @@ actors.taxi::
 +
 [source,taxi]
 ----
-import flow.formats.Xml 
-@Xml model ActorList { 
+import flow.formats.Xml
+
+@Xml model ActorList {
   item : Actor[] 
 } 
-  model Actor { 
-    id : ActorId inherits Int 
-    name : ActorName inherits String
+
+model Actor { 
+  id : ActorId inherits Int 
+  name : ActorName inherits String
 } 
-     service CastService { 
-      @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") 
-      operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
+
+service CastService { 
+  @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") 
+  operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
 }
 ----
 actor-data.xml::
@@ -376,6 +380,16 @@ Which gives us:
 ]
 ----
 
+== Publishing a query using the UI 
+
+To publish a query as an endpoint using the UI: 
+
+* Choose *Query editor* and in the editor, write your query
+* Click *Run* to make sure the query runs with no errors
+* Click the *Save query to project* button, choose a project (this must be editable), give your query a name and then save it
+* Click the *Publish endpoint* button and publish it as an HTTP or WebSocket endpoint, depending on the query
+* Choose *Endpoints* and make sure the query is running (you can disable/enable the endpoint if necessary)
+
 == Wrapping up and next steps
 
 In this guide, we've:
@@ -385,3 +399,6 @@ In this guide, we've:
 * Written a query stitching three services together
 * Published that query as an HTTP service
 
+The code for this guide is available on https://github.com/{short-product-name}api/demos/tree/main/xml-demo[Github].
+
+Remember, if you haven't already done so, head to the https://github.com/{short-product-name}api/{short-product-name}[{short-product-name} github repo] and give us a star!

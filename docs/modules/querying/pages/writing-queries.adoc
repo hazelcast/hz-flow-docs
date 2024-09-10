@@ -14,10 +14,9 @@ TODO: replace diagram
 Queries are written in https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], an open source
 query language for data.
 
-TIP: https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] is a great query language. The Taxi documentation has details on the syntax, which we haven't duplicated here. Go check it out!
+TIP: https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] is a powerful query language, and  the Taxi documentation has details on the syntax, which we haven't duplicated here.
 
-TaxiQL is agnostic of where data comes from - it's left to {short-product-name} to discover data from the various sources that have been
-connected.
+TaxiQL is agnostic of where data comes from - it's left to {short-product-name} to discover data from the various sources that have been connected.
 
 Here are some sample queries:
 
@@ -47,6 +46,7 @@ model Purchase {
    transactionId : TransactionId
    customerId : CustomerId
 }
+
 model CustomerTransaction {
   transactionId : TransactionId
   name : CustomerName
@@ -152,7 +152,7 @@ model Film {
   cast : Actor[]
 }
 
-find { Film ) as { 
+find { Film } as { 
    // this scope contains an entire film record
 }
 ```
@@ -161,7 +161,7 @@ You can modify this by specifying the type of the variable in scope:
 
 ```taxi
 find { Film } as (Actor[]) -> { // note that film has been removed from the scope...
-  title : Title //... therfore title isn't knowable -- this field will return null
+  title : Title //... therefore title isn't knowable -- this field will return null
   actorName : ActorName
 }[]
 ```
@@ -254,7 +254,7 @@ service CustomerService {
    findCustomer(CustomerId):Customer
 
    // Cannot be called when projecting, because
-   // Person has an @Id, and it isn't PersonName
+   // Customer has an @Id, and it isn't CustomerName
    findCustomerByName(CustomerName):Customer
 }
 ----
@@ -287,7 +287,10 @@ being invoked repeatedly while projecting multiple rows in a result.
 When caching, responses are cached for a given operation and set of inputs.  If an operation is invoked with
 different parameters, the cache is not used.
 
-Operations that return an array of results, and which return more than 10 values, will not have their responses cached.  (This is not currently configurable, but https://support.hazelcast.com/s/[contact Hazelcast Support] if you need to configure this).
+Operations that return an array of results and which return more than 10 values, will not have their responses cached.
+
+// AUTHORS NOTE - Marty says that if we want this as a configurable parameter, just let him know and Orbital can expose it. In the meantime, I've commented this bit out: 
+// (This is not currently configurable, but https://support.hazelcast.com/s/[contact Hazelcast Support] if you need to configure this).
 
 == Recovering from failure
 
@@ -446,7 +449,7 @@ The following Accept headers are supported:
 | `application/csv`
 | CSV
 
-| `text/event-stream
+| `text/event-stream`
 | JSON with server-sent events
 |===
 

@@ -150,6 +150,8 @@ To expose a database collection for writes, you need to provide a `write operati
 
 Here's a complete example schema with corresponding `write` operations:
 
+NOTE: The question mark in 'MongoObjectId?' denotes that the value is nullable.
+
 [,taxi]
 ----
 type FlightCode inherits String

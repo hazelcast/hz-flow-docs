@@ -10,9 +10,7 @@ in a local disk repo, making it quick and easy to get going.
 
 == Adding a file repository using the UI
 
-To add a new file repository via the UI, either navigate to http://localhost:9021/projects/project-import[/project-import] or, from within the UI,
-click on *Projects* on the left navigation bar, then *Add project* in the top bar.
-Authors Note - project import link does not work - what should this be to?
+To add a new file repository via the UI, click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 
 image:add_schema_sources_flow_1.png[Add schema sources]
 

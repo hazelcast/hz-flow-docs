@@ -1,6 +1,9 @@
 = Caching
 :description: Using caching with {short-product-name}
 
+// AUTHORS NOTE - Orbital ships with a local cache that should not be taken to production, while Flow ships with a full Hazelcast cache. Sections are commented out below to reflect this. 
+
+{short-product-name} ships out-of-the box with a full production-grade Hazelcast cache. 
 
 ## Caching requests
 By default, {short-product-name} will cache requests throughout a query only. In other words, {short-product-name} will only call a service with the same set of parameters once within a query. 
@@ -39,8 +42,7 @@ population and invalidation are isolated from each other, you can apply a name t
 
 It's the default cache that's enabled if no connection is provided.
 
-This is helpful for development, but shouldn't be taken to production,
-as excessive caching can cause Out-of-Memory failures and degrade performance.
+// This is helpful for development, but shouldn't be taken to production, as excessive caching can cause Out-of-Memory failures and degrade performance.
 
 ```taxi
   // This query uses the default, local cache
@@ -55,7 +57,7 @@ as excessive caching can cause Out-of-Memory failures and degrade performance.
 ### Cache TTL
 {short-product-name}'s internal cache contains a TTL of 5 minutes.
 
-This can't currently be configured, as the cache is not intended for production use.
+// This can't currently be configured, as the cache is not intended for production use.
 
 
 ## Using an external cache
@@ -89,7 +91,7 @@ hazelcast {
 // * Hazelcast
 // * Redis
 //
-// If you need a cache not listed, please contact https://support.hazelcast.com/s/[Hazelcast Support]..
+// If you need a cache not listed, please contact https://support.hazelcast.com/s/[Hazelcast Support].
 
 ### Cache TTL
 The default Cache TTL is defined in the connections file:

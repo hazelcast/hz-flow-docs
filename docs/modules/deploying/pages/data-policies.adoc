@@ -55,7 +55,7 @@ Similar to how you can use claims from your IDP, to pass through to a data sourc
 
 === Resolving data for policy evaluation
 
-Policies can be defined against any data that is discoverable using an {short-product-name} query -
+Policies can be defined against any data that is discoverable using a {short-product-name} query -
 not just the values present on the inbound claim.
  A seperate subquery is executed to discover data that is needed to evaluate the policy.
 

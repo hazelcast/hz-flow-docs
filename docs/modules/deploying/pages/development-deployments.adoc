@@ -1,18 +1,20 @@
-= Deploying {short-product-name}
-:description: How to get started with {short-product-name}
+= Deploying in development
+:description: How to deploy {short-product-name} in a development environment
 
 To get up and running quickly, you can bring up a fully working {short-product-name} environment locally using Docker Compose to start testing or developing your integrations.
 
 == Development setup
 
 This guide will walk you through setting up {short-product-name} in a development environment.
+This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production.    For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
 
 === Prerequisites
 
-Before you get started, you’ll need the following:
+Before you get started, you'll need the following:
 
 * https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
 * https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
+* Hazelcast License Key 
 
 === Creating your project
 
@@ -27,6 +29,25 @@ Set up your {short-product-name} workspace with:
 clc project create -t hazelcast-flow-starter
 ----
 You have now created a copy of our example {short-product-name} project containing the workspace and Docker Compose file.
+
+You can navigate to the newly created project directory:
+[,shell]
+----
+cd hazelcast-flow-starter
+----
+
+The next step is to setup your Hazelcast License Key.  Copy the template file as shown below and add your license key to the `.env` file.  
+
+[,shell]
+----
+cp .env.example .env
+----
+The `.env` file contains the following variables:
+
+* MC_LICENSE contains the Hazelcast license
+* MC_APPLICATION_CLIENT_SECRET is used as client credentials for authenticated API access
+
+Take a look at xref:deploying:authentication.adoc#authentication-for-api-consumers[Authentication for API Consumers] for details on how Management Center uses client credentials.
 
 === Starting {short-product-name}
 

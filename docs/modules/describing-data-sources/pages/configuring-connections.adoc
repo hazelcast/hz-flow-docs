@@ -166,7 +166,7 @@ jdbc { // The root element for database connections
 
 === MySQL
 
-To configure a MySql connection, specify `jdbcDriver = MYSQL`
+To configure a MySQL connection, specify `jdbcDriver = MYSQL`
 
 Connection parameters are as follows:
 
@@ -180,7 +180,7 @@ Connection parameters are as follows:
 | The port to connect to. Defaults to  `3306`
 
 | `database`
-| The name of the database on the MySql server
+| The name of the database on the MySQL server
 
 | `username`
 | Optional. The username to use when connecting
