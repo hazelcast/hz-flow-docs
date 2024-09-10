@@ -12,6 +12,7 @@ amazing integration projects.
 * xref:compose.adoc[Compose APIs and a Database] - Exposing a Backend for Frontend (BFF) that links data between a database and several APIs
 * xref:work-with-xml.adoc[Work with XML and JSON] - Combine data from XML and JSON data sources
 * xref:streaming-data.adoc[Stream data] - Join and enrich Kafka streams to deliver bespoke data feeds
+* xref:gen-taxi-from-code.adoc[Generate Taxi from code] - Generate Taxi schemas directly from your application code 
 
 // AUTHORS NOTES: 2 new tutorials need to be added. The pipeline link is a 404 in Orbital's docs
 // * link:/docs//deploying/production-deployments[Working with Spring Boot] - {short-product-name}'s Spring SDK publishes APIs automatically directly from your application. Learn how 

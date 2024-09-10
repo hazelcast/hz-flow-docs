@@ -3,28 +3,35 @@
 * xref:index.adoc[Overview]
 * xref:introduction:index.adoc[What is {short-product-name}?]
 * xref:introduction:about-taxi.adoc[About Taxi]
-
-.Deploy and Operate
-* xref:deploying:development-deployments.adoc[Quickstart]
-* xref:deploying:production-deployments.adoc[Production deployment]
-* xref:deploying:configuring.adoc[Configuration]
+* xref:introduction:quickstart.adoc[Quickstart]
 * xref:guides:index.adoc[Tutorials]
 ** xref:guides:apis-db-kafka.adoc[Connect APIs, a database & Kafka]
 ** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
 ** xref:guides:streaming-data.adoc[Stream data]
+** xref:guides:gen-taxi-from-code.adoc[Generate Taxi from code]
+//** xref:guides:gen-code-from-taxi.adoc[Generate code from Taxi]
+* xref:introduction:get-support.adoc[Get support]
+
+.Deploy
+* xref:deploying:development-deployments.adoc[Developer setup]
+* xref:deploying:production-deployments.adoc[Production deployment]
+* xref:deploying:configuring.adoc[Configure {short-product-name}]
+
 * Advanced
 ** xref:deploying:managing-secrets.adoc[Manage secrets]
-** xref:deploying:security-recommendations.adoc[Security recommendations]
-** xref:deploying:data-policies.adoc[Data policies]
+** xref:deploying:security-recommendations.adoc[Security]
+*** xref:deploying:authentication.adoc[Enable authentication]
+*** xref:deploying:authorization.adoc[Enable authorization]
+*** Roles & permissions
+// ** xref:deploying:data-policies.adoc[Data policies]
 ** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
 
-.Developing
+.Develop
 * xref:workspace:overview.adoc[Your workspace]
 ** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
 ** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk]
-** xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code]
-//** xref:guides:gen-code-from-taxi.adoc[Generating code from Taxi]
+
 
 * Manage data sources
 ** xref:describing-data-sources:configuring-connections.adoc[Configure connections]
@@ -40,12 +47,6 @@
 ** xref:describing-data-sources:aws-services.adoc[Use AWS services]
 ** xref:describing-data-sources:caching.adoc[Use caching]
 
-* Query data
-** xref:querying:writing-queries.adoc[Query with {short-product-name}]
-** xref:querying:mutations.adoc[Perform mutations]
-** xref:querying:queries-as-endpoints.adoc[Publish queries]
-** xref:querying:observability.adoc[Observe queries]
-
 * Data streams & formats
 ** xref:streams:streaming-data.adoc[Stream data]
 ** xref:data-formats:overview.adoc[Data formats]
@@ -55,25 +56,20 @@
 *** xref:data-formats:xml.adoc[XML]
 *** xref:data-formats:protobuf.adoc[Protobuf]
 
+* Performance
+//** xref:streams:streaming-data.adoc[Benchmarks]
 
-.Architecture
-* {short-product-name} components
-* Jet jobs
-* Roles and permissions
-
-.Security
-* xref:deploying:authentication.adoc[Enable authentication]
-* xref:deploying:authorization.adoc[Enable authorization]
-// * xref:deploying:data-policies.adoc[Data policies]
-* xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
-
-.Performance
-* Benchmarks
-
-.Support
-* How to report issues
+.Query
+* xref:querying:writing-queries.adoc[Query with {short-product-name}]
+* xref:querying:mutations.adoc[Perform mutations]
+* xref:querying:queries-as-endpoints.adoc[Publish queries]
+* xref:querying:observability.adoc[Observe queries]
 
 .Reference
 * xref:glossary.adoc[Glossary]
 * xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic integration]
 * xref:describing-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
+
+* Architecture
+** Flow components
+** Jet jobs
