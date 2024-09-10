@@ -13,6 +13,7 @@ This setup pre-configures Management Center in Dev Mode, without needing any sec
 Before you get started, you'll need the following:
 
 * https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
+* https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
 * Hazelcast License Key 
 
 === Creating your project
@@ -21,12 +22,6 @@ The easiest way to get started with {short-product-name} is by using Hazelcast's
 
 * Workspace for developing your queries
 * `docker-compose.yml` file to be able to run locally
-
-CLC can be installed using our installation script:
-[,shell]
-----
-curl https://hazelcast.com/clc/install.sh | bash
-----
 
 Set up your {short-product-name} workspace with:
 [,shell]
@@ -88,6 +83,7 @@ After the application starts and everything is set up, navigate to:
 http://localhost:9021 and start using {short-product-name}.
 
 === Live reload
+
 The developer environment of {short-product-name} is configured with live reload, so any changes you make in your Taxi project are automatically picked up.
 
 == Advanced setup
