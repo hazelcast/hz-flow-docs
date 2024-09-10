@@ -47,7 +47,7 @@ The `.env` file contains the following variables:
 * MC_LICENSE contains the Hazelcast license
 * MC_APPLICATION_CLIENT_SECRET is used as client credentials for authenticated API access
 
-Take a look at xref:deploying:authentication.adoc#authentication-for-api-consumers[Authentication for API Consumers] for details on how Management Center uses client credentials.
+Take a look at xref:deploying:authentication.adoc#authentication-for-api-consumers[Authentication for API Consumers] for details on setting this secret and using client credentials to authenticate programmatically.
 
 === Starting {short-product-name}
 
