@@ -1,11 +1,11 @@
-= Load Balancer 
-:description: Load Balancer setup 
+= Load balancer 
+:description: Load balancer setup
 
-When deploying multiple {short-product-name} servers, they can be deployed behind a Load Balancer to scale out the system.  https://traefik.io/traefik[Traefik] is used as an example in this section, although any other  Load Balancer can be used (e.g. nginx).
+When deploying multiple {short-product-name} servers, they can be deployed behind a load balancer to scale out the system.  https://traefik.io/traefik[Traefik] is used as an example in this section, although any other load balancer can be used (e.g. nginx).
 
-== When is a Load Balancer Required?
+== When is a load balancer Required?
 
-A Load Balancer, or Reverse Proxy is required when deploying multiple {short-product-name} instances (for example in a production deployment of several {short-product-name} instances).  It will distribute the load from incoming requests across each {short-product-name} instance.
+A load balancer, or reverse proxy is required when deploying multiple {short-product-name} instances (for example in a production deployment of several {short-product-name} instances).  It will distribute the load from incoming requests across each {short-product-name} instance.
 
 == Transport Layer Security (TLS)
 
@@ -14,13 +14,13 @@ TLS (also known as HTTPS or SSL) should be used to secure the connection between
 You can create a certificate using a tool like OpenSSL or use a cloud service such as Let’s Encrypt or AWS Certificate Manager.  When creating a certificate to use with the load balancer, the domain name must be specified.    
 
 
-== Web Sockets
-The *WebSocket API* enables a two-way interactive communication session between the user's browser (or API consumer) and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply.  Web sockets typically use a long-lived persistent connection.
+== WebSocket
+The *WebSocket API* enables a two-way interactive communication session between the user's browser (or API consumer) and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply.  WebSocket typically uses a long-lived persistent connection.
 
-{short-product-name} uses Web Sockets in a number of areas : between the UI and the {short-product-name} server, and also optionally when publishing an endpoint as a Websocket endpoint.  The UI performs a periodic heartbeat on the websocket connection to keep the connection open with a default interval of 5 seconds. This is important to keep in mind when configuring the Load Balancer since the Load Balancer connection timeout should be set to a value greater than the heartbeat interval.
+{short-product-name} uses WebSocket in a number of areas : between the UI and the {short-product-name} server, and also optionally when publishing an endpoint as a Websocket endpoint.  The UI performs a periodic heartbeat on the WebSocket connection to keep the connection open with a default interval of 5 seconds. This is important to keep in mind when configuring the load balancer since the load balancer connection timeout should be set to a value greater than the heartbeat interval.
 
 
-It’s important that the Load Balancer is configured to expose the HTTP headers required to Upgrade the HTTP connection to a Web socket connection.
+It’s important that the load balancer is configured to expose the HTTP headers required to Upgrade the HTTP connection to a WebSocket connection.
 
 For traefik it’s done like this:
 
@@ -32,9 +32,9 @@ labels:
 ----
 
 
-== Target Group
+== Target group
 
-Target Groups define a service exposed by the Load Balancer, for {short-product-name} a target group will contain all of the {short-product-name} service instances.  For traefik the example traefik configuration to Load balance across the {short-product-name} server TCP Endpoints on TCP Port 9021 looks like:
+Target groups define a service exposed by the load balancer.  For {short-product-name} a target group will contain all of the {short-product-name} service instances.  For traefik, the example traefik configuration to load balance across the {short-product-name} server TCP Endpoints on TCP Port 9021 looks like:
 
 
 ----
@@ -49,7 +49,7 @@ Target Groups define a service exposed by the Load Balancer, for {short-product-
 
 CORS is a mechanism where a web page can specify which resources from a different server or domain can be loaded by the browser.  Cross-origin requests are blocked by default and CORS defines a way for a browser and web service to determine when it’s safe to allow a cross-origin request.
 
-In Production deployments,  Single Sign On (SSO) between {short-product-name} and Management Center is typically enabled and Management Center is deployed on a different domain from {short-product-name}.  In this case it’s important that CORS configuration is applied to Management Center.
+In production deployments,  Single Sign On (SSO) between {short-product-name} and Management Center is typically enabled and Management Center is deployed on a different domain from {short-product-name}.  In this case, it’s important that CORS configuration is applied to Management Center.
 
 Management Center has the system property `hazelcast.mc.flow.address` which when configured, is added to the CORS Access-Control-Allow-Origin HTTP Response header from Management Center.  When Management Center is configured as an Identity Provider for {short-product-name}, {short-product-name} will try to fetch some resources from Management Center when loading the {short-product-name} UI main page.  This CORS configuration is important to enable that cross-domain communication. 
 
