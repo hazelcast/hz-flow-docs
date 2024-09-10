@@ -1,4 +1,4 @@
-= Overview
+= Workspace overview
 :description: An overview of how to connect data sources to {short-product-name}.
 
 
@@ -20,8 +20,6 @@ Generally, there are at least the following components:
 
 * A taxonomy project (built using Taxi) that defines the terms embedded in your API contracts.  This is most commonly stored in Git, or locally on your machine (when you're first getting started).
 * A series of API specs, enriched with metadata using terms from your taxonomy project.
-
-// how do I get light background? Previous code was: <ImageWithCaption src=\{PublishingFromSources} addLightBackground=\{true}/>
 
 image:publish_from_sources_flow2.png[]
 

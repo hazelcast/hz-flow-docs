@@ -1,5 +1,5 @@
-= Deploying {short-product-name}
-:description: How to get started with {short-product-name}
+= Deploying in development
+:description: How to deploy {short-product-name} in a development environment
 
 To get up and running quickly, you can bring up a fully working {short-product-name} environment locally using Docker Compose to start testing or developing your integrations.
 
