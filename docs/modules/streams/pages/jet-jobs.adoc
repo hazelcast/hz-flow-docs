@@ -6,7 +6,7 @@
 
 xref:querying:queries-as-endpoints.adoc[Publishing queries] describes how to create and publish queries as HTTP or WebSocket endpoints.
 
-After creating a query, it is visible in the list of Endpoints in the {short-product-name} UI under "Endpoints".
+After creating a query, it is visible in the list of endpoints in the {short-product-name} UI under "Endpoints".
 
 image:stream-endpoints.png[]
 
@@ -26,7 +26,7 @@ image:jet-pipeline.png[]
 As shown in the example Job Graph, the pipeline consists of the following stages:
 
 
-* Ingestion: The data is ingested from the source.
-* Validation: The data is validated mandatory fields.
-* Map: Transform the input type to the output type.
+* Ingestion: The data is ingested from the source
+* Validation: The data is validated mandatory fields
+* Map: Transform the input type to the output type
 * Sink: The data is written to a Hazelcast Topic as sink
