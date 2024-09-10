@@ -380,6 +380,16 @@ Which gives us:
 ]
 ----
 
+== Publishing a query using the UI 
+
+To publish a query as an endpoint using the UI: 
+
+* Choose *Query editor* and in the editor, write your query
+* Click *Run* to make sure the query runs with no errors
+* Click the *Save query to project* button, choose a project (this must be editable), give your query a name and then save it
+* Click the *Publish endpoint* button and publish it as an HTTP or WebSocket endpoint, depending on the query
+* Choose *Endpoints* and make sure the query is running (you can disable/enable the endpoint if necessary)
+
 == Wrapping up and next steps
 
 In this guide, we've:
