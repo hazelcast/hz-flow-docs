@@ -26,6 +26,7 @@
 *** Roles & permissions
 // ** xref:deploying:data-policies.adoc[Data policies]
 ** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
+** xref:deploying:load-balancer.adoc[Load Balancer]
 
 .Develop
 * xref:workspace:overview.adoc[Your workspace]
@@ -71,5 +72,5 @@
 * xref:describing-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
 
 * Architecture
-** Flow components
+** xref:deploying:components.adoc[{short-product-name} components] 
 ** Jet jobs
