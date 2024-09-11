@@ -73,4 +73,4 @@
 
 * Architecture
 ** xref:deploying:components.adoc[{short-product-name} components] 
-** Jet jobs
+** xref:streams:jet-jobs.adoc[Jet jobs]
