@@ -83,7 +83,7 @@ The presented JWT is expected to have the following attributes:
 
 Below you can find example Docker Compose files where MC is the identity provider and a more complex scenario where MC is configured to use an external identity provider.
 
-NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `vyne.security` in the Docker Compose files below. Changing these may lead to unexpected results.
+NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `flow.security` in the Docker Compose files below. Changing these may lead to unexpected results.
 
 === Example: Local security pre-configuration with via hz-mc tool
 Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp-local-sec-preconfigured.yml[this Docker Compose file] with usernames `admin`, `user`, `user`, `readonly` or `metricsonly` and password `changeMe!135`.

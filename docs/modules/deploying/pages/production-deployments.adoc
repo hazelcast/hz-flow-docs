@@ -43,12 +43,14 @@ authentication or role-based authorization, and you'll need to enable these.
 
 The addresses used are configured in a file, which by default is loaded from  `config/services.conf`.
 
-The location of the config file can be set by passing `--vyne.services.config-file` in the command line when starting {short-product-name}.
+// Rebranded: The location of the config file can be set by passing `--vyne.services.config-file` in the command line when starting {short-product-name}.
+
+The location of the config file can be set by passing `--flow.services.config-file` in the command line when starting {short-product-name}.
 
 |===
 | Config setting | Default value
-
-| `vyne.services.config-file`
+// rebranded vyne to flow:
+| `flow.services.config-file`
 | `config/services.conf`
 |===
 
@@ -60,7 +62,7 @@ An example of the config file is shown below:
 ----
 services {
     analytics-server {
-        url="http://vyne-analytics-server"
+        url="http://flow-analytics-server"
     }
     flow-server {
         url="http://flow"

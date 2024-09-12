@@ -160,7 +160,9 @@ repositories is defined in a https://github.com/lightbend/config#examples-of-hoc
 
 === Passing a workspace.conf file
 
-By default, the configuration file is called `workspace.conf`.  However, the location of the file can be changed by setting `--vyne.workspace.config-file=/path/to/workspace.conf`
+//rebranded vyne to flow in --flow.workspace.config-file below - check
+
+By default, the configuration file is called `workspace.conf`.  However, the location of the file can be changed by setting `--flow.workspace.config-file=/path/to/workspace.conf`
 on the command line, or through any of the supported configuration overriding mechanisms.
 
 === Reading workspace.conf from Git
@@ -173,13 +175,13 @@ You can configure {short-product-name} to read a `workspace.conf` file from a gi
 |===
 | Setting | Description
 
-| `vyne.workspace.git.url`
+| `flow.workspace.git.url`
 | The url of the Git repo to clone. If pulling from Github, Gitlab or Azure DevOps, use a personal access token in the url (eg: `+https://username:personalAccessToken@github.com/username/yourRepoName.git+` or `https://[username]:[personalAccessToken]@dev.azure.com/[yourOrgName]/[yourProjectName]/_git/[yourRepoName]`)
 
-| `vyne.workspace.git.branch`
+| `flow.workspace.git.branch`
 | The name of the branch to check out
 
-| `vyne.workspace.git.path`
+| `flow.workspace.git.path`
 | _Optional_ The path within the repo to read the config file. Defaults to `workspace.conf`
 |===
 
@@ -189,7 +191,7 @@ For demos / test config, it's sometimes useful to start {short-product-name} wit
 
 You can bypass the workspace config, and point {short-product-name} directly to a single local file-system project.
 
-To do this, start {short-product-name} with `--vyne.workspace.project-file=/path/to/taxi.conf`
+To do this, start {short-product-name} with `--flow.workspace.project-file=/path/to/taxi.conf`
 
 === Configuration conventions
 
