@@ -16,7 +16,7 @@ case, you generally don't need to do anything - {short-product-name} applies the
 
 | Protobuf
 | Protobuf
-| xref:describing-data-sources:protobuf.adoc[Protobuf docs]
+| xref:protobuf.adoc[Protobuf docs]
 
 | OpenAPI
 | JSON
