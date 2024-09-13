@@ -486,3 +486,7 @@ The following formats are supported:
 * xref:data-formats:xml.adoc[XML]
 * xref:data-formats:protobuf.adoc[Protobuf]
 * xref:data-formats:avro.adoc[Avro]
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:deploying:production-deployments.adoc[setting up your production environment].

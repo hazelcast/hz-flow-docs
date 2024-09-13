@@ -226,3 +226,7 @@ git {
    ]
 }
 ----
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:describing-data-sources:configuring-connections.adoc[connecting your data sources].

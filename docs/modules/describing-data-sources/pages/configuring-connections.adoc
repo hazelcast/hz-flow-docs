@@ -399,3 +399,7 @@ Read about defining Mongo connections in the dedicated documentation for xref:de
 
 You can point {short-product-name} at an AWS mock running on https://localstack.cloud/[Localstack] by specifying the `endPointOverride` property
 in the connection.
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:querying:writing-queries.adoc[querying your data].
