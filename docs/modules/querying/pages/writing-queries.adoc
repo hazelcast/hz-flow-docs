@@ -184,9 +184,11 @@ model Film {
    id : FilmId inherits Int
    title : Title inherits String
 }
+
 model Actor {
    name : ActorName inherits String
 }
+
 model Cast {
    actors : Actor[]
 }
@@ -196,7 +198,6 @@ service Films {
    operation getFilm():Film
    operation getCast(FilmId):Cast
 }
-
 
 // Here's a query:
 find { Film } as (Actor[]) -> {
@@ -244,18 +245,19 @@ an input will be called. For example:
 [,taxi]
 ----
 model Customer {
-  @Id customerId : CustomerId
-  name : CustomerName
+  @Id
+  customerId: CustomerId
+  name: CustomerName
 }
 
 service CustomerService {
-   // Can be called when projecting, because
-   // Person has an @Id of type PersonId
-   findCustomer(CustomerId):Customer
+  // Can be called when projecting, because
+  // Customer has an @Id of type CustomerId
+  findCustomer(CustomerId): Customer
 
-   // Cannot be called when projecting, because
-   // Customer has an @Id, and it isn't CustomerName
-   findCustomerByName(CustomerName):Customer
+  // Cannot be called when projecting, because
+  // Customer has an @Id, and it isn't CustomerName
+  findCustomerByName(CustomerName): Customer
 }
 ----
 
@@ -466,7 +468,6 @@ For example:
 import flow.formats.Csv
 
 @Csv(delimiter = "|", nullValue = "NULL")
-
 model Person {
    firstName : FirstName inherits String
    lastName : LastName inherits String

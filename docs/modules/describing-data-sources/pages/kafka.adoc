@@ -141,21 +141,21 @@ The message key can be accessed using the `flow.kafka.KafkaMessageKey` annotatio
 
 [,taxi]
 ----
-  import flow.kafka.KafkaMessageKey
+import flow.kafka.KafkaMessageKey
 
-  model Movie {
-    // The key from Kafka will be read into the id property
-    @KafkaMessageKey
-    id : MovieId inherits String
-    title : Title inherits String
-  }
+model Movie {
+  // The key from Kafka will be read into the id property
+  @KafkaMessageKey
+  id: MovieId inherits String
+  title: Title inherits String
+}
 
-  // Rest of the kafka topic declaration continues...
-  @KafkaService( connectionName = "moviesConnection" )
-  service MovieService {
-    @KafkaOperation( topic = "movies", offset = "earliest" )
-    stream streamMovieQuery:Stream<Movie>
-  }
+// Rest of the kafka topic declaration continues...
+@KafkaService(connectionName = "moviesConnection")
+service MovieService {
+  @KafkaOperation(topic = "movies", offset = "earliest")
+  stream streamMovieQuery: Stream<Movie>
+}
 ----
 
 ==== Kafka metadata
@@ -180,32 +180,32 @@ For example:
 
 [,taxi]
 ----
-   import flow.kafka.KafkaMessageMetadata
-   import flow.kafka.KafkaMetadataType
+import flow.kafka.KafkaMessageMetadata
+import flow.kafka.KafkaMetadataType
 
-   model Movie {
-     @KafkaMessageMetadata(KafkaMetadataType.Offset)
-     offset : Int
+model Movie {
+  @KafkaMessageMetadata(KafkaMetadataType.Offset)
+  offset: Int
 
-     @KafkaMessageMetadata(KafkaMetadataType.Timestamp)
-     timestamp : Long
+  @KafkaMessageMetadata(KafkaMetadataType.Timestamp)
+  timestamp: Long
 
-     @KafkaMessageMetadata(KafkaMetadataType.TimestampType)
-     timestampType : String
+  @KafkaMessageMetadata(KafkaMetadataType.TimestampType)
+  timestampType: String
 
-     @KafkaMessageMetadata(KafkaMetadataType.Partition)
-     partition : Int
+  @KafkaMessageMetadata(KafkaMetadataType.Partition)
+  partition: Int
 
-     // Other fields continue...
-     title : Title inherits String
-    }
+  // Other fields continue...
+  title: Title inherits String
+}
 
-    // Rest of the Kafka topic declaration continues...
-    @KafkaService( connectionName = "moviesConnection" )
-    service MovieService {
-      @KafkaOperation( topic = "movies", offset = "earliest" )
-      stream streamMovieQuery:Stream<Movie>
-    }
+// Rest of the Kafka topic declaration continues...
+@KafkaService(connectionName = "moviesConnection")
+service MovieService {
+  @KafkaOperation(topic = "movies", offset = "earliest")
+  stream streamMovieQuery: Stream<Movie>
+}
 ----
 
 ==== Headers
@@ -217,20 +217,20 @@ These headers can be accessed using the `com.{code-product-name}.kafka.KafkaHead
 
 [,taxi]
 ----
-   import flow.kafka.KafkaHeader
+import flow.kafka.KafkaHeader
 
-   model Movie {
-      @KafkaHeader("correlationId")
-      correlationId : CorrelationId inherits String
-      title : Title inherits String
-   }
+model Movie {
+  @KafkaHeader("correlationId")
+  correlationId: CorrelationId inherits String
+  title: Title inherits String
+}
 
-    // Rest of the kafka topic declaration continues...
-   @KafkaService( connectionName = "moviesConnection" )
-   service MovieService {
-      @KafkaOperation( topic = "movies", offset = "earliest" )
-      stream streamMovieQuery:Stream<Movie>
-   }
+// Rest of the Kafka topic declaration continues...
+@KafkaService(connectionName = "moviesConnection")
+service MovieService {
+  @KafkaOperation(topic = "movies", offset = "earliest")
+  stream streamMovieQuery: Stream<Movie>
+}
 ----
 
 === Controlling deserialization

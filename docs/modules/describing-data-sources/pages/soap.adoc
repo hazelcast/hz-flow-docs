@@ -28,10 +28,8 @@ Elements then have Taxi-type references embedded with them like this:
 ----
    <xs:complexType name="tCurrency">
       <xs:sequence>
-         <xs:element name="sISOCode" type="xs:string"
->              taxi:type="flow.CurrencyIsoCode"/>
-         <xs:element name="sName" type="xs:string"
->              taxi:type="flow.CurrencyName"/>
+         <xs:element name="sISOCode" type="xs:string">taxi:type="flow.CurrencyIsoCode"/>
+         <xs:element name="sName" type="xs:string">taxi:type="flow.CurrencyName"/>
       </xs:sequence>
    </xs:complexType>
 ----
