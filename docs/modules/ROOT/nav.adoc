@@ -28,6 +28,9 @@
 ** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
 ** xref:deploying:load-balancer.adoc[Load Balancer]
 
+* xref:deploying:releases/release-notes.adoc[Release notes]
+** xref:deploying:releases/5-5-0.adoc[5.5.0]
+
 .Develop
 * xref:workspace:overview.adoc[Your workspace]
 ** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
