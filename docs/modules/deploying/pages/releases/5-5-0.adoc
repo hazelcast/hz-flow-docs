@@ -13,7 +13,7 @@ To get started:
 
 * Read our xref:introduction:quickstart.adoc[]
 * Look over our xref:guides:index.adoc[]
-* Learn how to query xref:querying:writing-queries.adoc[]
+* Learn how to xref:querying:writing-queries.adoc[]
 
 
 //TODO: update with public marketing pages when available
