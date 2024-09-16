@@ -41,12 +41,12 @@ For example:
 
 [,taxi]
 ----
-  import flow.formats.Xml
+import flow.formats.Xml
 
-  @Xml
-  model Person {
-    firstName : FirstName
-  }
+@Xml
+model Person {
+  firstName: FirstName
+}
 ----
 
 You only need to apply the annotation to the top level entity.

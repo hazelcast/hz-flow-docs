@@ -55,17 +55,17 @@ If omitted, then the type name is inferred from the rest of the schema.
 
 [,yaml]
 ----
-  components:
-    schemas:
-      Pet:
-        # Assign a Taxi type name to the model.
-        # Optional
-       x-taxi-type:
-         name: petstore.Pet
-        # Everything else is standard OpenApi spec...
-        allOf:
-          - $ref: '#/components/schemas/NewPet'
-          - required:
+components:
+  schemas:
+    Pet:
+      # Assign a Taxi type name to the model.
+      # Optional
+      x-taxi-type:
+        name: petstore.Pet
+      # Everything else is standard OpenAPI spec...
+      allOf:
+        - $ref: '#/components/schemas/NewPet'
+        - required:
 ----
 
 ==== Adding type annotations to attributes
@@ -74,19 +74,21 @@ Enrich attributes with semantic type metadata
 
 [,yaml]
 ----
+components:
+  schemas:
+    NewPet:
+      required:
+        - name
+      properties:
+        name:
+          x-taxi-type:
+            name: petstore.Name
+          type: string
+        tag:
+          x-taxi-type:
+            name: petstore.Tag
+          type: string
 
-      NewPet:
-        required:
-          - name
-        properties:
-          name:
-           x-taxi-type:
-             name: petstore.Name
-            type: string
-          tag:
-           x-taxi-type:
-             name: petstore.Tag
-            type: string
 ----
 
 By default, it's expected that types referred to in `x-taxi-type` within attributes have already been defined on the schema server, as part of your
@@ -96,16 +98,18 @@ However, if you are intentionally publishing new types from your OpenAPI spec, t
 
 [,yaml]
 ----
-      NewPet:
-        required:
-          - name
-        properties:
-          name:
-           x-taxi-type:
-             name: petstore.Name
-             # petstore.Name will be created if not present
-             create: true
-            type: string
+ components:
+  schemas:
+    NewPet:
+      required:
+        - name
+      properties:
+        name:
+          x-taxi-type:
+            name: petstore.Name
+            # petstore.Name will be created if not present
+            create: true
+          type: string
 ----
 
 === Describing service parameters

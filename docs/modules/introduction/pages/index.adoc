@@ -134,29 +134,29 @@ Customer OpenAPI Spec::
 +
 [source,yaml]
 ----
-# An extract of the ShoppingCartApi OpenAPI spec: 
+# An extract of the CustomerApi OpenAPI spec:
 components:
-schemas:
-Customer:
-properties:
-id: # Field name
-x-taxi-type: # <-- Taxi extension
-name: CustomerId # <-- Semantic type
-type: string
+  schemas:
+    Customer:
+      properties:
+        id:                  # Field name
+          x-taxi-type:       # <-- Taxi extension
+            name: CustomerId # <-- Semantic type
+            type: string
 ----
 Sales OpenAPI Spec::
 +
 [source,yaml]
 ----
-# An extract of the CustomerApi OpenAPI spec: 
+# An extract of the ShoppingCartApi OpenAPI spec:
 components:
-schemas:
-Purchase:
-properties:
-custId: # Field name 
-x-taxi-type: # \<-- Taxi extension
-name: CustomerId # \<-- Semantic type
-type: string
+  schemas:
+    Purchase:
+      properties:
+        custId:              # Field name
+          x-taxi-type:       # <-- Taxi extension
+            name: CustomerId # <-- Semantic type
+            type: string
 ----
 ====
 

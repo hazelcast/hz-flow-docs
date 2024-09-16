@@ -149,7 +149,7 @@ find { TradeSummary[] }
   service AwsBucketService {
       @S3Operation(bucket = "MyTrades")
       // This will read all files ending in csv present in the bucket
->     operation readBucket(filename:FilenamePattern = "*.csv"):TradeSummary[]
+      operation readBucket(filename:FilenamePattern = "*.csv"):TradeSummary[]
   }
 ```
 
@@ -223,11 +223,11 @@ However, the transformation could be richer, doing tasks such as calling service
 Finally, we might want to expose an HTTP POST operation to trigger this update:
 
 ```taxi query.taxi
-   import taxi.http.HttpOperation
+import taxi.http.HttpOperation
    
-   @HttpOperation(url = "/api/q/publishTradeUpdates", method = "POST")
-   find { TradeSummary[] }
-   call MyKafkaService::publishTrades
+@HttpOperation(url = "/api/q/publishTradeUpdates", method = "POST")
+find { TradeSummary[] }
+call MyKafkaService::publishTrades
 ```
 
 For more information about working with Kafka, including defining connections to brokers, see our
@@ -251,7 +251,6 @@ type TradeSummaryRecord {
    close : ClosePrice
    timestamp : Instant = now()
 }
-
 
 @DatabaseService(connection = "trades-database")
 service TradesDatabase {
@@ -278,11 +277,11 @@ However, the transformation could be richer, doing tasks such as calling service
 Finally, we might want to expose an HTTP POST operation to trigger this update:
 
 ```taxi query.taxi
-   import taxi.http.HttpOperation
+import taxi.http.HttpOperation
    
-  @HttpOperation(url = "/api/q/publishTradeUpdates", method = "POST")
-   find { TradeSummary[] }
-   call TradesDatabase::saveTradeSummary
+@HttpOperation(url = "/api/q/publishTradeUpdates", method = "POST")
+find { TradeSummary[] }
+call TradesDatabase::saveTradeSummary
 ```
 
 For more information about working with databases, including defining connections to databases,

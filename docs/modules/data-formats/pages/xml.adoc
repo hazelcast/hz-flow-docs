@@ -23,16 +23,16 @@ For example:
 
 [,taxi]
 ----
-  import flow.formats.Xml
-  import lang.taxi.xml.XmlAttribute
+import flow.formats.Xml
+import lang.taxi.xml.XmlAttribute
 
-  @Xml
-  model Actor inherits Person {
-      @XmlAttribute
-      id : ActorId
+@Xml
+model Actor inherits Person {
+  @XmlAttribute
+  id: ActorId
 
-      fullName : FullName
-  }
+  fullName: FullName
+}
 ----
 
 Would read/write the following XML:
@@ -53,10 +53,10 @@ For example:
 
 [,taxi]
 ----
-  @Xml
-  model Movie {
-   actors : Actor[]
-  }
+@Xml
+model Movie {
+  actors: Actor[]
+}
 ----
 
 Would expect a repeated `actors` element:
