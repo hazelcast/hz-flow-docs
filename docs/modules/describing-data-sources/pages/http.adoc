@@ -162,6 +162,7 @@ type Money {
    currency : String
    amount : Decimal
 }
+
 operation convertCurrency(input: Money,
       targetCurrency: String) : Money(from input, currency = targetCurrency)
 ----

@@ -16,7 +16,7 @@ case, you generally don't need to do anything - {short-product-name} applies the
 
 | Protobuf
 | Protobuf
-| xref:describing-data-sources:protobuf.adoc[Protobuf docs]
+| xref:protobuf.adoc[Protobuf docs]
 
 | OpenAPI
 | JSON
@@ -41,12 +41,12 @@ For example:
 
 [,taxi]
 ----
-  import flow.formats.Xml
+import flow.formats.Xml
 
-  @Xml
-  model Person {
-    firstName : FirstName
-  }
+@Xml
+model Person {
+  firstName: FirstName
+}
 ----
 
 You only need to apply the annotation to the top level entity.
