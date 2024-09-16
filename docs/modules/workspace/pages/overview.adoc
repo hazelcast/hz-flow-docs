@@ -80,7 +80,7 @@ message Customer {
 ----
 ====
 
-For more information, see the topics on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:describing-data-sources:protobuf.adoc[Protobuf] to describe your data sources.
+For more information, see the topics on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf] to describe your data sources.
 
 
 ==== Using Taxi

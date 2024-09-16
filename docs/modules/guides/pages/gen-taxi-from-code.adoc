@@ -18,40 +18,42 @@ Maven::
 [source,xml]
 ----
  <properties>
-    <flow.version>0.32.0</flow.version>
-    <taxi.version>1.53.0</taxi.version>
-  </properties>
-  <dependencies>
-    <dependency>
-      <groupId>flow</groupId>
-      <artifactId>schema-rsocket-publisher</artifactId>
-      <version>${flow.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.taxilang</groupId>
-      <artifactId>java2taxi</artifactId>
-      <version>${taxi.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>org.taxilang</groupId>
-      <artifactId>java-spring-taxi</artifactId>
-      <version>${taxi.version}</version>
-    </dependency>    
-  </dependencies>
-  <repositories>
-    <repository>
-      <id>flow-releases</id>
-      <url>https://repo.flow.com/release</url>
-    </repository>
-    <!-- Snapshot repository - only required if using a snapshot version -->
-    <repository>
-      <id>flow-snapshots</id>
-      <url>https://repo.flow.com/snapshot</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
+  <flow.version>0.32.0</flow.version>
+  <taxi.version>1.53.0</taxi.version>
+</properties>
+
+<dependencies>
+  <dependency>
+    <groupId>flow</groupId>
+    <artifactId>schema-rsocket-publisher</artifactId>
+    <version>${flow.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>org.taxilang</groupId>
+    <artifactId>java2taxi</artifactId>
+    <version>${taxi.version}</version>
+  </dependency>
+  <dependency>
+    <groupId>org.taxilang</groupId>
+    <artifactId>java-spring-taxi</artifactId>
+    <version>${taxi.version}</version>
+  </dependency>
+</dependencies>
+
+<repositories>
+  <repository>
+    <id>flow-releases</id>
+    <url>https://repo.flow.com/release</url>
+  </repository>
+  <!-- Snapshot repository - only required if using a snapshot version -->
+  <repository>
+    <id>flow-snapshots</id>
+    <url>https://repo.flow.com/snapshot</url>
+    <snapshots>
+      <enabled>true</enabled>
+    </snapshots>
+  </repository>
+</repositories>
 ----
 Gradle::
 +
@@ -350,26 +352,32 @@ Taxi is semantic type system, which allows us to say "This Thing is the same as 
 First, let's declare a type on our Films object:
 
 ```kotlin
-    import lang.taxi.annotations.DataType
-    
-    data class Film(
-        @field:DataType("FilmId")
-        val id: Int,
-        val title: String,
-    )
+import lang.taxi.annotations.DataType
+
+data class Film(
+    @field:DataType("FilmId")
+    val id: Int,
+    val title: String
+)
 ```
 
 Then, let's indicate on the `getFilmReview` method that the argument accepts the `FilmId` property:
 
 ```kotlin
-    import lang.taxi.annotations.DataType
+import lang.taxi.annotations.DataType
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import kotlin.random.Random
 
-    @GetMapping("/films/{filmId}/review")
-    fun getFilmReview(@PathVariable("filmId") @DataType("FilmId") filmId: Int): FilmReview {
-        return FilmReview(
-            score = Random.nextInt(1,5),
-            review = listOf("Good","Bad","Meh").random()
+@GetMapping("/films/{filmId}/review")
+fun getFilmReview(
+    @PathVariable("filmId") @DataType("FilmId") filmId: Int
+): FilmReview {
+    return FilmReview(
+        score = Random.nextInt(1, 5),
+        review = listOf("Good", "Bad", "Meh").random()
     )
+}
 ```
 
 // placeholder for graphic - <ImageWithCaption src={ThirdServiceDiagram} caption={'{short-product-name} now understands the relationship of data between two services '}></ImageWithCaption>
@@ -380,9 +388,9 @@ Here's a TaxiQL query asking for Films data, enriched with Reviews:
 
 ```taxi
 find { Film[] } as {
-    film : Film
-    review: FilmReview
-    }[]
+  film: Film
+  review: FilmReview
+}[]
 ```
 
 // AUTHORS NOTE - how do we recreate the playground feature below in asciidoc? As a temp measure I've recreated the code snippet manually above.
@@ -422,21 +430,24 @@ typealias FilmId = Int
 This lets us clean up our code, and make it more descriptive: 
 
 ```kotlin
-   data class Film(
-       val id: FilmId,
-       val title: String,
-   )
+data class Film(
+    val id: FilmId,
+    val title: String
+)
 ```
 and in our controller:
 
 ```kotlin
+import org.springframework.web.bind.annotation.GetMapping
+import kotlin.random.Random
 
-    @GetMapping("/films/{filmId}/review")
-    fun getFilmReview(@PathVariable("filmId") filmId: FilmId): FilmReview {
-        return FilmReview(
-            score = Random.nextInt(1,5),
-            review = listOf("Good","Bad","Meh").random()
+@GetMapping("/films/{filmId}/review")
+fun getFilmReview(@PathVariable("filmId") filmId: FilmId): FilmReview {
+    return FilmReview(
+        score = Random.nextInt(1, 5),
+        review = listOf("Good", "Bad", "Meh").random()
     )
+}
 ```
 
 == Going further - extracting shared types to a library

@@ -1,7 +1,7 @@
 = Pulling API specs from Git
 :description: {short-product-name} can read schema and taxonomy definitions direct from Git.
 
-It's common to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describing-data-sources:open-api.adoc[OpenApi] or xref:describing-data-sources:protobuf.adoc[Protobuf]), or xref:describing-data-sources:databases.adoc[database definitions]
+It's common to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describing-data-sources:open-api.adoc[OpenApi] or xref:data-formats:protobuf.adoc[Protobuf]), or xref:describing-data-sources:databases.adoc[database definitions]
 in a Git repository, so they're version controlled.
 
 {short-product-name} can read directly from your Git repository, pulling in updates as they're merged.
