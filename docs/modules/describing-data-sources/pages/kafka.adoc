@@ -240,7 +240,7 @@ By default, models are expected to be JSON.
 
 However, this can be controlled by annotating the model with a format annotation.
 
-Two common formats xref:protobuf.adoc[Protobuf] and xref:data-formats:avro.adoc[Avro] are supported.
+Two common formats xref:data-formats:protobuf.adoc[Protobuf] and xref:data-formats:avro.adoc[Avro] are supported.
 
 === Example queries
 

@@ -36,16 +36,18 @@
 
 * Manage data sources
 ** xref:describing-data-sources:configuring-connections.adoc[Configure connections]
+*** xref:describing-data-sources:http.adoc[HTTP APIs]
+*** xref:describing-data-sources:hazelcast.adoc[Hazelcast]
+*** xref:describing-data-sources:databases.adoc[JDBC Databases]
+*** xref:describing-data-sources:kafka.adoc[Kafka]
+*** xref:describing-data-sources:mongodb.adoc[Mongo DB]
+*** xref:describing-data-sources:open-api.adoc[OpenAPI specs]
+*** xref:describing-data-sources:aws-services.adoc[AWS Services]
+*** xref:describing-data-sources:soap.adoc[SOAP WSDLs]
+
+
+
 ** xref:describing-data-sources:authentication-to-services.adoc[Authenticate to services]
-** xref:describing-data-sources:open-api.adoc[Use OpenAPI specs]
-** xref:describing-data-sources:soap.adoc[Use SOAP WSDLs]
-** xref:describing-data-sources:http.adoc[Work with HTTP services]
-** xref:describing-data-sources:protobuf.adoc[Work with Protobuf]
-** xref:describing-data-sources:databases.adoc[Describe databases]
-** xref:describing-data-sources:hazelcast.adoc[Use a Hazelcast data source]
-** xref:describing-data-sources:mongodb.adoc[Describe a Mongo DB]
-** xref:describing-data-sources:kafka.adoc[Use a Kafka data source]
-** xref:describing-data-sources:aws-services.adoc[Use AWS services]
 ** xref:describing-data-sources:caching.adoc[Use caching]
 
 * Data streams & formats
