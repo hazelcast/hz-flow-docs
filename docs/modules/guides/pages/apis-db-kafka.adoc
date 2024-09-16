@@ -37,7 +37,10 @@ To launch, run the following in your command line:
 [,bash]
 ----
 mkdir flow-films-demo
-wget https://raw.githubusercontent.com/hazelcast/hazelcast-flow-public-demos/main/films-demo/docker-compose.yml
+cd flow-films-demo
+
+curl -O https://raw.githubusercontent.com/hazelcast/hazelcast-flow-public-demos/main/films-demo/docker-compose.yml
+
 docker compose up -d
 ----
 
