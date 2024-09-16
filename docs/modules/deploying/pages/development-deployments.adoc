@@ -105,3 +105,7 @@ With examples for:
 * Running with an external Hazelcast cluster
 * Using external IDP config
 * Configuring to include metrics
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:workspace:overview.adoc[setting up your workspace] or investigating how to xref:deploying:production-deployments.adoc[deploy in production].

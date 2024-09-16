@@ -32,4 +32,5 @@ These further templates provide code samples for provisioning infrastructure and
 === Deploying with Terraform
 
 {short-product-name} maintains example deployment scripts for production configurations of {short-product-name} in Terraform.
+
 These are available on https://github.com/hazelcast/hazelcast-flow-terraform[Github]

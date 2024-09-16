@@ -12,13 +12,13 @@ However, caches are destroyed at the end of each query.
 To enable caching, simply add `@Cache` to the top of your query:
 
 ```taxi
-  @Cache
-  find { Film[] } as {
-    id : FilmId
-    // Fetched from a remote service.
-    // Calls will be cached.
-    currentReviewScore : ReviewScore
-  }
+@Cache
+find { Film[] } as {
+  id: FilmId
+  // Fetched from a remote service.
+  // Calls will be cached.
+  currentReviewScore: ReviewScore
+}
 ```
 
 
@@ -27,13 +27,13 @@ By default, all queries share the same cache.  If you want cache isolation so th
 population and invalidation are isolated from each other, you can apply a name to the cache:
 
 ```taxi
-  @Cache("myCache")
-  find { Film[] } as {
-    id : FilmId
-    // Fetched from a remote service.
-    // Calls will be cached.
-    currentReviewScore : ReviewScore
-  }
+@Cache("myCache")
+find { Film[] } as {
+  id: FilmId
+  // Fetched from a remote service.
+  // Calls will be cached.
+  currentReviewScore: ReviewScore
+}
 ```
 
 
@@ -45,13 +45,13 @@ It's the default cache that's enabled if no connection is provided.
 // This is helpful for development, but shouldn't be taken to production, as excessive caching can cause Out-of-Memory failures and degrade performance.
 
 ```taxi
-  // This query uses the default, local cache
-  @Cache
-  find { Film[] } as {
-    id : FilmId
-    // Fetched from a remote service
-    currentReviewScore : ReviewScore
-  }
+// This query uses the default, local cache
+@Cache
+find { Film[] } as {
+  id: FilmId
+  // Fetched from a remote service
+  currentReviewScore: ReviewScore
+}
 ```
 
 ### Cache TTL
@@ -77,12 +77,12 @@ hazelcast {
 ```
 
 ```taxi query.taxi
-  @Cache(connection = "myHazelcast")
-  find { Film[] } as {
-    id : FilmId
-    // Fetched from a remote service
-    currentReviewScore : ReviewScore
-  }
+@Cache(connection = "myHazelcast")
+find { Film[] } as {
+  id: FilmId
+  // Fetched from a remote service
+  currentReviewScore: ReviewScore
+}
 ```
 
 // ### Supported caches
@@ -97,13 +97,13 @@ hazelcast {
 The default Cache TTL is defined in the connections file:
 
 ```hocon connections.conf
-  hazelcast {
-     myHazelcast {
-        connectionName = myHazelcast
-        addresses = ["localhost:5701"]
-        ttl = 20 minutes
-     }
+hazelcast {
+  myHazelcast {
+    connectionName = myHazelcast
+    addresses = ["localhost:5701"]
+    ttl = 20 minutes
   }
+}
 ```
 
 ### Max-age headers

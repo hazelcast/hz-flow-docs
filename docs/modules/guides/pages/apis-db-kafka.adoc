@@ -28,12 +28,19 @@ You should have https://docs.docker.com/engine/install/[Docker] and https://docs
 In this tutorial, we're going to deploy {short-product-name}, as well as a few demo projects
 that we'll use throughout.
 
-Everything you need is packaged up in a Docker Compose file to make getting started easier.  To launch, run the following in your command line:
+Everything you need is packaged up in a Docker Compose file to make getting started easier.  
+
+NOTE: For MacOS, to start the project, set the following platform property for flow, pg-pagila, films-api, zookeeper and kafka containers: `platform: linux/amd64`
+
+To launch, run the following in your command line:
 
 [,bash]
 ----
 mkdir flow-films-demo
-wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker-compose.yml
+cd flow-films-demo
+
+curl -O https://raw.githubusercontent.com/hazelcast/hazelcast-flow-public-demos/main/films-demo/docker-compose.yml
+
 docker compose up -d
 ----
 
@@ -52,7 +59,7 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 |===
 | Docker Image | Part of {short-product-name} stack or Demo? | Description
 
-| {code-product-name}/{code-product-name}
+| {code-product-name}
 | {short-product-name}
 | The core {short-product-name} server, which provides our UI, and runs all our integration for us
 
@@ -60,17 +67,13 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 | Demo
 | A REST API, which exposes information about films.  We also publish a Protobuf message to Kafka from here
 
-| pagila-db
+| pg-pagila
 | Demo
 | A Postgres DB, which contains the Postgres https://github.com/devrimgunduz/pagila[Pagila] demo database for a fake DVD rental store
 
-| confluentinc/cp-zookeeper
+| apache/kafka
 | Demo (Kafka)
-| Official zookeeper image, required to run Kafka
-
-| confluentinc/cp-kafka
-| Demo (Kafka)
-| The official Kafka image
+| The Apache Kafka image
 |===
 
 === Related links
@@ -147,7 +150,7 @@ First, we need to tell {short-product-name} how to connect to the database.
 | pagila
 
 | Username
-| root
+| postgres
 
 | Password
 | admin
@@ -188,7 +191,7 @@ To import the schema:
 | `film`
 
 | Default namespace
-| `com.petflix.films`
+| `com.petflix.filmsdatabase`
 |===
 
 Namespaces are used to help us group related content together, like packages in Java or namespaces in C# and Typescript.
@@ -218,12 +221,15 @@ be created. For now, the defaults that have been assigned are good enough.
 
 * Click *Save*
 
+
 {short-product-name} will create the necessary schema files in a local project.
 
-{short-product-name} also creates a series of https://taxilang.org[Taxi] schema files that contain the schemas we've just imported. You can explore these files locally. 
+{short-product-name} also creates a series of https://taxilang.org[Taxi] schema files that contain the schemas we've just imported. You can explore these files locally. If you named your project `demo`, all the project
+  files are in a directory called `demo` next to where you launched {short-product-name} from.
+
 
 ----
-cd flow/schema-server/projects
+cd demo/
 ----
 
 Taxi ships a great https://marketplace.visualstudio.com/items?itemName=taxi-lang.taxi-language-server[VS Code plugin] which provides click-to-navigate, syntax highlighting, autocompletion and more.
@@ -272,7 +278,7 @@ A preview of the imported schema is once again displayed.
 
 This time, we do need to modify some default values.
 
-Click on *Services* → `getStreamingProvidersForFilmUsingGET`.
+Click on *Services* → `getStreamingProvidersForFilm`.
 
 This shows the API operation that's exposed in the Swagger spec we just imported.
 This API accepts the ID of a film, and returns information about the streaming services that have the film available to watch.
@@ -520,38 +526,8 @@ We need to indicate that the filmId property is the same as the FilmId used else
 * In the "Attributes" table, click on the underlined `Integer` type next to filmId
 * Search for the type FilmId, and select `film.types.FilmId` from the search box
 
-Also, notice that the announcement field has been typed as `String`.  Let's create a more specific type:
-
-* In the *attributes* table, click on the underlined `String` type next to announcement
-* In the popup, click *Create new*
-
-Fill out the form with the following details:
-
-|===
-| Parameter | Value
-
-| Type name
-| `AnnouncementMessage`
-
-| Namespace
-| `com.petflix.announcements`
-
-| Inherits from
-| Start typing `String`, and select `lang.taxi.String` from the drop-down box
-
-| Documentation
-| Leave this blank for now
-|===
-
-image:create-new-type.png[]
-
-* Click *Create type*.
-
-Your `NewReleaseFilmAnnouncement` type should look like the following screenshot:
-
-image:new-release-film-announcement.png[]
-
-* Click *Save*.
+The announcement field has been typed as `Announcement`.  As there's no existing types in our company for this data,
+it's fine to leave as-is, and use the newly created type.
 
 We've now imported a Protobuf schema, and linked its fields to other fields in our schema.
 
@@ -576,10 +552,11 @@ Fill out the form with the following details:
 | `kafka` (should already be populated)
 
 | Broker address
-| `kafka:29092`
+| `kafka:19092`
 
 | Group Id
-| `vyne` (should already be populated)
+// | `vyne` (should already be populated)
+| `flow` (should already be populated)
 |===
 
 * Click *Create*.  A new Kafka connection is created, and the popup closes
@@ -682,26 +659,18 @@ In this tutorial, we've set up {short-product-name} and used it to automatically
 
 === Look under the hood
 
-To get a better understanding of what happened under the hood, take a look at some of the files that {short-product-name}
+To get a better understanding of what's happened under the hood, take a look at some of the files that {short-product-name}
 has generated during this tutorial.
 
 |===
 | Directory | What's there?
 
-| `./vyne/schema-server/schema-server.conf`
-| The config file that's driving the Schema server. It defines where to read and write the schema files {short-product-name} created in the background
+| `workspace.conf`
+| The config file that lists all the projects - including the one we created. It defines where to read and write the schema files {short-product-name} created in the background.
 
-| `./vyne/schema-server/projects`
+| `demo/`
 | The schema project that {short-product-name} was writing schemas to
 
-| `./vyne/config/connections.conf`
-| A connections file defining the API connections you imported in the UI
+| `demo/orbital/connections.conf`
+| A connections file defining the database and Kafka connections you imported in the UI.
 |===
-
-////
-### Other tutorials
-There are lots of things left to explore. A few great next tutorials are:
-
- * <Link to="/reference/schema-server/schema-server/">Understand the difference between "pushing" and "pulling" schemas in {short-product-name}</Link>
- * <Link to="/reference/schema-server/schema-server/#publishing-external-schemas">Push schemas to {short-product-name} automatically</Link>
-////
