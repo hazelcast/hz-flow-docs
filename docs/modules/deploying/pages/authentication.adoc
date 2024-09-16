@@ -86,7 +86,7 @@ Below you can find example Docker Compose files where MC is the identity provide
 
 NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `flow.security` and `FLOW_SECURITY` in the Docker Compose files below. Please update <<modificaton-of-sec-preconfig,specified properties>> only when necessary; changing others may lead to unexpected results.
 
-[#modificaton-of-sec-preconfig]
+[#modification-of-sec-preconfig]
 === Potential modification of security pre-configuration
 The following properties can be changed or not; please consider your use case carefully.
 
