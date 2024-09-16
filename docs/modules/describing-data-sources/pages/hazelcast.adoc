@@ -85,7 +85,6 @@ import flow.hazelcast.CompactObject
 // name of the connection defined in your connections.conf
 @HazelcastService(connectionName = "myHazelcast")
 service HazelcastService {
-
    // Expose a write operation, and annotate it
    // with UpsertOperation, to define the writing behavior
    @UpsertOperation
@@ -181,7 +180,6 @@ import flow.hazelcast.CompactObject
 // name of the connection defined in your connections.conf
 @HazelcastService(connectionName = "myHazelcast")
 service HazelcastService {
-
     // Table is a shorthand to declare
     // a data source that supports rich querying.
     table films : Film[]
