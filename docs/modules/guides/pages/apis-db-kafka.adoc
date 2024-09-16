@@ -38,7 +38,9 @@ To launch, run the following in your command line:
 ----
 mkdir flow-films-demo
 cd flow-films-demo
-wget https://github.com/flowapi/demos/raw/main/importing-through-ui/docker-compose.yml
+
+curl -O https://raw.githubusercontent.com/hazelcast/hazelcast-flow-public-demos/main/films-demo/docker-compose.yml
+
 docker compose up -d
 ----
 
@@ -65,17 +67,13 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 | Demo
 | A REST API, which exposes information about films.  We also publish a Protobuf message to Kafka from here
 
-| pagila-db
+| pg-pagila
 | Demo
 | A Postgres DB, which contains the Postgres https://github.com/devrimgunduz/pagila[Pagila] demo database for a fake DVD rental store
 
-| zookeeper
+| apache/kafka
 | Demo (Kafka)
-| Official zookeeper image, required to run Kafka
-
-| kafka
-| Demo (Kafka)
-| The official Kafka image
+| The Apache Kafka image
 |===
 
 === Related links
@@ -152,7 +150,7 @@ First, we need to tell {short-product-name} how to connect to the database.
 | pagila
 
 | Username
-| root
+| postgres
 
 | Password
 | admin
@@ -193,7 +191,7 @@ To import the schema:
 | `film`
 
 | Default namespace
-| `com.petflix.films`
+| `com.petflix.filmsdatabase`
 |===
 
 Namespaces are used to help us group related content together, like packages in Java or namespaces in C# and Typescript.
@@ -222,6 +220,7 @@ Click around to explore the different models, types and services that will
 be created. For now, the defaults that have been assigned are good enough.
 
 * Click *Save*
+
 
 {short-product-name} will create the necessary schema files in a local project.
 
@@ -553,7 +552,7 @@ Fill out the form with the following details:
 | `kafka` (should already be populated)
 
 | Broker address
-| `kafka:29092`
+| `kafka:19092`
 
 | Group Id
 // | `vyne` (should already be populated)
