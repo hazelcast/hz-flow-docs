@@ -37,7 +37,7 @@ Queries need to have an `@HttpOperation` annotation:
 | The HTTP method to respond to, one of `GET`,`POST`,`PUT`, or `DELETE`
 |===
 
-Variables can be defined in your path using `{myVar}`, which are then made available in your query declaration using a `@PathVariable` annotation.
+Variables can be defined in your path using `\{myVar\}`, which are then made available in your query declaration using a `@PathVariable` annotation.
 
 NOTE: For security reasons, queries are only exposed under the `/api/q` endpoint. Any queries where URL in the `@HttpOperation` annotation starts with something other than `/api/q` are ignored.
 

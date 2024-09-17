@@ -8,9 +8,7 @@ There are several places in the {short-product-name} UI where you can directly c
 To support editing of schemas through the {short-product-name} UI, the schema server must be configured with a local taxi project, and then have editing enabled.
 This guide shows you how to achieve that.
 
-// Authors note - need link to here: link:/docs/deploying/schema-server/#schema-server-monitored-projects[config file.]
-
-When the {short-product-name} schema server is started, it reads the configuration from a config file. 
+When the {short-product-name} schema server is started, it reads the configuration from a config file.
 This configuration includes a list of repositories which the schema server will monitor.  In this topic, we'll explore adding a repository which can accept edits from the {short-product-name} UI.
 
 NOTE: This topic assumes you already have a taxi project that you want to make editable. If not, you might want to follow our instructions on https://taxilang.org/intro/getting-started/[creating a new taxi project] first.
@@ -52,8 +50,6 @@ file {
 }
 ----
 
-// For more information on configuring file repositories, check out the link:/docs/deploying/schema-server/#file-repositories[reference docs].
-
 === Make the file repository editable from the UI
 
 Still in the config file, we need to add one more line, which tells the schema server that any edits are to be written
@@ -79,7 +75,3 @@ Now restart the schema server.
 
 The schema server has now been configured to accept edits via its API.
 {short-product-name} will detect this, and allow edits to be made within the UI, ultimately ending up with files created in our taxi project.
-
-// == Related links
-
-//  Authors note - topic does not exist and throws a 404 error in original Orbital docs: * link:/docs/deploying/schema-server/[Schema Server reference guide]
