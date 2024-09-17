@@ -40,7 +40,7 @@
 *** xref:describing-data-sources:http.adoc[HTTP APIs]
 *** xref:describing-data-sources:hazelcast.adoc[Hazelcast]
 *** xref:describing-data-sources:databases.adoc[JDBC Databases]
-**** xref:connecting-data-sources:connecting-a-database.adoc
+**** xref:connecting-data-sources:connecting-a-database.adoc[]
 *** xref:describing-data-sources:kafka.adoc[Kafka]
 *** xref:describing-data-sources:mongodb.adoc[Mongo DB]
 *** xref:describing-data-sources:open-api.adoc[OpenAPI specs]
