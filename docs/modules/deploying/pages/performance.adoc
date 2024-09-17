@@ -3,4 +3,14 @@
 
 asdf
 
-== asdf
+== Minimum specs
+
+We recommend running {short-product-name} on a machine with at least 2 cpus and 8GiB of Memory.
+
+For production resilience please ensure you're running multiple Flow instances to ensure continued uptime.
+
+{short-product-name} is efficient at utilising spare resources so scales very effectively as you scale the available resources.
+
+Doubling the available resources can roughly half your processing latency and increase your overall throughput.
+
+== Scaling
