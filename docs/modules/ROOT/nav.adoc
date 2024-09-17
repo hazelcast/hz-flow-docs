@@ -28,6 +28,9 @@
 ** xref:deploying:load-balancer.adoc[Load Balancer]
 ** xref:describing-data-sources:enable-ui-schema-editing.adoc[Enable UI Editing]
 
+* xref:deploying:releases/release-notes.adoc[Release notes]
+** xref:deploying:releases/5-5-0.adoc[5.5.0]
+
 .Develop
 * xref:workspace:overview.adoc[Your workspace]
 ** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
