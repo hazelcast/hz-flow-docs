@@ -82,6 +82,7 @@ dependencies {
     implementation "org.taxilang:java2taxi:${taxiVersion}"
     implementation "org.taxilang:java-spring-taxi:${taxiVersion}"
 }
+----
 ====
 
 A quick explanation of the dependencies:

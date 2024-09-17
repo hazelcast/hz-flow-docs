@@ -23,15 +23,16 @@
 ** xref:deploying:security-recommendations.adoc[Security]
 *** xref:deploying:authentication.adoc[Enable authentication]
 *** xref:deploying:authorization.adoc[Enable authorization]
-*** Roles & permissions
 // ** xref:deploying:data-policies.adoc[Data policies]
 ** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
 ** xref:deploying:load-balancer.adoc[Load Balancer]
+** xref:describing-data-sources:enable-ui-schema-editing.adoc[Enable UI Editing]
 
 .Develop
 * xref:workspace:overview.adoc[Your workspace]
 ** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
 ** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk]
+** xref:connecting-data-sources:schema-publication-methods.adoc[Schema publishing methods]
 
 
 * Manage data sources
@@ -39,6 +40,7 @@
 *** xref:describing-data-sources:http.adoc[HTTP APIs]
 *** xref:describing-data-sources:hazelcast.adoc[Hazelcast]
 *** xref:describing-data-sources:databases.adoc[JDBC Databases]
+**** xref:connecting-data-sources:connecting-a-database.adoc[]
 *** xref:describing-data-sources:kafka.adoc[Kafka]
 *** xref:describing-data-sources:mongodb.adoc[Mongo DB]
 *** xref:describing-data-sources:open-api.adoc[OpenAPI specs]

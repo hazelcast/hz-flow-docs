@@ -77,6 +77,7 @@ You can import a Protobuf schema directly through the UI.
 * Click on *Schema Explorer*, then *Add new*
 * Select *Protobuf* from the dropdown list
 
+// TODO: image missing?
 image:protobuf_drop_down_flow.png[]
 
 To provide the Protobuf, you can:
