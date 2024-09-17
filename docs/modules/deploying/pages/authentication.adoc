@@ -86,7 +86,7 @@ Below you can find example Docker Compose files where MC is the identity provide
 
 NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `flow.security` and `FLOW_SECURITY` in the Docker Compose files below. Please update <<modificaton-of-sec-preconfig,specified properties>> only when necessary; changing others may lead to unexpected results.
 
-[#modificaton-of-sec-preconfig]
+[#modification-of-sec-preconfig]
 === Potential modification of security pre-configuration
 The following properties can be changed or not; please consider your use case carefully.
 
@@ -120,7 +120,7 @@ If your application needs machine-to-machine communication with {short-product-n
 . Get an access token from MC and use it as bearer token in subsequent requests to {short-product-name}. Example curl request for Viewer role:
 [,curl]
 ----
-curl --location '{MC-host}/oauth2/token' \
+curl --location '\{MC-host\}/oauth2/token' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --header 'Authorization: Basic YXBwbGljYXRpb24tY2xpZW50OnFxcQ==' \
 --data-urlencode 'grant_type=client_credentials' \
@@ -132,7 +132,7 @@ Notices:
 * `MC_APPLICATION_CLIENT_SECRET` can be omitted from the environment variables to disable client credential grants
 * `MC_APPLICATION_CLIENT_SECRET` should be treated as a secret and set to a secure string. Consider using the following or similar to generate a secure secret +
  `openssl rand -base64 32`
-* The `{MC-host}` in the example should be set to the Management Center hostname. The default config listens on http://localhost:8080 unless overridden
+* The `\{MC-host\}` in the example should be set to the Management Center hostname. The default config listens on http://localhost:8080 unless overridden
 * The example Authorization header: `YXBwbGljYXRpb24tY2xpZW50OnFxcQ==` is the base64 encoded version of `application-client:qqq`
 * If `flow` is not set in scope, the admin role will be assigned
 * Multiple roles are also supported, example curl request for Viewer and MetricsViewer:

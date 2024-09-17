@@ -24,22 +24,24 @@ When fully enabled, the following detail is captured and written to a database:
 The following options can be passed as parameters or xref:deploying:configuring.adoc#setting-as-environment-variables[configured as environment variables]
 to control the level of data that is persisted.
 
+// rebranded vyne to flow in table below - check
+
 |===
 | Param | Description | Default
 
-| `vyne.analytics.persistRemoteCallResponses`
+| `flow.analytics.persistRemoteCallResponses`
 | Defines if responses from remote queries are persisted to the database
 | `true`
 
-| `vyne.analytics.maxPayloadSizeInBytes`
+| `flow.analytics.maxPayloadSizeInBytes`
 | The max payload written to the database per response
 | `2048`
 
-| `vyne.analytics.persistRemoteCallMetadata`
+| `flow.analytics.persistRemoteCallMetadata`
 | Should metadata (URL, response codes, call durations) be persisted
 | `true`
 
-| `vyne.analytics.persistResults`
+| `flow.analytics.persistResults`
 | Should query results be persisted
 | `true`
 |===

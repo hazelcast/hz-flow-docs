@@ -52,8 +52,6 @@ There are no resolvers to update, Swagger SDKs to rebuild, or API consumer contr
 {short-product-name} provides several ways for services to generate and publish their schema:
 hand-crafted schemas, automatically generated at runtime, Git-backed in a central repository, or a mix of the three.
 
-// Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
-
 == Semantic data schemas
 
 Semantic schemas describe the meaning of their data in a way that's shareable between systems, for example:
@@ -134,29 +132,29 @@ Customer OpenAPI Spec::
 +
 [source,yaml]
 ----
-# An extract of the ShoppingCartApi OpenAPI spec: 
+# An extract of the CustomerApi OpenAPI spec:
 components:
-schemas:
-Customer:
-properties:
-id: # Field name
-x-taxi-type: # <-- Taxi extension
-name: CustomerId # <-- Semantic type
-type: string
+  schemas:
+    Customer:
+      properties:
+        id:                  # Field name
+          x-taxi-type:       # <-- Taxi extension
+            name: CustomerId # <-- Semantic type
+            type: string
 ----
 Sales OpenAPI Spec::
 +
 [source,yaml]
 ----
-# An extract of the CustomerApi OpenAPI spec: 
+# An extract of the ShoppingCartApi OpenAPI spec:
 components:
-schemas:
-Purchase:
-properties:
-custId: # Field name 
-x-taxi-type: # \<-- Taxi extension
-name: CustomerId # \<-- Semantic type
-type: string
+  schemas:
+    Purchase:
+      properties:
+        custId:              # Field name
+          x-taxi-type:       # <-- Taxi extension
+            name: CustomerId # <-- Semantic type
+            type: string
 ----
 ====
 

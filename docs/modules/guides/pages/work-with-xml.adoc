@@ -44,21 +44,25 @@ films.taxi::
 +
 [source,taxi]
 ----
-  import flow.formats.Xml 
+import flow.formats.Xml
 
-// The @Xml annotation tells Flow how to read this object 
-@Xml model FilmList { 
-  item : Film[]
-   } 
-model Film { 
-  id : FilmId inherits Int 
-  title : FilmTitle inherits String 
-  yearReleased : YearReleased inherits Int
-   } 
-   service FilmsService { 
-    @HttpOperation(url = "http://localhost:8044/films", method = "GET") 
-  operation getAllFilms():FilmList
-   }
+// The @Xml annotation tells Flow how to read this object
+@Xml
+model FilmList {
+  item: Film[]
+}
+
+model Film {
+  id: FilmId inherits Int
+  title: FilmTitle inherits String
+  yearReleased: YearReleased inherits Int
+}
+
+service FilmsService {
+  @HttpOperation(url = "http://localhost:8044/films", method = "GET")
+  operation getAllFilms(): FilmList
+}
+
 ----
 films-data.xml::
 +
@@ -131,6 +135,7 @@ model Film {
   id : FilmId inherits Int
   ...
 }
+
 // ... is used as an input to our fetchCastForFilm operation:
 operation fetchCastForFilm(FilmId):ActorList
 ----
@@ -224,7 +229,7 @@ To include data from our `CastService`, we just ask for the actor information:
   find { FilmList } as (Film[]) -> {
       filmId : FilmId
       nameOfFilm : FilmTitle
->     cast : Actor[]
+      cast : Actor[]
   }
 ----
 
@@ -260,12 +265,13 @@ awards.taxi::
 [source,taxi]
 ----
 model Award { 
-  title : AwardTitle inherits String 
-  yearWon : YearWon inherits Int
-} 
-   service AwardsService { 
-    @HttpOperation(url = "http://localhost:8044/film/\{filmId}/awards", method = "GET") 
-    operation fetchAwardsForFilm(@PathVariable("filmId") filmId : FilmId):Award[]
+  title: AwardTitle inherits String
+  yearWon: YearWon inherits Int
+}
+
+service AwardsService {
+  @HttpOperation(url = "http://localhost:8044/film/{filmId}/awards", method = "GET")
+  operation fetchAwardsForFilm(@PathVariable("filmId") filmId: FilmId): Award[]
 }
 ----
 awards-data.json::
@@ -292,12 +298,12 @@ Finally, to include this awards data, we just add it to our query:
 
 [,taxi]
 ----
-  find { FilmList } as (Film[]) -> {
-      filmId : FilmId
-      nameOfFilm : FilmTitle
-      cast : Actor[]
-      awards : Award[]
-  }
+find { FilmList } as (Film[]) -> {
+  filmId: FilmId
+  nameOfFilm: FilmTitle
+  cast: Actor[]
+  awards: Award[]
+}
 ----
 
 Which gives us:
@@ -336,7 +342,7 @@ query.taxi::
 ----
 @HttpOperation(url = '/api/q/filmsAndAwards', method = 'GET')
  query filmsAndAwards {
-      find { FilmList } as (Film[]) \-> {
+      find { FilmList } as (Film[]) -> {
           filmId : FilmId
           nameOfFilm : FilmTitle
           awards : Award[]

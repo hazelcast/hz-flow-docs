@@ -12,9 +12,25 @@ To enable Hazelcast as a data source, first xref:describing-data-sources:configu
 hazelcast {
    myHazelcast {
       connectionName = myHazelcast
-      addresses = ["localhost:5701"]
+      addresses = ["hazelcast:5701"]
    }
- }
+}
+```
+
+NOTE: Assuming your docker-compose.yml contains a Hazelcast container and the container is up and running, here is an example of how the Hazelcast container configuration might look:
+```yaml
+hazelcast:
+  image: "docker.io/hazelcast/hazelcast:latest"
+  healthcheck:
+    test: curl --fail http://localhost:5701/hazelcast/health || exit 1
+    interval: 30s
+    timeout: 5s
+    retries: 3
+  ports:
+    - "5701:5701"
+  environment:
+    HZ_MANAGEMENTCENTER_SCRIPTINGENABLED: true
+    HZ_MANAGEMENTCENTER_CONSOLEENABLED: true
 ```
 
 ## Supported formats
@@ -31,15 +47,15 @@ format when using {short-product-name} to read/write to Hazelcast.
 To enable Compact serialization, add a `@CompactObject` annotation to your Taxi definition:
 
 ```taxi
-  import flow.hazelcast.CompactObject
-  import flow.hazelcast.HazelcastMap
+import flow.hazelcast.CompactObject
+import flow.hazelcast.HazelcastMap
 
-  @HazelcastMap(name = "films")
-  @CompactObject
-  closed model Film {
-     @Id
-     filmId : FilmId inherits Int
-     // ...omitted...
+@HazelcastMap(name = "films")
+@CompactObject
+closed model Film {
+   @Id
+   filmId: FilmId inherits Int
+   // ...omitted...
 }
 ```
 
@@ -67,14 +83,15 @@ import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
-@HazelcastService(connectionName = "myHazelcastConnection")
+@HazelcastService(connectionName = "myHazelcast")
 service HazelcastService {
-
    // Expose a write operation, and annotate it
    // with UpsertOperation, to define the writing behavior
    @UpsertOperation
    write operation upsert(Film):Film
 }
+
+type Language inherits String
 
 // Define the name of the map to use. If not present in Hazelcast,
 // the map wil be created
@@ -161,9 +178,8 @@ import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
-@HazelcastService(connectionName = "myHazelcastConnection")
+@HazelcastService(connectionName = "myHazelcast")
 service HazelcastService {
-
     // Table is a shorthand to declare
     // a data source that supports rich querying.
     table films : Film[]
@@ -214,7 +230,7 @@ model Film {
 }
 
 // Elsewhere, writing a query...
-find { Film( FilmId === 123 ) }
+find { Film( FilmId == 123 ) }
 ----
 
 ==== Fetching values using criteria
@@ -254,7 +270,7 @@ import flow.hazelcast.CompactObject
 
 // The HazelcastService annotation should specify the
 // name of the connection defined in your connections.conf
-@HazelcastService(connectionName = "myHazelcastConnection")
+@HazelcastService(connectionName = "myHazelcast")
 service HazelcastService {
    stream films : Stream<Film>
 }

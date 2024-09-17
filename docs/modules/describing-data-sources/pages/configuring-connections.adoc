@@ -17,13 +17,13 @@ Inside your `taxi.conf` file in your project, declare where you're keeping your 
 By convention, this lives at `{code-product-name}/config/connections.conf`, but this is configurable.
 
 ```hocon taxi.conf
-  name: com.myproject/demo
-  version: 0.1.0
-  sourceRoot: src/
+name: com.myproject/demo
+version: 0.1.0
+sourceRoot: src/
 
 additionalSources: {
-     "@flow/config" : "flow/config/*.conf" +
- }
+  "@flow/config": "flow/config/*.conf"
+}
 ```
 Your connections config file is a HOCON file, specifying how to connect to various resources.
 
@@ -399,3 +399,7 @@ Read about defining Mongo connections in the dedicated documentation for xref:de
 
 You can point {short-product-name} at an AWS mock running on https://localstack.cloud/[Localstack] by specifying the `endPointOverride` property
 in the connection.
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:querying:writing-queries.adoc[querying your data].
