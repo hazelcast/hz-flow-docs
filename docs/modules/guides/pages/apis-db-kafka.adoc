@@ -30,8 +30,6 @@ that we'll use throughout.
 
 Everything you need is packaged up in a Docker Compose file to make getting started easier.  
 
-NOTE: For MacOS, to start the project, set the following platform property for flow, pg-pagila, films-api, zookeeper and kafka containers: `platform: linux/amd64`
-
 To launch, run the following in your command line:
 
 [,bash]

@@ -1,0 +1,6 @@
+= Release notes
+:description Release notes on changes
+
+This page summarizes the changes in each release.
+
+* xref:releases/5-5-0.adoc[5.5.0]
