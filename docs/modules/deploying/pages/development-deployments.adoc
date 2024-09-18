@@ -6,7 +6,8 @@ To get up and running quickly, you can bring up a fully working {short-product-n
 == Development setup
 
 This guide will walk you through setting up {short-product-name} in a development environment.
-This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production.    For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
+This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production. For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
+
 
 === Prerequisites
 

@@ -281,7 +281,7 @@ stream { StockPrice.filterEach( ( StockTicker ) -> StockTicker == 'AAPL' ) }
 ==== Streaming from Kafka to a database
 
 Streams from Kafka can be inserted into a database (or any other writable source, such as
-xref:describing-data-sources:hazelcast.adoc#writing-data-to-hazelcast[Hazelcast] or xref:describing-data-sources:kafka.adoc[Dynamo]) using a mutating query.
+xref:describing-data-sources:hazelcast.adoc#writing-data-to-hazelcast[Hazelcast] or xref:describing-data-sources:aws-services.adoc#DynamoDb[Dynamo]) using a mutating query.
 
 As with all mutating queries, it's not
 necessary for the data from Kafka to align with the format of the
