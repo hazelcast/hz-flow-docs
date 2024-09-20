@@ -194,8 +194,8 @@ Connection parameters are as follows:
 [,HOCON]
 ----
 jdbc {
-    mysql-docker {
-        connectionName=mysql-docker
+    mysql-db {
+        connectionName=mysql-db
         connectionParameters {
             database=test
             host=localhost
