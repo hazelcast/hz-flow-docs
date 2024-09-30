@@ -85,7 +85,7 @@ The project is a https://taxilang.org[Taxi] project which gets edited locally, t
 
  - From the sidebar, click http://localhost:9021/projects[Projects]
  - Click *Add Project* and add a Local Disk project
- - For the **Project Path**, enter `petflix` 
+ - For the **Project Path**, enter `demo` 
    - The server will tell you it can't find an existing project, and let you create one - click **Create new project**
  - Enter the package co-ordinates as follows (this is similar to npm, maven, etc.)
 
@@ -94,7 +94,7 @@ The project is a https://taxilang.org[Taxi] project which gets edited locally, t
 | Field | Value
 
 | *Organisation*
-| `com.petflix`
+| `com.hazelflix`
 
 | *Name*
 | `demo`
@@ -189,7 +189,7 @@ To import the schema:
 | `film`
 
 | Default namespace
-| `com.petflix.filmsdatabase`
+| `com.hazelflix.demo.filmsdatabase`
 |===
 
 Namespaces are used to help us group related content together, like packages in Java or namespaces in C# and Typescript.
@@ -262,7 +262,7 @@ Fill in the form with the following values:
 | `+http://films-api/v3/api-docs+`
 
 | Default namespace
-| `com.petflix.listings`
+| `com.hazelflix.listings`
 
 | Base url
 | Leave this blank
@@ -574,7 +574,7 @@ Fill out the rest of the form with the following details:
 | `LATEST`
 
 | Namespace
-| `com.petflix.announcements`
+| `com.hazelflix.announcements`
 
 | Message Type
 | `NewFilmReleaseAnnouncement`
