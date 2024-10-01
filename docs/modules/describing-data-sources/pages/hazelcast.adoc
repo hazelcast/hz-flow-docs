@@ -17,7 +17,7 @@ hazelcast {
 }
 ```
 
-NOTE: Assuming your docker-compose.yml contains a Hazelcast container and the container is up and running, here is an example of how the Hazelcast container configuration might look:
+NOTE: Assuming you are using Docker Compose to run {short-product-name}, here is an example of how to configure an external Hazelcast container:
 ```yaml
 hazelcast:
   image: "docker.io/hazelcast/hazelcast:latest"
