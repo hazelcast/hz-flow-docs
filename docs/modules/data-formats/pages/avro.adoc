@@ -203,7 +203,7 @@ NOTE: 'Local' means local to the server.
 
 This workflow adds a reference to an Avro file that's *on the disk of the server*. +
  +
-It's intended for developers who are running {short-product-name} in a Docker image on their local machine. +
+It's intended for developers who are running {short-product-name} in a container on their local machine. +
  +
 This workflow isn't intended for uploading an Avro schema to a remote server. Instead, use a Git repository
 

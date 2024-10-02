@@ -65,11 +65,10 @@ There are several configuration settings referenced throughout these docs, which
 
 All config settings can be passed in a variety of ways:
 
-==== Docker
+==== Container
 
-In a Docker / Docker Compose file, pass variables using the `OPTIONS` environment variable:
+In a container or Docker Compose file, pass variables using the `OPTIONS` environment variable:
 
-//rebranded vyne to flow below and substituted the short name variable for 'flow' as this doesn't render in code snippets - check if correct
 ----
 services:
    flow:
