@@ -217,7 +217,7 @@ with the data type indicating where the data is sourced from:
 find { FilmList } as (Film[]) -> {
     filmId : FilmId
     nameOfFilm : FilmTitle
-}
+} []
 ----
 
 === Linking our Actor Service
@@ -230,7 +230,7 @@ find { FilmList } as (Film[]) -> {
     filmId : FilmId
     nameOfFilm : FilmTitle
     cast : Actor[]
-}
+} []
 ----
 
 Which now gives us:
@@ -303,7 +303,7 @@ find { FilmList } as (Film[]) -> {
   nameOfFilm: FilmTitle
   cast: Actor[]
   awards: Award[]
-}
+} []
 ----
 
 Which gives us:
@@ -347,7 +347,7 @@ query.taxi::
           nameOfFilm : FilmTitle
           awards : Award[]
           cast : Actor[]
-      }
+      } []
  }
 ----
 ====
