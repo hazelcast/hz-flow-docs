@@ -1,5 +1,5 @@
 site:
-  title: Documentation
+  title: Documentation (with Kapa)
   url: http:localhost:5000
   start_page: hz-flow::index.adoc
   robots: disallow
@@ -7,6 +7,7 @@ site:
     docsearch_id: 'QK2EAH8GB0'
     docsearch_api: 'ef7bd9485eafbd75d6e8425949eda1f5'
     docsearch_index: 'prod_hazelcast_docs'
+    ai_search_id: 'ad664bf0-07e2-42e7-9150-2e1b04b15cca'    
 content:
   sources: 
   - url: .
@@ -14,7 +15,7 @@ content:
     start_path: docs
 ui: 
   bundle:
-    url:  https://github.com/hazelcast/hazelcast-docs-ui/releases/latest/download/ui-bundle.zip #../hazelcast-docs-ui/build/ui-bundle.zip
+    url:  ../hazelcast-docs-ui/build/ui-bundle.zip
     snapshot: true
 asciidoc:
   attributes:
