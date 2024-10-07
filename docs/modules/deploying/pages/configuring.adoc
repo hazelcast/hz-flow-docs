@@ -65,9 +65,9 @@ There are several configuration settings referenced throughout these docs, which
 
 All config settings can be passed in a variety of ways:
 
-==== Docker
+==== Container
 
-In a Docker / Docker Compose file, pass variables using the `OPTIONS` environment variable:
+In a container or Docker Compose file, pass variables using the `OPTIONS` environment variable:
 
 ----
 services:
@@ -75,9 +75,9 @@ services:
       image: flow/flow:latest
       environment:
          OPTIONS: >-
-            --vyne.db.username={short-product-name}
-            --vyne.db.password=changeme
-            --vyne.db.host=postgres
+            --flow.db.username=flow
+            --flow.db.password=changeme
+            --flow.db.host=postgres
 ----
 
 ==== Setting as environment variables
@@ -90,15 +90,16 @@ Environment variables follow a different convention so, to convert, apply the fo
 * Replace dashes and dots with underscores
 
 For example:
+// rebranded vyne to flow in env variables - check
 
 |===
 | Application property | Environment variable
 
-| `vyne.db.username`
-| `VYNE_DB_USERNAME`
+| `flow.db.username`
+| `FLOW_DB_USERNAME`
 
-| `vyne.workspace.config-file`
-| `VYNE_WORKSPACE_CONFIG_FILE`
+| `flow.workspace.config-file`
+| `FLOW_WORKSPACE_CONFIG_FILE`
 |===
 
 === Configuring Git repositories

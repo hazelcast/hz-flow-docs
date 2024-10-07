@@ -16,7 +16,7 @@ Our demo has a few services running, which we'll join together to create a bespo
 Our services share a taxonomy used to describe the elements we can fetch:
 
 ```taxi taxonomy.taxi
-namespace petflix
+namespace hazelflix
 
 type FilmId inherits String
 type FilmTitle inherits String
@@ -52,8 +52,8 @@ syntax = "proto3";
 import "taxi/dataType.proto";
 
 message NewReviewPostedMessage {
-  int32 filmId = 1 [(taxi.dataType)="petflix.FilmId"];
-  string reviewText = 2 [(taxi.dataType)="petflix.ReviewText"];
+  int32 filmId = 1 [(taxi.dataType)="hazelflix.FilmId"];
+  string reviewText = 2 [(taxi.dataType)="hazelflix.ReviewText"];
 }
 ----
 
@@ -62,7 +62,7 @@ Finally, declare the Kafka topic:
 ```taxi reviews.taxi
 service KafkaService {
   stream reviews : Stream<NewReviewPostedMessage>
-  }
+}
 ```
 
 ## Creating an event stream

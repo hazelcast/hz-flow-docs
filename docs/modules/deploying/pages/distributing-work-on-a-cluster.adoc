@@ -40,7 +40,7 @@ Caches are not shared between worker nodes, so remote services may receive a hig
 As the cluster size grows, the work can be parallelized across a greater number of nodes.  While this provides improved
 throughput, the work coordinator incurs a heavier workload in serialization and deserialization of work tasks and responses.
 
-To account for this the `vyne.projection.distributionRemoteBias` allows tuning at which point the work is preferentially distributed to remote nodes, versus the
+To account for this the `flow.projection.distributionRemoteBias` allows tuning at which point the work is preferentially distributed to remote nodes, versus the
 query coordinator.  Once this value is exceeded, the query coordinator node will perform a lower proportion of projection work in a query.
 
 == Work Distribution Configuration
@@ -50,22 +50,22 @@ For projection work to be distributed across all {short-product-name} nodes in a
 |===
 | Config parameter | Description | Default setting
 
-| `vyne.projection.distributionMode`
+| `flow.projection.distributionMode`
 | Defines where projection work will be performed.  On the local node or the cluster LOCAL, DISTRIBUTED
 | `LOCAL`
 
-| `vyne.projection.distributionPacketSize`
+| `flow.projection.distributionPacketSize`
 | Defines the number of records in each work packet distributed to other {short-product-name} servers. Applicable to DISTRIBUTED distributionMode only
 | 100
 
-| `vyne.projection.distributionRemoteBias`
+| `flow.projection.distributionRemoteBias`
 | Defines the number of cluster members before work is preferentially distributed to remote nodes
 | 10
 |===
 
 == Advanced cluster configuration
 
-This section may only be required if you're configuring the Docker orchestration yourself and not using one of our preconfigured templates.
+This section may only be required if you're configuring the container orchestration yourself and not using one of our preconfigured templates.
 
 === Cluster discovery types
 
@@ -85,39 +85,40 @@ This section may only be required if you're configuring the Docker orchestration
 |===
 
 === Cluster discover options
+// rebranded vyne to flow in table - check
 
 |===
 | Config parameter | Description | Default setting
 
-| `vyne.hazelcast.discovery`
+| `flow.hazelcast.discovery`
 | Specifies the discovery mechanism Hazelcast will use to find other instances. `multicast`, `aws` or `eureka`
 | `multicast`
 
-| `vyne.hazelcast.eurekaUri`
+| `flow.hazelcast.eurekaUri`
 | URI of the coordinating Eureka instance when discovery is set to Eureka
 | `+http://127.0.0.1:8761/eureka/+`
 
-| `vyne.hazelcast.memberTag`
+| `flow.hazelcast.memberTag`
 | Denotes which member type this is within the Hazelcast cluster
-| `vyne-query-service`
+| `flow-query-service`
 
-| `vyne.hazelcast.networkInterface`
+| `flow.hazelcast.networkInterface`
 | Should only be specified if the deployment environment requires that Hazelcast only bind to a single network interface.  The network interface supplied should be specified in Hazelcast networking naming e.g. 10.10._._, 172.16._._
 |
 
-| `vyne.hazelcast.useMetadataForHostAndPort`
+| `flow.hazelcast.useMetadataForHostAndPort`
 | Specific to Eureka Hazelcast discovery.  Specifies if metadata should be published to and used for Hazelcast node and port discovery
 | `true`
 
-| `vyne.hazelcast.awsPortScanRange`
+| `flow.hazelcast.awsPortScanRange`
 | Specific to AWS Hazelcast discovery.  Specifies the port ranges that will be scanned from running Hazelcast on EC2 instances
 | `true`
 
-| `vyne.hazelcast.taskPoolSize`
+| `flow.hazelcast.taskPoolSize`
 | Specifies the number of threads dedicated to processing distributed work loads
 | 2
 
-| `vyne.hazelcast.taskQueueSize`
+| `flow.hazelcast.taskQueueSize`
 | Specifies the size of the queue of tasks on each cluster node.  A value of 0 sets an infinite queue size
 | 0
 |===
@@ -130,7 +131,7 @@ Enable clustering using discovery via local network multicast with distributed p
 
 [,yaml]
 ----
-vyne:
+flow:
     projection:
         distributionMode: DISTRIBUTED
 
@@ -149,7 +150,7 @@ query EC2 instances via IAM.
 
 [,yaml]
 ----
-vyne:
+flow:
     projection:
         distributionMode: DISTRIBUTED
 
@@ -163,7 +164,7 @@ Enable clustering using Eureka discovery with distributed projections
 
 [,yaml]
 ----
-vyne:
+flow:
     projection:
         distributionMode: DISTRIBUTED
 

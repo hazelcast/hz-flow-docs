@@ -1,11 +1,9 @@
 = Pulling API specs from disk
 :description: {short-product-name} can read schema and taxonomy definitions direct from local disk.
 
-NOTE: Using a local disk repo is a great way to get started. However, for production, consider using a Git repo instead.
+NOTE: Using a local disk repo is a great way to get started. However, for production, consider using a xref:workspace:connecting-a-git-repo.adoc[Git repo] instead.
 
-// Link to this topic from 'Git repo' (broken in Orbital): /docs/connecting-data-sources/connecting-a-git-repo 
-
-When you're getting started, it's useful to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:describing-data-sources:protobuf.adoc[Protobuf]), or xref:describing-data-sources:databases.adoc[database definitions]
+When you're getting started, it's useful to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf]), or xref:describing-data-sources:databases.adoc[database definitions]
 in a local disk repo, making it quick and easy to get going.
 
 == Adding a file repository using the UI
@@ -53,4 +51,4 @@ file {
      // lots of recompilation
     recompilationFrequencyMillis=PT3S
 }
-
+----

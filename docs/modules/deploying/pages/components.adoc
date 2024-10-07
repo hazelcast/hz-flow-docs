@@ -3,7 +3,9 @@
 :description: A '{short-product-name} deployment consists of several components:
 
 
-image:flow-components.png[]
+// image:flow-components.png[]
+image:flow-components2.svg[]
+
 
 == {short-product-name} server
 {short-product-name} server is a combination of several components:

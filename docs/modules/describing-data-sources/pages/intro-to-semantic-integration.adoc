@@ -33,25 +33,26 @@ Here are some examples of linking data based on structure, shown in a couple of 
 [,typescript]
 ----
    // Server-side contracts that the producers of data have defined:
-   interface Actor {
+interface Actor {
    name: string
    id : number
    agentId: number
 }
 
-   interface Agent {
+interface Agent {
    name: string
    id : number
 }
 
-   // As a consumer - load an actor, then fetch it's agent using the agentId
-   function loadAgentsAndActors() {
+// As a consumer - load an actor, then fetch it's agent using the agentId
+function loadAgentsAndActors() {
    const actor = await loadActor();
    // Here, we're also coupled to another API call
    const agent = await loadAgent(actor.agentId)
    const castMember = {
-   actorName : actor.name,
-   agentName : agent.name
+    actorName : actor.name,
+    agentName : agent.name
+   }
 }
 ----
 
@@ -154,28 +155,26 @@ For example, in Swagger / OpenAPI:
 
 [,yaml]
 ----
-
 // Partial OpenAPI example:
 paths:
   /pets:
     get:
       description: |
-        Returns all pets from the system that the user has access to
-        Nam sed condimentum est. Maecenas tempor sagittis sapien, nec rhoncus sem sagittis sit amet. Ad nauseum.
+        Returns all pets from the system that the user has access to.
       operationId: findPets
       parameters:
         - name: tags
           in: query
-          description: tags to filter by
+          description: Tags to filter by.
           required: false
           style: form
           schema:
             type: array
             items:
-              //------Below is a taxi extension for semantic types-----------
+              # ------Below is a Taxi extension for semantic types-----------
               x-taxi-type:
                 name: petstore.Tag
-              //----------End the extension----------------------------------
+              # ----------End the extension----------------------------------
               type: string
 ----
 
@@ -187,7 +186,6 @@ Or in Protobuf:
 syntax = "proto3";
 import "taxilang/dataType.proto"; // Import the DataType extension
 package tutorial;
-
 
 message Person {
   string name = 1 [(dataType='PersonName')];

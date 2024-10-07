@@ -14,12 +14,12 @@ The location of your `auth.conf` file is configured inside the `taxi.conf` file 
 By convention, the `auth.conf` lives at `{short-product-name}/config/auth.conf`, but this is configurable.
 
 ```hocon taxi.conf
-  name: com.myproject/demo
-  version: 0.1.0
-  sourceRoot: src/
-   additionalSources: {
-     "@flow/config" : "flow/config/*.conf"
- }
+name: com.myproject/demo
+version: 0.1.0
+sourceRoot: src/
+additionalSources: {
+    "@flow/config" : "flow/config/*.conf"
+}
 ```
 Here's a sample config:
 
@@ -27,7 +27,7 @@ Here's a sample config:
 ----
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+   // The fully qualified name of a service, as defined in a taxi schema.
    // Should be surrounded in quotes.
    "com.acme.MyService" {
       type = OAuth2
@@ -53,7 +53,7 @@ Several type of authentication schemes are supported. If you don't see the one y
 ```hocon auth.conf
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+  // The fully qualified name of a service, as defined in a taxi schema.
   // Should be surrounded in quotes.
   "com.foo.TestService" {
      type: Basic
@@ -67,7 +67,7 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+   // The fully qualified name of a service, as defined in a taxi schema.
    // Should be surrounded in quotes.
    "com.foo.TestService" {
       type: HttpHeader
@@ -86,7 +86,7 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+  // The fully qualified name of a service, as defined in a taxi schema.
   // Should be surrounded in quotes.
   "com.foo.TestService" {
      type: QueryParam
@@ -100,7 +100,7 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+   // The fully qualified name of a service, as defined in a taxi schema.
    // Should be surrounded in quotes.
    "com.foo.TestService" {
       type: Cookie
@@ -115,23 +115,24 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+  // The fully qualified name of a service, as defined in a Taxi schema.
   // Should be surrounded in quotes.
   "com.foo.TestService" {
-     type: OAuth2
-     accessTokenUrl: "https://auth.com/tokens"
-     clientId: ABC
-     clientSecret: DEF
-     scopes: [ "profile" , "image" ]
+    type: OAuth2
+    accessTokenUrl: "https://auth.com/tokens"
+    clientId: ABC
+    clientSecret: DEF
+    scopes: [ "profile", "image" ]
 
- // One of AuthorizationCode, RefreshToken, ClientCredentials
- grantType: AuthorizationCode
- // One of Basic, Post, JWT
- method: Post
+    // One of AuthorizationCode, RefreshToken, ClientCredentials
+    grantType: AuthorizationCode
+    // One of Basic, Post, JWT
+    method: Post
 
- // Optional. Only required if grantType is RefreshToken
- refreshToken: LMNOP   } 
- }
+    // Optional. Only required if grantType is RefreshToken
+    refreshToken: LMNOP
+  }
+}
 ```
 
 === Mutual authentication (mtls)
@@ -139,7 +140,7 @@ authenticationTokens {
 ```hocon auth.conf
 authenticationTokens {
 
-// The fully qualified name of a service, as defined in a taxi schema.
+  // The fully qualified name of a service, as defined in a taxi schema.
   // Should be surrounded in quotes.
   "com.foo.TestService" {
      type: MutualTls
