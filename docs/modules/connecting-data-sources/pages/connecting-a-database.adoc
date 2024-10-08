@@ -100,7 +100,7 @@ jdbc { # The root element for database connections
 For the full specification, including supported database drivers and their connection details, see xref:describing-data-sources:configuring-connections.adoc[Configure connections]
 
 === Passing sensitive data
-It may not always be desirable to specify sensistive connection information directly in the config file, especially
+It may not always be desirable to specify sensitive connection information directly in the config file, especially
 if these are being checked into source control.
 
 Environment variables can be used anywhere in the config file, following the https://github.com/lightbend/config#uses-of-substitutions[HOCON standards].
