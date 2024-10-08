@@ -113,7 +113,7 @@ jdbc {
       connectionName = another-connection
       jdbcDriver = POSTGRES # Defines the driver to use.  See below for the possible options
       connectionParameters {
-         # .. other params omitted for bevity ..
+         # .. other params omitted for brevity ..
          password = ${postgres_password} # Reads the environment variable "postgres_password"
       }
    }
