@@ -369,7 +369,7 @@ No schema migrations are performed.
 === Example queries
 
 When writing data from one data source into a database, it's not
-neccessary for the data to align with the format of the
+ necessary for the data to align with the format of the
 persisted value.
 
 {short-product-name} will automatically adapt the incoming data to the
