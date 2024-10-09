@@ -1,5 +1,5 @@
 = JSON
-:description: Working with JSON data in {short-product-name}.
+:description: Work with JSON data in {short-product-name}.
 
 
 JSON is the default format for reading/writing data to/from {short-product-name}, so requires no special customization.

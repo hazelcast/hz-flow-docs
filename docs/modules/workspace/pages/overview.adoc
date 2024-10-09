@@ -44,7 +44,7 @@ A common pattern for building a core taxonomy is:
 
 * It is created as a standalone project, independent of any specific API / Service
 * It lives in a Git repository
-* {short-product-name} xref:connecting-a-git-repo.adoc[monitors the Git repository] and automatically deploys changes
+* {short-product-name} xref:connect-a-git-repo.adoc[monitors the Git repository] and automatically deploys changes
 
 === Services and data sources
 
@@ -80,7 +80,7 @@ message Customer {
 ----
 ====
 
-For more information, see the topics on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf] to describe your data sources.
+For more information, see the topics on using xref:describe-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf] to describe your data sources.
 
 
 ==== Using Taxi
@@ -148,7 +148,7 @@ a Git repository.
 
 {short-product-name} will poll your Git repo, and automatically update as changes are merged into your target branch.
 
-For more information, read about xref:connecting-a-git-repo.adoc[pulling API specs from Git] or xref:connecting-a-disk-repo.adoc[reading API specs from local disk].
+For more information, read about xref:connect-a-git-repo.adoc[pulling API specs from Git] or xref:connect-a-disk-repo.adoc[reading API specs from local disk].
 
 == Workspace.conf file
 
@@ -231,4 +231,4 @@ git {
 
 == Continue reading
 
-Continue learning about {short-product-name} by xref:describing-data-sources:configuring-connections.adoc[connecting your data sources].
+Continue learning about {short-product-name} by xref:describe-data-sources:configure-connections.adoc[connecting your data sources].

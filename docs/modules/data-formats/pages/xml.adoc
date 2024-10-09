@@ -13,7 +13,7 @@ model Person {
 }
 ----
 
-== Declaring attributes
+== Declare attributes
 
 By default, scalar items within a model are expected to be an XML element.
 

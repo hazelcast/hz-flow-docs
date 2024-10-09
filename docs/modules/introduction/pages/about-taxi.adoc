@@ -23,6 +23,6 @@ Taxi can partially describe:
 
 For more information about:
 
-* Getting started, see xref:deploying:development-deployments.adoc[Development Quickstart]
+* Getting started, see xref:deploy:development-deployments.adoc[Development Quickstart]
 * Using Taxi, see https://taxilang.org[Explore the Taxi language and ecosystem]
-* Understanding semantic integration, see xref:describing-data-sources:intro-to-semantic-integration.adoc[Structural versus semantic integration]
+* Understanding semantic integration, see xref:describe-data-sources:intro-to-semantic-integration.adoc[Structural versus semantic integration]

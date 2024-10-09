@@ -32,7 +32,7 @@ We'll stitch these together, and expose a REST API that returns the data from al
 
 == Setting up
 
-To get started working on {short-product-name}, follow the instructions at xref:deploying:development-deployments.adoc[Development Quickstart guide]
+To get started working on {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Development Quickstart guide]
 
 == Describing the Film Service
 
