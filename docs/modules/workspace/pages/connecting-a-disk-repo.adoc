@@ -29,7 +29,7 @@ NOTE: File paths that are absolute are resolved against the file system. File pa
 file {
     projects=[
         {
-            // Optional (defaults to false).  Indciates if the project can receive edits through the UI
+            // Optional (defaults to false).  Indicates if the project can receive edits through the UI
             isEditable=true
             // Path to the folder containing a taxi.conf file.
             path="/opt/var/flow/schemas/taxi"

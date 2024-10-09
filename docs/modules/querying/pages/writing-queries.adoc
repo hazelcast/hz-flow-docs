@@ -401,7 +401,7 @@ TaxiQL queries with any of the following content types headers:
 * `Content-Type: application/taxiql`
 * `Content-Type: text/plain`
 
-This is to allow broad compatability with clients.
+This is to allow broad compatibility with clients.
 
 === Large queries with server-sent events
 

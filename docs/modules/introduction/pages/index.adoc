@@ -74,7 +74,7 @@ Today, when we connect two systems together, an engineer has to build a mental m
 
 [,taxi]
 ----
-// The id attribute in the Customer model from the Accounts sytems
+// The id attribute in the Customer model from the Accounts systems
 // is the same as the custId attribute in the Purchase model from sales system
 namespace accounts {
    model Customer {

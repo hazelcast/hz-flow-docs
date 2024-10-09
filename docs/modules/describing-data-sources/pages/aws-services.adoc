@@ -478,7 +478,7 @@ import flow.aws.sqs.SqsOperation
 @SqsService( connectionName = "moviesConnection" )
 service MovieService {
   @SqsOperation( queue = "movies" )
-  write operation publishMoveEvent(Movie):Movie
+  write operation publishMovieEvent(Movie):Movie
 }
 ----
 
@@ -498,7 +498,7 @@ service MovieService {
   operation newReleases():Stream<Movie>
 
   @SqsOperation( queue = "moviesToReview" )
-  write operation publishMoveEvent(Movie):Movie
+  write operation publishMovieEvent(Movie):Movie
 }
 
 // Query: consume from the new releases queue, and publish to
