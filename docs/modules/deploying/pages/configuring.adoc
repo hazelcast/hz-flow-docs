@@ -32,9 +32,9 @@ For example:
 jdbc {
    some-database-connection {
       connectionName = some-database-connection
-      # .. other params omitted for bevity ..
+      # .. other params omitted for brevity ..
       connectionParameters {
-         # .. other params omitted for bevity ..
+         # .. other params omitted for brevity ..
          password = ${postgres_password} # Reads the environment variable "postgres_password"
       }
    }
