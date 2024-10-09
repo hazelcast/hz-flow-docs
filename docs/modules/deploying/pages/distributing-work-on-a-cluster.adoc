@@ -40,8 +40,6 @@ Caches are not shared between worker nodes, so remote services may receive a hig
 As the cluster size grows, the work can be parallelized across a greater number of nodes.  While this provides improved
 throughput, the work coordinator incurs a heavier workload in serialization and deserialization of work tasks and responses.
 
-//rebranded vyne to flow below - check!
-
 To account for this the `flow.projection.distributionRemoteBias` allows tuning at which point the work is preferentially distributed to remote nodes, versus the
 query coordinator.  Once this value is exceeded, the query coordinator node will perform a lower proportion of projection work in a query.
 
@@ -67,7 +65,7 @@ For projection work to be distributed across all {short-product-name} nodes in a
 
 == Advanced cluster configuration
 
-This section may only be required if you're configuring the Docker orchestration yourself and not using one of our preconfigured templates.
+This section may only be required if you're configuring the container orchestration yourself and not using one of our preconfigured templates.
 
 === Cluster discovery types
 

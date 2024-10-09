@@ -84,7 +84,7 @@ The presented JWT is expected to have the following attributes:
 
 Below you can find example Docker Compose files where MC is the identity provider and a more complex scenario where MC is configured to use an external identity provider.
 
-NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `flow.security` and `FLOW_SECURITY` in the Docker Compose files below. Please update <<modificaton-of-sec-preconfig,specified properties>> only when necessary; changing others may lead to unexpected results.
+NOTE: MC is preconfigured as the identity provider for {short-product-name} with the configuration prefixed `flow.security` and `FLOW_SECURITY` in the Docker Compose files below. Please update specified properties only when necessary; changing others may lead to unexpected results.
 
 [#modification-of-sec-preconfig]
 === Potential modification of security pre-configuration

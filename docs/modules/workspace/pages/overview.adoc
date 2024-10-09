@@ -91,7 +91,7 @@ Another option is authoring your API specs directly in xref:introduction:about-t
 ----
 model Customer {
   id : CustomerId inherits Int
-  firstName : CustomerFirstName inherits Sring
+  firstName : CustomerFirstName inherits String
 }
 
 service CustomerService {

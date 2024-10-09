@@ -57,7 +57,7 @@ Similar to how you can use claims from your IDP, to pass through to a data sourc
 
 Policies can be defined against any data that is discoverable using a {short-product-name} query -
 not just the values present on the inbound claim.
- A seperate subquery is executed to discover data that is needed to evaluate the policy.
+ A separate subquery is executed to discover data that is needed to evaluate the policy.
 
 For example:
 

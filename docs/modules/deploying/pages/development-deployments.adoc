@@ -6,7 +6,8 @@ To get up and running quickly, you can bring up a fully working {short-product-n
 == Development setup
 
 This guide will walk you through setting up {short-product-name} in a development environment.
-This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production.    For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
+This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production. For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
+
 
 === Prerequisites
 
@@ -14,7 +15,7 @@ Before you get started, you'll need the following:
 
 * https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
 * https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
-* Hazelcast License Key 
+* https://hazelcast.com/get-started/[Hazelcast License Key]
 
 === Creating your project
 

@@ -170,7 +170,7 @@ Cons:
  * OpenAPI endpoints
  * HTTP servers
 
-This is a strong option for scenarios where sytems can't publish their own schemas (eg., databases),
+This is a strong option for scenarios where systems can't publish their own schemas (eg., databases),
 or for data sources that are otherwise structureless (eg., CSV files).
 
 Additionally, using a git-backed repository for a shared glossary / taxonomy is a great way to

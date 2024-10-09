@@ -25,9 +25,6 @@ launched the Schema Server from.
 
 You may have overridden this when you launched the Schema Server, by specifying `+--vyne.repositories.config-file=...+`.
 
-If you're running one of our demo tutorials, the config file is at `vyne/schema-server/schema-server.conf`, relative
-to the docker-compose file you used.
-
 Find and open the schema-server config file in your editor of choice.
 
 === Specify a new file-based repository

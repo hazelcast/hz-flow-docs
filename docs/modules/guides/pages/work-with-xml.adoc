@@ -103,7 +103,7 @@ model Actor {
 } 
 
 service CastService { 
-  @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") 
+  @HttpOperation(url = "http://localhost:8044/film/{filmId}/cast", method = "GET") 
   operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
 }
 ----
@@ -217,7 +217,7 @@ with the data type indicating where the data is sourced from:
 find { FilmList } as (Film[]) -> {
     filmId : FilmId
     nameOfFilm : FilmTitle
-}
+} []
 ----
 
 === Linking our Actor Service
@@ -226,11 +226,11 @@ To include data from our `CastService`, we just ask for the actor information:
 
 [,taxi]
 ----
-  find { FilmList } as (Film[]) -> {
-      filmId : FilmId
-      nameOfFilm : FilmTitle
-      cast : Actor[]
-  }
+find { FilmList } as (Film[]) -> {
+    filmId : FilmId
+    nameOfFilm : FilmTitle
+    cast : Actor[]
+} []
 ----
 
 Which now gives us:
@@ -303,7 +303,7 @@ find { FilmList } as (Film[]) -> {
   nameOfFilm: FilmTitle
   cast: Actor[]
   awards: Award[]
-}
+} []
 ----
 
 Which gives us:
@@ -347,7 +347,7 @@ query.taxi::
           nameOfFilm : FilmTitle
           awards : Award[]
           cast : Actor[]
-      }
+      } []
  }
 ----
 ====
