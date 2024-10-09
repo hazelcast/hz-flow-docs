@@ -5,22 +5,22 @@ This topic provides a high-level overview of the steps to help you get up and ru
 
 *Step 1 - Run {short-product-name} locally*
 
-To begin developing and testing, you can bring up a fully working {short-product-name} environment locally using Docker Compose. For information, see xref:deploying:development-deployments.adoc[Developer setup].
+To begin developing and testing, you can bring up a fully working {short-product-name} environment locally using Docker Compose. For information, see xref:deploy:development-deployments.adoc[Developer setup].
 
 *Step 2 - Connect your data sources*
 
-You can connect microservices such as APIs, databases and streaming message queues to {short-product-name}. You then create Taxi definitions in order to use the data sources you specify. For information, see xref:workspace:overview.adoc[Your workspace] and xref:describing-data-sources:configuring-connections.adoc[Configure connections]. 
+You can connect microservices such as APIs, databases and streaming message queues to {short-product-name}. You then create Taxi definitions in order to use the data sources you specify. For information, see xref:workspace:overview.adoc[Your workspace] and xref:describe-data-sources:configure-connections.adoc[Configure connections]. 
 
 *Step 3 - Query for data*
 
-You can use {short-product-name}'s API to query for data, and let it handle the integration plumbing for you. For information, see xref:querying:writing-queries.adoc[Query with {short-product-name}].
+You can use {short-product-name}'s API to query for data, and let it handle the integration plumbing for you. For information, see xref:query:writing-queries.adoc[Query with {short-product-name}].
 
 *Step 4 - Deploy {short-product-name} in production*
 
-After testing locally, you can deploy {short-product-name} on your Kubernetes cluster or using Docker Compose. For information, see xref:deploying:production-deployments.adoc[Production deployment].
+After testing locally, you can deploy {short-product-name} on your Kubernetes cluster or using Docker Compose. For information, see xref:deploy:production-deployments.adoc[Production deployment].
 
 *Step 5 - Query for data in production*
 
-Use {short-product-name} in a production environment to query for data. For information, see xref:querying:writing-queries.adoc[Query with {short-product-name}].
+Use {short-product-name} in a production environment to query for data. For information, see xref:query:writing-queries.adoc[Query with {short-product-name}].
 
 TIP: Use our step-by-step xref:guides:index.adoc[Tutorials] to get productive with {short-product-name} quickly. 

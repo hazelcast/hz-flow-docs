@@ -2,7 +2,7 @@
 :description: A tutorial explaining how to generate Kotlin code from Taxi.
 
 This tutorial explores generating code from your Taxi project. As your usage of Taxi scales, it's 
-good practice to xref:describing-data-sources:tips-on-taxonomies.adoc#types-are-intended-for-sharing[extract your types into a standalone, shared taxonomy project].
+good practice to xref:describe-data-sources:tips-on-taxonomies.adoc#types-are-intended-for-sharing[extract your types into a standalone, shared taxonomy project].
 
 However, many teams will want to adopt a code-first approach, generating their Service and API specs directly from code (we cover this in detail in our xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code] tutorial.)
 
@@ -12,7 +12,7 @@ To help with this, Taxi supports generating code from Taxi.
 
 == Creating a Flow project
 
-Follow the xref:deploying:development-deployments.adoc[Development Quickstart] to get your {short-product-name} server running and ready to build your models.
+Follow the xref:deploy:development-deployments.adoc[Development Quickstart] to get your {short-product-name} server running and ready to build your models.
 
 == Creating some types
 Under the `src/` directory, create a file that contains our types. The name of the file doesn't matter (so long as it has a `.taxi` extension).

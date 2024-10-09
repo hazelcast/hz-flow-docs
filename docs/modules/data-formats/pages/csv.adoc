@@ -1,5 +1,5 @@
 = CSV
-:description: Working with CSV data in {short-product-name}
+:description: Work with CSV data in {short-product-name}
 
 To declare that a type should be read/written as CSV, add the `com.{code-product-name}.formats.Csv` annotation to a model:
 

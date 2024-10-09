@@ -414,7 +414,7 @@ find { Film[] } as {
 }}></PlaygroundSnippet>
 ////
 
-This query, in https://taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] asks for data from two different sources. {short-product-name} works out how to orchestrate our two APIs together, enriching our Films data with reviews.
+This query, in https://taxilang.org/language-reference/query-with-taxiql/[TaxiQL] asks for data from two different sources. {short-product-name} works out how to orchestrate our two APIs together, enriching our Films data with reviews.
 
 == Using typealias to keep our code DRY
 Inside our Kotlin code, we just added a two `@DataType("FilmId")` annotations indicating that the two pieces of information were the same.
@@ -456,7 +456,7 @@ At this point, we're successfully generating Taxi code directly from our Spring 
 
 As you start to grow and scale, you need to think about how to structure common types for sharing across teams.
 
-One of the principals of Taxi is to xref:describing-data-sources:tips-on-taxonomies.adoc[share types, not models], as this
+One of the principals of Taxi is to xref:describe-data-sources:tips-on-taxonomies.adoc[share types, not models], as this
 keeps systems decoupled, meaning when one API changes its model, other APIs are protected.
 
 Therefore, you have a couple of options to help you grow:
