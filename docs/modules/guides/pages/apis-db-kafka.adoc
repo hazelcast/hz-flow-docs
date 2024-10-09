@@ -34,10 +34,9 @@ To launch, run the following in your command line:
 
 [,bash]
 ----
-mkdir flow-films-demo
-cd flow-films-demo
+git clone https://github.com/hazelcast/hazelcast-flow-public-demos.git
+cd hazelcast-flow-public-demos/films-demo
 
-curl -O https://raw.githubusercontent.com/hazelcast/hazelcast-flow-public-demos/main/films-demo/docker-compose.yml
 
 docker compose up -d
 ----
@@ -77,7 +76,7 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 === Related links
 
 * xref:deploying:production-deployments.adoc[Deploying {short-product-name} without the demo projects]
-* https://gitlab.com/vyne/demos/-/tree/master/films[Demo project source code, on GitLab]
+* https://github.com/hazelcast/hazelcast-flow-public-demos/tree/main/films-demo[Demo project source code, on GitHub]
 
 == Create a project
 First, we'll create a project for {short-product-name} to hold the connection details of our data sources, and schemas. 
