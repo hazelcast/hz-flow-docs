@@ -1,4 +1,4 @@
-= Using OpenAPI to describe your services
+= Use OpenAPI to describe your services
 :description: 'An overview of how to connect data sources to {short-product-name}'
 
 {short-product-name} can use OpenAPI specs to understand what APIs exist, and how to call them.
@@ -8,7 +8,7 @@ means enriching return types and input parameters with metadata to describe them
 
 To do this, we embed Taxi metadata within the OpenAPI specs.
 
-== Adding Taxi annotations to OpenAPI specs
+== Add Taxi annotations to OpenAPI specs
 
 Taxi annotations use a custom `x-taxi-type` block within OpenAPI specs.
 
@@ -44,11 +44,11 @@ However, the default behavior for `create` is different between response models 
 | By default, if an attribute type isn't already present within the remote schema, then the OpenAPI spec is rejected
 |===
 
-=== Describing response types
+=== Describe response types
 
 Response models returned from API calls can be enriched to include semantic metadata.
 
-==== Assigning Taxi type names to models
+==== Assign Taxi type names to models
 
 You can optionally define a custom type name for response types being published to {short-product-name}.
 If omitted, then the type name is inferred from the rest of the schema.
@@ -68,7 +68,7 @@ components:
         - required:
 ----
 
-==== Adding type annotations to attributes
+==== Add type annotations to attributes
 
 Enrich attributes with semantic type metadata
 
@@ -112,7 +112,7 @@ However, if you are intentionally publishing new types from your OpenAPI spec, t
           type: string
 ----
 
-=== Describing service parameters
+=== Describe service parameters
 
 Inputs into services can also be enriched, to annotate the semantic data required.
 
@@ -138,14 +138,14 @@ Simply add a `x-taxi-type` annotation to each input, containing a `name` attribu
                name: petstore.PetId  # <-- Name of type from core taxonomy
 ----
 
-== Publishing OpenAPI specs to {short-product-name}
+== Publish OpenAPI specs to {short-product-name}
 
 Once you have added Taxi annotations to your OpenAPI spec, you're ready to publish it to {short-product-name}.
 
 NOTE: Before you can import an OpenAPI spec into {short-product-name}, ensure you have configured an editable Schema source - either a local xref:workspace:connect-a-disk-repo.adoc[disk repository] or a xref:workspace:connect-a-git-repo.adoc[Git repository]. Be sure to enable editing of the repository when adding it. 
 This lets {short-product-name} store the converted OpenAPI spec, with some additional metadata that it creates when importing.
 
-=== Importing through the UI
+=== Import through the UI
 
 * Choose *Data Sources* in the left navigation bar, then *Add data source*. 
 * Select a project to import into, then choose *Swagger / OpenAPI* from the data source dropdown list.

@@ -1,4 +1,4 @@
-= Generating code from Taxi
+= Generate code from Taxi
 :description: A tutorial explaining how to generate Kotlin code from Taxi.
 
 This tutorial explores generating code from your Taxi project. As your usage of Taxi scales, it's 
@@ -10,11 +10,11 @@ To help with this, Taxi supports generating code from Taxi.
 
 // NOTE: This guide focuses on JVM languages. If you'd like support in your own language, please <a href={'https://join.slack.com/t/orbitalapi/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg'}>reach out to us</a>, and we'll build it for you. 
 
-== Creating a Flow project
+== Create a Flow project
 
 Follow the xref:deploy:development-deployments.adoc[Development Quickstart] to get your {short-product-name} server running and ready to build your models.
 
-== Creating some types
+== Create some types
 Under the `src/` directory, create a file that contains our types. The name of the file doesn't matter (so long as it has a `.taxi` extension).
 
 We'll generate the corresponding types from our xref:guides:gen-taxi-from-code.adoc[code-first tutorial].
@@ -44,7 +44,7 @@ No sources were generated. Consider adding a source generator in the taxi.conf
 
 As the output suggests, no sources have been generated, as we haven't provided a code generation plugin.
 
-== Generating Kotlin code
+== Generate Kotlin code
 Update the `taxi.conf` file, to add a plugin to generate code for the JVM.  The Kotlin code generates
 code suitable for both Java and Kotlin.
 
@@ -78,7 +78,7 @@ The following files have been created:
 
 image:generatedKotlinOutput.png[Generated Kotlin code]
 
-== Generating Maven files
+== Generate Maven files
 The last missing piece is a `pom.xml` to let us build this code with Maven.
 
 To update, simply add a `maven` block into our `taxi/kotlin` plugin in the `taxi.conf` file.
@@ -108,7 +108,7 @@ taxi build
 
 image:generatingMavenOutput.png[Generated Maven output]
 
-== Consuming in an application
+== Consume in an application
 The Kotlin plugin has generated code we can consume in our Java and Kotlin applications.
 
 Using the Spring Boot application from our xref:guides:gen-taxi-from-code.adoc[Spring Boot example], we can update
@@ -169,7 +169,7 @@ import com.foo.TypeNames; // This class was generated
 
 These annotations inform the Taxi code generator to use the correct Taxi type when generating Taxi from code. 
 
-For more details on generating Taxi from code, see our xref:guides:gen-taxi-from-code.adoc[Generating Taxi from code tutorial].
+For more details on generating Taxi from code, see our xref:guides:gen-taxi-from-code.adoc[Generate Taxi from code tutorial].
   
 == Summary
 This tutorial has shown how to create a simple Taxi project, and generate Kotlin (including Java) and Maven code, ready to install and start consuming within your projects.

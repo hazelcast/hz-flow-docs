@@ -1,7 +1,7 @@
 = Observability
 :description: '{short-product-name} automates API integration, and provides rich data discovery, so you can spend less time plumbing, and more time building.'
 
-== Observing queries
+== Observe queries
 
 As queries are executed by {short-product-name}, full call histories are captured and persisted.
 
@@ -10,7 +10,7 @@ which services were called and what they returned.
 
 image:sequence_diagram_flow.png[]
 
-=== Configuring what's captured
+=== Configure what's captured
 
 The level of detail captured by {short-product-name} can be configured at startup, and entirely disabled, if desired.
 
@@ -21,10 +21,8 @@ When fully enabled, the following detail is captured and written to a database:
 * Message payloads for streaming event sources, such as message brokers
 * Variations of the above data to build query plan charts visualized in the {short-product-name} UI
 
-The following options can be passed as parameters or xref:deploy:configuring.adoc#setting-as-environment-variables[configured as environment variables]
+The following options can be passed as parameters or xref:deploy:configure.adoc#set-as-environment-variables[configured as environment variables]
 to control the level of data that is persisted.
-
-// rebranded vyne to flow in table below - check
 
 |===
 | Param | Description | Default
@@ -54,7 +52,7 @@ If {short-product-name} is connected to a Prometheus endpoint, performance data 
 
 image:performance-metrics.png[Performance metrics]
 
-=== Streaming queries
+=== Stream queries
 
 The following metrics are published for persistent queries (both streaming and request / response queries)
 
@@ -64,7 +62,7 @@ The following metrics are published for persistent queries (both streaming and r
 
 Prometheus can then provide this data as a histogram, providing min / max and averages.
 
-=== Configuring Prometheus
+=== Configure Prometheus
 
 An example Prometheus configuration is shown below:
 

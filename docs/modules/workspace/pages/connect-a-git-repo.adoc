@@ -14,10 +14,10 @@ A typical Git configuration consists of:
 
 Additionally, if you're connecting an OpenAPI or Protobuf source, you'll need to provide a little additional metadata.
 
-The list of Git repositories for {short-product-name} can be modified either through the <<adding-a-git-repository-using-the-ui,{short-product-name} UI>>,
-or by editing a <<adding-a-git-repository-through-config,config file>>, which can be version controlled, and automatically deployed (self-hosted deployments only).
+The list of Git repositories for {short-product-name} can be modified either through the <<add-a-git-repository-using-the-ui,{short-product-name} UI>>,
+or by editing a <<add-a-git-repository-through-config,config file>>, which can be version controlled, and automatically deployed (self-hosted deployments only).
 
-== Adding a Git repository using the UI
+== Add a Git repository using the UI
 
 To add a new Git repository via the UI, click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 
@@ -25,7 +25,7 @@ image:add_schema_sources_flow.png[]
 
 // Light background? <ImageWithCaption src=\{AddSchemaSources} addLightBackground/>
 
-=== Completing the new Git repository form
+=== Complete the new Git repository form
 
 Click on the *Git Repository* tab, and provide the details of how to connect to your Git repo.
 
@@ -34,9 +34,9 @@ image:add_git_repo_flow.png[]
 TIP: After adding the URL of your repository, click *Test Connection*. {short-product-name} will verify the connection works,
   and fetch the list of branches (including the default branch) from your repository.
 
-== Adding a Git repository through config
+== Add a Git repository through config
 
-The schema repositories that {short-product-name} is connected to can be configured through a xref:deploy:configuring.adoc[HOCON file], which by default is called `workspace.conf`.
+The schema repositories that {short-product-name} is connected to can be configured through a xref:deploy:configure.adoc[HOCON file], which by default is called `workspace.conf`.
 
 [,hocon]
 ----
@@ -65,9 +65,9 @@ git {
 }
 ----
 
-The full documentation for config-driven Git repositories is available xref:deploy:configuring.adoc#configuring-git-repositories[here].
+The full documentation for config-driven Git repositories is available xref:deploy:configure.adoc#configuring-git-repositories[here].
 
-=== Reading OpenAPI specs from Git
+=== Read OpenAPI specs from Git
 
 If {short-product-name} is reading an OpenAPI spec from Git, a few more parameters are needed.
 
@@ -135,7 +135,7 @@ https://alexhamilton:glpat-dundadadadundundun@github.com/flow/reynolds-pamphlet
 
 Support for `ssh://` connections with public/private keypairs is available in a private beta.  If you'd like to try it out, please https://support.hazelcast.com/s/[get in touch].
 
-== Supporting edits to Git repositories
+== Support edits to Git repositories
 
 When changes are made to services or taxonomy definitions within {short-product-name}'s UI, these need to be written
 somewhere.

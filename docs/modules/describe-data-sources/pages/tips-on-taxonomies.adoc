@@ -11,9 +11,9 @@ and the semantic contract (what each field actually means).
 The key to making this work well is in defining a shared taxonomy - a set of common terms with small scope and well-defined meaning.  In this
 guide, we'll take a look at tips and pitfalls when crafting a taxonomy.
 
-== Structuring your taxonomy
+== Structure your taxonomy
 
-=== Avoiding common domain models
+=== Avoid common domain models
 
 Trying to enforce standardization of contracts between multiple systems is really hard, and lots of time is
 spent forming a consensus of design between teams that are working on different goals.  This creates complex processes

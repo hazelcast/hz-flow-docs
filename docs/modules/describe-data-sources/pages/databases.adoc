@@ -39,7 +39,7 @@ If you're running through one of our tutorials, don't worry, we've already confi
 image:new-data-source.png[]
 
 * Click the connection name dropdown, and select the connection for your database
- ** If you haven't yet created your connection, you can click *Add new connection*. For details, see xref:connect-data-sources:connect-a-database.adoc#create-a-connection-when-importing-a-new-data-source[adding a database connection]
+ ** If you haven't yet created your connection, you can click *Add new connection*. For details, see xref:connect-data-sources:connect-a-database.adoc#create-a-connection-when-importing-a-new-data-source[add a database connection]
 * Select the table from the dropdown
 * Specify a namespace for the Taxi types, models and services that will be created
 * Click *Configure*
@@ -95,7 +95,7 @@ For more information on role-based security, see the topic on xref:deploy:author
 
 == Add a database data source manually
 
-Instead of <<using-the-ui,using the UI>> to add your database, you can add a database by defining a
+Instead of <<use-the-ui,using the UI>> to add your database, you can add a database by defining a
 a connection in your `connections.conf` file.
 
 Here is an example for adding a Postgres database connection:

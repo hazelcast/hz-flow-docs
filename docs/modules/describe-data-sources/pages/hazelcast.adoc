@@ -4,7 +4,7 @@
 In addition to xref:describe-data-sources:caching.adoc#using-an-external-cache[using Hazelcast as a cache], {short-product-name}
 can use Hazelcast as a source for reading and writing data, as well as a streaming data source.
 
-== Adding a Hazelcast data source
+== Add a Hazelcast data source
 
 To enable Hazelcast as a data source, first xref:describe-data-sources:configure-connections.adoc[define a connection] in your `connections.conf` file:
 
@@ -69,7 +69,7 @@ which has better performance.
 
 // TODO.
 
-== Writing data to Hazelcast
+== Write data to Hazelcast
 
 To write data into a Hazelcast map, define a Hazelcast service in your Taxi project,
 with a write operation:
@@ -112,7 +112,7 @@ With your map declared, use a mutation query to insert data:
 
 === Examples
 
-==== Inserting a static value into Hazelcast
+==== Insert a static value into Hazelcast
 
 [,taxi]
 ----
@@ -127,7 +127,7 @@ given { film : Film =
 call HazelcastService::upsert
 ----
 
-==== Storing a Query Result in Hazelcast
+==== Store a Query Result in Hazelcast
 
 To write the outcome of a query to Hazelcast, it's not
 necessary for the query's result format to align with the format of the
@@ -145,7 +145,7 @@ find { NetflixFilms[] } as {
 call HazelcastService::upsert
 ----
 
-==== Streaming data into Hazelcast
+==== Stream data into Hazelcast
 
 [,taxi]
 ----
@@ -155,12 +155,12 @@ stream { FilmUploadedEvent }
 call HazelcastService::upsert
 ----
 
-== Querying data from Hazelcast
+== Query data from Hazelcast
 
 {short-product-name} supports querying from Hazelcast using both direct key
 lookups, and rich query criteria.
 
-=== Defining a map to query
+=== Define a map to query
 
 To query a map, you first define a `service` that exposes your
 Hazelcast map.
@@ -199,7 +199,7 @@ closed model Film {
 }
 ----
 
-=== Writing queries
+=== Write queries
 
 Once a Hazelcast map is exposed, it can be queried as a standard
 data source, including being used as a data source when projecting and
@@ -207,14 +207,14 @@ joining data from other sources (such as APIs, Kafka topics, or databases).
 
 Here are some sample queries:
 
-==== Fetching everything from a map
+==== Fetch everything from a map
 
 [,taxi]
 ----
 find { Film[] }
 ----
 
-==== Fetching a value with a specific key
+==== Fetch a value with a specific key
 
 If criteria are defined against the key (as defined using an `@Id` annotation),
 then a key lookup is performed:
@@ -233,7 +233,7 @@ model Film {
 find { Film( FilmId == 123 ) }
 ----
 
-==== Fetching values using criteria
+==== Fetch values using criteria
 
 [,taxi]
 ----
@@ -244,7 +244,7 @@ find { Film[]( FilmId < 105 ) }
 find { Film[]( ReleaseYear < 2019 && Title == "Star Wars" ) }
 ----
 
-== Streaming data from Hazelcast
+== Stream data from Hazelcast
 
 Hazelcast maps can be treated as data streams, where inserts or updates
 are created as streams of events which can be queried using {short-product-name}.
@@ -255,7 +255,7 @@ to be written to the event stream:
 * Entry Added
 * Entry Updated
 
-=== Declaring a map as a stream
+=== Declare a map as a stream
 
 To stream updates from a map, you first define a `service` that exposes your
 Hazelcast map as a stream.
@@ -289,14 +289,14 @@ closed model Film {
 }
 ----
 
-=== Writing streaming queries
+=== Write streaming queries
 
 Once a Hazelcast map is exposed as a stream, it can be queried as a standard
 data source, including used as a data source when projecting and
 joining data from other sources (such as APIs, Kafka topics, or databases).
 
 Below are some sample queries.
-It's useful when testing to combine this with <<writing-data-to-hazelcast,writing data to Hazelcast>>
+It's useful when testing to combine this with <<write-data-to-hazelcast,writing data to Hazelcast>>
 to trigger change events which produce values on the data stream.
 
 Here are some sample queries:

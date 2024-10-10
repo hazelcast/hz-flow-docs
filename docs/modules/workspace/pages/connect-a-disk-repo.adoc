@@ -6,21 +6,21 @@ NOTE: Using a local disk repo is a great way to get started. However, for produc
 When you're getting started, it's useful to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describe-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf]), or xref:describe-data-sources:databases.adoc[database definitions]
 in a local disk repo, making it quick and easy to get going.
 
-== Adding a file repository using the UI
+== Add a file repository using the UI
 
 To add a new file repository via the UI, click on *Projects* on the left navigation bar, then *Add project* in the top bar.
 
 image:add_schema_sources_flow_1.png[Add schema sources]
 
-=== Completing the new file repository form
+=== Complete the new file repository form
 
 Click on the Local Disk table, and provide the details of where your local repository is.
 
 If you haven't created one yet, just provide an empty directory, and a repository will be created for you.
 
-== Adding a file repository through config
+== Add a file repository through config
 
-The schema repositories that {short-product-name} is connected to can be configured through a xref:deploy:configuring.adoc[HOCON file], which by default is called `workspace.conf`.
+The schema repositories that {short-product-name} is connected to can be configured through a xref:deploy:configure.adoc[HOCON file], which by default is called `workspace.conf`.
 
 NOTE: File paths that are absolute are resolved against the file system. File paths that are relative are resolved relative to the location of the config file. 
 

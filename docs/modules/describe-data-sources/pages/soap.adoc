@@ -1,4 +1,4 @@
-= Using SOAP to describe your services
+= Use SOAP to describe your services
 :description: An overview of how to connect data sources to {short-product-name}
 
 
@@ -9,7 +9,7 @@ means embedding references to Taxi types within your SOAP WSDLs.
 
 To do this, we embed Taxi metadata within the WSDL.
 
-== Adding Taxi annotations to WSDLs
+== Add Taxi annotations to WSDLs
 
 Taxi annotations use a custom `taxi:type` element within SOAP WSDLs to add a reference to a Taxi type.
 

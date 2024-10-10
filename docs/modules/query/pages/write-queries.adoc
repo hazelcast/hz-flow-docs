@@ -9,7 +9,7 @@ TODO: replace diagram
 ![diagram](querying.png)
 ////
 
-== Writing queries
+== Write queries
 
 Queries are written in https://docs.taxilang.org/language-reference/query-with-taxiql/[TaxiQL], an open source
 query language for data.
@@ -143,7 +143,7 @@ find { Film[] } as (film:Film) -> {
 }[]
 ```
 
-#### Using variables to modify what's in scope
+#### Use variables to modify what's in scope
 By default, the scope contains the entire source object. For example:
 
 ```taxi
@@ -215,7 +215,7 @@ In the above query:
  ** `actorName` is read from the `name` field on `Actor`, because the requested field asks for the type `Name`
  ** `filmTitle` is out-of-scope, so returned as null
 
-#### Declaring multiple variables in scope
+#### Declare multiple variables in scope
 
 In the previous example, we saw that `filmTitle` was returned as null, because
 the `Film` was removed from scope.
@@ -266,7 +266,7 @@ service CustomerService {
 If the result of an operation is an object that _does not_ expose an `@Id` field, then it can be called with
 any information available.
 
-=== Filling in nulls
+=== Fill in nulls
 
 By default, if a service returns a null value, {short-product-name} will accept it 'as is'.
 
@@ -278,7 +278,7 @@ inputs to operations, and build a path to populate the missing values.
 
 Operations are invoked following the standard <<data-discovery-rules,Data Discovery Rules>>.
 
-== Understanding caching in {short-product-name}
+== Understand caching in {short-product-name}
 
 By default, {short-product-name} does not maintain a long-lived cache between operations,
 but you can xref:describe-data-sources:caching.adoc[add one] by configuring an external cache, such as Hazelcast.
@@ -294,7 +294,7 @@ Operations that return an array of results and which return more than 10 values,
 // AUTHORS NOTE - Marty says that if we want this as a configurable parameter, just let him know and Orbital can expose it. In the meantime, I've commented this bit out: 
 // (This is not currently configurable, but https://support.hazelcast.com/s/[contact Hazelcast Support] if you need to configure this).
 
-== Recovering from failure
+== Recover from failure
 
 If an operation returns an error while {short-product-name} is attempting to execute a query, then it
 is excluded from being invoked with the same parameters again.  This exclusion is
@@ -314,7 +314,7 @@ You can also use them on a model to expose derived information when a model is p
 returned from a service), but that's less common.  So, while this documentation focuses on query projections,
 you can do everything here on a model too.
 
-=== Writing an expression in a projection
+=== Write an expression in a projection
 
 Expressions can be defined in the fields of a projected result from a query:
 
@@ -377,7 +377,7 @@ for the input values into the expression.
 If any inputs are not available, then {short-product-name} will perform a search using the current data available on
 the source object in an attempt to look up the value.
 
-== Submitting queries
+== Submit queries
 
 Generally, developers will use the UI to write and test their queries, then
 integrate using {short-product-name}'s REST API.
@@ -419,7 +419,7 @@ curl 'http://localhost:9021/api/taxiql' \
 
 Results are pushed out from {short-product-name} as they are available.
 
-=== Including type metadata in responses
+=== Include type metadata in responses
 
 {short-product-name} can include type metadata in the responses being sent back.
 
@@ -432,7 +432,7 @@ curl 'http://localhost:9021/api/taxiql?resultMode=TYPED' \
   --data-raw 'find { Movie[] }'
 ----
 
-== Defining output formats
+== Define output formats
 
 By default, {short-product-name} serves results to queries as JSON.
 
@@ -455,7 +455,7 @@ The following Accept headers are supported:
 | JSON with server-sent events
 |===
 
-== Controlling output formats
+== Control output formats
 
 By default, data is written in JSON format.
 However, this can be controlled by placing an annotation on the model

@@ -1,7 +1,7 @@
-= Publishing queries (http and websockets)
+= Publish queries (http and websockets)
 :description: Let consumers invoke your queries as standard HTTP endpoints
 
-You might decide that instead of xref:query:writing-queries.adoc#submitting-queries[submitting queries] directly to {short-product-name}, or using one of our
+You might decide that instead of xref:query:write-queries.adoc#submit-queries[submitting queries] directly to {short-product-name}, or using one of our
 xref:query:kotlin-sdk.adoc[SDKs] to execute a query programmatically, you'd rather just publish the query as an HTTP(s) endpoint.
 
 == Saved queries
@@ -41,7 +41,7 @@ Variables can be defined in your path using `\{myVar\}`, which are then made ava
 
 NOTE: For security reasons, queries are only exposed under the `/api/q` endpoint. Any queries where URL in the `@HttpOperation` annotation starts with something other than `/api/q` are ignored.
 
-### Declaring the query
+### Declare the query
 Named queries are defined using a `query` syntax:
 
 #### Path Variables
@@ -85,7 +85,7 @@ query findMoviesAndReviews(@PathVariable(...) movieId: MovieId) {
 }
 ----
 
-=== Streaming results with server-sent events (SSE)
+=== Stream results with server-sent events (SSE)
 
 To receive query results as a continuous stream of server-sent events, set the Accept header to `text/event-stream`.
 
@@ -115,7 +115,7 @@ Previous results are not published on result stream.
 
 NOTE: You can expose streaming queries on _both_ server-sent event endpoints and Websockets - simply add both the annotations.
 
-=== Publishing on WebSocket
+=== Publish on WebSocket
 
 To publish a query over a websocket, annotate the query with the `WebsocketOperation` annotation, declaring the `path`:
 
@@ -132,7 +132,7 @@ query getNewReleaseAnnouncements {
 }
 ----
 
-=== Publishing as server-sent events
+=== Publish as server-sent events
 
 Streaming queries can also be published over HTTP by declaring a `@HttpOperation`,
 and then requesting a `text/event-stream` response:

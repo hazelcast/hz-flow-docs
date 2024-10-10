@@ -23,7 +23,7 @@ image:flow-components2.svg[]
 
 == Git repository
 {short-product-name} supports pulling the project configuration from one or more Git repositories.  This is useful for environments where there is no persistent storage, and is recommended for production.  
-For information on configuring a Git repository, see xref:workspace:connect-a-git-repo.adoc[Connecting a Git Repository].
+For information on configuring a Git repository, see xref:workspace:connect-a-git-repo.adoc[Connect a Git Repository].
 
 
 == Load balancer

@@ -4,7 +4,7 @@
 {short-product-name} can read data from a Kafka topic to stream data as part of a query, as well as write data
 back to Kafka.
 
-== Defining a connection to your Kafka broker
+== Define a connection to your Kafka broker
 
 Kafka connections are stored in your `connections.conf` config file, under the `kafka` element.
 
@@ -66,9 +66,9 @@ kafka {
 }
 ----
 
-=== Troubleshooting connection problems
+=== Troubleshoot connection problems
 
-==== Using env variables in auth settings
+==== Use env variables in auth settings
 
 It's common in Kafka configs that usernames and passwords are embedded within settings, like `sasl.jaas.config`.
 
@@ -97,12 +97,12 @@ kafka {
 }
 ----
 
-== Querying a Kafka topic
+== Query a Kafka topic
 
 A Kafka topic can be queried using a standard Taxi query, including enriching data
-from Kafka with other services, and <<joining-multiple-streams,joining multiple streams together>>.
+from Kafka with other services, and <<join-multiple-streams,joining multiple streams together>>.
 
-=== Exposing a topic
+=== Expose a topic
 
 Kafka topics are declared in Taxi as simple operations which
 return a stream of data.
@@ -126,7 +126,7 @@ service MyKafkaService {
 
 . Add the required imports
 . Annotate the service with `@KafkaService`
- ** The `connectionName` parameter should match a connection defined in the <<defining-a-connection-to-your-kafka-broker,connections config file>>
+ ** The `connectionName` parameter should match a connection defined in the <<define-a-connection-to-your-kafka-broker,connections config file>>
 . Annotate the operation as a `@KafkaOperation`, specifying the topic and offset
 . The return type should be a `Stream<>` of the defined message type
 
@@ -233,7 +233,7 @@ service MovieService {
 }
 ----
 
-=== Controlling deserialization
+=== Control deserialization
 
 Message deserialization is defined by the model type being exposed.
 By default, models are expected to be JSON.
@@ -244,7 +244,7 @@ Two common formats xref:data-formats:protobuf.adoc[Protobuf] and xref:data-forma
 
 === Example queries
 
-==== Streaming data from Kafka
+==== Stream data from Kafka
 
 [,taxi]
 ----
@@ -268,7 +268,7 @@ stream { StockPrice } as {
 }[]
 ----
 
-==== Filtering Kafka streams
+==== Filter Kafka streams
 
 This examples reads all messages from the Kafka topic, but only
 emits those with a stock ticker of `AAPL` on the resulting stream:
@@ -278,7 +278,7 @@ emits those with a stock ticker of `AAPL` on the resulting stream:
 stream { StockPrice.filterEach( ( StockTicker ) -> StockTicker == 'AAPL' ) }
 ----
 
-==== Streaming from Kafka to a database
+==== Stream from Kafka to a database
 
 Streams from Kafka can be inserted into a database (or any other writable source, such as
 xref:describe-data-sources:hazelcast.adoc#writing-data-to-hazelcast[Hazelcast] or xref:describe-data-sources:aws-services.adoc#DynamoDb[Dynamo]) using a mutating query.
@@ -308,11 +308,11 @@ stream { StockPrice }
 call MyDatabaseService::updateStockPrices
 ----
 
-=== Joining multiple streams
+=== Join multiple streams
 
 It is possible to join multiple Kafka streams together.
 
-== Writing to a Kafka topic
+== Write to a Kafka topic
 
 To make a topic writable, declare a `write operation` in a Kafka service:
 
@@ -337,7 +337,7 @@ service MyKafkaService {
 
 === Examples
 
-==== Writing a static value onto a Kafka topic
+==== Write a static value onto a Kafka topic
 
 [,taxi]
 ----
@@ -350,7 +350,7 @@ given { stockPrice : StockPrice =
 call MyKafkaService::publishStockPrice
 ----
 
-==== Consuming from one Kafka topic, and writing to another topic
+==== Consume from one Kafka topic, and write to another topic
 
 To stream data from a Kafka topic, enrich and republish.
 
@@ -381,7 +381,7 @@ stream { StockPrice }
 call MyKafkaService::publishEnrichedPrices
 ----
 
-==== Building a REST API that publishes to Kafka
+==== Build a REST API that publishes to Kafka
 
 This is a full example, where we create an HTTP endpoint accepting a `POST` request
 with a ticker symbol.

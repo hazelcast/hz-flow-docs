@@ -1,4 +1,4 @@
-= Performing mutations
+= Perform mutations
 :description: Triggering updates / mutations using TaxiQL
 
 Mutation queries make changes somewhere i.e., in performing a task, or updating a record.
@@ -27,7 +27,7 @@ In this example, a list of `Passengers` is fetched, and converted into a `Manife
 of the `FlightsService`.
 
 Many different data sources support mutations, such as xref:describe-data-sources:databases.adoc#writing-data-to-a-database[databases],
-xref:describe-data-sources:kafka.adoc#writing-to-a-kafka-topic[Kafka], xref:describe-data-sources:mongodb.adoc#writing-data-to-a-collection[MongoDB],
-and xref:describe-data-sources:hazelcast.adoc#writing-data-to-hazelcast[Hazelcast].
+xref:describe-data-sources:kafka.adoc#writing-to-a-kafka-topic[Kafka], xref:describe-data-sources:mongodb.adoc#write-data-to-a-collection[MongoDB],
+and xref:describe-data-sources:hazelcast.adoc#write-data-to-hazelcast[Hazelcast].
 
 Consult the docs for the relevant data source to learn more.
