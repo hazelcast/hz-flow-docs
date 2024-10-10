@@ -1,0 +1,148 @@
+= Pull API specs from Git
+:description: {short-product-name} can read schema and taxonomy definitions direct from Git.
+
+It's common to store your xref:workspace:overview.adoc#your-core-taxonomy[core taxonomy], existing API specs (such as xref:describe-data-sources:open-api.adoc[OpenApi] or xref:data-formats:protobuf.adoc[Protobuf]), or xref:describe-data-sources:databases.adoc[database definitions]
+in a Git repository, so they're version controlled.
+
+{short-product-name} can read directly from your Git repository, pulling in updates as they're merged.
+
+A typical Git configuration consists of:
+
+* The address of your Git repository
+* A branch to monitor
+* A path within your repository to read
+
+Additionally, if you're connecting an OpenAPI or Protobuf source, you'll need to provide a little additional metadata.
+
+The list of Git repositories for {short-product-name} can be modified either through the <<add-a-git-repository-using-the-ui,{short-product-name} UI>>,
+or by editing a <<add-a-git-repository-through-config,config file>>, which can be version controlled, and automatically deployed (self-hosted deployments only).
+
+== Add a Git repository using the UI
+
+To add a new Git repository via the UI, click on *Projects* on the left navigation bar, then *Add project* in the top bar.
+
+image:add_schema_sources_flow.png[]
+
+// Light background? <ImageWithCaption src=\{AddSchemaSources} addLightBackground/>
+
+=== Complete the new Git repository form
+
+Click on the *Git Repository* tab, and provide the details of how to connect to your Git repo.
+
+image:add_git_repo_flow.png[]
+
+TIP: After adding the URL of your repository, click *Test Connection*. {short-product-name} will verify the connection works,
+  and fetch the list of branches (including the default branch) from your repository.
+
+== Add a Git repository through config
+
+The schema repositories that {short-product-name} is connected to can be configured through a xref:deploy:configure.adoc[HOCON file], which by default is called `workspace.conf`.
+
+[,hocon]
+----
+git {
+   # The root directory where all git repositories are cloned to
+   checkoutRoot="/opt/service/flow/git-root"
+   # How frequently Flow should poll git repositories for changes
+   pollFrequency=PT30S
+
+   # A collection of Git Repository configurations
+   repositories=[
+      {
+         # Give this repo a name.
+         name=hamilton-taxonomy
+
+         # The url (including personal access token) to clone the repo from
+         uri="https://alexhamilton:glpat-dundadadadundundun@github.com/flow/reynolds-pamphlet"
+
+         # The branch to monitor
+         branch=master
+
+         # The path within the git repo (Optional, by default uses the root)
+         path="/a/path/to/a/folder"
+      }
+   ]
+}
+----
+
+The full documentation for config-driven Git repositories is available xref:deploy:configure.adoc#configuring-git-repositories[here].
+
+=== Read OpenAPI specs from Git
+
+If {short-product-name} is reading an OpenAPI spec from Git, a few more parameters are needed.
+
+[,hocon]
+----
+git {
+   # The root directory where all git repositories are cloned to
+   checkoutRoot="/opt/service/flow/git-root"
+   # How frequently Flow should poll git repositories for changes
+   pollFrequency=PT30S
+
+   # A collection of Git Repository configurations
+   repositories=[
+      {
+         # Give this repo a name.
+         name=hamilton-taxonomy
+
+         # The url (including personal access token) to clone the repo from
+         uri="https://alexhamilton:glpat-dundadadadundundun@github.com/flow/reynolds-pamphlet"
+
+         # The branch to monitor
+         branch=master
+
+         # The path within the git repo (Optional, by default uses the root)
+         path="/a/path/to/a/folder"
+
+         loader: {
+            # Must be OpenApi
+            packageType: 'OpenApi'
+
+            # Flow will automatically create services and models
+            # from the OpenApi spec, and place them under this namespace.
+            # Mandatory.
+            defaultNamespace: 'com.hamilton'
+
+            # If the paths specified in the OpenApi spec are relative,
+            # and no base path is specified, then specify one here.
+            serviceBasePath: https://hamilton.com/
+
+            # Provides a project identifier for this API spec.
+            # Mandatory
+            identifier: {
+              organisation: acme
+              name: hamilton
+              # Must be a Semver version
+              version: '1.1.0'
+            }
+         }
+      }
+   ]
+}
+----
+
+== Git URLs and authentication
+
+Currently, only `https://` connections are supported.
+
+To provide authentication credentials, use a Username + Personal Authentication Token (supported in GitHub and GitLab).
+
+For example:
+
+----
+https://alexhamilton:glpat-dundadadadundundun@github.com/flow/reynolds-pamphlet
+----
+
+Support for `ssh://` connections with public/private keypairs is available in a private beta.  If you'd like to try it out, please https://support.hazelcast.com/s/[get in touch].
+
+== Support edits to Git repositories
+
+When changes are made to services or taxonomy definitions within {short-product-name}'s UI, these need to be written
+somewhere.
+
+It's common that these are persisted to a Git repository.
+
+{short-product-name} supports two different flows for edits:
+
+* Committing and pushing directly to the configured branch (default)
+* Committing and pushing to a branch, and raising a Pull Request (GitHub only)

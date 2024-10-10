@@ -1,0 +1,113 @@
+= Build event streams
+:description: A tutorial showing how to build event streams
+
+This tutorial shows how to build bespoke, enriched event streams from Kafka.
+
+== Describe the data sources
+
+image:Architecture.png[Architecture for this demo]
+
+Our demo has a few services running, which we'll join together to create a bespoke event stream:
+
+* *Kafka Service*: A topic that publishes a message whenever a new review is published
+* *FilmsDb*: A database containing a list of films
+* *ListingsService*: A REST API that tells us where our movies are currently playing
+
+Our services share a taxonomy used to describe the elements we can fetch:
+
+```taxi taxonomy.taxi
+namespace hazelflix
+
+type FilmId inherits String
+type FilmTitle inherits String
+type ReviewText inherits String
+type PerformanceDate inherits DateTime
+type TheatreName inherits String
+
+```
+
+### Add the Kafka broker
+
+Configure the Kafka connection in `connections.conf`:
+
+```hocon connections.conf
+kafka {
+    "myKafkaBroker" {
+        connectionName=myKafkaBroker
+        connectionParameters {
+            brokerAddress="localhost:9092"
+            groupId=flow
+        }
+    }
+}
+```
+
+=== Describe the Kafka topic
+
+Next, add some Taxi metadata to the message written onto our Kafka topic:
+
+[,protobuf]
+----
+syntax = "proto3";
+import "taxi/dataType.proto";
+
+message NewReviewPostedMessage {
+  int32 filmId = 1 [(taxi.dataType)="hazelflix.FilmId"];
+  string reviewText = 2 [(taxi.dataType)="hazelflix.ReviewText"];
+}
+----
+
+Finally, declare the Kafka topic:
+
+```taxi reviews.taxi
+service KafkaService {
+  stream reviews : Stream<NewReviewPostedMessage>
+}
+```
+
+## Create an event stream
+
+We can create a dedicated event stream with the data we need by submitting the following query to {short-product-name}:
+
+```taxi
+stream { NewReviewPostedMessage } as {
+  // We define the field names that matter to us.
+  // Flow matches on data types, as field names often differ between systems.
+  id : FilmId
+  review : ReviewText
+
+  name : FilmTitle // Fetched by a database call
+  nextPerformances: FilmListing[] // Fetched by a REST API call
+}
+```
+
+== Specify The GroupId For Kafka subscriptions
+
+When {short-product-name} subscribes to a Kafka topic for a streaming query, it will use the `groupId` connection parameter defined in `connections.conf` to set the value of `group id` for the corresponding https://developer.confluent.io/faq/apache-kafka/kafka-clients/#kafka-clients-what-is-groupid-in-kafka[Kafka consumer].
+
+```hocon connections.conf
+kafka {
+    "myKafkaBroker" {
+        connectionName=myKafkaBroker
+        connectionParameters {
+            brokerAddress="localhost:9092"
+            groupId=flow
+        }
+    }
+}
+```
+
+In the above configuration, the `groupId` is set to `{code-product-name}`. However, you can override the `groupId` value in your queries by using the `@StreamConsumer` annotation. Here is an example:
+
+```taxi
+@StreamConsumer(id = "reviewStreamGroup")
+stream { NewReviewPostedMessage } as {
+  id : FilmId
+  review : ReviewText
+
+  name : FilmTitle // Fetched by a database call
+  nextPerformances: FilmListing[] // Fetched by a REST API call
+}
+```
+
+The Kafka consumer created for the above streaming query will set the `group id` to `reviewStreamGroup`

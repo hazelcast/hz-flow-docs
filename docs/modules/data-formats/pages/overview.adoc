@@ -20,18 +20,18 @@ case, you generally don't need to do anything - {short-product-name} applies the
 
 | OpenAPI
 | JSON
-| xref:describing-data-sources:open-api.adoc[OpenAPI docs]
+| xref:describe-data-sources:open-api.adoc[OpenAPI docs]
 
 | SOAP
 | XML
-| xref:describing-data-sources:soap.adoc[SOAP docs]
+| xref:describe-data-sources:soap.adoc[SOAP docs]
 
 | Avro
 | Avro           
 | xref:data-formats:avro.adoc[Avro docs]
 |===
 
-== Using message formats in Taxi
+== Use message formats in Taxi
 
 If you're using Taxi to describe your API specs, you need to specify the data format that is used for reading/writing messages.
 

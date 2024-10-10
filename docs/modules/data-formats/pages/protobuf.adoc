@@ -1,4 +1,4 @@
-= Working with Protobuf
+= Work with Protobuf
 :description: How to work with Protobuf
 
 {short-product-name} supports reading Protobuf messages, either as a message format for HTTP endpoints or from a streaming query originating from Kafka.
@@ -6,7 +6,7 @@
 You can annotate Protobuf sources directly with Taxi metadata, or
 you can import through the Schema Importer.
 
-== Embedding semantic types in Protobuf
+== Embed semantic types in Protobuf
 
 Within a Protobuf, fields can be annotated with Taxi metadata to
 indicate the semantic type used on a field.
@@ -68,7 +68,7 @@ model CafeDrink {
 }
 ----
 
-== Importing a Protobuf through the UI
+== Import a Protobuf through the UI
 
 You can import a Protobuf schema directly through the UI.
 

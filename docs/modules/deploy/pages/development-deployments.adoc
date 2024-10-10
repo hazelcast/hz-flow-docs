@@ -1,0 +1,112 @@
+= Deploy in development
+:description: How to deploy {short-product-name} in a development environment
+
+To get up and running quickly, you can bring up a fully working {short-product-name} environment locally using Docker Compose to start testing or developing your integrations.
+
+== Development setup
+
+This guide will walk you through setting up {short-product-name} in a development environment.
+This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production. For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
+
+
+=== Prerequisites
+
+Before you get started, you'll need the following:
+
+* https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
+* https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
+* https://hazelcast.com/get-started/[Hazelcast License Key]
+
+=== Create your project
+
+The easiest way to get started with {short-product-name} is by using Hazelcast's command-line tool `clc`. This gives you a:
+
+* Workspace for developing your queries
+* `docker-compose.yml` file to be able to run locally
+
+Set up your {short-product-name} workspace with:
+[,shell]
+----
+clc project create -t hazelcast-flow-starter
+----
+You have now created a copy of our example {short-product-name} project containing the workspace and Docker Compose file.
+
+You can navigate to the newly created project directory:
+[,shell]
+----
+cd hazelcast-flow-starter
+----
+
+The next step is to setup your Hazelcast License Key.  Copy the template file as shown below and add your license key to the `.env` file.  
+
+[,shell]
+----
+cp .env.example .env
+----
+The `.env` file contains the following variables:
+
+* MC_LICENSE contains the Hazelcast license
+* MC_APPLICATION_CLIENT_SECRET is used as client credentials for authenticated API access
+
+Take a look at xref:deploy:authentication.adoc#authentication-for-api-consumers[Authentication for API Consumers] for details on setting this secret and using client credentials to authenticate programmatically.
+
+=== Start {short-product-name}
+
+Next you can simply start your local {short-product-name} using:
+[,shell]
+----
+docker compose up
+----
+
+The following containers will now be running:
+|===
+| Name | Purpose | Interface
+
+| {short-product-name}
+| Runs the main {short-product-name} server
+| http://localhost:9021
+
+| Postgres
+| Data store for your projects
+| psql 25432
+
+| Hazelcast
+| An external Hazelcast cluster for storing your data
+| hz 5701
+
+| Management Center
+| An interface into the workings of Hazelcast
+| https://localhost:8080
+
+|===
+
+After the application starts and everything is set up, navigate to:
+http://localhost:9021 and start using {short-product-name}.
+
+=== Live reload
+
+The developer environment of {short-product-name} is configured with live reload, so any changes you make in your Taxi project are automatically picked up.
+
+== Advanced setup
+
+* Enable xref:deploy:authentication.adoc[authentication] and xref:deploy:authorization.adoc[authorization] in {short-product-name}
+* Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
+* Understand how xref:deploy:manage-secrets.adoc[secrets are handled] in {short-product-name}
+* Understand how to configure {short-product-name} via xref:deploy:configure.adoc#docker[application properties] or xref:deploy:configure.adoc#setting-as-environment-variables[environment variables]
+* Continue on to your xref:deploy:production-deployments.adoc[production deployment]
+
+== Deploy without CLC
+
+A sample `docker-compose.yml` file is maintained at:
+
+https://github.com/hazelcast/hazelcast-flow-docker-compose
+
+With examples for:
+
+* Running with an external Hazelcast cluster
+* Using external IDP config
+* Configuring to include metrics
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:workspace:overview.adoc[setting up your workspace] or investigating how to xref:deploy:production-deployments.adoc[deploy in production].
