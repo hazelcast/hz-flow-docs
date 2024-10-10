@@ -1,7 +1,7 @@
 = Stream data
 :description: Consume streams, and publish streaming data products
 
-== Writing streaming queries
+== Write streaming queries
 
 Streaming queries are executed in the same way as request/response
 queries, but use the `stream` keyword instead of `find`.
@@ -40,7 +40,7 @@ stream { StockPrice } as {
 call TradeBookService::saveTradeSnapshot
 ----
 
-=== Filtering streams
+=== Filter streams
 
 To filter a stream, you can use the `filterEach()` function:
 
@@ -49,7 +49,7 @@ To filter a stream, you can use the `filterEach()` function:
 stream { StockQuotes.filterEach( StockSymbol -> StockSymbol == 'AAPL' ) }
 ----
 
-== Running long-lived streaming queries
+== Run long-lived streaming queries
 
 {short-product-name}'s query editor is great for running short-lived streaming queries. However, oftentimes you want a streaming query to continue in the background.
 
@@ -65,10 +65,10 @@ query MySavedQuery {
 }
 ```
 
-### Updating streaming queries
+### Update streaming queries
 Streaming queries are automatically upgraded whenever their definition changes.
 
-### Enabling a streaming query
+### Enable a streaming query
 When each streaming query is detected for the first time, it's disabled by default to prevent accidental
 data changes (as streams are often mutating).
 

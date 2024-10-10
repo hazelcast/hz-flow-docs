@@ -1,10 +1,10 @@
-= Describing a Mongo database
+= Describe a Mongo database
 :description: Learn how to make a collection in a Mongo database available for {short-product-name}
 
 {short-product-name} can read data from a Mongo collection to fetch data as part of a query, as well as write data
 back to Mongo.
 
-== Defining a connection to your Mongo database
+== Define a connection to your Mongo database
 
 Mongo connections are stored in your `connections.conf` config file, under the `mongo` element.
 
@@ -35,7 +35,7 @@ The following configuration options are mandatory under the `connectionParameter
 | A Valid Mongo Connection String (see https://www.mongodb.com/docs/manual/reference/connection-string/[Mongo DB Connection Strings] for details.)
 |===
 
-=== Defining a collection mapping
+=== Define a collection mapping
 
 Collections are exposed to {short-product-name} using the annotation `@flow.mongo.Collection` on a model.
 
@@ -65,13 +65,13 @@ The `@Collection` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your xref:mongodb.adoc#defining-a-connection-to-your-mongo-database[connections configuration file]
+| The name of a connection, as defined in your xref:mongodb.adoc#define-a-connection-to-your-mongo-database[connections configuration file]
 
 | collection
 | The name of the collection
 |===
 
-==== Mapping the ObjectId
+==== Map the ObjectId
 
 Use an `@Id` annotation to define the column that represents the Mongo ObjectId.
 
@@ -96,7 +96,7 @@ type MongoObjectId inherits String
 }
 ----
 
-== Querying collections
+== Query collections
 
 To expose a Mongo database as a source for queries, the database must have a service and table operation exposed for a collection.
 
@@ -120,7 +120,7 @@ The `@MongoService` annotation contains the following parameters:
 | Parameter | Description
 
 | connection
-| The name of a connection, as defined in your xref:mongodb.adoc#defining-a-connection-to-your-mongo-database[connections configuration file].
+| The name of a connection, as defined in your xref:mongodb.adoc#define-a-connection-to-your-mongo-database[connections configuration file].
 |===
 
 === Sample queries
@@ -144,7 +144,7 @@ find { User[]( FirstName == "Harry" ) }
 find { User[]( FirstName == "Harry" || FirstName == "Joe" ) }
 ----
 
-== Writing data to a collection
+== Write data to a collection
 
 To expose a database collection for writes, you need to provide a `write operation` in a service.
 
@@ -206,7 +206,7 @@ service FlightsDb {
 
 === Sample mutating queries
 
-==== Inserting data
+==== Insert data
 
 This example shows inserting data into a Mongo collection.
 
@@ -225,7 +225,7 @@ given { movie : FlightInfoWithObjectId = {
 call FlightsDb::upsertFlightWithObjectId
 ----
 
-==== Updating data
+==== Update data
 
 [,taxi]
 ----
@@ -240,7 +240,7 @@ given { movie : FlightInfoWithObjectId = {
 call FlightsDb::upsertFlightWithObjectId
 ----
 
-==== Streaming data from Kafka into Mongo
+==== Stream data from Kafka into Mongo
 
 This example shows streaming stock price updates from a Kafka topic directly into Mongo,
 updating based off the symbol:
@@ -288,12 +288,12 @@ stream { StockPrice }
 call StockPricesMongoService::updatePrice
 ----
 
-==== Building a REST API that reads from Mongo
+==== Build a REST API that reads from Mongo
 
 This is a full example, where we create an HTTP endpoint accepting a `GET` request
 with a ticker symbol.
 
-We'll use the same model and services declared in <<streaming-data-from-kafka-into-mongo,Streaming data from Kafka to Mongo>>,
+We'll use the same model and services declared in <<stream-data-from-kafka-into-mongo,Stream data from Kafka to Mongo>>,
 to avoid redeclaring them here.
 
 [,taxi]

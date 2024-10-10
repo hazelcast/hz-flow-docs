@@ -170,7 +170,7 @@ import taxi.http.HttpOperation
 find { TradeSummary[] }
 ```
 
-For more information, see xref:query:queries-as-endpoints.adoc[publishing queries as endpoints].
+For more information, see xref:query:queries-as-endpoints.adoc[publish queries as endpoints].
 
 #### Read files and publish to Kafka
 This example shows how to read a CSV file from S3, and publish each row as an individual

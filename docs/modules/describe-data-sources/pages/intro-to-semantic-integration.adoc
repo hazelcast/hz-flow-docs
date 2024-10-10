@@ -142,7 +142,7 @@ up to the consumer to decide - the way it should be.
 
 NOTE: Semantic querying is centered around what data the consumer needs, and how the consumer needs it. Producer concepts are abstracted away.
 
-== Enhancing structural contracts with semantic metadata
+== Enhance structural contracts with semantic metadata
 
 It's not a question of structure OR semantics, or choosing one schema language to rule them all.  Taxi is a great schema language, but it's not intended as a replacement for your existing schemas.
 

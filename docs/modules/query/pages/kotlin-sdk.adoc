@@ -18,9 +18,9 @@ image::https://img.shields.io/maven-central/v/com.{code-product-name}/kotlin-cli
 </dependency>
 ----
 
-== Generating Kotlin from Taxi
+== Generate Kotlin from Taxi
 
-== Querying using the typesafe builder
+== Query using the typesafe builder
 
 Queries start with a verb - either `find` (for finite result sets) or `stream` (for infinite streams of data, like a Kafka topic).
 
@@ -42,7 +42,7 @@ val announcements = stream<FilmWatchedEvent>()
 
 NOTE: Currently, you can't pass any criteria through the typesafe builder. We're working on that right now.
 
-=== Projecting to a response object
+=== Project to a response object
 
 {short-product-name} really shines when you ask for a source object to be transformed into something else.
 
@@ -83,19 +83,19 @@ val response = stream<FilmWatchedEvent>()
     .asA<Response>()
 ----
 
-=== Specifying criteria
+=== Specify criteria
 
 Specifying criteria isn't yet implemented in the Kotlin SDK, but we're working on it.
 
 // Subscribe for updates on https://github.com/{short-product-name}api/kotlin-sdk/issues/1[this issue] for more information.
 
-== Querying using TaxiQL directly
+== Query using TaxiQL directly
 
 Passing TaxiQL directly isn't yet implemented in the Kotlin SDK, but we're working on it.
 
 // Subscribe for updates on https://github.com/{short-product-name}api/kotlin-sdk/issues/2[this issue] for more information.
 
-== Executing queries
+== Execute queries
 
 Once you have your query defined, you need to execute, using `run()`.
 

@@ -1,4 +1,4 @@
-= Generating Taxi from code
+= Generate Taxi from code
 :description: A tutorial explaining how to generate Taxi from code.
 
 This tutorial explores generating Taxi schemas directly from your application code. This approach is ideal for teams following a Code-First approach (versus a Design-First, sometimes referred to as a Spec-First approach).
@@ -7,7 +7,7 @@ Currently, this tutorial focuses on JVM languages (Java and Kotlin). We also sho
 
 // If you'd like to see a version for your preferred language or framework, please [reach out](https://join.slack.com/t/orbitalapi/shared_invite/zt-697laanr-DHGXXak5slqsY9DqwrkzHg) to us on Slack.
 
-== Adding dependencies
+== Add dependencies
 
 First, you'll need to add the following dependencies to your project:
 
@@ -93,7 +93,7 @@ A quick explanation of the dependencies:
 
 Both Taxi and {short-product-name} dependencies are hosted in the {short-product-name} Maven repository, so be sure to configure your repositories section, as shown above.
 
-== Publishing to {short-product-name}
+== Publish to {short-product-name}
 
 Next, we'll configure our Spring Boot application to publish to {short-product-name} on startup.
 
@@ -264,7 +264,7 @@ Now, if you start your Spring Boot application, you should see it register withi
 
 image:register_project_view_flow.png[The project registered in {short-product-name}]
 
-== Generating service code
+== Generate service code
 To start, we'll publish an API. We don't need to do anything special other than standard Spring Boot things, as we're already scanning for any Spring Boot
 services within the same package as the `FilmsListingApp`
 
@@ -304,7 +304,7 @@ will show our API and its returned model:
 
 image:1st_service-diagram_flow.png[The service is shown in {short-product-name}'s service diagrams]
 
-=== Creating a second service
+=== Create a second service
 {short-product-name}'s real strength is in orchestrating multiple services together, so let's add a second service - this time, that provides film reviews. The full code 
 is listed here. Again, there's nothing special here, other than standard Spring Boot stuff.
 
@@ -338,7 +338,7 @@ If we restart our Spring Boot application now, we'll see both services published
 
 // placeholder for graphic - <ImageWithCaption src={SecondServiceDiagram} caption={'Both our services are now registered with {short-product-name}'}></ImageWithCaption>
 
-== Creating a link between services
+== Create a link between services
 So far, we have two services:
 
 * One that exposes a list of films
@@ -416,7 +416,7 @@ find { Film[] } as {
 
 This query, in https://taxilang.org/language-reference/query-with-taxiql/[TaxiQL] asks for data from two different sources. {short-product-name} works out how to orchestrate our two APIs together, enriching our Films data with reviews.
 
-== Using typealias to keep our code DRY
+== Use typealias to keep our code DRY
 Inside our Kotlin code, we just added a two `@DataType("FilmId")` annotations indicating that the two pieces of information were the same.
 
 In Kotlin, we can extract those out to a type alias:
@@ -451,7 +451,7 @@ fun getFilmReview(@PathVariable("filmId") filmId: FilmId): FilmReview {
 }
 ```
 
-== Going further - extracting shared types to a library
+== Go further - extract shared types to a library
 At this point, we're successfully generating Taxi code directly from our Spring Boot services, and publishing to {short-product-name}.
 
 As you start to grow and scale, you need to think about how to structure common types for sharing across teams.

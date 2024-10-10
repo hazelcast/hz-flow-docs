@@ -1,9 +1,9 @@
-= Working with HTTP sources
+= Work with HTTP sources
 :description: 'An overview of how to connect data sources to {short-product-name}'
 
 {short-product-name} has first-class support for working with xref:open-api.adoc[OpenAPI specs] and xref:soap.adoc[SOAP WSDLs]. The following topic is intended for consuming HTTP services without a separate spec.
 
-== Describing HTTP with Taxi
+== Describe HTTP with Taxi
 
 If you're not working with other HTTP specs, you can describe your services directly using Taxi. Taxi is very rich and expressive, and
 is designed to fully support describing API sources, for teams who are not currently using an existing standard.

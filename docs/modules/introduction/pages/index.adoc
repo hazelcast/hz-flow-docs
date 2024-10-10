@@ -100,7 +100,7 @@ If a field gets renamed, things break!
 
 What's missing is _semantic metadata_ - something that describes how data across systems relates, independent of field names.
 
-=== Defining semantic metadata
+=== Define semantic metadata
 
 https://taxilang.org[Taxi] is a language for defining and embedding semantic metadata.
 

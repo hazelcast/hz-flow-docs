@@ -79,9 +79,9 @@ jdbc {
 }
 ```
 
-TIP: See also xref:deploy:manage-secrets.adoc[Managing Secrets] to see how to securely manage sensitive information in your connections.
+TIP: See also xref:deploy:manage-secrets.adoc[Manage Secrets] to see how to securely manage sensitive information in your connections.
 
-### Correctly handling substitutions in URLs
+### Handle substitutions correctly in URLs
 Substitution of variable inside a URL using HOCON can be tricky.
 
 In short, here's how substitutions need to be defined:
@@ -402,4 +402,4 @@ in the connection.
 
 == Continue reading
 
-Continue learning about {short-product-name} by xref:query:writing-queries.adoc[query your data].
+Continue learning about {short-product-name} by xref:query:write-queries.adoc[querying your data].

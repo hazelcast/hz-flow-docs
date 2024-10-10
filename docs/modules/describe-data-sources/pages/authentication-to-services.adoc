@@ -42,7 +42,7 @@ authenticationTokens {
 }
 ----
 
-TIP: See also xref:deploy:manage-secrets.adoc[Managing secrets] to see how to securely manage sensitive information in your auth tokens.
+TIP: See also xref:deploy:manage-secrets.adoc[Manage secrets] to see how to securely manage sensitive information in your auth tokens.
 
 == Authentication token types
 
@@ -166,7 +166,7 @@ authenticationTokens {
    }
 }
 ```
-TIP: See also xref:deploy:manage-secrets.adoc[Managing secrets] to see how to securely manage sensitive information in your auth tokens.
+TIP: See also xref:deploy:manage-secrets.adoc[Manage secrets] to see how to securely manage sensitive information in your auth tokens.
 
 == Other configuration approaches
 

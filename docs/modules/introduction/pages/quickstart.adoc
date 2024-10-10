@@ -13,7 +13,7 @@ You can connect microservices such as APIs, databases and streaming message queu
 
 *Step 3 - Query for data*
 
-You can use {short-product-name}'s API to query for data, and let it handle the integration plumbing for you. For information, see xref:query:writing-queries.adoc[Query with {short-product-name}].
+You can use {short-product-name}'s API to query for data, and let it handle the integration plumbing for you. For information, see xref:query:write-queries.adoc[Query with {short-product-name}].
 
 *Step 4 - Deploy {short-product-name} in production*
 
@@ -21,6 +21,6 @@ After testing locally, you can deploy {short-product-name} on your Kubernetes cl
 
 *Step 5 - Query for data in production*
 
-Use {short-product-name} in a production environment to query for data. For information, see xref:query:writing-queries.adoc[Query with {short-product-name}].
+Use {short-product-name} in a production environment to query for data. For information, see xref:query:write-queries.adoc[Query with {short-product-name}].
 
 TIP: Use our step-by-step xref:guides:index.adoc[Tutorials] to get productive with {short-product-name} quickly. 

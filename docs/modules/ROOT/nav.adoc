@@ -68,7 +68,7 @@
 //** xref:streams:stream-data.adoc[Benchmarks]
 
 .Query
-* xref:query:writing-queries.adoc[Query with {short-product-name}]
+* xref:query:write-queries.adoc[Query with {short-product-name}]
 * xref:query:mutations.adoc[Perform mutations]
 * xref:query:queries-as-endpoints.adoc[Publish queries]
 * xref:query:observability.adoc[Observe queries]

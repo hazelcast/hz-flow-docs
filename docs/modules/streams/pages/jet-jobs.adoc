@@ -4,13 +4,13 @@
 == {short-product-name} Jet jobs
 {short-product-name} uses Jet jobs when you create and enable streaming endpoints. These jobs are long-lived and run continuously in the background for each endpoint.    The Jet job is stopped when you disable the streaming endpoint.
 
-xref:query:queries-as-endpoints.adoc[Publishing queries] describes how to create and publish queries as HTTP or WebSocket endpoints.
+xref:query:queries-as-endpoints.adoc[Publish queries] describes how to create and publish queries as HTTP or WebSocket endpoints.
 
 After creating a query, it is visible in the list of endpoints in the {short-product-name} UI under "Endpoints".
 
 image:stream-endpoints.png[]
 
-== Viewing Jet Jobs in Management Center
+== View Jet Jobs in Management Center
 To view the Jet jobs in Management Center, navigate to the Jet Jobs tab. Here you can see the status of each job, such as running, completed, or failed.
 
 image:jet-jobs.png[]
