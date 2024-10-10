@@ -23,7 +23,7 @@ We now need to add a new repository that contains our Taxi project.
 By default, the Schema Server is configured by a file called `repositories.conf` in the directory where you
 launched the Schema Server from.
 
-You may have overridden this when you launched the Schema Server, by specifying `+--vyne.repositories.config-file=...+`.
+You may have overridden this when you launched the Schema Server, by specifying `+--flow.repositories.config-file=...+`.
 
 Find and open the schema-server config file in your editor of choice.
 

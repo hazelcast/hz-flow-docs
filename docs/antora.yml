@@ -1,7 +1,7 @@
-name: hz-flow
+name: flow
 title: Hazelcast Flow
 start_page: index.adoc
-version: '5.5-snapshot'
+version: '5.5'
 asciidoc:
   attributes:
     page-toclevels: 3
