@@ -76,7 +76,7 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 
 === Related links
 
-* xref:deploying:production-deployments.adoc[Deploying {short-product-name} without the demo projects]
+* xref:deploy:production-deployments.adoc[Deploy {short-product-name} without the demo projects]
 * https://gitlab.com/vyne/demos/-/tree/master/films[Demo project source code, on GitLab]
 
 == Create a project
@@ -161,8 +161,8 @@ The connection to the database has now been created, and the pop-up should close
 
 === Related links
 
-* xref:deploying:configuring.adoc[{short-product-name} data source configuration]
-* xref:connecting-data-sources:connecting-a-database.adoc[]
+* xref:deploy:configure.adoc[{short-product-name} data source configuration]
+* xref:connect-data-sources:connect-a-database.adoc[]
 
 === Select the table to import
 
@@ -205,8 +205,8 @@ image:schema_importer_db_flow.png[Data sources screen]
 
 === Related links
 
-* https://docs.taxilang.org/language-reference/taxi-language/#namespaces[Understanding namespaces]
-* https://docs.taxilang.org/language-reference/types-and-models/[Understanding types and models]
+* https://docs.taxilang.org/language-reference/taxi-language/#namespaces[Understand namespaces]
+* https://docs.taxilang.org/language-reference/types-and-models/[Understand types and models]
 
 === Preview the imported tables
 
@@ -237,7 +237,7 @@ run queries against it.
 
 === Related links
 
-* https://docs.taxilang.org/language-reference/taxi-language/[Understanding Taxi]
+* https://docs.taxilang.org/language-reference/taxi-language/[Understand Taxi]
 
 == Connect a Swagger API
 
@@ -305,11 +305,11 @@ image:schema-db-and-api.png[]
 
 === Related links
 
-* xref:connecting-data-sources:schema-publication-methods.adoc[Understanding the different ways to publish schemas to {short-product-name}]
-* https://docs.taxilang.org/language-reference/describing-services/[Describing REST APIs in Taxi]
-* https://docs.taxilang.org/generating-taxi-from-source/#openapi-x-taxi-type-extension[Embedding Taxi definitions inside Swagger, to keep {short-product-name} automatically up to date]
+* xref:connect-data-sources:schema-publication-methods.adoc[Understand the different ways to publish schemas to {short-product-name}]
+* https://docs.taxilang.org/language-reference/describing-services/[Describe REST APIs in Taxi]
+* https://docs.taxilang.org/generating-taxi-from-source/#openapi-x-taxi-type-extension[Embed Taxi definitions inside Swagger, to keep {short-product-name} automatically up to date]
 
-== Integrating services and loading data
+== Integrate services and loading data
 
 Now that everything is set up, let's fetch and integrate some data.
 
@@ -418,14 +418,14 @@ image:results-tree-with-providers.png[]
 
 === Related links
 
-* xref:querying:writing-queries.adoc[Writing queries with {short-product-name}]
-* https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL language reference] 
+* xref:query:write-queries.adoc[Write queries with {short-product-name}]
+* https://docs.taxilang.org/language-reference/query-with-taxiql/[TaxiQL language reference] 
 
-=== Exploring the query execution
+=== Explore the query execution
 
 {short-product-name} has several diagnostic tools to help us see what happened.
 
-==== Exploring the query execution plan
+==== Explore the query execution plan
 
 In the Profiler, click to see the high level integration plan that {short-product-name} used to execute the query,
 showing the services that were called, and how data was resolved at a field level.
@@ -439,7 +439,7 @@ Clicking on any of the rows shows the actual request and response.
 
 image:call-explorer.png[]
 
-==== Exploring cell-based lineage
+==== Explore cell-based lineage
 
 {short-product-name} provides detailed trace lineage for each value shown in its results.
 
@@ -455,12 +455,12 @@ image:value-lineage.png[]
 
 This deep lineage is very powerful for understanding how data has flowed, and proving the https://en.wikipedia.org/wiki/Data_lineage#Data_provenance[provenance] of data that {short-product-name} is exposing.
 
-=== Running our query via curl
+=== Run our query via curl
 
 Although {short-product-name}'s UI is powerful, developers will want to interact with {short-product-name} through its API.
 That's a topic on its own, but here is an example of running the same query through {short-product-name}'s API, using curl.
 
-==== Getting a JSON payload
+==== Get a JSON payload
 
 We can use curl to get the results of our query as a JSON document.
 
@@ -489,9 +489,9 @@ The curl command streams results from {short-product-name} as soon as they're av
 
 === Related links
 
-* xref:querying:writing-queries.adoc#rest-api[Running queries through {short-product-name}'s API]
+* xref:query:write-queries.adoc#rest-api[Run queries through {short-product-name}'s API]
 
-== Adding a Kafka streaming source
+== Add a Kafka streaming source
 
 Now that we have {short-product-name} linking our Database and REST API, it's time we add a Kafka stream into the mix.
 
@@ -599,7 +599,7 @@ Take a look around, and then click *Save*.
 
 It's time to explore writing some queries that join data from across all three sources.
 
-First, let's start with querying our Kafka topic. Head over to the http://localhost:9021/query/editor[Query Editor],
+First, let's start with query our Kafka topic. Head over to the http://localhost:9021/query/editor[Query Editor],
 and paste the following query:
 
 [,taxi]

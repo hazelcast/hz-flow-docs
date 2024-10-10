@@ -8,55 +8,55 @@
 ** xref:guides:apis-db-kafka.adoc[Connect APIs, a database & Kafka]
 ** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
-** xref:guides:streaming-data.adoc[Stream data]
+** xref:guides:build-event-streams.adoc[Stream data]
 ** xref:guides:gen-taxi-from-code.adoc[Generate Taxi from code]
 //** xref:guides:gen-code-from-taxi.adoc[Generate code from Taxi]
 * xref:introduction:get-support.adoc[Get support]
 
 .Deploy
-* xref:deploying:development-deployments.adoc[Developer setup]
-* xref:deploying:production-deployments.adoc[Production deployment]
-* xref:deploying:configuring.adoc[Configure {short-product-name}]
+* xref:deploy:development-deployments.adoc[Developer setup]
+* xref:deploy:production-deployments.adoc[Production deployment]
+* xref:deploy:configure.adoc[Configure {short-product-name}]
 
 * Advanced
-** xref:deploying:managing-secrets.adoc[Manage secrets]
-** xref:deploying:security-recommendations.adoc[Security]
-*** xref:deploying:authentication.adoc[Enable authentication]
-*** xref:deploying:authorization.adoc[Enable authorization]
-// ** xref:deploying:data-policies.adoc[Data policies]
-** xref:deploying:distributing-work-on-a-cluster.adoc[Distribute on a cluster]
-** xref:deploying:load-balancer.adoc[Load Balancer]
-** xref:describing-data-sources:enable-ui-schema-editing.adoc[Enable UI Editing]
+** xref:deploy:manage-secrets.adoc[Manage secrets]
+** xref:deploy:security-recommendations.adoc[Security]
+*** xref:deploy:authentication.adoc[Enable authentication]
+*** xref:deploy:authorization.adoc[Enable authorization]
+// ** xref:deploy:data-policies.adoc[Data policies]
+** xref:deploy:distribute-work-on-a-cluster.adoc[Distribute on a cluster]
+** xref:deploy:load-balancer.adoc[Load Balancer]
+** xref:describe-data-sources:enable-ui-schema-editing.adoc[Enable UI Editing]
 
-* xref:deploying:releases/release-notes.adoc[Release notes]
-** xref:deploying:releases/5-5-0.adoc[5.5.0]
+* xref:deploy:releases/release-notes.adoc[Release notes]
+** xref:deploy:releases/5-5-0.adoc[5.5.0]
 
 .Develop
 * xref:workspace:overview.adoc[Your workspace]
-** xref:workspace:connecting-a-git-repo.adoc[Pull API specs from Git]
-** xref:workspace:connecting-a-disk-repo.adoc[Pull API specs from disk]
-** xref:connecting-data-sources:schema-publication-methods.adoc[Schema publishing methods]
+** xref:workspace:connect-a-git-repo.adoc[Pull API specs from Git]
+** xref:workspace:connect-a-disk-repo.adoc[Pull API specs from disk]
+** xref:connect-data-sources:schema-publication-methods.adoc[Schema publishing methods]
 
 
 * Manage data sources
-** xref:describing-data-sources:configuring-connections.adoc[Configure connections]
-*** xref:describing-data-sources:http.adoc[HTTP APIs]
-*** xref:describing-data-sources:hazelcast.adoc[Hazelcast]
-*** xref:describing-data-sources:databases.adoc[JDBC Databases]
-**** xref:connecting-data-sources:connecting-a-database.adoc[]
-*** xref:describing-data-sources:kafka.adoc[Kafka]
-*** xref:describing-data-sources:mongodb.adoc[Mongo DB]
-*** xref:describing-data-sources:open-api.adoc[OpenAPI specs]
-*** xref:describing-data-sources:aws-services.adoc[AWS Services]
-*** xref:describing-data-sources:soap.adoc[SOAP WSDLs]
+** xref:describe-data-sources:configure-connections.adoc[Configure connections]
+*** xref:describe-data-sources:http.adoc[HTTP APIs]
+*** xref:describe-data-sources:hazelcast.adoc[Hazelcast]
+*** xref:describe-data-sources:databases.adoc[JDBC Databases]
+**** xref:connect-data-sources:connect-a-database.adoc[]
+*** xref:describe-data-sources:kafka.adoc[Kafka]
+*** xref:describe-data-sources:mongodb.adoc[Mongo DB]
+*** xref:describe-data-sources:open-api.adoc[OpenAPI specs]
+*** xref:describe-data-sources:aws-services.adoc[AWS Services]
+*** xref:describe-data-sources:soap.adoc[SOAP WSDLs]
 
 
 
-** xref:describing-data-sources:authentication-to-services.adoc[Authenticate to services]
-** xref:describing-data-sources:caching.adoc[Use caching]
+** xref:describe-data-sources:authentication-to-services.adoc[Authenticate to services]
+** xref:describe-data-sources:caching.adoc[Use caching]
 
 * Data streams & formats
-** xref:streams:streaming-data.adoc[Stream data]
+** xref:streams:stream-data.adoc[Stream data]
 ** xref:data-formats:overview.adoc[Data formats]
 *** xref:data-formats:avro.adoc[Avro]
 *** xref:data-formats:csv.adoc[CSV]
@@ -65,19 +65,19 @@
 *** xref:data-formats:protobuf.adoc[Protobuf]
 
 * Performance
-//** xref:streams:streaming-data.adoc[Benchmarks]
+//** xref:streams:stream-data.adoc[Benchmarks]
 
 .Query
-* xref:querying:writing-queries.adoc[Query with {short-product-name}]
-* xref:querying:mutations.adoc[Perform mutations]
-* xref:querying:queries-as-endpoints.adoc[Publish queries]
-* xref:querying:observability.adoc[Observe queries]
+* xref:query:write-queries.adoc[Query with {short-product-name}]
+* xref:query:mutations.adoc[Perform mutations]
+* xref:query:queries-as-endpoints.adoc[Publish queries]
+* xref:query:observability.adoc[Observe queries]
 
 .Reference
 * xref:glossary.adoc[Glossary]
-* xref:describing-data-sources:intro-to-semantic-integration.adoc[Semantic integration]
-* xref:describing-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
+* xref:describe-data-sources:intro-to-semantic-integration.adoc[Semantic integration]
+* xref:describe-data-sources:tips-on-taxonomies.adoc[Taxonomy tips]
 
 * Architecture
-** xref:deploying:components.adoc[{short-product-name} components] 
+** xref:deploy:components.adoc[{short-product-name} components] 
 ** xref:streams:jet-jobs.adoc[Jet jobs]

@@ -1,7 +1,7 @@
 = Avro
-:description: Working with Avro data in {short-product-name}
+:description: Work with Avro data in {short-product-name}
 
-== Reading and writing Avro
+== Read and write Avro
 
 {short-product-name} can read and write data using https://avro.apache.org/[Avro].
 
@@ -41,7 +41,7 @@ closed model People {
 Any requests or responses sent to/from systems where the model type has been annotated with `@AvroMessage` will be
 serialized using Avro.
 
-== Adding Taxi types to Avro
+== Add Taxi types to Avro
 
 Just like all schemas in {short-product-name}, Taxi types are required to indicate how data is linked and relates between systems.
 
@@ -91,12 +91,12 @@ If a schema does not define / expose Taxi types for fields, {short-product-name}
 For records, the `namespace` and `name` are used to infer the type name.
 For fields, a type is created based off the field name, and the `type`, which defines the underling primitive type.
 
-== Adding Avro projects to your workspace
+== Add Avro projects to your workspace
 
 Schemas declared in Avro can be added to your workspace by either editing your workspace file (normally `workspace.conf`),
 or through the UI.
 
-=== Using the workspace file
+=== Use the workspace file
 
 ==== Local file projects
 
@@ -167,7 +167,7 @@ git {
 }
 ----
 
-=== Using the UI
+=== Use the UI
 
 You can load Avro schemas into your workspace using the UI.
 
@@ -179,7 +179,7 @@ image:add_project_avro_flow_2.png[]
 
 * Then select to add a project from either a Git Repo or Local disk
 
-==== Adding an Avro project from Git
+==== Add an Avro project from Git
 
 This workflow lets you add a reference to an Avro schema that's checked into a Git repository.
 
@@ -193,7 +193,7 @@ The Git repo is monitored, so any changes are pulled locally and automatically a
 
 image:add_avro_git_repo_flow.png[]
 
-==== Adding an Avro project from a file
+==== Add an Avro project from a file
 
 This workflow lets you add a reference to an Avro schema that's already local on the server.
 

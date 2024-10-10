@@ -1,0 +1,33 @@
+
+= {short-product-name} components
+:description: A '{short-product-name} deployment consists of several components:
+
+
+// image:flow-components.png[]
+image:flow-components2.svg[]
+
+
+== {short-product-name} server
+{short-product-name} server is a combination of several components:
+
+{short-product-name} UI provides the front-end capability
+
+{short-product-name} API provides all of the REST endpoints and the ability to execute Taxi queries and expose Taxi queries as REST endpoints
+
+{short-product-name} stream capability executes Jet Jobs when a streaming query is published as a REST or websockets endpoint
+
+
+== {short-product-name} Postgres database
+{short-product-name} uses a Postgres database to store Query History and usage information.
+
+
+== Git repository
+{short-product-name} supports pulling the project configuration from one or more Git repositories.  This is useful for environments where there is no persistent storage, and is recommended for production.  
+For information on configuring a Git repository, see xref:workspace:connect-a-git-repo.adoc[Connect a Git Repository].
+
+
+== Load balancer
+In production, a load balancer is used to distribute traffic across multiple instances of {short-product-name} server.  This is useful for scaling out the number of instances to handle more traffic.  For more information on configuring a load balancer, see xref:deploy:load-balancer.adoc[Load Balancer].
+
+== Prometheus
+Prometheus is an open-source monitoring and alerting toolkit.  {short-product-name} exposes metrics that can be scraped by Prometheus.  For more information on configuring Prometheus, see xref:query:observability.adoc[Observability].

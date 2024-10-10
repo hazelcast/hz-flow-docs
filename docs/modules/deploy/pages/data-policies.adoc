@@ -1,0 +1,133 @@
+= Data access policies
+:description: Learn about {short-product-name} data access policies
+
+Taxi supports defining data access policies against types, which are evaluated at runtime.
+
+This is a powerful capability, as it allows you to define data policies once, and enforce them consistently
+across your organization, regardless of where data is served from.
+
+[,taxi]
+----
+model Employee {
+  id : EmployeeId
+  manager : ManagerId
+  salary : Salary
+}
+
+
+policy SalaryPolicy against Employee {
+   // policies are either 'read' or 'write'
+   read {
+      // An employee can read their own data
+      case caller.EmployeeId == this.id -> permit
+      // The employee's manager can read data
+      case caller.EmployeeId == this.manager -> permit
+      // HR can read data
+      case caller.DepartmentName == "HR" -> permit
+      // For everyone else, filter the salary information
+      else -> filter(salary)
+   }
+}
+----
+
+== Overview
+
+Policies are a first-class citizen within Taxi, and are defined in your Taxi project along with your
+types, models and services.
+
+Policies are enforced when queries are being executed, and can be defined against either a type or a model.
+
+Policies define simple expressions that are evaluated, and inform how the data should be treated:
+
+* `permit` : allows the data to flow through or for the operation to continue
+* `filter` : replaces the data with `null`
+* `filter(attributeA,attributeB)` : replaces specific attributes with `null`, but allows the rest of the data to be read
+
+=== The "caller"
+
+Policies are defined against the `caller` - the person or service requesting the data. The caller
+itself is resolved using the auth token presented from your IDP.
+(Note - policies are not supported when running without an IDP)
+
+Similar to how you can use claims from your IDP, to pass through to a data source, these same claims are available when evaluating a policy, as the `caller` object. 
+
+// broken link to 'claims from your IDP' /changelog/2024-03-08-release-announcement-0-30-0#using-jwt-claims-within-a-query[claims from your IDP] 
+
+=== Resolve data for policy evaluation
+
+Policies can be defined against any data that is discoverable using a {short-product-name} query -
+not just the values present on the inbound claim.
+ A separate subquery is executed to discover data that is needed to evaluate the policy.
+
+For example:
+
+[,taxi]
+----
+policy SalaryPolicy against Employee {
+   read {
+      // HR can read data
+      case caller.DepartmentName == "HR" -> permit
+   }
+}
+----
+
+Here, the policy is defined against the caller's Department Name, which may not be available in the inbound claim,
+but is discoverable using the user's ID.
+
+Let's imagine the user's credentials are presented as follows:
+
+----
+model AcmeAuthClaims inherits JtwClaim {
+   userId : UserId inherits String
+}
+
+model UserInformation {
+   department : DepartmentName
+}
+
+service UserService {
+   operation getUserInformation(UserId):UserInformation
+}
+----
+
+In this example, to evaluate the policy, the `DepartmentName` is required. By executing a subquery
+using the information on the `AcmeAuthClaims`, {short-product-name} invokes the `getUserInformation` operation to discover
+the `DepartmentName`.
+
+=== Policy scopes
+
+When {short-product-name} is executing a query, data is exposed in two places:
+
+* From services to {short-product-name}, in order to execute the query. This is known as `internal` scope as the data stays within {short-product-name}
+* From {short-product-name} back to the initiating user. This is known as `external` scope as the data leaves {short-product-name}
+
+Often, it's OK for data to be used in order to look up values, provided it's not exposed to the end user.
+
+Policy scopes account for this by allowing policies to restrict either `internal` or `external`.
+
+For example:
+
+----
+policy SalaryPolicy against Employee {
+   // It's ok for Flow to access all employee data, provided
+   // the data isn't leaked out to the user.
+   read internal {
+      permit
+   }
+
+   // When returning data to the user, apply these policies.
+   read external {
+      // An employee can read their own data
+      case caller.EmployeeId == this.id -> permit
+      // The employee's manager can read data
+      case caller.EmployeeId == this.manager -> permit
+      // HR can read data
+      case caller.DepartmentName == "HR" -> permit
+      else -> filter(salary)
+   }
+}
+----
+
+WARNING: If an internal policy restricts {short-product-name} from reading data, values cannot be used as inputs
+  into other services. Be careful, as this can cause queries to fail, even though there is sufficient
+  data to correctly execute.
