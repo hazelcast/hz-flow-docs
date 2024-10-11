@@ -49,8 +49,8 @@ Next, add some Taxi metadata to the message written onto our Kafka topic:
 ----
 @lang.taxi.formats.ProtobufMessage(packageName = "" , messageName = "NewReviewPostedMessage")
 model NewReviewPostedMessage {
-   @lang.taxi.formats.ProtobufField(tag = 1 , protoType = "int32") filmId : reviews.FilmId?
-   @lang.taxi.formats.ProtobufField(tag = 2 , protoType = "string") reviewText : reviews.ReviewText?
+   @lang.taxi.formats.ProtobufField(tag = 1 , protoType = "int32") filmId : reviews.FilmId
+   @lang.taxi.formats.ProtobufField(tag = 2 , protoType = "string") reviewText : reviews.ReviewText
 }
 ----
 
