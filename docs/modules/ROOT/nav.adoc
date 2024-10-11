@@ -6,10 +6,10 @@
 * xref:introduction:quickstart.adoc[Quickstart]
 * xref:guides:index.adoc[Tutorials]
 ** xref:guides:apis-db-kafka.adoc[Connect APIs, a database & Kafka]
-** xref:guides:compose.adoc[Compose APIs and database]
+//** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
 ** xref:guides:streaming-data.adoc[Stream data]
-** xref:guides:gen-taxi-from-code.adoc[Generate Taxi from code]
+//** xref:guides:gen-taxi-from-code.adoc[Generate Taxi from code]
 //** xref:guides:gen-code-from-taxi.adoc[Generate code from Taxi]
 * xref:introduction:get-support.adoc[Get support]
 
