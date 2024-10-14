@@ -1,0 +1,500 @@
+[33mcommit 882569fbd99c6b23d5d76e66acbefe9370d8d2bb[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mamandalindsay-FlowV6[m[33m)[m
+Merge: a4bd692 a9eef78
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Thu Oct 10 16:52:37 2024 +0100
+
+    Merge branch 'FlowV6' of https://github.com/amandalindsay/hz-flow-docs into amandalindsay-FlowV6
+
+[33mcommit a9eef78e80f0584f1e0f20224935f3ed4f8e7ec5[m[33m ([m[1;31morigin/FlowV6[m[33m, [m[1;32mFlowV6[m[33m)[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Thu Oct 10 14:23:11 2024 +0100
+
+    HZX-270: tweak headings as per style guide
+
+[33mcommit 17948e162dceb3b9f935e79c8c79de2089b3d7c2[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Wed Oct 9 17:02:25 2024 +0100
+
+    HZX-270: replace gerunds in docs, 1st batch
+
+[33mcommit 7a1bc647d7c4e5d3fa43460603ad047026432c8a[m
+Merge: 5ed314d 278c87d
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Wed Oct 9 11:35:26 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs into FlowV6
+
+[33mcommit 278c87d2a0d2b96ed79b35785d731d3bd1d4bb11[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Oct 8 21:02:47 2024 +0100
+
+    couple more typos (#46)
+    
+    inspired by Jack, only a couple more minor ones
+
+[33mcommit f4abc5a95a342545ac01d90d53f4767d1268c81e[m
+Author: Jack Green <JackPGreen@Gmail.com>
+Date:   Tue Oct 8 17:42:01 2024 +0100
+
+    Fix documentation typos (#45)
+
+[33mcommit cae426dfb6449a376863b0060fef6b69523ac43e[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Oct 8 17:04:18 2024 +0100
+
+    link to get a trial license (#44)
+    
+    Link the, you need a license, section, to get a trial license
+
+[33mcommit a4bd6924e50ccac26598238a74c5b06c818d33aa[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 5ed314d 72e93a5
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Mon Oct 7 10:42:18 2024 +0100
+
+    Merge branch 'hazelcast:main' into main
+
+[33mcommit 72e93a55c32f3e5562d98a2b9d52a37b07dfb93c[m
+Author: Oliver Howell <oliver.howell@hazelcast.com>
+Date:   Mon Oct 7 10:17:40 2024 +0100
+
+    Update local playbook to trigger new build
+
+[33mcommit f62b7e567f3397593d536b844aababed628b7eb7[m
+Merge: ee0d493 ebbd551
+Author: Oliver Howell <oliver.howell@hazelcast.com>
+Date:   Mon Oct 7 10:13:10 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs into FlowBuild
+
+[33mcommit ebbd551b9d477bdc542d0e70d62bc97418c7ea72[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Thu Oct 3 13:13:55 2024 +0100
+
+    HZX-260: updated sample queries (#41)
+    
+    # Description of change
+    
+    Updated sample queries so that they work when published as HTTP endpoint
+
+[33mcommit b989ac3447ee0867a6c3cf847c4200ad2d2515f4[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Thu Oct 3 13:13:39 2024 +0100
+
+    HZX-261: Streaming tutorial rename (#42)
+    
+    # Description of change
+    
+    Renamed to `hazelflix` to be consistent with example tutorial
+
+[33mcommit 94ac7187aeef6792c669d795d3a957ffd4094d54[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Wed Oct 2 12:44:52 2024 +0100
+
+    HZX-26: updates to Working with XML (#40)
+    
+    # Description of change
+    
+    Applying some updates to the XML guide after trying out the queries
+
+[33mcommit 5ed314df7de3defd55d54a38c6fb6b8a90286413[m
+Merge: 490440d 932ad5d
+Author: amandalindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Wed Oct 2 11:52:18 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs
+
+[33mcommit 932ad5d178ca470ade580e44042a2fdfa20b8950[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Tue Oct 1 15:33:09 2024 +0100
+
+    Flow content v5 (#37)
+    
+    Minor docs changes to address issues with links and link text
+
+[33mcommit b20ff0186d81215bcd74ae52e94eb996d7ad8994[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Oct 1 15:31:36 2024 +0100
+
+    replace some of the docker references (#38)
+    
+    * Where we refer to Docker Compose, keep the reference
+    * Where we're just referring to a container, call it a container, not
+    Docker
+
+[33mcommit 6ab4d1f8ef74e3dc23940417699a137ace7fe3a0[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Mon Sep 30 14:52:46 2024 +0100
+
+    HZX-241: renamed to hazelflix (#39)
+    
+    # Description of change
+    
+    https://hazelcast.atlassian.net/browse/HZX-241
+    
+    Renamed project to `hazelflix`
+
+[33mcommit 490440d72c79d454490a80dd057e9e4b4a2de233[m
+Merge: 04428ed e289a78
+Author: amandalindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Thu Sep 19 11:47:42 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs
+
+[33mcommit e289a78920699b6fa675086ded95c9da38944926[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Sep 17 15:02:31 2024 +0100
+
+    HZX-218 delete links (#35)
+    
+    simple fix, we'll just delete the links
+
+[33mcommit 0e64d652e1de48b1f3b1f3d0a6f1a3d9d8be02f2[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Sep 17 14:37:39 2024 +0100
+
+    HZX-231 add details to include in support requests (#26)
+    
+    Add support details, mostly extracted from
+    https://docs.hazelcast.com/hazelcast/latest/getting-started/support
+    
+    ---------
+    
+    Co-authored-by: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+
+[33mcommit 5566a2614cf011d4bb1a9ff73240e90e1a87505b[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Sep 17 14:34:25 2024 +0100
+
+    HZX-228 add release notes (#27)
+    
+    5.5.0 release notes
+
+[33mcommit d3c1e9a027839de390a1b5aefc542c3e3dfce3bf[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Tue Sep 17 14:33:48 2024 +0100
+
+    HZX-241 Removed note about platform: linux/amd64 as not required (#34)
+    
+    # Description of change
+    
+    With the hosted version of docker-compose for the films demo, the
+    platform configuration is not required for OSX
+
+[33mcommit 04934bd1434396c2e64d763295b56e2918cd4dce[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Sep 17 13:56:05 2024 +0100
+
+    it was me 🙈, fix images (#33)
+    
+    put protobuf images in the right place after moving the page
+
+[33mcommit 6fbc09ab3321c7db78ea825723635e9b5d1bfca2[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Sep 17 10:56:13 2024 +0100
+
+    Hzx 249 UI editor (#32)
+    
+    * Lift a couple of burried links up to the menu
+    * Kill/update some old links
+    * Make docs validation slightly happier
+
+[33mcommit 286b5d63668ab3f6c3025248cf1d8e10ed3fd14c[m
+Author: Artem Laktionov <artem.laktionov@hazelcast.com>
+Date:   Tue Sep 17 09:47:16 2024 +0200
+
+    HZX-220: Update 'Hazelcast as a data source' doc (#31)
+    
+    # Description of change
+    Minor updates to `Hazelcast as a data source` doc (addresses points 1-5
+    from
+    [HZX-220](https://hazelcast.atlassian.net/browse/HZX-220?focusedCommentId=102815))
+    
+    ## Type of change
+    
+    Select the type of change that you're making:
+    
+    - [ ] Bug fix (Addresses an issue in existing content such as a typo)
+    - [x] Enhancement (Adds new content)
+    
+    ## Open Questions and Pre-Merge TODOs
+    - [ ] Use github checklists to create a list. When an item is solved,
+    check the box and explain the answer.
+    
+    
+    [HZX-220]:
+    https://hazelcast.atlassian.net/browse/HZX-220?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ
+
+[33mcommit 749f5da409bd145321695b347535a6835fe1e7fd[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Mon Sep 16 16:05:54 2024 +0100
+
+    reinstate prod docs (#24)
+    
+    Looks like the prod changes got nuked in a merge at some point, bringing
+    them back
+
+[33mcommit 5aabd2086d886c9cf993246461242cd829e32bfa[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Mon Sep 16 16:03:34 2024 +0100
+
+    remove roles link (#25)
+    
+    Roles and permissions placeholder superseded by Enable Authorization
+    page
+
+[33mcommit ef98bbec381fce1f9bc4661103f8176785a5893d[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Mon Sep 16 16:03:14 2024 +0100
+
+    Updated films tutorial to match github repository/dockerfile (#29)
+    
+    # Description of change
+    
+    Updated the films tutorial steps to match the Dockerfile setup in this
+    repository
+     https://github.com/hazelcast/hazelcast-flow-public-demos
+
+[33mcommit ef9a78cbd4a6a6f18b7e22993daa59ccffbba358[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Mon Sep 16 15:55:08 2024 +0100
+
+    add continue reading links (#28)
+    
+    continue reading links
+
+[33mcommit 04428edcbfb2f62dc4fc1a4cb387c8bf685fc286[m
+Merge: 6c4950a 11529a6
+Author: amandalindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Mon Sep 16 15:22:05 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs
+
+[33mcommit 11529a6cec18eaa8fc9bb2f6f4ad081b1055f80e[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Mon Sep 16 11:55:51 2024 +0100
+
+    Flow content v4 (#30)
+    
+    Various Flow docs changes including Marty's docs updates, and the vyne
+    rebranding
+    
+    
+    https://deploy-preview-30--silly-otter-82acc9.netlify.app/hz-flow/5.5-snapshot/
+
+[33mcommit 6ab62ed43a1e3159bfd4aa32bd1b05384f0325a9[m
+Author: Artem Laktionov <artem.laktionov@hazelcast.com>
+Date:   Mon Sep 16 11:33:07 2024 +0200
+
+    HZX-218: Improve code samples styling (#23)
+    
+    # Description of change
+    Improvements to several code samples throughout the Documentation.
+    (Addresses point 1 from
+    [HZX-218](https://hazelcast.atlassian.net/browse/HZX-218?focusedCommentId=102868))
+    
+    ## Type of change
+    
+    Select the type of change that you're making:
+    
+    - [ ] Bug fix (Addresses an issue in existing content such as a typo)
+    - [x] Enhancement (Adds new content)
+    
+    ## Open Questions and Pre-Merge TODOs
+    - [ ] Use github checklists to create a list. When an item is solved,
+    check the box and explain the answer.
+    
+    
+    [HZX-218]:
+    https://hazelcast.atlassian.net/browse/HZX-218?atlOrigin=eyJpIjoiNWRkNTljNzYxNjVmNDY3MDlhMDU5Y2ZhYzA5YTRkZjUiLCJwIjoiZ2l0aHViLWNvbS1KU1cifQ
+
+[33mcommit 5767212837316fa825c7f8189abe6f3cf1cb77aa[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Fri Sep 13 13:57:12 2024 +0100
+
+    restructure connections and protobuf references (#22)
+    
+    * Reorganise connections list, split which are connections and which are
+    general config
+    * Protobuf is a format, and the connection page didn't add anything, so
+    remove it
+    * The contents of data-formats/profobuf is the previous
+    describing-data-formats/protobuf page
+      * Update the other protobuf references
+
+[33mcommit c02af81b0dff243f1d591b628b416457bc23b990[m
+Author: Murat Yilmaz <murat.yilmaz@hazelcast.com>
+Date:   Thu Sep 12 18:59:44 2024 +0300
+
+    Document potential modification of security preconfiguration [HZX-219]. (#20)
+    
+    This PR also modifies vyne prefix to flow. Full migration will be tested
+    with https://hazelcast.atlassian.net/browse/HZX-247.
+
+[33mcommit 04e4e93110dbcf8a1f0c991b39783c9f1e58812c[m
+Author: Oliver Howell <oliver.howell@hazelcast.com>
+Date:   Thu Sep 12 13:07:42 2024 +0100
+
+    HZX-232: add build variables to playbook (#21)
+    
+    Adds variables and connects to Netlify for preview and production
+    builds.
+
+[33mcommit ee0d49365bc363a6c87566d425b4cc8ca8c64b64[m
+Author: Oliver Howell <oliver.howell@hazelcast.com>
+Date:   Thu Sep 12 12:17:30 2024 +0100
+
+    HZX-232: add build variables to playbook
+
+[33mcommit 6c4950ac06293ce092af45ad494624a40cd8c8ce[m
+Merge: 7ddb920 dd5c65e
+Author: amandalindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Wed Sep 11 10:46:55 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs
+
+[33mcommit dd5c65ed1227130952c5bdb18559c17cdb20b27f[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Wed Sep 11 10:44:18 2024 +0100
+
+    HZX-229 Added Jet job description (#18)
+    
+    # Description of change
+    
+    Added a description of Flow's use of Jet Jobs for Streaming Endpoints
+
+[33mcommit 7b0515a336331464da6091636acf7aa8fa6cdf77[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Wed Sep 11 10:13:52 2024 +0100
+
+    HZX-229 added components + load balancer pages (#16)
+    
+    # Description of change
+    
+    Added components page + load balancer descriptions
+
+[33mcommit 416d585219b74dd403010a0577e30663517f5b55[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Tue Sep 10 14:50:27 2024 +0100
+
+    add info on secret generation (#17)
+    
+    Add info on client_secret env var
+    
+    ---------
+    
+    Co-authored-by: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+
+[33mcommit 9dc0f7ef0cda53709e4a04e374a0c94a0b2bf6b9[m
+Author: Yüce Tekol <yucetekol@gmail.com>
+Date:   Tue Sep 10 16:49:26 2024 +0300
+
+    Removed  "Pushing Using the Taxi CLI" section (#8)
+    
+    # Description of change
+    
+    * Removed "Pushing Using the Taxi CLI" section.
+    * Updated Quickstart to direct the users to CLC install page.
+
+[33mcommit 775b9cfd04343bd1ebbe486478bc7e0a6c9824eb[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Tue Sep 10 13:16:19 2024 +0100
+
+    Flow content v3 (#19)
+    
+    Latest doc changes and navigation
+
+[33mcommit 039aa633931b1e51e3e7f6be91f234bff12e34f7[m
+Author: Patrick McGleenon <pmcgleenon@users.noreply.github.com>
+Date:   Thu Sep 5 18:03:07 2024 +0100
+
+    Described license setup, added note about MC dev mode (#13)
+    
+    # Description of change
+    
+    Currently the CLC template doesn't require a Hazelcast license. On
+    release a license will be required - I've added the steps required to
+    setup the license into the Development Setup
+    
+    Also made a note about MC dev mode.
+
+[33mcommit b1f8f5939022b49e1ed3035acee280864352d597[m
+Author: Murat Yilmaz <murat.yilmaz@hazelcast.com>
+Date:   Thu Sep 5 15:22:58 2024 +0300
+
+    Re-write authorization of Flow [HZX-219]. (#15)
+
+[33mcommit a97dd4f385cd2b5890939bc229e28aa0595f7b6f[m
+Author: Murat Yilmaz <murat.yilmaz@hazelcast.com>
+Date:   Thu Sep 5 14:12:59 2024 +0300
+
+    Re-write authentication of Flow [HZX-219]. (#12)
+    
+    PR comments: https://github.com/hazelcast/hz-flow-docs/pull/9
+
+[33mcommit 0cf8d95bed438f53b143597edd62d443b0232aa1[m[33m ([m[1;31mupstream/nav-v2[m[33m)[m
+Author: Oliver Howell <oliver.howell@hazelcast.com>
+Date:   Wed Sep 4 13:39:58 2024 +0100
+
+    Add Netlify build hook
+
+[33mcommit 7ddb92053437b94a443587e7059e3a8a4d73d742[m
+Merge: 7b800dc 68b6962
+Author: amandalindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Wed Sep 4 10:54:11 2024 +0100
+
+    Merge branch 'main' of https://github.com/hazelcast/hz-flow-docs
+
+[33mcommit 68b69626c8feca888069314bf8acc2329254fecd[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Wed Sep 4 10:46:44 2024 +0100
+
+    Update Flow docs with review comments (#10)
+    
+    Co-authored-by: Oliver Howell <oliver.howell@hazelcast.com>
+
+[33mcommit 69224d1f7cd51c3db8049d2a65083ab98c32ea87[m
+Author: Oliver Howell <oliver.howell@hazelcast.com>
+Date:   Fri Aug 23 13:58:35 2024 +0100
+
+    Add Kapa ID for preview build (#7)
+    
+    ## Type of change
+    
+    Select the type of change that you're making:
+    
+    - [ ] Bug fix (Addresses an issue in existing content such as a typo)
+    - [x] Enhancement (Adds new content)
+
+[33mcommit 9671a8735e527590461f879348b8d77948c787b0[m
+Author: Michael Pollett <michael.pollett@hazelcast.com>
+Date:   Fri Aug 23 13:23:52 2024 +0100
+
+    Flow docs structure new (#6)
+    
+    Deployment structure changes
+    
+    ---------
+    
+    Co-authored-by: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+
+[33mcommit 98c706f089a99a523b3b77f4bc36ddf2a698f09a[m
+Author: Amanda Lindsay <v-amanda.lindsay@hazelcast.com>
+Date:   Thu Aug 22 10:09:33 2024 +0100
+
+    Flow content v1 (#4)
+    
+    # Description of change
+    
+    ~~1st preview build of WIP content:
+    https://deploy-preview-381--nifty-wozniak-71a44b.netlify.app/hz-flow/5.5-snapshot/~~
+    
+    2nd preview:
+    https://deploy-preview-386--nifty-wozniak-71a44b.netlify.app/hz-flow/5.5-snapshot/
+    
+    # Feedback
+    
+    You can give feedback with comments or by starting a review as normal.
+    
+    ---------
+    
+    Co-authored-by: Oliver Howell <oliver.howell@hazelcast.com>
