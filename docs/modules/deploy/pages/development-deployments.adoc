@@ -70,10 +70,6 @@ The following containers will now be running:
 | Data store for your projects
 | psql 25432
 
-| Hazelcast
-| An external Hazelcast cluster for storing your data
-| hz 5701
-
 | Management Center
 | An interface into the workings of Hazelcast
 | https://localhost:8080
