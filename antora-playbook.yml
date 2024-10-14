@@ -2,7 +2,7 @@ site:
   title: Hazelcast Flow
   url: https://silly-otter-82acc9.netlify.app/
   robots: disallow
-  start_page: hz-flow:index.adoc
+  start_page: flow:index.adoc
   keys:
     google_analytics: 'GTM-MQ59XD6'
     docsearch_id: 'QK2EAH8GB0'
