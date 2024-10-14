@@ -79,13 +79,8 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 
 === Related links
 
-<<<<<<< HEAD
 * xref:deploy:production-deployments.adoc[Deploy {short-product-name} without the demo projects]
 * https://gitlab.com/vyne/demos/-/tree/master/films[Demo project source code, on GitLab]
-=======
-* xref:deploying:production-deployments.adoc[Deploying {short-product-name} without the demo projects]
-* https://github.com/hazelcast/hazelcast-flow-public-demos/tree/main/films-demo[Demo project source code, on GitHub]
->>>>>>> 302a62be7a1d14a43a9e79ef649123e7d4a8c1b3
 
 == View the project
 An empty project named *films* has been created for {short-product-name} to hold the connection details of our data sources, and schemas. 

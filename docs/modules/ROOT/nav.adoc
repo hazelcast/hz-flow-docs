@@ -65,7 +65,7 @@
 *** xref:data-formats:protobuf.adoc[Protobuf]
 
 * Performance
-//** xref:streams:stream-data.adoc[Benchmarks]
+** xref:streams:stream-data.adoc[Benchmarks]
 
 .Query
 * xref:query:write-queries.adoc[Query with {short-product-name}]
