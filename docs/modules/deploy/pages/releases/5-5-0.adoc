@@ -1,0 +1,19 @@
+= 5.5.0 Release Notes
+:description Release notes for 5.5.0
+
+These release notes list any new features, enhancements, fixes and breaking changes that were included in the initial version of {long-product-name}.
+
+== Overview
+
+{long-product-name} is a highly sophisticated, light footprint, low-code integration engine that manages the entire orchestration of data, data sources and live integrations to applications and users. It promotes efficient data exploration and provides a fast, consistent and observable method for connecting data to applications, across data formats and multiple sources.
+
+{long-product-name} coordinates the engagement and relationship to every data asset across the business. This gives fast access to any data without complexity, providing clear observable data lineage for data traceability and compliance.  By delivering an autonomous, resilient, data exploration and provisioning capability, {long-product-name} redefines the characteristics of the semantic data layer. It now becomes a dynamic, resilient and scalable, vital component that will accelerate business objectives which depend on the flow of data to applications, services and users.
+
+To get started:
+
+* Read our xref:introduction:quickstart.adoc[]
+* Look over our xref:guides:index.adoc[]
+* Learn how to xref:query:write-queries.adoc[]
+
+
+//TODO: update with public marketing pages when available

@@ -1,4 +1,4 @@
-= Composing APIs and a Database
+= Compose APIs and a Database
 :description: A tutorial showing how to link a database and APIs.
 
 
@@ -18,7 +18,7 @@ This demo deploys the following:
 * A REST Endpoint that resolves IDs
  ** Our services have different ID schemes - specifically the IDs used in our DB are not the same IDs used by our FilmReviews API. Therefore, we need to map one set of IDs to another
 
-== Describing our data and services
+== Describe our data and services
 
 First, we'll define a handful of Taxi types to describe the data returned from our services:
 
@@ -253,7 +253,7 @@ class RegisterSchemaOnStartup(
  }
 ```
 
-== Composing APIs
+== Compose APIs
 Our APIs are now described and published to {short-product-name}, so we can start writing queries to ask for data.
 
 In the Query Editor, write a query to ask for data coming from the three APIs:
@@ -277,7 +277,7 @@ image:code-editing.gif[Auto completion]
 
 Run this query, and you'll get the results back, linking together data from our database, and three different REST APIs.
 
-=== Exploring the profiler
+=== Explore the profiler
 
 Click on the Profiler tab, and you'll see an architecture diagram, showing all
 the services that were called for each field:
@@ -297,7 +297,7 @@ There's no resolver or glue code written here, so how does this all work?
 the services that expose these values. It then builds an integration plan to load the required
 data.
 
-== Exposing a composite API
+== Expose a composite API
 
 Now we have the data we want to expose, we can publish this on an API.
 

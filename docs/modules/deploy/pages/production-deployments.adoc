@@ -1,0 +1,36 @@
+= Deploy {short-product-name}
+:description: How to deploy {short-product-name} to production
+
+Our recommended deployment method is with `docker compose` or deploying the container directly using the orchestrator of your choice.
+
+== Deploy using Docker Compose
+
+A sample `docker-compose.yml` file is maintained on https://github.com/hazelcast/hazelcast-flow-docker-compose[Github]
+
+With examples for:
+
+* Running with an external Hazelcast cluster
+* Using external IDP config
+* Configuring to include metrics
+
+Note that, by default, {short-product-name} does not enable
+authentication or role-based authorization, and you'll need to enable these.
+
+== Production concepts
+
+When deploying to production, there are common tasks you may wish to perform:
+
+* Enable xref:deploy:authentication.adoc[authentication] and xref:deploy:authorization.adoc[authorization] in {short-product-name}
+* Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file], to align with IAC
+* Understand how xref:deploy:manage-secrets.adoc[secrets are handled] in {short-product-name}
+* Understand how to configure {short-product-name} via xref:deploy:configure.adoc#container[application properties] or xref:deploy:configure.adoc#passing-{short-product-name}-application-configuration[environment variables]
+
+== Further deployment templates
+
+These further templates provide code samples for provisioning infrastructure and deploying into orchestration platforms
+
+=== Deploy with Terraform
+
+{short-product-name} maintains example deployment scripts for production configurations of {short-product-name} in Terraform.
+
+These are available on https://github.com/hazelcast/hazelcast-flow-terraform[Github]
