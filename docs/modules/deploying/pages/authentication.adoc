@@ -112,7 +112,7 @@ Once the containers have started, configure your external identity provider with
 
 image:external-idp-oidc-login.png[]
 
-== Obtaining an Access Token
+== Obtain an Access Token
 If your application needs machine-to-machine communication with {short-product-name}, MC utilizes client credentials flow under the hood. Here are the steps:
 
 . Set the MC_APPLICATION_CLIENT_SECRET environment variable, MC will create a client with a client credential grant type named `application-client`. For simplicity, let's assume the environment variable is set to `qqq` for a quick example.
