@@ -44,7 +44,7 @@ A common pattern for building a core taxonomy is:
 
 * It is created as a standalone project, independent of any specific API / Service
 * It lives in a Git repository
-* {short-product-name} xref:connecting-a-git-repo.adoc[monitors the Git repository] and automatically deploys changes
+* {short-product-name} xref:connect-a-git-repo.adoc[monitors the Git repository] and automatically deploys changes
 
 === Services and data sources
 
@@ -80,10 +80,10 @@ message Customer {
 ----
 ====
 
-For more information, see the topics on using xref:describing-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf] to describe your data sources.
+For more information, see the topics on using xref:describe-data-sources:open-api.adoc[OpenAPI] or xref:data-formats:protobuf.adoc[Protobuf] to describe your data sources.
 
 
-==== Using Taxi
+==== Use Taxi
 
 Another option is authoring your API specs directly in xref:introduction:about-taxi.adoc[Taxi]:
 
@@ -104,7 +104,7 @@ Alternatively, you can just generate schema definitions directly from code, or a
 
 Once you've chosen how to describe your services, next publish your specs to {short-product-name}. 
 
-== Publishing and updating your specs
+== Publish and update your specs
 
 How and when you choose to publish / update these sources is up to you - teams tend to have different preferences around this.
 
@@ -116,7 +116,7 @@ The following publication methods are available:
 * Pushing updates to {short-product-name} manually (e.g., within a CI/CD pipeline)
 * Having {short-product-name} poll sources for changes
 
-=== Pushing API specs directly from your apps
+=== Push API specs directly from your apps
 
 Applications can generate Taxi, direct from code, and publish to {short-product-name}.
 
@@ -138,7 +138,7 @@ for teams that choose to push updates as part of a CI/CD cycle.
 Learn more about this approach [here](./publishing-direct-to-{short-product-name})
 ////
 
-=== Pulling API specs from {short-product-name}
+=== Pull API specs from {short-product-name}
 
 {short-product-name} can be configured to fetch API specs (projects) from either Git repositories
 or the file system where {short-product-name} is running (intended for local development).
@@ -148,24 +148,24 @@ a Git repository.
 
 {short-product-name} will poll your Git repo, and automatically update as changes are merged into your target branch.
 
-For more information, read about xref:connecting-a-git-repo.adoc[pulling API specs from Git] or xref:connecting-a-disk-repo.adoc[reading API specs from local disk].
+For more information, read about xref:connect-a-git-repo.adoc[pulling API specs from Git] or xref:connect-a-disk-repo.adoc[reading API specs from local disk].
 
 == Workspace.conf file
 
 The `workspace.conf` file is a HOCON file that describes all the locations to pull code from.  (Data sources that
-are <<pushing-api-specs-directly-from-your-apps,pushing their API specs>> are not included.)
+are <<push-api-specs-directly-from-your-apps,pushing their API specs>> are not included.)
 
 Schemas can be pulled from multiple different formats and approaches.  The configuration for these
 repositories is defined in a https://github.com/lightbend/config#examples-of-hocon[HOCON] format file.
 
-=== Passing a workspace.conf file
+=== Pass a workspace.conf file
 
 //rebranded vyne to flow in --flow.workspace.config-file below - check
 
 By default, the configuration file is called `workspace.conf`.  However, the location of the file can be changed by setting `--flow.workspace.config-file=/path/to/workspace.conf`
 on the command line, or through any of the supported configuration overriding mechanisms.
 
-=== Reading workspace.conf from Git
+=== Read workspace.conf from Git
 
 For production deployments, it's often preferable to read config directly from Git. This is useful both for Infrastructure-as-code, as well as for
 deploying to services where there's ephemeral storage (like AWS ECS).
@@ -185,7 +185,7 @@ You can configure {short-product-name} to read a `workspace.conf` file from a gi
 | _Optional_ The path within the repo to read the config file. Defaults to `workspace.conf`
 |===
 
-=== Using a single-project workspace
+=== Use a single-project workspace
 
 For demos / test config, it's sometimes useful to start {short-product-name} with a single project configured.
 
@@ -193,7 +193,7 @@ You can bypass the workspace config, and point {short-product-name} directly to 
 
 To do this, start {short-product-name} with `--flow.workspace.project-file=/path/to/taxi.conf`
 
-=== Configuration conventions
+=== Configure conventions
 
 Durations are defined using https://en.wikipedia.org/wiki/ISO_8601#Durations[ISO 8601] formats.  For example:
 
@@ -231,4 +231,4 @@ git {
 
 == Continue reading
 
-Continue learning about {short-product-name} by xref:describing-data-sources:configuring-connections.adoc[connecting your data sources].
+Continue learning about {short-product-name} by xref:describe-data-sources:configure-connections.adoc[connect your data sources].

@@ -1,4 +1,4 @@
-= Getting support
+= Get support
 :description: 'Getting support with {long-product-name}.'
 
 Need help?  Have an idea?  We'd like to hear from you.
@@ -17,7 +17,7 @@ When submitting a ticket to the team, please provide as much information and dat
 * `PROD` issues that cause mission-critical system failure are considered as severity 1
 * All other issues are considered severity 2 or 3 depending on urgency
 
-== Adding Details to the Support Ticket
+== Add Details to the Support Ticket
 
 * When you open a support ticket add a concise title and description of the problem
 * Add steps to reproduce as best as you can to document them so that Support can attempt to reproduce the problem. This includes Detailed description of incident – what happened and when
