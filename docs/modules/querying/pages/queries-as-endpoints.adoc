@@ -156,6 +156,12 @@ curl -X GET 'http://localhost:9021/api/q/newReleases' \
   -H 'Accept: text/event-stream;charset-UTF-8'
 ----
 
+== Authentication to Query Endpoints
+When Flow has been deployed with Identity Provider integration enabled, the query endpoints are secured using OAuth2.0.   In order to access the query endpoints, you must provide a valid access token in the Authorization HTTP header.  The access token is obtained by authenticating with the Identity Provider.  For more information on how to obtain an access token, see xref:deploying:authentication.adoc#obtaining-an-access-token[Obtaining an Access Token].
+
+
+
+
 == Live reload
 
 Any changes made to the queries are automatically deployed.
