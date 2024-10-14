@@ -5,7 +5,8 @@ Running {short-product-name} in production and at scale.
 
 == Minimum specifications
 
-We recommend running {short-product-name} on a machine with at least 2 CPUs and 8 GiB of memory.
+We recommend running {short-product-name} on a machine with at least 8 CPU cores and 8 GiB of memory.  This is based on the https://docs.hazelcast.com/hazelcast/5.5/cluster-performance/performance-tips[minimum specifications] for running the underlying Hazelcast cluster. +
+For further details on this please read the https://docs.hazelcast.com/hazelcast/5.5/cluster-performance/performance-tips[Hazelcast Performance Tips].
 
 For production resilience, please ensure you're running multiple {short-product-name} instances to ensure continued uptime.
 
@@ -15,11 +16,11 @@ Doubling the available resources can roughly half your processing latency and in
 
 == Tuning
 
-When running {short-product-name} in xref:deploying:production-deployments.adoc[production], ensure you've configured an external xref:querying:observability.adoc#performance-metrics--prometheus[Prometheus] server to capture your metrics, then {short-product-name} will graph them on the Endpoint page. From there you can see the throughput of your query and the latency of each message processed.
+When running {short-product-name} in xref:deploy:production-deployments.adoc[production], ensure you've configured an external xref:query:observability.adoc#performance-metrics--prometheus[Prometheus] server to capture your metrics, then {short-product-name} will graph them on the Endpoint page. From there you can see the throughput of your query and the latency of each message processed.
 
 image:perf-metrics.png[]
 
 The throughput of {short-product-name} will be highly dependent on the complexity of your queries and external models that the system is having to make requests to. A query running a basic streaming process with minimal lookups should be able to scale until exhausting your available processing resources. A query with lots of external lookups and connections is more likely to be bound by IO time, so monitor your query durations closely.
 
-If your external lookups are cacheable, consider using {short-product-name}'s native xref:describing-data-sources:caching.adoc[caching] annotations to save making the same API requests repeatedly and retrieve the data from local memory instead.
+If your external lookups are cacheable, consider using {short-product-name}'s native xref:describe-data-sources:caching.adoc[caching] annotations to save making the same API requests repeatedly and retrieve the data from local memory instead.
 
