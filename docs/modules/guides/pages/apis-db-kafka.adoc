@@ -552,7 +552,7 @@ Fill out the form with the following details:
 
 | Group Id
 // | `vyne` (should already be populated)
-| `flow` (should already be populated)
+| `MyConsumerGroup` (should already be populated)
 |===
 
 * Click *Create*.  A new Kafka connection is created, and the popup closes
@@ -572,7 +572,7 @@ Fill out the rest of the form with the following details:
 | `LATEST`
 
 | Namespace
-| `com.hazelflix.announcements`
+| `com.hazelflix.films.mykafka`
 
 | Message Type
 | `NewFilmReleaseAnnouncement`
