@@ -551,8 +551,7 @@ Fill out the form with the following details:
 | `kafka:19092`
 
 | Group Id
-// | `vyne` (should already be populated)
-| `flow` (should already be populated)
+| `MyConsumerGroup` (should already be populated)
 |===
 
 * Click *Create*.  A new Kafka connection is created, and the popup closes
@@ -572,7 +571,7 @@ Fill out the rest of the form with the following details:
 | `LATEST`
 
 | Namespace
-| `com.hazelflix.announcements`
+| `com.hazelflix.films.mykafka` (should already be populated)
 
 | Message Type
 | `NewFilmReleaseAnnouncement`
@@ -615,6 +614,8 @@ Cancel the running query, and paste the following:
 
 [,taxi]
 ----
+import com.hazelflix.films.filmsdatabase.film.types.FilmId
+
 stream { NewFilmReleaseAnnouncement } as {
     // The announcement comes from our Kafka Protobuf message
     news: {
