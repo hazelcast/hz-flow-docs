@@ -614,6 +614,8 @@ Cancel the running query, and paste the following:
 
 [,taxi]
 ----
+import com.hazelflix.films.filmsdatabase.film.types.FilmId
+
 stream { NewFilmReleaseAnnouncement } as {
     // The announcement comes from our Kafka Protobuf message
     news: {
