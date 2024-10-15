@@ -1,7 +1,7 @@
 = Load balancer 
 :description: Load balancer setup
 
-When deploying multiple {short-product-name} servers, they can be deployed behind a load balancer to scale out the system.  https://traefik.io/traefik[Traefik] is used as an example in this section, although any other load balancer can be used (e.g. nginx).
+When deploying multiple {short-product-name} servers, they can be deployed behind a load balancer to scale out the system.  https://traefik.io/traefik[Traefik] is used as an example in this section, although any other load balancer can be used (e.g. nginx).  
 
 == When is a load balancer required?
 
@@ -51,5 +51,5 @@ CORS is a mechanism where a web page can specify which resources from a differen
 
 In production deployments,  Single Sign On (SSO) between {short-product-name} and Management Center is typically enabled and Management Center is deployed on a different domain from {short-product-name}.  In this case, it’s important that CORS configuration is applied to Management Center.
 
-Management Center has the system property `hazelcast.mc.flow.address` which when configured, is added to the CORS Access-Control-Allow-Origin HTTP Response header from Management Center.  When Management Center is configured as an Identity Provider for {short-product-name}, {short-product-name} will try to fetch some resources from Management Center when loading the {short-product-name} UI main page.  This CORS configuration is important to enable that cross-domain communication. 
+Management Center has the system property `hazelcast.mc.flow.addresses` which when configured, is added to the CORS Access-Control-Allow-Origin HTTP Response header from Management Center.  When Management Center is configured as an Identity Provider for {short-product-name}, {short-product-name} will try to fetch some resources from Management Center when loading the {short-product-name} UI main page.  This CORS configuration is important to enable that cross-domain communication. 
 
