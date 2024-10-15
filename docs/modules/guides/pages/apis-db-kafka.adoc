@@ -551,7 +551,6 @@ Fill out the form with the following details:
 | `kafka:19092`
 
 | Group Id
-// | `vyne` (should already be populated)
 | `MyConsumerGroup` (should already be populated)
 |===
 
