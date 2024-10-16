@@ -119,7 +119,7 @@ To check the current watch limit, run the following:
 sysctl fs.inotify.max_user_watches
 ----
 
-The ideal number of watches depend on the number of Flow projects you have, and the number of other apps that adds file watches.
+The ideal number of watches depends on the number of Flow projects you have, and the number of other apps that add file watches.
 For many use cases, `250 000` would be a sensible choice.
 
 You can set the number of file watches limit temporarily using the following commands:
