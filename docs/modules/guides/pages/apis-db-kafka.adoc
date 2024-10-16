@@ -30,16 +30,13 @@ that we'll use throughout.
 
 Everything you need is packaged up in a Docker Compose file to make getting started easier.  
 
-NOTE: For MacOS, to start the project, set the following platform property for flow, pg-pagila, films-api, zookeeper and kafka containers: `platform: linux/amd64`
-
 To launch, run the following in your command line:
 
 [,bash]
 ----
-mkdir flow-films-demo
-cd flow-films-demo
+git clone https://github.com/hazelcast/hazelcast-flow-public-demos.git
+cd hazelcast-flow-public-demos/films-demo
 
-curl -O https://raw.githubusercontent.com/hazelcast/hazelcast-flow-public-demos/main/films-demo/docker-compose.yml
 
 docker compose up -d
 ----
@@ -57,11 +54,15 @@ which we'll use in our next steps.
 If you run `docker ps`, you should see a collection of Docker containers now running.
 
 |===
-| Docker Image | Part of {short-product-name} stack or Demo? | Description
+| Container Name | Part of {short-product-name} stack or Demo? | Description
 
 | {code-product-name}
 | {short-product-name}
 | The core {short-product-name} server, which provides our UI, and runs all our integration for us
+
+| management-center
+| {short-product-name}
+| The Management Center, for monitoring and managing {short-product-name}
 
 | films-api
 | Demo
@@ -71,43 +72,39 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 | Demo
 | A Postgres DB, which contains the Postgres https://github.com/devrimgunduz/pagila[Pagila] demo database for a fake DVD rental store
 
-| apache/kafka
+| kafka
 | Demo (Kafka)
 | The Apache Kafka image
 |===
 
 === Related links
 
-* xref:deploying:production-deployments.adoc[Deploying {short-product-name} without the demo projects]
-* https://gitlab.com/vyne/demos/-/tree/master/films[Demo project source code, on GitLab]
+* xref:deploy:production-deployments.adoc[Deploy {short-product-name} without the demo projects]
+* https://github.com/hazelcast/hazelcast-flow-public-demos/tree/main/films-demo[Demo project source code, on GitHub]
 
-== Create a project
-First, we'll create a project for {short-product-name} to hold the connection details of our data sources, and schemas. 
+== View the project
+An empty project named *films* has been created for {short-product-name} to hold the connection details of our data sources, and schemas. 
 The project is a https://taxilang.org[Taxi] project which gets edited locally, then checked into Git once you're ready to go to production.
 
  - From the sidebar, click http://localhost:9021/projects[Projects]
- - Click *Add Project* and add a Local Disk project
- - For the **Project Path**, enter `petflix` 
-   - The server will tell you it can't find an existing project, and let you create one - click **Create new project**
- - Enter the package co-ordinates as follows (this is similar to npm, maven, etc.)
-
+ - You will see the films project listed
+ - Click on the project to view the details
+ 
 
 |===
 | Field | Value
 
 | *Organisation*
-| `com.petflix`
+| `com.hazelflix`
 
-| *Name*
-| `demo`
 
 | *Version*
-| `1.0.0`
+| `0.1.0`
 |===
 
- - Click *Create*
+As we progress through this tutorial, we'll be adding connections to our database, REST API and Kafka topic to this project.   You can view the taxi schemas that {short-product-name} generates in this project.
 
-A new, empty Taxi project is created, and you'll be taken to the Project list.
+
 
 == Connect a database table
 
@@ -125,7 +122,7 @@ To get started, click on *Data sources* on the side bar, and click *Add a data s
 
 First, we need to tell {short-product-name} how to connect to the database.
 
-* From the project drop-down, select the "Demo" project we just created
+* From the project drop-down, select the "films" project 
 * Select *Database Table* as the data source to add
 * For Connection, select *Add a new connection...*
 * A pop-up window appears, allowing you to create a connection to our database
@@ -163,8 +160,8 @@ The connection to the database has now been created, and the pop-up should close
 
 === Related links
 
-* xref:deploying:configuring.adoc[{short-product-name} data source configuration]
-// * link:/docs/connecting-data-sources/connecting-a-database[Managing database connections]
+* xref:deploy:configure.adoc[{short-product-name} data source configuration]
+* xref:connect-data-sources:connect-a-database.adoc[]
 
 === Select the table to import
 
@@ -191,7 +188,7 @@ To import the schema:
 | `film`
 
 | Default namespace
-| `com.petflix.filmsdatabase`
+| `com.hazelflix.films.filmsdatabase`
 |===
 
 Namespaces are used to help us group related content together, like packages in Java or namespaces in C# and Typescript.
@@ -207,8 +204,8 @@ image:schema_importer_db_flow.png[Data sources screen]
 
 === Related links
 
-* https://docs.taxilang.org/language-reference/taxi-language/#namespaces[Understanding namespaces]
-* https://docs.taxilang.org/language-reference/types-and-models/[Understanding types and models]
+* https://docs.taxilang.org/language-reference/taxi-language/#namespaces[Understand namespaces]
+* https://docs.taxilang.org/language-reference/types-and-models/[Understand types and models]
 
 === Preview the imported tables
 
@@ -224,12 +221,11 @@ be created. For now, the defaults that have been assigned are good enough.
 
 {short-product-name} will create the necessary schema files in a local project.
 
-{short-product-name} also creates a series of https://taxilang.org[Taxi] schema files that contain the schemas we've just imported. You can explore these files locally. If you named your project `demo`, all the project
-  files are in a directory called `demo` next to where you launched {short-product-name} from.
+{short-product-name} also creates a series of https://taxilang.org[Taxi] schema files that contain the schemas we've just imported. You can explore these files locally.  You will find them in the 'taxi/src' directory.
 
 
 ----
-cd demo/
+cd taxi/
 ----
 
 Taxi ships a great https://marketplace.visualstudio.com/items?itemName=taxi-lang.taxi-language-server[VS Code plugin] which provides click-to-navigate, syntax highlighting, autocompletion and more.
@@ -239,7 +235,7 @@ run queries against it.
 
 === Related links
 
-* https://docs.taxilang.org/language-reference/taxi-language/[Understanding Taxi]
+* https://docs.taxilang.org/language-reference/taxi-language/[Understand Taxi]
 
 == Connect a Swagger API
 
@@ -251,7 +247,7 @@ We'll use the UI of {short-product-name} to import a Swagger definition of our R
 * Click *Data Sources* on the sidebar
 * Once again, click *Add a data source*
 * Alternatively, navigate to http://localhost:9021/data-source-manager/add
-* Select the demo project as the target project
+* Select the films project as the target project
 * From the drop-down list, select *Swagger / Open API* as the type of schema to import
 * For the Swagger Source, select a URL
 
@@ -264,7 +260,7 @@ Fill in the form with the following values:
 | `+http://films-api/v3/api-docs+`
 
 | Default namespace
-| `com.petflix.listings`
+| `com.hazelflix.listings`
 
 | Base url
 | Leave this blank
@@ -307,11 +303,11 @@ image:schema-db-and-api.png[]
 
 === Related links
 
-* link:/docs/connecting-data-sources/schema-publication-methods[Understanding the different ways to publish schemas to {short-product-name}]
-* https://docs.taxilang.org/language-reference/describing-services/[Describing REST APIs in Taxi]
-* https://docs.taxilang.org/generating-taxi-from-source/#openapi-x-taxi-type-extension[Embedding Taxi definitions inside Swagger, to keep {short-product-name} automatically up to date]
+* xref:connect-data-sources:schema-publication-methods.adoc[Understand the different ways to publish schemas to {short-product-name}]
+* https://docs.taxilang.org/language-reference/describing-services/[Describe REST APIs in Taxi]
+* https://docs.taxilang.org/generating-taxi-from-source/#openapi-x-taxi-type-extension[Embed Taxi definitions inside Swagger, to keep {short-product-name} automatically up to date]
 
-== Integrating services and loading data
+== Integrate services and loading data
 
 Now that everything is set up, let's fetch and integrate some data.
 
@@ -420,14 +416,14 @@ image:results-tree-with-providers.png[]
 
 === Related links
 
-* xref:querying:writing-queries.adoc[Writing queries with {short-product-name}]
-* https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL language reference] 
+* xref:query:write-queries.adoc[Write queries with {short-product-name}]
+* https://docs.taxilang.org/language-reference/query-with-taxiql/[TaxiQL language reference] 
 
-=== Exploring the query execution
+=== Explore the query execution
 
 {short-product-name} has several diagnostic tools to help us see what happened.
 
-==== Exploring the query execution plan
+==== Explore the query execution plan
 
 In the Profiler, click to see the high level integration plan that {short-product-name} used to execute the query,
 showing the services that were called, and how data was resolved at a field level.
@@ -441,7 +437,7 @@ Clicking on any of the rows shows the actual request and response.
 
 image:call-explorer.png[]
 
-==== Exploring cell-based lineage
+==== Explore cell-based lineage
 
 {short-product-name} provides detailed trace lineage for each value shown in its results.
 
@@ -457,12 +453,12 @@ image:value-lineage.png[]
 
 This deep lineage is very powerful for understanding how data has flowed, and proving the https://en.wikipedia.org/wiki/Data_lineage#Data_provenance[provenance] of data that {short-product-name} is exposing.
 
-=== Running our query via curl
+=== Run our query via curl
 
 Although {short-product-name}'s UI is powerful, developers will want to interact with {short-product-name} through its API.
 That's a topic on its own, but here is an example of running the same query through {short-product-name}'s API, using curl.
 
-==== Getting a JSON payload
+==== Get a JSON payload
 
 We can use curl to get the results of our query as a JSON document.
 
@@ -491,9 +487,9 @@ The curl command streams results from {short-product-name} as soon as they're av
 
 === Related links
 
-* xref:querying:writing-queries.adoc#rest-api[Running queries through {short-product-name}'s API]
+* xref:query:write-queries.adoc#rest-api[Run queries through {short-product-name}'s API]
 
-== Adding a Kafka streaming source
+== Add a Kafka streaming source
 
 Now that we have {short-product-name} linking our Database and REST API, it's time we add a Kafka stream into the mix.
 
@@ -555,8 +551,7 @@ Fill out the form with the following details:
 | `kafka:19092`
 
 | Group Id
-// | `vyne` (should already be populated)
-| `flow` (should already be populated)
+| `MyConsumerGroup` (should already be populated)
 |===
 
 * Click *Create*.  A new Kafka connection is created, and the popup closes
@@ -576,7 +571,7 @@ Fill out the rest of the form with the following details:
 | `LATEST`
 
 | Namespace
-| `com.petflix.announcements`
+| `com.hazelflix.films.mykafka` (should already be populated)
 
 | Message Type
 | `NewFilmReleaseAnnouncement`
@@ -601,7 +596,7 @@ Take a look around, and then click *Save*.
 
 It's time to explore writing some queries that join data from across all three sources.
 
-First, let's start with querying our Kafka topic. Head over to the http://localhost:9021/query/editor[Query Editor],
+First, let's start with query our Kafka topic. Head over to the http://localhost:9021/query/editor[Query Editor],
 and paste the following query:
 
 [,taxi]
@@ -619,6 +614,8 @@ Cancel the running query, and paste the following:
 
 [,taxi]
 ----
+import com.hazelflix.films.filmsdatabase.film.types.FilmId
+
 stream { NewFilmReleaseAnnouncement } as {
     // The announcement comes from our Kafka Protobuf message
     news: {
@@ -668,9 +665,12 @@ has generated during this tutorial.
 | `workspace.conf`
 | The config file that lists all the projects - including the one we created. It defines where to read and write the schema files {short-product-name} created in the background.
 
-| `demo/`
+| `taxi/`
 | The schema project that {short-product-name} was writing schemas to
 
-| `demo/orbital/connections.conf`
+| `taxi/config/connections.conf`
 | A connections file defining the database and Kafka connections you imported in the UI.
+
+| `taxi/src/`
+| The Taxi schemas that {short-product-name} generated for you.  These are the schemas that describe the data you've been working with.
 |===

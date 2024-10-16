@@ -1,6 +1,35 @@
-= Getting support
+= Get support
 :description: 'Getting support with {long-product-name}.'
 
 Need help?  Have an idea?  We'd like to hear from you.
 
-You can connect with the {short-product-name} team at https://support.hazelcast.com/s/[Hazelcast Support].
+If your organization subscribes to {long-product-name} support, and you already have an account setup, you can login to your account and open a support request using our ticketing system: +
+https://support.hazelcast.com/s/.
+
+When submitting a ticket to the team, please provide as much information and data as possible:
+
+* Make note of your issue with a clear description of the issue for a title text. This will allow the team to route the issue to the appropriate expert
+* Make a note of the steps to reproduce if possible. If not please capture the sequence of events that led to the problem
+* Write a complete description of the problem along with any error found
+* Capture any relevant screenshots and or errors noted
+* Create a support ticket on https://support.hazelcast.com/s/[Hazelcast Support Portal]
+* Attach the appropriate severity to the ticket
+* `PROD` issues that cause mission-critical system failure are considered as severity 1
+* All other issues are considered severity 2 or 3 depending on urgency
+
+== Add Details to the Support Ticket
+
+* When you open a support ticket add a concise title and description of the problem
+* Add steps to reproduce as best as you can to document them so that Support can attempt to reproduce the problem. This includes Detailed description of incident – what happened and when
+* Optionally, add a reproducible test case; Hazelcast engineering may ask for it if required
+* Add details of use case. This is crucial as it helps Support narrow down the features and functionality in play when the problem occurred
+* Attach any specific errors found
+* Attach screenshots of the errors your encountered
+* Attach the complete logs files, i.e., container logs
+* Attach details of your 3rd party connections
+* Attach details of the queries you are making
+* Specify the time of incident
+* When providing Hazelcast logs, please make sure that the system and environment details that are captured at system startup are included, even if you truncate the logs
+* Please make sure that the logs capture data around the date and time of the incident
+
+Please consider the above for prompt help from the team and note that the more information that is provided upfront, the better. Lastly, be prompt in your communications with Hazelcast Support as this helps to ensure timely resolution of issues

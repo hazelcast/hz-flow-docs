@@ -1,4 +1,4 @@
-= Working with XML and JSON
+= Work with XML and JSON
 :description: A tutorial showing how to link services that publish XML
 
 This tutorial features services publishing a mix of XML and JSON, and explains how to combine them and expose the
@@ -30,11 +30,11 @@ image:2architecture-overview.png[The services in our demo]
 
 We'll stitch these together, and expose a REST API that returns the data from all three services.
 
-== Setting up
+== Set up
 
-To get started working on {short-product-name}, follow the instructions at xref:deploying:development-deployments.adoc[Development Quickstart guide]
+To get started working on {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Development Quickstart guide]
 
-== Describing the Film Service
+== Describe the Film Service
 
 Write some Taxi that describes our Film service:
 
@@ -81,7 +81,7 @@ films-data.xml::
 ----
 ====
 
-== Integrating the Cast Service
+== Integrate the Cast Service
 
 Our CastService takes the ID of a Film, and returns a list of actors:
 
@@ -103,7 +103,7 @@ model Actor {
 } 
 
 service CastService { 
-  @HttpOperation(url = "http://localhost:8044/film/\{filmId}/cast", method = "GET") 
+  @HttpOperation(url = "http://localhost:8044/film/{filmId}/cast", method = "GET") 
   operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
 }
 ----
@@ -144,7 +144,7 @@ We don't need to write any integration code or resolvers.  There's enough inform
 
 NOTE: We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`.
 
-== Writing Data Queries
+== Write Data Queries
 
 // https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
 
@@ -207,7 +207,7 @@ Which returns:
 ]
 ----
 
-=== Defining a custom response object
+=== Define a custom response object
 
 We can define a data contract of the exact data we want back, specifying the field names we like,
 with the data type indicating where the data is sourced from:
@@ -217,20 +217,20 @@ with the data type indicating where the data is sourced from:
 find { FilmList } as (Film[]) -> {
     filmId : FilmId
     nameOfFilm : FilmTitle
-}
+} []
 ----
 
-=== Linking our Actor Service
+=== Link our Actor Service
 
 To include data from our `CastService`, we just ask for the actor information:
 
 [,taxi]
 ----
-  find { FilmList } as (Film[]) -> {
-      filmId : FilmId
-      nameOfFilm : FilmTitle
-      cast : Actor[]
-  }
+find { FilmList } as (Film[]) -> {
+    filmId : FilmId
+    nameOfFilm : FilmTitle
+    cast : Actor[]
+} []
 ----
 
 Which now gives us:
@@ -254,7 +254,7 @@ Which now gives us:
 }
 ----
 
-== Adding our Awards Service
+== Add our Awards Service
 
 We can also define a schema and service for our awards information, which is returned in JSON:
 
@@ -292,7 +292,7 @@ awards-data.json::
 ----
 ====
 
-=== Enriching our query
+=== Enrich our query
 
 Finally, to include this awards data, we just add it to our query:
 
@@ -303,7 +303,7 @@ find { FilmList } as (Film[]) -> {
   nameOfFilm: FilmTitle
   cast: Actor[]
   awards: Award[]
-}
+} []
 ----
 
 Which gives us:
@@ -327,7 +327,7 @@ Which gives us:
 }
 ----
 
-== Publishing our query as a REST API
+== Publish our query as a REST API
 
 Now that we're happy with our response data, we can publish this query as a REST API.
 
@@ -347,7 +347,7 @@ query.taxi::
           nameOfFilm : FilmTitle
           awards : Award[]
           cast : Actor[]
-      }
+      } []
  }
 ----
 ====
@@ -386,7 +386,7 @@ Which gives us:
 ]
 ----
 
-== Publishing a query using the UI 
+== Publish a query using the UI 
 
 To publish a query as an endpoint using the UI: 
 
@@ -396,7 +396,7 @@ To publish a query as an endpoint using the UI:
 * Click the *Publish endpoint* button and publish it as an HTTP or WebSocket endpoint, depending on the query
 * Choose *Endpoints* and make sure the query is running (you can disable/enable the endpoint if necessary)
 
-== Wrapping up and next steps
+== Wrap up and next steps
 
 In this guide, we've:
 
@@ -404,7 +404,3 @@ In this guide, we've:
 * Exposed XML services and modelled their responses
 * Written a query stitching three services together
 * Published that query as an HTTP service
-
-The code for this guide is available on https://github.com/{short-product-name}api/demos/tree/main/xml-demo[Github].
-
-Remember, if you haven't already done so, head to the https://github.com/{short-product-name}api/{short-product-name}[{short-product-name} github repo] and give us a star!

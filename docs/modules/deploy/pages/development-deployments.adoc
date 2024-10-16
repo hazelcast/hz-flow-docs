@@ -1,0 +1,143 @@
+= Deploy in development
+:description: How to deploy {short-product-name} in a development environment
+
+To get up and running quickly, you can bring up a fully working {short-product-name} environment locally using Docker Compose to start testing or developing your integrations.
+
+== Development setup
+
+This guide will walk you through setting up {short-product-name} in a development environment.
+This setup pre-configures Management Center in Dev Mode, without needing any security credentials for logging in or using the REST API.   Dev Mode should not be used in production. For more information about Dev Mode, see https://docs.hazelcast.com/management-center/latest/deploy-manage/dev-mode
+
+
+=== Prerequisites
+
+Before you get started, you'll need the following:
+
+* https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
+* https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
+* https://hazelcast.com/get-started/[Hazelcast License Key]
+
+=== Create your project
+
+The easiest way to get started with {short-product-name} is by using Hazelcast's command-line tool `clc`. This gives you a:
+
+* Workspace for developing your queries
+* `docker-compose.yml` file to be able to run locally
+
+Set up your {short-product-name} workspace with:
+[,shell]
+----
+clc project create -t hazelcast-flow-starter
+----
+You have now created a copy of our example {short-product-name} project containing the workspace and Docker Compose file.
+
+You can navigate to the newly created project directory:
+[,shell]
+----
+cd hazelcast-flow-starter
+----
+
+The next step is to setup your Hazelcast License Key. Copy the template file as shown below and add your license key to the `.env` file.
+
+[,shell]
+----
+cp .env.example .env
+----
+The `.env` file contains the following variables:
+
+* MC_LICENSE contains the Hazelcast license
+* MC_APPLICATION_CLIENT_SECRET is used as client credentials for authenticated API access
+
+WARNING: {short-product-name} will not start if the MC_LICENSE environment variable is not set and passed to it. See xref:deploy:license.adoc#license-management-for-flow[license management for {short-product-name}].
+
+Take a look at xref:deploy:authentication.adoc#obtain-an-access-token[Obtain an Access Token] for details on setting this secret and using client credentials to authenticate programmatically.
+
+=== Start {short-product-name}
+
+Next you can simply start your local {short-product-name} using:
+[,shell]
+----
+docker compose up
+----
+
+The following containers will now be running:
+|===
+| Name | Purpose | Interface
+
+| {short-product-name}
+| Runs the main {short-product-name} server
+| http://localhost:9021
+
+| Postgres
+| Data store for your projects
+| psql 25432
+
+| Management Center
+| An interface into the workings of Hazelcast
+| https://localhost:8080
+
+|===
+
+After the application starts and everything is set up, navigate to:
+http://localhost:9021 and start using {short-product-name}.
+
+=== Live reload
+
+The developer environment of {short-product-name} is configured with live reload, so any changes you make in your Taxi project are automatically picked up.
+
+== Advanced setup
+
+* Enable xref:deploy:authentication.adoc[authentication] and xref:deploy:authorization.adoc[authorization] in {short-product-name}
+* Use a xref:workspace:overview.adoc#read-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
+* Understand how xref:deploy:manage-secrets.adoc[secrets are handled] in {short-product-name}
+* Understand how to configure {short-product-name} via xref:deploy:configure.adoc#container[application properties] or xref:deploy:configure.adoc#set-as-environment-variables[environment variables]
+* Continue on to your xref:deploy:production-deployments.adoc[production deployment]
+
+== Deploy without CLC
+
+A sample `docker-compose.yml` file is maintained at:
+
+https://github.com/hazelcast/hazelcast-flow-docker-compose
+
+With examples for:
+
+* Running with an external Hazelcast cluster
+* Using external IDP config
+* Configuring to include metrics
+
+== File Watcher Settings
+
+Flow watches the project directories in the file system to automatically load the changes.
+It uses the **inotify** mechanism on Linux.
+Linux systems have a limited number of watches available by default.
+Sometimes this limit is too low, so you may have to set it to a higher value.
+
+To check the current watch limit, run the following:
+
+[source, bash]
+----
+sysctl fs.inotify.max_user_watches
+----
+
+The ideal number of watches depend on the number of Flow projects you have, and the number of other apps that adds file watches.
+For many use cases, `250 000` would be a sensible choice.
+
+You can set the number of file watches limit temporarily using the following commands:
+
+[source,bash]
+----
+sudo sysctl fs.inotify.max_user_watches=250000
+sudo sysctl -p
+----
+
+To set the limit permanently, you can run the following:
+
+[source,bash]
+----
+echo fs.inotify.max_user_watches=250000 | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+----
+
+== Continue reading
+
+Continue learning about {short-product-name} by xref:workspace:overview.adoc[setting up your workspace] or investigating how to xref:deploy:production-deployments.adoc[deploy in production].

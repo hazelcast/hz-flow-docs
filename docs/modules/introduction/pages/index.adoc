@@ -52,8 +52,6 @@ There are no resolvers to update, Swagger SDKs to rebuild, or API consumer contr
 {short-product-name} provides several ways for services to generate and publish their schema:
 hand-crafted schemas, automatically generated at runtime, Git-backed in a central repository, or a mix of the three.
 
-// Find out more about schema strategies link:/docs/publishing-and-sharing-schemas[here].
-
 == Semantic data schemas
 
 Semantic schemas describe the meaning of their data in a way that's shareable between systems, for example:
@@ -76,7 +74,7 @@ Today, when we connect two systems together, an engineer has to build a mental m
 
 [,taxi]
 ----
-// The id attribute in the Customer model from the Accounts sytems
+// The id attribute in the Customer model from the Accounts systems
 // is the same as the custId attribute in the Purchase model from sales system
 namespace accounts {
    model Customer {
@@ -102,7 +100,7 @@ If a field gets renamed, things break!
 
 What's missing is _semantic metadata_ - something that describes how data across systems relates, independent of field names.
 
-=== Defining semantic metadata
+=== Define semantic metadata
 
 https://taxilang.org[Taxi] is a language for defining and embedding semantic metadata.
 
@@ -170,7 +168,7 @@ image:linked_services_flow.png[Linked services]
 
 {short-product-name} performs this integration for us.
 
-By sending a request in https://taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], we can ask for data, without specifying how data
+By sending a request in https://taxilang.org/language-reference/query-with-taxiql/[TaxiQL], we can ask for data, without specifying how data
 relates, or which systems to get the data from.
 
 [,taxi]

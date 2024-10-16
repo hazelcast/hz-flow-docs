@@ -7,14 +7,7 @@ amazing integration projects.
 
 == Quick Links
 
-* xref:deploying:development-deployments.adoc[Development Quickstart] - Start here
+* xref:deploy:development-deployments.adoc[Development Quickstart] - Start here
 * xref:apis-db-kafka.adoc[Connect APIs, a database and Kafka] - Deploy {spn} locally, then integrate a database, a REST API, and Kafka. Ideal for beginners
-* xref:compose.adoc[Compose APIs and a Database] - Exposing a Backend for Frontend (BFF) that links data between a database and several APIs
 * xref:work-with-xml.adoc[Work with XML and JSON] - Combine data from XML and JSON data sources
-* xref:streaming-data.adoc[Stream data] - Join and enrich Kafka streams to deliver bespoke data feeds
-* xref:gen-taxi-from-code.adoc[Generate Taxi from code] - Generate Taxi schemas directly from your application code 
-
-// AUTHORS NOTES: 2 new tutorials need to be added. The pipeline link is a 404 in Orbital's docs
-// * link:/docs//deploying/production-deployments[Working with Spring Boot] - {short-product-name}'s Spring SDK publishes APIs automatically directly from your application. Learn how 
-// * link:/docs/pipelines[Pipelines - Ingest, Normalize and Enrich data] - Use {short-product-name} to deploy a data pipeline to normalize data formats to a standard
-// * link:/docs/modules/describing-data-sources/pages/caching.adoc[Installing and Creating a Project] - Understand how to deploy and configure a caching layer
+* xref:build-event-streams.adoc[Stream data] - Join and enrich Kafka streams to deliver bespoke data feeds

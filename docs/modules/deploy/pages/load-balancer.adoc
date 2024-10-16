@@ -1,0 +1,55 @@
+= Load balancer 
+:description: Load balancer setup
+
+When deploying multiple {short-product-name} servers, they can be deployed behind a load balancer to scale out the system.  https://traefik.io/traefik[Traefik] is used as an example in this section, although any other load balancer can be used (e.g. nginx).  
+
+== When is a load balancer required?
+
+A load balancer, or reverse proxy is required when deploying multiple {short-product-name} instances (for example in a production deployment of several {short-product-name} instances).  It will distribute the load from incoming requests across each {short-product-name} instance.
+
+== Transport Layer Security (TLS)
+
+TLS (also known as HTTPS or SSL) should be used to secure the connection between clients and {short-product-name} servers in production.  If you use HTTPS for your front-end listener on the load balancer, you need to configure a TLS certificate on the load balancer.   
+
+You can create a certificate using a tool like OpenSSL or use a cloud service such as Let’s Encrypt or AWS Certificate Manager.  When creating a certificate to use with the load balancer, the domain name must be specified.    
+
+
+== WebSocket
+The *WebSocket API* enables a two-way interactive communication session between the user's browser (or API consumer) and a server. With this API, you can send messages to a server and receive event-driven responses without having to poll the server for a reply.  WebSocket typically uses a long-lived persistent connection.
+
+{short-product-name} uses WebSocket in a number of areas : between the UI and the {short-product-name} server, and also optionally when publishing an endpoint as a Websocket endpoint.  The UI performs a periodic heartbeat on the WebSocket connection to keep the connection open with a default interval of 5 seconds. This is important to keep in mind when configuring the load balancer since the load balancer connection timeout should be set to a value greater than the heartbeat interval.
+
+
+It’s important that the load balancer is configured to expose the HTTP headers required to upgrade the HTTP connection to a WebSocket connection.
+
+For traefik it’s done like this:
+
+----
+labels:
+      - "traefik.http.routers.hazelcast-flow.middlewares=sslheader-proto,sslheader-port"
+      - "traefik.http.middlewares.sslheader-proto.headers.customrequestheaders.X-Forwarded-Proto=https"
+      - "traefik.http.middlewares.sslheader-port.headers.customrequestheaders.X-Forwarded-Port=443"
+----
+
+
+== Target group
+
+Target groups define a service exposed by the load balancer.  For {short-product-name} a target group will contain all of the {short-product-name} service instances.  For traefik, the example traefik configuration to load balance across the {short-product-name} server TCP Endpoints on TCP Port 9021 looks like:
+
+
+----
+  - "traefik.enable=true"
+  - "traefik.http.routers.hazelcast-flow.rule=Host(`flow.example.com`)"
+  - "traefik.http.routers.hazelcast-flow.entrypoints=web"
+  - "traefik.http.services.hazelcast-flow.loadbalancer.server.port=9021"
+----
+
+
+== Cross-Origin Resource Sharing (CORS)
+
+CORS is a mechanism where a web page can specify which resources from a different server or domain can be loaded by the browser.  Cross-origin requests are blocked by default and CORS defines a way for a browser and web service to determine when it’s safe to allow a cross-origin request.
+
+In production deployments,  Single Sign On (SSO) between {short-product-name} and Management Center is typically enabled and Management Center is deployed on a different domain from {short-product-name}.  In this case, it’s important that CORS configuration is applied to Management Center.
+
+Management Center has the system property `hazelcast.mc.flow.addresses` which when configured, is added to the CORS Access-Control-Allow-Origin HTTP Response header from Management Center.  When Management Center is configured as an Identity Provider for {short-product-name}, {short-product-name} will try to fetch some resources from Management Center when loading the {short-product-name} UI main page.  This CORS configuration is important to enable that cross-domain communication. 
+
