@@ -65,6 +65,7 @@ There are several configuration settings referenced throughout these docs, which
 
 All config settings can be passed in a variety of ways:
 
+[#container]
 ==== Container
 
 In a container or Docker Compose file, pass variables using the `OPTIONS` environment variable:
@@ -80,6 +81,7 @@ services:
             --flow.db.host=postgres
 ----
 
+[#set-as-environment-variables]
 ==== Set as environment variables
 
 Alternatively, any setting can be defined as an environment variable.

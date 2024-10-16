@@ -1,28 +1,28 @@
 = Enable authentication
 :description: Configure {short-product-name} to require authentication through Management Center
 
-{short-product-name} does not provide a user interface for managing users or roles. Instead, it relies on the https://docs.hazelcast.com/management-center/5.5[Management Center] (MC) for identity management, utilizing https://docs.hazelcast.com/management-center/5.5/deploy-manage/security-providers[MC security providers] as identity providers. When a user attempts to access {short-product-name}, they will be redirected to the identity provider's login page as configured with the MC.
+{short-product-name} does not provide a user interface for managing users or roles. Instead, it relies on the https://docs.hazelcast.com/management-center/latest/getting-started/overview[Management Center] (MC) for identity management, utilizing https://docs.hazelcast.com/management-center/5.5/deploy-manage/security-providers[MC security providers] as identity providers. When a user attempts to access {short-product-name}, they will be redirected to the identity provider's login page as configured with the MC.
 
 Single Sign-On (SSO) and Single Logout (SLO) are pre-configured between {short-product-name} and MC, ensuring a seamless login and logout experience. This means that when a user logs in or out of one product, they are automatically logged in or out of the other.
 
 == Identity provider configuration through Management Center
-Users *must* configure their identity providers through MC. This can be done using either the MC user interface or the https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool].
+Users *must* configure their identity providers through MC. This can be done using either the MC user interface or the https://docs.hazelcast.com/management-center/latest/deploy-manage/mc-conf[Management Center Configuration Tool].
 
 There are 2 ways to use MC as an identity provider:
 
 . MC can act as the identity provider itself for the following security providers:
-  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/local-security-provider[Local Security Provider]
+  * https://docs.hazelcast.com/management-center/latest/deploy-manage/local-security-provider[Local Security Provider]
 . MC can be configured to use an external identity provider for the following security providers:
-  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/active-directory[Active Directory]
-  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/jaas[JAAS]
-  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/ldap[LDAP]
-  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML]
-  * https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[Open ID connect]
+  * https://docs.hazelcast.com/management-center/latest/deploy-manage/active-directory[Active Directory]
+  * https://docs.hazelcast.com/management-center/latest/deploy-manage/jaas[JAAS]
+  * https://docs.hazelcast.com/management-center/latest/deploy-manage/ldap[LDAP]
+  * https://docs.hazelcast.com/management-center/latest/deploy-manage/saml[SAML]
+  * https://docs.hazelcast.com/management-center/latest/deploy-manage/openid[Open ID connect]
 
 == Steps to run {short-product-name} with Management Center as the identity provider:
 
 . Run one of the Docker Compose files given below to spin up {short-product-name} and MC. The security provider can be configured in 2 ways:
-  a. Through the https://docs.hazelcast.com/management-center/5.5/deploy-manage/mc-conf[Management Center Configuration Tool]. An example can be found below.
+  a. Through the https://docs.hazelcast.com/management-center/latest/deploy-manage/mc-conf[Management Center Configuration Tool]. An example can be found below.
   b. Through the user interface of MC. To do this, open the landing page of {short-product-name} or MC. An example can be found below.
 . After the security provider is configured through MC, go to the landing page of {short-product-name} or MC.
   * {short-product-name} is configured to run on http://localhost:9021 unless overridden.
@@ -96,6 +96,10 @@ The following properties can be changed or not; please consider your use case ca
 
 . **--flow.security.openIdp.require-https**: Indicates if auth must be performed over https. Set this to true if MC and {short-product-name} runs on https servers.
 
+. **hazelcast.mc.flow.addresses**: Value of public {short-product-name} node addresses. This value can only be used if the {short-product-name} node addresses are directly accessible from the current environment. For example, if a {short-product-name} address can be reached via http://localhost:9021 and needs to be accessed from the browser. If this property is not set correctly, users may see CORS issues.
+
+. **hazelcast.mc.flow.internalAddress**: Value of internal {short-product-name} service address. This value can only be used if the {short-product-name} node's service address is directly accessible from the MC environment. For example, if {short-product-name} is running in a container called hazelcast-flow, which can be accessed via http://hazelcast-flow:9021 and needs to be accessed from MC running in another container. This value should be set to the service address of a single Flow node or an address that can receive the updated license from MC and forward it to a single Flow node (for example, a load balancer). If this property is not set correctly, {short-product-name} will not be able to receive license updates from MC. See xref:license.adoc#license-management-for-flow[License management for {short-product-name}].
+
 === Example: Local security pre-configuration with via hz-mc tool
 Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp-local-sec-preconfigured.yml[this Docker Compose file] with usernames `admin`, `user`, `user`, `readonly` or `metricsonly` and password `changeMe!135`.
 
@@ -108,10 +112,25 @@ image:mc-local-security-provider-login.png[]
 === Example: External identity provider configuration through user interface
 Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp.yml[this Docker Compose file].
 
-Once the containers have started, configure your external identity provider with https://docs.hazelcast.com/management-center/5.5/deploy-manage/openid[OIDC] or https://docs.hazelcast.com/management-center/5.5/deploy-manage/saml[SAML], go to the landing page of MC or {short-product-name}, and you will see the following login screen:
+Once the containers have started, configure your external identity provider with https://docs.hazelcast.com/management-center/latest/deploy-manage/openid[OIDC] or https://docs.hazelcast.com/management-center/latest/deploy-manage/saml[SAML], go to the landing page of MC or {short-product-name}, and you will see the following login screen:
 
 image:external-idp-oidc-login.png[]
 
+
+=== Example: Identity provider configuration for multiple {short-product-name} nodes
+
+Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp-multiple-flow-nodes.yml[this Docker Compose file].
+
+Notices:
+
+* {short-product-name} service has 3 replicas and runs on port 9021, 9022, 9023.
+
+* `hazelcast.mc.flow.addresses` system property is configured with
+public addresses of {short-product-name} nodes.
+
+* `hazelcast.mc.flow.internalAddress` system property is configured with service address of a {short-product-name} node.
+
+[#obtain-an-access-token]
 == Obtain an Access Token
 If your application needs machine-to-machine communication with {short-product-name}, MC utilizes client credentials flow under the hood. Here are the steps:
 

@@ -102,7 +102,7 @@ service CustomerService {
 
 Alternatively, you can just generate schema definitions directly from code, or author your definitions in Taxi.
 
-Once you've chosen how to describe your services, next publish your specs to {short-product-name}. 
+Once you've chosen how to describe your services, next publish your specs to {short-product-name}.
 
 == Publish and update your specs
 
@@ -162,9 +162,10 @@ repositories is defined in a https://github.com/lightbend/config#examples-of-hoc
 
 //rebranded vyne to flow in --flow.workspace.config-file below - check
 
-By default, the configuration file is called `workspace.conf`.  However, the location of the file can be changed by setting `--flow.workspace.config-file=/path/to/workspace.conf`
+By default, the configuration file is called `workspace.conf`. However, the location of the file can be changed by setting `--flow.workspace.config-file=/path/to/workspace.conf`
 on the command line, or through any of the supported configuration overriding mechanisms.
 
+[#read-workspace-conf-from-git]
 === Read workspace.conf from Git
 
 For production deployments, it's often preferable to read config directly from Git. This is useful both for Infrastructure-as-code, as well as for
