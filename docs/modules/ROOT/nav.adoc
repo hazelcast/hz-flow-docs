@@ -23,6 +23,7 @@
 ** xref:deploy:security-recommendations.adoc[Security]
 *** xref:deploy:authentication.adoc[Enable authentication]
 *** xref:deploy:authorization.adoc[Enable authorization]
+** xref:deploy:license.adoc[License]
 // ** xref:deploy:data-policies.adoc[Data policies]
 ** xref:deploy:distribute-work-on-a-cluster.adoc[Distribute on a cluster]
 ** xref:deploy:load-balancer.adoc[Load Balancer]

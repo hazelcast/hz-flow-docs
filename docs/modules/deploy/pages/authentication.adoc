@@ -96,9 +96,9 @@ The following properties can be changed or not; please consider your use case ca
 
 . **--flow.security.openIdp.require-https**: Indicates if auth must be performed over https. Set this to true if MC and {short-product-name} runs on https servers.
 
-. **hazelcast.mc.flow.addresses**: Value of public {short-product-name} node addresses. This value can only be used if the {short-product-name} node addresses are directly accessible from the current environment. For example: If a {short-product-name} address can be reached via http://localhost:9021 and needs to be accessed from the browser. If this property is not set correctly, users may see CORS issues.
+. **hazelcast.mc.flow.addresses**: Value of public {short-product-name} node addresses. This value can only be used if the {short-product-name} node addresses are directly accessible from the current environment. For example, if a {short-product-name} address can be reached via http://localhost:9021 and needs to be accessed from the browser. If this property is not set correctly, users may see CORS issues.
 
-. **hazelcast.mc.flow.internalAddress**: Value of internal {short-product-name} service address. This value can only be used if the {short-product-name} node's service address is directly accessible from MC environment. For example: If {short-product-name} is running in a container called hazelcast-flow, which can be accessed via http://hazelcast-flow:9021 and needs to be accessed from MC running in another container. This value should be set to the service address of a single Flow node or an address that can receive the updated license from MC and forward it to a single Flow node (for example, a load balancer). If this property is not set correctly, {short-product-name} will not be able to receive license updates from MC. See xref:license.adoc#license-management-for-flow[License management for {short-product-name}].
+. **hazelcast.mc.flow.internalAddress**: Value of internal {short-product-name} service address. This value can only be used if the {short-product-name} node's service address is directly accessible from the MC environment. For example, if {short-product-name} is running in a container called hazelcast-flow, which can be accessed via http://hazelcast-flow:9021 and needs to be accessed from MC running in another container. This value should be set to the service address of a single Flow node or an address that can receive the updated license from MC and forward it to a single Flow node (for example, a load balancer). If this property is not set correctly, {short-product-name} will not be able to receive license updates from MC. See xref:license.adoc#license-management-for-flow[License management for {short-product-name}].
 
 === Example: Local security pre-configuration with via hz-mc tool
 Run https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp-local-sec-preconfigured.yml[this Docker Compose file] with usernames `admin`, `user`, `user`, `readonly` or `metricsonly` and password `changeMe!135`.
@@ -126,7 +126,7 @@ Notices:
 * {short-product-name} service has 3 replicas and runs on port 9021, 9022, 9023.
 
 * `hazelcast.mc.flow.addresses` system property is configured with
-public address of {short-product-name} nodes.
+public addresses of {short-product-name} nodes.
 
 * `hazelcast.mc.flow.internalAddress` system property is configured with service address of a {short-product-name} node.
 
