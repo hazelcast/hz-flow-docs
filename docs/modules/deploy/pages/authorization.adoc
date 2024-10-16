@@ -129,7 +129,7 @@ To perform an activity, users must be associated with a role that grants the rel
 
 == Assign users to roles
 
-Since authentication is done via MC, users must already have https://docs.hazelcast.com/management-center/5.5/deploy-manage/user-management#user-roles[MC roles] assigned.
+Since authentication is done via MC, users must already have https://docs.hazelcast.com/management-center/latest/deploy-manage/user-management#user-roles[MC roles] assigned.
 Once a user has a valid MC role, the user will have the corresponding role in {short-product-name}.
 The role mapping can be found <<role-mapping,here>>.
 

@@ -37,7 +37,7 @@ You can navigate to the newly created project directory:
 cd hazelcast-flow-starter
 ----
 
-The next step is to setup your Hazelcast License Key.  Copy the template file as shown below and add your license key to the `.env` file.  
+The next step is to setup your Hazelcast License Key. Copy the template file as shown below and add your license key to the `.env` file.
 
 [,shell]
 ----
@@ -48,7 +48,9 @@ The `.env` file contains the following variables:
 * MC_LICENSE contains the Hazelcast license
 * MC_APPLICATION_CLIENT_SECRET is used as client credentials for authenticated API access
 
-Take a look at xref:deploy:authentication.adoc#authentication-for-api-consumers[Authentication for API Consumers] for details on setting this secret and using client credentials to authenticate programmatically.
+WARNING: {short-product-name} will not start if the MC_LICENSE environment variable is not set and passed to it. See xref:deploy:license.adoc#license-management-for-flow[license management for {short-product-name}].
+
+Take a look at xref:deploy:authentication.adoc#obtain-an-access-token[Obtain an Access Token] for details on setting this secret and using client credentials to authenticate programmatically.
 
 === Start {short-product-name}
 
@@ -86,9 +88,9 @@ The developer environment of {short-product-name} is configured with live reload
 == Advanced setup
 
 * Enable xref:deploy:authentication.adoc[authentication] and xref:deploy:authorization.adoc[authorization] in {short-product-name}
-* Use a xref:workspace:overview.adoc#reading-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
+* Use a xref:workspace:overview.adoc#read-workspace-conf-from-git[Git-backed workspace.conf file] to track your changes
 * Understand how xref:deploy:manage-secrets.adoc[secrets are handled] in {short-product-name}
-* Understand how to configure {short-product-name} via xref:deploy:configure.adoc#docker[application properties] or xref:deploy:configure.adoc#setting-as-environment-variables[environment variables]
+* Understand how to configure {short-product-name} via xref:deploy:configure.adoc#container[application properties] or xref:deploy:configure.adoc#set-as-environment-variables[environment variables]
 * Continue on to your xref:deploy:production-deployments.adoc[production deployment]
 
 == Deploy without CLC

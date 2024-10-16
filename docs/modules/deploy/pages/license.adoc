@@ -1,0 +1,15 @@
+= License
+:description: License management
+
+== License management for Management center
+
+See https://docs.hazelcast.com/management-center/latest/deploy-manage/license-management[license management].
+
+[#license-management-for-flow]
+== License management for {short-product-name}
+
+* Users *must* configure the license key to the MC_LICENSE environment variable and pass it to {short-product-name}. Otherwise {short-product-name} will not start.
+* Users *must* set `hazelcast.mc.flow.internalAddress` system property and pass it to MC. If there is a license update on MC, MC will schedule to share it to {short-product-name} every 30 seconds. MC will stop when the license is successfully sent to {short-product-name}. See xref:deploy:authentication.adoc#modification-of-sec-preconfig[security configuration].
+** After the updated license is obtained by a {short-product-name} node, it will share the updated license with all nodes.
+
+// Note: Flow nodes have the following prioritization for the license → License from other cluster members > License from disk (previously shared licenses from other cluster members) > License from environment variables.
