@@ -1,9 +1,22 @@
 = Deploy {short-product-name}
 :description: How to deploy {short-product-name} to production
 
-Our recommended deployment method is with `docker compose` or deploying the container directly using the orchestrator of your choice.
+Our recommended deployment method is with https://docs.hazelcast.com/operator/latest/[Hazelcast Kubernetes Operator] or deploying the container directly using the orchestrator of your choice.
+
+NOTE: You will need a Hazelcast Flow license to run any of these deployments. Please mailto:flow.support@hazelcast.com[contact us] or your existing account representative to request one.
+
+== Deploy onto Kubernetes with Operator
+
+Our recommended path for deploying {short-product-name} is onto Kubernetes using our operator. To do so:
+
+1. https://docs.hazelcast.com/operator/latest/get-started[Set up Operator]
+2. https://docs.hazelcast.com/operator/latest/flow[Create a {short-product-name} resource on Operator]
+
+This is the best way to ensure continued support and a maintained upgrade path for all your Hazelcast deployments.
 
 == Deploy using Docker Compose
+
+We also provide deployment templates using Docker Compose that can be used as is or as a guide for your own deployment system.
 
 A sample `docker-compose.yml` file is maintained on https://github.com/hazelcast/hazelcast-flow-docker-compose[Github]
 
