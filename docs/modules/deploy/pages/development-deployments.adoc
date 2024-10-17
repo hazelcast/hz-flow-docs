@@ -105,6 +105,39 @@ With examples for:
 * Using external IDP config
 * Configuring to include metrics
 
+== File Watcher Settings
+
+Flow watches the project directories in the file system to automatically load the changes.
+It uses the **inotify** mechanism on Linux.
+Linux systems have a limited number of watches available by default.
+Sometimes this limit is too low, so you may have to set it to a higher value.
+
+To check the current watch limit, run the following:
+
+[source, bash]
+----
+sysctl fs.inotify.max_user_watches
+----
+
+The ideal number of watches depends on the number of Flow projects you have, and the number of other apps that add file watches.
+For many use cases, `250 000` would be a sensible choice.
+
+You can set the number of file watches limit temporarily using the following commands:
+
+[source,bash]
+----
+sudo sysctl fs.inotify.max_user_watches=250000
+sudo sysctl -p
+----
+
+To set the limit permanently, you can run the following:
+
+[source,bash]
+----
+echo fs.inotify.max_user_watches=250000 | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+----
+
 == Continue reading
 
 Continue learning about {short-product-name} by xref:workspace:overview.adoc[setting up your workspace] or investigating how to xref:deploy:production-deployments.adoc[deploy in production].
