@@ -17,6 +17,9 @@ Before you get started, you'll need the following:
 * https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
 * https://hazelcast.com/get-started/[Hazelcast License Key]
 
+
+NOTE: CLC version 5.4.1 or later is recommended for use with the starter template.
+
 === Create your project
 
 The easiest way to get started with {short-product-name} is by using Hazelcast's command-line tool `clc`. This gives you a:
