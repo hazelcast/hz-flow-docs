@@ -12,6 +12,8 @@ Our recommended path for deploying {short-product-name} is onto Kubernetes using
 1. https://docs.hazelcast.com/operator/latest/get-started[Setup Operator]
 2. https://docs.hazelcast.com/operator/latest/flow[Create a {short-product-name} resource on Operator]
 
+This is the best way to ensure continued support and a maintained upgrade path for all your Hazelcast deployments.
+
 == Deploy using Docker Compose
 
 We also provide deployment templates using Docker Compose that can be used as is or as a guide for your own deployment system.
