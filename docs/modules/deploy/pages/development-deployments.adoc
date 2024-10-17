@@ -15,7 +15,7 @@ Before you get started, you'll need the following:
 
 * https://docs.docker.com/engine/install/[Docker], and Docker Compose (installed by default with Docker)
 * https://docs.hazelcast.com/clc/latest/install-clc[Hazelcast CLC]. CLC is the official Hazelcast commandline tool to interact with Hazelcast clusters and create Hazelcast projects.
-* https://hazelcast.com/get-started/[Hazelcast License Key]
+* mailto:flow.support@hazelcast.com[Hazelcast Flow License Key]
 
 
 NOTE: CLC version 5.4.1 or later is recommended for use with the starter template.
