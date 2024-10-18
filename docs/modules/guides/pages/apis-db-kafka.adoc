@@ -30,7 +30,7 @@ that we'll use throughout.
 
 Everything you need is packaged up in a Docker Compose file to make getting started easier.
 
-To launch, clone the repository and follow instructions in the README file:
+To launch, clone the repository and follow instructions in the https://github.com/hazelcast/hazelcast-flow-public-demos/blob/main/films-demo/README.md[README] file:
 
 [,bash]
 ----
