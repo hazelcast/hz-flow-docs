@@ -18,7 +18,7 @@ Before you get started, you'll need the following:
 * mailto:flow.support@hazelcast.com[Hazelcast Flow License Key]
 
 
-NOTE: CLC version 5.4.1 or later is recommended for use with the starter template.
+NOTE: CLC version 5.5.0 or later is recommended for use with the starter template.
 
 === Create your project
 
