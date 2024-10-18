@@ -13,20 +13,20 @@ By utilising {short-product-name}, you leverage the proven scale, resilience and
 
 Build fast, robust, trackable, and adaptable data integrations that self-repair when schemas change. {long-product-name} provides a graphical profile of all integrations, tracing the path from the query to the original source. This enables clear, observable data lineage for data traceability and compliance.
 
-=== Key Benefits
+== Key Benefits
 
-==== Accelerating application development and deployment
+=== Accelerating application development and deployment
 Developers spend less time building and maintaining time consuming, non-scalable glue code and spend more time building and deploying their applications. This significantly boosts development efficiency, productivity and accuracy and accelerates time to value.
 
-==== Unified data exploration and access.
+=== Unified data exploration and access.
 With a simplified learning curve, users can explore and access any data across the entire enterprise with either a low-code or a natural language processing (NLP) interface and API. Software developers, data scientists and data engineers can quickly access data without specifying how and where to retrieve it.
 
-==== Limitless Data Gateway.
+=== Limitless Data Gateway.
 {long-product-name} empowers developers and data scientists to efficiently source, transform and compose unlimited data payloads from different sources to achieve results without constraints.
 
 {long-product-name} leverages the proven scale, resilience and performance profile of Hazelcast Platform. It delivers a dynamic, resilient and scalable semantic data layer that encodes institutional knowledge across systems.
 
-==== Integrate and forget.
+=== Integrate and forget.
 Build fast, robust, trackable, and adaptable data integrations that self-repair when schemas change. {long-product-name} provides a graphical profile of all integrations, tracing the path from the query to the original source. This enables clear, observable data lineage for data traceability and compliance.
 
 
