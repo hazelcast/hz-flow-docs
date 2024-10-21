@@ -28,17 +28,14 @@ You should have https://docs.docker.com/engine/install/[Docker] and https://docs
 In this tutorial, we're going to deploy {short-product-name}, as well as a few demo projects
 that we'll use throughout.
 
-Everything you need is packaged up in a Docker Compose file to make getting started easier.  
+Everything you need is packaged up in a Docker Compose file to make getting started easier.
 
-To launch, run the following in your command line:
+To launch, clone the repository and follow instructions in the https://github.com/hazelcast/hazelcast-flow-public-demos/blob/main/films-demo/README.md[README] file:
 
 [,bash]
 ----
 git clone https://github.com/hazelcast/hazelcast-flow-public-demos.git
 cd hazelcast-flow-public-demos/films-demo
-
-
-docker compose up -d
 ----
 
 After about a minute, {short-product-name} should be available at http://localhost:9021.
