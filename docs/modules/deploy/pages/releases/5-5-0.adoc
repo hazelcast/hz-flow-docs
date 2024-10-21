@@ -25,7 +25,7 @@ Explore the data you hold and navigate the relationships and fields available wi
 Queries can be exposed as streaming queries over HTTP (using Server-Sent Events) or Websocket (or both). Saved queries are executed in background by {short-product-name} as Hazelcast Jet jobs.
 
 === Infrastructure as Code support
-Set up your schemas and data models through a convenient UI interface, then deploy the generated schemas into your production environment using Git operations
+Set up your schemas and data models through a convenient UI interface, then deploy the generated schemas into your production environment using Git operations.
 
 == Next Steps
 
