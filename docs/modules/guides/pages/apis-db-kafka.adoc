@@ -568,7 +568,7 @@ Fill out the rest of the form with the following details:
 | `LATEST`
 
 | Namespace
-| `com.hazelflix.films.mykafka` (should already be populated)
+| `com.hazelflix.announcements`
 
 | Message Type
 | `NewFilmReleaseAnnouncement`
