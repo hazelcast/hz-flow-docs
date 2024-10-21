@@ -14,9 +14,19 @@ For production resilience, please ensure you're running multiple {short-product-
 
 Doubling the available resources can roughly half your processing latency and increase your overall throughput.
 
+== Multiple instances
+
+{short-product-name} should be run across multiple instances in your production environments. We recommend at least 3 instances to provide job resilience and maintain the quorum in the Hazelcast cluster.
+
+This will provide you with redundancy in case of node failure and allow multiple jobs to be spread across the nodes in the cluster.
+
+{short-product-name} can be scaled to run on extra nodes as you execute more jobs that need resources to run in parallel.
+
+For more detail on templates to configure {short-product-name} with multiple nodes, see xref:deploy:production-deployments.adoc[].
+
 == Tuning
 
-When running {short-product-name} in xref:deploy:production-deployments.adoc[production], ensure you've configured an external xref:query:observability.adoc#performance-metrics--prometheus[Prometheus] server to capture your metrics, then {short-product-name} will graph them on the Endpoint page. From there you can see the throughput of your query and the latency of each message processed.
+When running {short-product-name} in xref:deploy:production-deployments.adoc[production], ensure you've configured an external xref:query:observability.adoc#performance-metrics--prometheus[Prometheus] server to capture your metrics, which will enable {short-product-name} to graph them on the Endpoint page. From there you can see the throughput of your query and the latency of each message processed.
 
 image:perf-metrics.png[]
 
