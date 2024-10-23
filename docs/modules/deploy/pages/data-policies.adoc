@@ -1,133 +1,329 @@
 = Data access policies
 :description: Learn about {short-product-name} data access policies
 
-Taxi supports defining data access policies against types, which are evaluated at runtime.
+{short-product-name} supports defining data access policies against types, which are evaluated when running queries. This feature allows you to define data policies once and enforce them consistently across your organization, regardless of where data is served from.
 
-This is a powerful capability, as it allows you to define data policies once, and enforce them consistently
-across your organization, regardless of where data is served from.
+## Overview
 
-[,taxi]
-----
-model Employee {
-  id : EmployeeId
-  manager : ManagerId
-  salary : Salary
+Policies are first-class citizens within {short-product-name} and are defined in your project along with your types, models, and services. They can conditionally control the data that is returned (including filtering and obfuscating values) and determine which services and operations can be invoked.
+
+## Get started - configure your JWT
+
+Policies are often used as a form of authorization based on the user requesting the data. To use policies in this manner, you must first have configured xref:authentication.adoc[Authentication] with {short-product-name}.
+
+### Expose user information
+
+Policies access user information from the claims presented on your authentication token. Since each authentication provider is different, you need to define a {short-product-name} type that maps data from your token into data types you can use in your policies.
+
+{short-product-name}'s UI will guide you through this process and create the corresponding types for you:
+
+// AUTHORS NOTE - we need a new rebranded image here for Flow:
+
+image:ui-setup.png[]
+
+Alternatively, you can manually define a model that extends from `com.flow.auth.AuthClaims`. You don't need to map everything from the token, only the attributes you care about.
+
+For example, consider the following JWT:
+
+```json
+{
+  "sub": "661667e1-78ca-43e5-97dd-d1a39ee37f43",
+  "email_verified": true,
+  "allowed-origins": ["*"],
+  "iss": "http://xxxx",
+  "typ": "Bearer",
+  "preferred_username": "mandy",
+  "realm_access": {
+    "roles": [
+      "offline_access",
+      "default-roles-flow",
+      "uma_authorization",
+      "Admin"
+    ]
+  },
+  "email": "amanda@hazelcast.co"
 }
+```
 
+You can cherry-pick the useful fields and define a model. Note that the model name isn't important, but it must inherit from `com.flow.auth.AuthClaims`:
 
-policy SalaryPolicy against Employee {
-   // policies are either 'read' or 'write'
-   read {
-      // An employee can read their own data
-      case caller.EmployeeId == this.id -> permit
-      // The employee's manager can read data
-      case caller.EmployeeId == this.manager -> permit
-      // HR can read data
-      case caller.DepartmentName == "HR" -> permit
-      // For everyone else, filter the salary information
-      else -> filter(salary)
+```taxi
+type Sub inherits String
+type Role inherits String
+
+model UserInfo inherits com.flow.auth.AuthClaims {
+   sub : Sub
+   realm_access : {
+      roles: Role[]
    }
 }
-----
+```
 
-== Overview
+### Verify your credentials
 
-Policies are a first-class citizen within Taxi, and are defined in your Taxi project along with your
-types, models and services.
+To verify that your credentials have been mapped correctly, the UI shows the details of the current user in the policy designer:
 
-Policies are enforced when queries are being executed, and can be defined against either a type or a model.
+image:user-credentials.png[]
 
-Policies define simple expressions that are evaluated, and inform how the data should be treated:
+## Define policies
 
-* `permit` : allows the data to flow through or for the operation to continue
-* `filter` : replaces the data with `null`
-* `filter(attributeA,attributeB)` : replaces specific attributes with `null`, but allows the rest of the data to be read
+Policies are defined in Taxi files within a {short-product-name} project. Here's a simple example:
 
-=== The "caller"
+```taxi
+model Film {
+   title : Title inherits String
+   yearReleased : YearReleased inherits Int
+}
 
-Policies are defined against the `caller` - the person or service requesting the data. The caller
-itself is resolved using the auth token presented from your IDP.
-(Note - policies are not supported when running without an IDP)
-
-Similar to how you can use claims from your IDP, to pass through to a data source, these same claims are available when evaluating a policy, as the `caller` object. 
-
-// broken link to 'claims from your IDP' /changelog/2024-03-08-release-announcement-0-30-0#using-jwt-claims-within-a-query[claims from your IDP] 
-
-=== Resolve data for policy evaluation
-
-Policies can be defined against any data that is discoverable using a {short-product-name} query -
-not just the values present on the inbound claim.
- A separate subquery is executed to discover data that is needed to evaluate the policy.
-
-For example:
-
-[,taxi]
-----
-policy SalaryPolicy against Employee {
-   read {
-      // HR can read data
-      case caller.DepartmentName == "HR" -> permit
+// Define a policy named `ExcludeYearReleased` which will operate against the `Film` type.
+policy ExcludeYearReleased against Film {
+   read { // define the scope - either read or write 
+     Film as { // return the Film type 
+      ... except { yearReleased } // but exclude some fields
+     }
    }
 }
-----
+```
 
-Here, the policy is defined against the caller's Department Name, which may not be available in the inbound claim,
-but is discoverable using the user's ID.
+The above policy will be invoked whenever data is returned from an operation that returns `Film` data.
 
-Let's imagine the user's credentials are presented as follows:
+### Inputs to policies
+Policies can request data as an input, which can be referred to within the policy.
+For example, this policy requests information about the user making the request:
 
-----
-model AcmeAuthClaims inherits JtwClaim {
-   userId : UserId inherits String
+```taxi
+policy FilterSalary against Employee (userInfo : UserInfo) -> {
+  ...
 }
+```
 
-model UserInformation {
-   department : DepartmentName
+Here, `UserInfo` is the type configured against the JWT token as xref:data-policies.adoc#expose-user-information[described earlier].
+
+
+You can request any data in the policy, including data loaded from additional services, as described below.
+
+### Suppress data based on user properties
+
+You can create policies that behave differently based on user properties. 
+
+For example, this policy suppresses the `salary` field: 
+
+```taxi
+policy FilterSalary against Employee (userInfo : UserInfo) -> {
+   read {
+      when {
+         userInfo.groups.contains('ADMIN') -> Employee
+         else -> Employee as { ... except { salary } }
+      }
+   }
+}
+```
+
+### Policies may not alter structure
+Data policies can be used to xref:data-policies.adoc#obfuscate-data[obfuscate] and filter out properties, but they cannot drop fields entirely, as doing so
+would cause parsing exceptions in downstream systems, and mean that responses violate their own contracts.
+
+When data is filtered (for example, using a spread operator), the resulting object contains nulls.
+
+### Policies and expressions
+When models include an expression, the expression is evaluated using the input values after the relevant security policies have been applied.
+
+This approach ensures that sensitive information is not inadvertently exposed (for example, by adjusting a policy-protected value using an expression such as: `EmployeeSalary + 1`).
+
+As a result, the input values used in the expression may differ from the original values returned by an operation. 
+
+If a policy causes an input value to become `null`, the expression will also evaluate to `null`.
+
+### Throw errors from policies
+
+Policies can also throw errors to completely deny access to certain data based on conditions. For example:
+
+```taxi
+policy OnlyManagers against EmployeeInfo (userInfo : UserInfo) -> {
+   read {
+      when {
+         userInfo.groups.contains('Manager') -> EmployeeInfo
+         else -> throw((NotAuthorizedError) { message: 'Not Authorized' })
+      }
+   }
+}
+```
+
+### Obfuscate data
+
+You can use policies to obfuscate data. The policies can be applied to nested types as well. For example, to partially obfuscate titles for non-admin users:
+
+```taxi
+policy FilterFilmTitle against Title (userInfo : UserInfo) -> {
+   read {
+      when {
+         userInfo.groups.contains('ADMIN') -> Title
+         else -> concat(left(Title, 3), "***")
+      }
+   }
+}
+```
+
+### Use external data in policy decisions
+
+Policies can load additional data from external services to make decisions. For example, to filter films based on whether the user has accepted terms and conditions:
+
+```taxi
+model UserConsent {
+   acceptedTermsAndConditions : AcceptedTermsAndConditions inherits Boolean
 }
 
 service UserService {
-   operation getUserInformation(UserId):UserInformation
+   operation getConsent(UserId): UserConsent
 }
-----
 
-In this example, to evaluate the policy, the `DepartmentName` is required. By executing a subquery
-using the information on the `AcmeAuthClaims`, {short-product-name} invokes the `getUserInformation` operation to discover
-the `DepartmentName`.
-
-=== Policy scopes
-
-When {short-product-name} is executing a query, data is exposed in two places:
-
-* From services to {short-product-name}, in order to execute the query. This is known as `internal` scope as the data stays within {short-product-name}
-* From {short-product-name} back to the initiating user. This is known as `external` scope as the data leaves {short-product-name}
-
-Often, it's OK for data to be used in order to look up values, provided it's not exposed to the end user.
-
-Policy scopes account for this by allowing policies to restrict either `internal` or `external`.
-
-For example:
-
-----
-policy SalaryPolicy against Employee {
-   // It's ok for Flow to access all employee data, provided
-   // the data isn't leaked out to the user.
-   read internal {
-      permit
-   }
-
-   // When returning data to the user, apply these policies.
-   read external {
-      // An employee can read their own data
-      case caller.EmployeeId == this.id -> permit
-      // The employee's manager can read data
-      case caller.EmployeeId == this.manager -> permit
-      // HR can read data
-      case caller.DepartmentName == "HR" -> permit
-      else -> filter(salary)
+policy AllAccessFilms against Film (userInfo : UserInfo, acceptedTerms: AcceptedTermsAndConditions) -> {
+   read {
+      when {
+         acceptedTerms == false -> null
+         else -> Film
+      }
    }
 }
-----
+```
 
-WARNING: If an internal policy restricts {short-product-name} from reading data, values cannot be used as inputs
-  into other services. Be careful, as this can cause queries to fail, even though there is sufficient
-  data to correctly execute.
+### Projection and policy impact
+
+When a policy modifies a field that is used in a projection, the result is affected accordingly. For instance, if a policy suppresses the `title` field for non-admin users:
+
+```taxi
+policy FilterYearReleased against Film (userInfo : UserInfo) -> {
+   read {
+      when {
+         userInfo.groups.contains('ADMIN') -> Film
+         else -> Film as { ... except { title } }
+      }
+   }
+}
+```
+
+Querying and projecting the `title` field for a non-admin user would result in:
+
+```taxi
+find { Film } as {
+   name : Title
+}
+```
+
+For non-admin users, this would return `name: null`.
+
+## Understand when policies are applied
+
+Policies defined against types or models are applied to data returned from a service before it's made available in {short-product-name} (either for other service calls or to return to a caller). A policy is applied to the type **and all its subtypes**.
+
+// AUTHORS NOTE - how to change this snippet into asciidoc?
+
+```
+"Schema":
+  
+  closed model Film {
+      id : FilmId inherits String
+      title : Title inherits String
+   }
+   
+   service FilmsApi {
+         operation getAllFilms():Film[]
+   }
+   
+   type Role inherits String
+   model UserInfo {
+         roles : Role[]
+   }
+   
+   policy HideTitle against Film (userInfo:UserInfo) -> {
+      read {
+         when {
+            userInfo.roles.contains('ADMIN') -> Film
+            else -> Film as { ... except { title }}
+         }
+      }
+   }
+   
+"Query":
+
+import Film
+given { user: UserInfo = { roles: [\"USER\",\"ADMIN\"] } }
+find { Film[]}",
+
+```
+
+## Use errors in policies
+
+Errors can be thrown in policies to prevent access entirely, returning an error code to the user. For example:
+
+```taxi
+policy OnlyManagers against EmployeeInfo (userInfo : UserInfo) -> {
+   read {
+      when {
+         userInfo.groups.contains('Manager') -> EmployeeInfo
+         else -> throw((NotAuthorizedError) { message: 'Not Authorized' })
+      }
+   }
+}
+```
+
+// AUTHORS NOTE - TO DO: once topic added, re-instate this xref 
+// Read more about [how to throw errors](/docs/querying/errors).
+
+## Apply to streaming queries
+Data policies can also be applied to streaming queries, which are running continuously in the background.
+
+Instead of executing with the requested user permissions (as request / response queries do), persistent
+streaming queries execute with a system account - the Executor user.
+
+### Configure the Executor user
+The Executor User is a standard system account defined by your Identity Provider (IDP). Assign roles as you would with
+any other user, as discussed in our docs on xref:authentication.adoc[Authentication]. 
+
+{short-product-name} authenticates this role using the OAuth2 Client Credentials flow with a `client-id` and `client-secret`. Pass these
+to the {short-product-name} instance at startup with the following configuration settings:
+
+|===
+| Parameter | Description
+
+| `flow.security.openIdp.executorRoleClientId`
+| The user to authenticate with. Note: this can be different from the standard authentication client configured with `clientId`
+
+| `flow.security.openIdp.executorRoleClientSecret`
+| The Client Secret to authenticate with
+
+| `flow.security.openIdp.issuerUrl`
+| The URL of the IDP. Note that {short-product-name}'s server will connect to this URL, so ensure it's accessible from the server
+|===
+
+Example configuration:
+
+```
+--flow.security.openIdp.executorRoleClientId=TheSchuylerSisters
+--flow.security.openIdp.executorRoleClientSecret=AngelicaElizaAndPeggy
+```
+
+### Troubleshoot
+
+#### IssuerUrl connectivity issues
+The `issuerUrl` setting is used by both standard xref:authentication.adoc#open-id-connect-setup[Authentication] (to authenticate users logging in to {short-product-name}), as
+well as by {short-product-name} to fetch user credentials for the Executor user.
+
+ * User authentication will perform a browser-side redirect to the IssuerUrl - so the URL must be accessible from your browser
+ * Executor User authentication performs requests from {short-product-name}'s server - so the URL must be accessible from your server
+
+Normally, this is not a problem. However, if you're running everything locally (e.g., using Docker or Docker Compose) you may need to use `host.docker.internal` as the `issuerUrl` DNS name,
+https://docs.docker.com/desktop/networking/#i-want-to-connect-from-a-container-to-a-service-on-the-host[docker docs]
+or set Docker to use the https://docs.docker.com/engine/network/drivers/host/[Host Network].
+
+This is generally not an issue in production (and the above workarounds are not suitable for production), as the network is normally more well defined.
+
+### Observers vs Executors
+Persistent Streams are always executed under the permissions of the Executor user. However, these streams can also be observed by other users, through published xref:query:queries-as-endpoints.adoc#saved-streams[http or websocket endpoints].
+
+In this scenario, policies are applied twice:
+
+ * First, the stream is executed using the permissions of the Executor user
+ * Then, when being observed, the results of the stream are then re-evaluated using the permissions of the user observing the stream
+
+As a result, the observed output may differ from the actual data being emitted by the stream.
