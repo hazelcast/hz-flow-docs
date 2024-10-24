@@ -72,6 +72,7 @@
 * xref:query:mutations.adoc[Perform mutations]
 * xref:query:queries-as-endpoints.adoc[Publish queries]
 * xref:query:observability.adoc[Observe queries]
+* xref:query:errors.adoc[Handle errors]
 
 .Reference
 * xref:glossary.adoc[Glossary]

@@ -3,15 +3,15 @@
 
 {short-product-name} supports defining data access policies against types, which are evaluated when running queries. This feature allows you to define data policies once and enforce them consistently across your organization, regardless of where data is served from.
 
-## Overview
+== Overview
 
 Policies are first-class citizens within {short-product-name} and are defined in your project along with your types, models, and services. They can conditionally control the data that is returned (including filtering and obfuscating values) and determine which services and operations can be invoked.
 
-## Get started - configure your JWT
+== Get started - configure your JWT
 
 Policies are often used as a form of authorization based on the user requesting the data. To use policies in this manner, you must first have configured xref:authentication.adoc[Authentication] with {short-product-name}.
 
-### Expose user information
+=== Expose user information
 
 Policies access user information from the claims presented on your authentication token. Since each authentication provider is different, you need to define a {short-product-name} type that maps data from your token into data types you can use in your policies.
 
@@ -59,13 +59,13 @@ model UserInfo inherits com.flow.auth.AuthClaims {
 }
 ```
 
-### Verify your credentials
+=== Verify your credentials
 
 To verify that your credentials have been mapped correctly, the UI shows the details of the current user in the policy designer:
 
 image:user-credentials.png[]
 
-## Define policies
+== Define policies
 
 Policies are defined in Taxi files within a {short-product-name} project. Here's a simple example:
 
@@ -87,7 +87,7 @@ policy ExcludeYearReleased against Film {
 
 The above policy will be invoked whenever data is returned from an operation that returns `Film` data.
 
-### Inputs to policies
+=== Inputs to policies
 Policies can request data as an input, which can be referred to within the policy.
 For example, this policy requests information about the user making the request:
 
@@ -102,7 +102,7 @@ Here, `UserInfo` is the type configured against the JWT token as xref:data-polic
 
 You can request any data in the policy, including data loaded from additional services, as described below.
 
-### Suppress data based on user properties
+=== Suppress data based on user properties
 
 You can create policies that behave differently based on user properties. 
 
@@ -119,13 +119,13 @@ policy FilterSalary against Employee (userInfo : UserInfo) -> {
 }
 ```
 
-### Policies may not alter structure
+=== Policies may not alter structure
 Data policies can be used to xref:data-policies.adoc#obfuscate-data[obfuscate] and filter out properties, but they cannot drop fields entirely, as doing so
 would cause parsing exceptions in downstream systems, and mean that responses violate their own contracts.
 
 When data is filtered (for example, using a spread operator), the resulting object contains nulls.
 
-### Policies and expressions
+=== Policies and expressions
 When models include an expression, the expression is evaluated using the input values after the relevant security policies have been applied.
 
 This approach ensures that sensitive information is not inadvertently exposed (for example, by adjusting a policy-protected value using an expression such as: `EmployeeSalary + 1`).
@@ -134,7 +134,7 @@ As a result, the input values used in the expression may differ from the origina
 
 If a policy causes an input value to become `null`, the expression will also evaluate to `null`.
 
-### Throw errors from policies
+=== Throw errors from policies
 
 Policies can also throw errors to completely deny access to certain data based on conditions. For example:
 
@@ -149,7 +149,7 @@ policy OnlyManagers against EmployeeInfo (userInfo : UserInfo) -> {
 }
 ```
 
-### Obfuscate data
+=== Obfuscate data
 
 You can use policies to obfuscate data. The policies can be applied to nested types as well. For example, to partially obfuscate titles for non-admin users:
 
@@ -164,7 +164,7 @@ policy FilterFilmTitle against Title (userInfo : UserInfo) -> {
 }
 ```
 
-### Use external data in policy decisions
+=== Use external data in policy decisions
 
 Policies can load additional data from external services to make decisions. For example, to filter films based on whether the user has accepted terms and conditions:
 
@@ -187,7 +187,7 @@ policy AllAccessFilms against Film (userInfo : UserInfo, acceptedTerms: Accepted
 }
 ```
 
-### Projection and policy impact
+=== Projection and policy impact
 
 When a policy modifies a field that is used in a projection, the result is affected accordingly. For instance, if a policy suppresses the `title` field for non-admin users:
 
@@ -212,7 +212,7 @@ find { Film } as {
 
 For non-admin users, this would return `name: null`.
 
-## Understand when policies are applied
+== Understand when policies are applied
 
 Policies defined against types or models are applied to data returned from a service before it's made available in {short-product-name} (either for other service calls or to return to a caller). A policy is applied to the type **and all its subtypes**.
 
@@ -252,7 +252,7 @@ find { Film[]}",
 
 ```
 
-## Use errors in policies
+== Use errors in policies
 
 Errors can be thrown in policies to prevent access entirely, returning an error code to the user. For example:
 
@@ -270,13 +270,13 @@ policy OnlyManagers against EmployeeInfo (userInfo : UserInfo) -> {
 // AUTHORS NOTE - TO DO: once topic added, re-instate this xref 
 // Read more about [how to throw errors](/docs/querying/errors).
 
-## Apply to streaming queries
+== Apply to streaming queries
 Data policies can also be applied to streaming queries, which are running continuously in the background.
 
 Instead of executing with the requested user permissions (as request / response queries do), persistent
 streaming queries execute with a system account - the Executor user.
 
-### Configure the Executor user
+=== Configure the Executor user
 The Executor User is a standard system account defined by your Identity Provider (IDP). Assign roles as you would with
 any other user, as discussed in our docs on xref:authentication.adoc[Authentication]. 
 
@@ -303,9 +303,9 @@ Example configuration:
 --flow.security.openIdp.executorRoleClientSecret=AngelicaElizaAndPeggy
 ```
 
-### Troubleshoot
+=== Troubleshoot
 
-#### IssuerUrl connectivity issues
+=== IssuerUrl connectivity issues
 The `issuerUrl` setting is used by both standard xref:authentication.adoc#open-id-connect-setup[Authentication] (to authenticate users logging in to {short-product-name}), as
 well as by {short-product-name} to fetch user credentials for the Executor user.
 
@@ -318,7 +318,7 @@ or set Docker to use the https://docs.docker.com/engine/network/drivers/host/[Ho
 
 This is generally not an issue in production (and the above workarounds are not suitable for production), as the network is normally more well defined.
 
-### Observers vs Executors
+=== Observers vs Executors
 Persistent Streams are always executed under the permissions of the Executor user. However, these streams can also be observed by other users, through published xref:query:queries-as-endpoints.adoc#saved-streams[http or websocket endpoints].
 
 In this scenario, policies are applied twice:
