@@ -9,5 +9,6 @@ amazing integration projects.
 
 * xref:deploy:development-deployments.adoc[Development Quickstart] - Start here
 * xref:apis-db-kafka.adoc[Connect APIs, a database and Kafka] - Deploy {spn} locally, then integrate a database, a REST API, and Kafka. Ideal for beginners
+* xref:data-access-policies.adoc[Data Access Policies] - Define access policies for data sources
 * xref:work-with-xml.adoc[Work with XML and JSON] - Combine data from XML and JSON data sources
 * xref:build-event-streams.adoc[Stream data] - Join and enrich Kafka streams to deliver bespoke data feeds
