@@ -9,6 +9,7 @@
 //** xref:guides:compose.adoc[Compose APIs and database]
 ** xref:guides:work-with-xml.adoc[Work with XML and JSON]
 ** xref:guides:build-event-streams.adoc[Stream data]
+** xref:guides:data-access-policies.adoc[Data Access Policies]
 //** xref:guides:gen-taxi-from-code.adoc[Generate Taxi from code]
 //** xref:guides:gen-code-from-taxi.adoc[Generate code from Taxi]
 * xref:introduction:get-support.adoc[Get support]
