@@ -1,0 +1,148 @@
+= Handle errors
+:description: Using errors to control process in {short-product-name}.
+
+In {short-product-name} and Taxi, error handling is managed through a `throw` function that allows you to 
+control the response sent back to the user. 
+
+This includes setting the error code and the response payload. Note that currently, we do not support catching errors—
+throwing an error is a fatal action. This will be addressed in a future release.
+
+== Throw errors
+
+Errors are thrown using the `throw` function. The syntax for throwing an error is:
+
+```kotlin
+throw((ErrorType) { errorPayload })
+```
+
+This is actually a casting operation which casts the payload value to the defined error type. This is
+because Taxi does not have a concept of constructors, or object creation.
+
+For example, given a `NotAuthorizedError`, defined as follows:
+
+```taxi NotAuthorized.taxi
+import com.flow.errors.Error
+
+model NotAuthorizedError inherits Error {
+  message: ErrorMessage
+}
+```
+
+This would be thrown as follows:
+
+```taxi
+throw((NotAuthorizedError) { message: "Authentication failed" })
+```
+
+Here, `(NotAuthorizedError)` is a casting statement.
+
+=== Define errors
+
+Errors are defined as models in Taxi. An error model must inherit from the base `Error` type (`com.flow.errors.Error`) and can include 
+annotations to control the HTTP response code and the response body. Below are examples of how to define and use error models.
+
+=== Example: NotAuthorizedError
+
+The `NotAuthorizedError` is provided out-of-the-box and is defined as follows:
+
+```taxi
+@ResponseCode(401)
+model NotAuthorizedError inherits Error {
+  message: ErrorMessage
+}
+```
+
+To throw this error with a custom message:
+
+```taxi
+throw((NotAuthorizedError) { message: "Authentication failed" })
+```
+
+== Response codes and payloads
+
+When an error is thrown, users can control the HTTP response code and the response payload using annotations.
+
+=== Example: Custom response code
+
+If no response code is provided, the default response code is 400. To specify a custom response code, use the `@ResponseCode` annotation:
+
+Note: Don't forget to include the import of `taxi.http.ResponseCode`
+
+```taxi
+import taxi.http.ResponseCode
+
+@ResponseCode(403)
+model NotAuthorizedError inherits Error {
+  message: ErrorMessage
+}
+```
+
+=== Example: Custom response body
+
+To customize the response body, use the `@ResponseBody` annotation:
+
+Note: Don't forget to include the import of `taxi.http.ResponseBody`
+
+
+```taxi
+import taxi.http.ResponseBody
+
+model BadPermissionsError inherits Error {
+  @ResponseBody
+  error: {
+    errorCode: String
+    message: String
+  }
+}
+```
+
+Thrown as follows:
+
+```taxi
+throw( (BadPermissionsError) 
+  { error: 
+    { errorCode: 'E1234', message: "You didn't say the magic word" }
+  }
+)
+```
+
+This would generate an error as follows:
+
+```json
+{
+  "errorCode" : "E1234",
+  "message" : "You didn't say the magic word"
+}
+```
+
+== Built-in errors
+
+As part of the release in 0.34, the following errors will be provided out-of-the-box.
+
+// AUTHORS NOTE - is this missing the 401 not authorized error? And is bad request also a 400, same as client error?
+
+|===
+| Error Type | Description | HTTP Response Code
+
+| *OperationFailedError*
+| Thrown when an operation fails to be invoked (e.g., a server returned a 4xx/5xx error).
+| 400 (Client Error)
+
+| *ModelContractViolationError*
+| Thrown when a model cannot be constructed, generally because data was missing.
+| 422 (Unprocessable Entity)
+
+| *ParseError*
+| Thrown when source content could not be parsed (e.g., malformed JSON or CSV).
+| 400 (Bad Request)
+
+| *DataNotDiscoverableError*
+| Thrown when the query asked for data, but no services could provide the requested data.
+| 404 (Not Found)
+
+| *NotAuthorizedError*
+| Thrown to indicate that a requested data attribute or service call has been rejected.
+| 403 (Forbidden)
+|===
+
+// ignore
