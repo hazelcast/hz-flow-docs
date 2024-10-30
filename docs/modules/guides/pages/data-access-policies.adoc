@@ -76,7 +76,7 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 * https://github.com/hazelcast/hazelcast-flow-public-demos/tree/main/stock-ticker [Demo project source code, on GitHub]
 
 == View the project
-A project named *stockticker* has been created for {short-product-name} to hold the connection details of our kafka data source, and schemas. 
+A project named *stockticker* has been created for {short-product-name} to hold the connection details of our Kafka data source, and schemas. 
 
  - From the sidebar, click http://localhost:9021/projects[Projects]
  - You will see the films project listed
