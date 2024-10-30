@@ -86,7 +86,7 @@ A project named *stockticker* has been created for {short-product-name} to hold 
 |===
 | Field | Value
 
-| *Organisation*
+| *Organization*
 | `com.hazelstock`
 
 
