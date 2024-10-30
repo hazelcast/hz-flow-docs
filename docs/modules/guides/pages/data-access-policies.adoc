@@ -132,10 +132,10 @@ Execute this query in the Query Editor to see the effect of the policy:
 [,taxi]
 ----
 import com.hazelstock.demo.StockTrade
-stream { StockTrade}
+stream { StockTrade }
 ----
 
-When executed as the Admin user, all fields are returned.  When executed as the `user` user, the `price` field is excluded.   To execute as the `user` user, log out and log back in as the `user` user.
+When executed as the `admin` user, all fields are returned.  When executed as the `user` user, the `price` field is excluded.   To execute as the `user` user, log out and log back in as `user`.
 
 === FilterTicker policy
 The *FilterTicker* policy is a simple example of a policy that restricts access to a specific type.
@@ -164,7 +164,7 @@ Execute this query in the Query Editor to see the effect of the policy:
 [,taxi]
 ----
 import com.hazelstock.demo.StockTrade
-stream { StockTrade}
+stream { StockTrade }
 ----
 
-When executed as the Admin user, all fields are returned including the `Ticker` field.  When executed as the `user` user, the `Ticker` field is obfuscated.   To execute as the `user` user, log out and log back in as the `user` user.
+When executed as the `admin` user, all fields are returned including the `ticker` field.  When executed as the `user` user, the `ticker` field is obfuscated.   To execute as the `user` user, log out and log back in as `user`.
