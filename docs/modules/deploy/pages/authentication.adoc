@@ -56,13 +56,13 @@ Note: host.docker.internal only works on linux based machines. If MC is configur
         --flow.security.openIdp.require-https=false
 
 #       To configure Flow to read the roles from the JWT, set the path to provide a custom path.
-        --flow.security.open-idp.roles.format=path
+        --flow.security.openIdp.roles.format=path
 
 #       To configure Flow to read the roles from the JWT, set the path within the JWT for the roles.
-        --flow.security.open-idp.roles.path=roles
+        --flow.security.openIdp.roles.path=roles
 
 #       When refresh tokens are disabled, Flow performs a silent refresh for OIDC implicit flow via hidden iframe. Defaults to false.
-        --flow.security.open-idp.refreshTokensDisabled=true
+        --flow.security.openIdp.refreshTokensDisabled=true
 
 #       Optional. A URL where authenticated users may be redirected, to manage their account
 #       --flow.security.openIdp.account-management-url=http:..localhost:8080/settings
