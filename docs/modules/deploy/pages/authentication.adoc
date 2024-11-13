@@ -94,6 +94,8 @@ The following properties can be changed or not; please consider your use case ca
 
 . **--flow.security.openIdp.jwks-uri**: A URL to load the set of JWKs used to verify signatures of presented tokens. This URL is called by  {short-product-name}'s server, so ensure that the DNS entry is accessible to  {short-product-name}. `localhost` is unlikely to work here. Example: Assume that MC is configured to run in a Docker Compose file with management-center service name. This property can be set to http://management-center:8080/oauth2/jwks.
 
+. **--flow.security.openIdp.executorRoleTokenUrl**: The openIdp access token endpoint. This URL is called by  {short-product-name}'s server, so ensure that the DNS entry is accessible to  {short-product-name}. `localhost` is unlikely to work here. Example: Assume that MC is configured to run in a Docker Compose file with management-center service name. This property can be set to http://management-center:8080/oauth2/token.
+
 . **--flow.security.openIdp.require-https**: Indicates if auth must be performed over https. Set this to true if MC and {short-product-name} runs on https servers.
 
 . **hazelcast.mc.flow.addresses**: Value of public {short-product-name} node addresses. This value can only be used if the {short-product-name} node addresses are directly accessible from the current environment. For example, if a {short-product-name} address can be reached via http://localhost:9021 and needs to be accessed from the browser. If this property is not set correctly, users may see CORS issues.
