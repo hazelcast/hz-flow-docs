@@ -1,22 +1,19 @@
 = Work with XML and JSON
 :description: A tutorial showing how to link services that publish XML
 
-This tutorial features services publishing a mix of XML and JSON, and explains how to combine them and expose the
-composed services as a REST API.
+This tutorial shows how to link services that publish a mixture of XML and JSON. It explains how to combine these services and then expose them as a REST API.
 
-It shows starting an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
+It describes how to begin an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
 
-// This demo has a video walkthrough that discusses how it's built:
-
-// image::https://cdn.loom.com/sessions/thumbnails/d7819e1108e7401094dbdad39796bbf4-1697719617654-with-play.gif[Video walkthrough,link=https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4]
+Typically, you'll use {short-product-name} to stitch together services in different locations from across your organization but, to keep it simple, we've deployed these as a single service. 
 
 == Overview
 
-This guide shows how to connect:
+This tutorial shows how to connect the following three services:
 
 [,taxi]
 ----
-// A service the returns a list of Films (in XML)
+// A service that returns a list of Films (in XML)
 operation findAllFilms():FilmList
 
 // A service that returns the cast of a film (in XML)
@@ -28,15 +25,22 @@ operation findAwards(FilmId):Award[]
 
 image:2architecture-overview.png[The services in our demo]
 
-We'll stitch these together, and expose a REST API that returns the data from all three services.
+We'll combine these together to create a single endpoint which exposes a REST API that returns the data from all three services.
 
 == Set up
 
-To get started working on {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Development Quickstart guide]
+To get started with {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Development Quickstart guide].
+
+Create a new Taxi project, for example, called `xml-and-json`. 
+
+With {short-product-name}, instead of using integration code, schemas are used to describe  data sources which {short-product-name} uses to link everything together. Some services publish their own schemas (e.g. XSDs or WSDLs) but the following example shows how to do this without schemas, with everything written in Taxi. If you have existing schemas, you can skip these steps. 
 
 == Describe the Film Service
 
-Write some Taxi that describes our Film service:
+Write Taxi code that describes our Film service. This is an HTTP operation that returns a list of films.
+
+In the Taxi model, you'll notice  that the name of the field is comprised of special types which will be used to share data across services, and connect them together. 
+This means we are not coupled to field names, which are free to change without impacting our model. 
 
 [tabs]
 ====
@@ -81,9 +85,15 @@ films-data.xml::
 ----
 ====
 
+Tip: Once you have exposed this service, you will be able to see it in the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
+
+Next, copy this code into the Taxi project you created - for example, into a file called `films.taxi`.  
+
 == Integrate the Cast Service
 
-Our CastService takes the ID of a Film, and returns a list of actors:
+Next, repeat this process to define a Taxi schema for the film cast. 
+
+Our CastService takes the FilmId you created previously and uses this to return a list of actors:
 
 [tabs]
 ====
@@ -126,7 +136,9 @@ actor-data.xml::
 
 === What connects it together
 
-{short-product-name} now has enough information to link our services together:
+{short-product-name} can now link our services together - there's no need to write any integration code or resolvers as there is enough information contained in the schemas.
+
+Tip: Use the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
 
 [,taxi]
 ----
@@ -140,16 +152,11 @@ model Film {
 operation fetchCastForFilm(FilmId):ActorList
 ----
 
-We don't need to write any integration code or resolvers.  There's enough information in the schemas.
-
-NOTE: We've written a bit more Taxi here, as we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If these services published XSDs or WSDLs, we could've leveraged them, and only needed to declare the Taxi scalars, such as `FilmId`.
+NOTE: Remember, we've written more Taxi here than normal because we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If our services published XSDs or WSDLs, we could've leveraged those and only declared the Taxi scalars, such as `FilmId`.
 
 == Write Data Queries
 
-// https://www.loom.com/share/d7819e1108e7401094dbdad39796bbf4?sid=74e2d602-ca34-4e62-977b-d7eb482dde47&t=673[Jump to this section of the video]
-
-{short-product-name} uses type metadata to understand how to link things together.  Rather than writing integration code,
-we write a query for data using TaxiQL.
+Next, using {short-product-name}'s *Query editor*, write a query using TaxiQL. 
 
 === Fetch the list of films
 
@@ -182,7 +189,7 @@ Which returns:
 
 === Restructure the result
 
-We'd like to remove the `item` wrapper (which is carried over from the XML format), so we change the query, to ask just for a `Film[]`
+To remove the `item` wrapper (which is carried over from the XML format), we can change the query to just ask for a `Film[]`
 
 [,taxi]
 ----
@@ -210,7 +217,8 @@ Which returns:
 === Define a custom response object
 
 We can define a data contract of the exact data we want back, specifying the field names we like,
-with the data type indicating where the data is sourced from:
+with the data type indicating where the data is sourced from.
+This means we are not bound to the source system's descriptions.
 
 [,taxi]
 ----
@@ -398,7 +406,7 @@ To publish a query as an endpoint using the UI:
 
 == Wrap up and next steps
 
-In this guide, we've:
+In this tutorial, we've:
 
 * Created a new project
 * Exposed XML services and modelled their responses
