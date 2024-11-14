@@ -173,6 +173,7 @@ want to make available for {short-product-name} to query from.
 
 To import the schema:
 
+* Add a new data source using the new `films-database` connection and select the `film` table
 * Complete the form for the database table to import using the parameters below:
 
 |===
@@ -276,7 +277,7 @@ Click on *Services* → `getStreamingProvidersForFilm`.
 This shows the API operation that's exposed in the Swagger spec we just imported.
 This API accepts the ID of a film, and returns information about the streaming services that have the film available to watch.
 
-Now, take a look at the parameters section.
+Now, take a look at the parameters section of the `getStreamingProvidersForFilm` service (you may need to scroll down).
 
 Note that the input parameter - `filmId` is typed as `Int`.  Since we know that this is a FilmId (the same value that's exposed
 by the Films database table), we need to update the type accordingly, so that {short-product-name} knows these two pieces of information are linked.
@@ -512,12 +513,21 @@ Import the spec by clicking *Add a data source* on the front page of {short-prod
 
 You should see a preview of a newly created model: `NewFilmReleaseAnnouncement`.
 
-We need to indicate that the filmId property is the same as the FilmId used elsewhere in our company.
+To ensure the `filmId` attribute in NewFilmReleaseAnnouncement uses the standard `FilmId` type used elsewhere in the company, follow these steps:
 
-* On the left-hand table, click *Models → NewFilmReleaseAnnouncement*
-* The NewFilmReleaseAnnouncement data model is displayed
-* In the "Attributes" table, click on the underlined `Integer` type next to filmId
-* Search for the type FilmId, and select `film.types.FilmId` from the search box
+* Locate the Models Table: On the left-hand side of your screen, find the table labeled "Models."
+** Navigate to `NewFilmReleaseAnnouncement`
+** Within the Models table, click on "Models" → "NewFilmReleaseAnnouncement." This will open the data model for `NewFilmReleaseAnnouncement`.
+** Find the Attributes Table: In the NewFilmReleaseAnnouncement data model, locate the "Attributes" table. This table lists the properties (or attributes) of the NewFilmReleaseAnnouncement model.
+* Identify the `filmId` Attribute: In the "Attributes" table, find the row for the filmId attribute. You'll see the current data type displayed next to it (likely `Int`).
+* Change the `filmId` Type:
+** Click on the underlined `Int` type next to `filmId`. This will open a dropdown or search box.
+** In the search box, type "FilmId"
+** From the search results, select `com.hazelflix.films.filmsdatabase.film.types.FilmId`. This will update the `filmId` attribute to use the standardized `FilmId` type.
+
+image:FilmIdAttribute.png[]
+
+After selecting the FilmId type, click Save to import the protobuf definitions and save the changes.
 
 The announcement field has been typed as `Announcement`.  As there's no existing types in our company for this data,
 it's fine to leave as-is, and use the newly created type.
@@ -588,6 +598,8 @@ Streams are a different type of operation. Rather than request / response like a
 expose a continuous stream of data.
 
 Take a look around, and then click *Save*.
+
+NOTE: The message type `NewFilmReleaseAnnouncement` should be pre-populated in a drop-down menu.   If it's not visible, double check that you've imported the Protobuf schema correctly. 
 
 == Join data from Kafka, API and our DB
 

@@ -56,13 +56,13 @@ Note: host.docker.internal only works on linux based machines. If MC is configur
         --flow.security.openIdp.require-https=false
 
 #       To configure Flow to read the roles from the JWT, set the path to provide a custom path.
-        --flow.security.open-idp.roles.format=path
+        --flow.security.openIdp.roles.format=path
 
 #       To configure Flow to read the roles from the JWT, set the path within the JWT for the roles.
-        --flow.security.open-idp.roles.path=roles
+        --flow.security.openIdp.roles.path=roles
 
 #       When refresh tokens are disabled, Flow performs a silent refresh for OIDC implicit flow via hidden iframe. Defaults to false.
-        --flow.security.open-idp.refreshTokensDisabled=true
+        --flow.security.openIdp.refreshTokensDisabled=true
 
 #       Optional. A URL where authenticated users may be redirected, to manage their account
 #       --flow.security.openIdp.account-management-url=http:..localhost:8080/settings
@@ -93,6 +93,8 @@ The following properties can be changed or not; please consider your use case ca
 . **--flow.security.openIdp.issuerUrl**: The openIdp issuer endpoint. This should be set to the MC's address. The browser will redirect to this endpoint, so ensure the DNS entry is accessible via browser traffic. `localhost` is possibly OK here. Example: Unless overridden, MC runs on http://localhost:8080. This property can be set to http://localhost:8080.
 
 . **--flow.security.openIdp.jwks-uri**: A URL to load the set of JWKs used to verify signatures of presented tokens. This URL is called by  {short-product-name}'s server, so ensure that the DNS entry is accessible to  {short-product-name}. `localhost` is unlikely to work here. Example: Assume that MC is configured to run in a Docker Compose file with management-center service name. This property can be set to http://management-center:8080/oauth2/jwks.
+
+. **--flow.security.openIdp.executorRoleTokenUrl**: The openIdp access token endpoint. This URL is called by  {short-product-name}'s server, so ensure that the DNS entry is accessible to  {short-product-name}. `localhost` is unlikely to work here. Example: Assume that MC is configured to run in a Docker Compose file with management-center service name. This property can be set to http://management-center:8080/oauth2/token.
 
 . **--flow.security.openIdp.require-https**: Indicates if auth must be performed over https. Set this to true if MC and {short-product-name} runs on https servers.
 
