@@ -3,7 +3,7 @@
 
 This tutorial shows how to link services that publish a mixture of XML and JSON. It explains how to combine these services and then expose them as a REST API.
 
-How to begin an {lpn} project is described from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
+How to begin a {lpn} project is described from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
 
 Typically, you'll use {short-product-name} to stitch together services in different locations from across your organization but, to keep it simple, we've deployed these below as a single service. 
 
