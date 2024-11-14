@@ -189,7 +189,7 @@ Which returns:
 
 === Restructure the result
 
-To remove the `item` wrapper (which is carried over from the XML format), we can change the query to just ask for a `Film[]`
+To remove the `item` wrapper (which is carried over from the XML format), we can change the query to just ask for a `Film[]`:
 
 [,taxi]
 ----
