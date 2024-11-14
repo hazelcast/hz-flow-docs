@@ -39,7 +39,7 @@ With {short-product-name}, instead of using integration code, schemas are used t
 
 First, we'll write Taxi code that describes our Film service. This is an HTTP operation that returns a list of films.
 
-In the Taxi model, you'll notice  that the name of the field is comprised of special types which will be used to share data across services, and connect them together. 
+In the Taxi model, you'll notice that the name of the field is composed of special types that will be used to share data across services and connect them together. 
 This means we are not coupled to field names, which are free to change without impacting our model. 
 
 [tabs]
