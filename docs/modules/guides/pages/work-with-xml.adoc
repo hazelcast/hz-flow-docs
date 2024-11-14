@@ -25,7 +25,7 @@ operation findAwards(FilmId):Award[]
 
 image:2architecture-overview.png[The services in our demo]
 
-We'll combine these together to create a single endpoint that exposes a REST API which returns the data from all three services.
+We'll combine these together to create a single endpoint that exposes a REST API to return the data from all three services.
 
 == Set up
 
