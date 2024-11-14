@@ -3,9 +3,9 @@
 
 This tutorial shows how to link services that publish a mixture of XML and JSON. It explains how to combine these services and then expose them as a REST API.
 
-It describes how to begin an {lpn} project from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
+How to begin an {lpn} project is described from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
 
-Typically, you'll use {short-product-name} to stitch together services in different locations from across your organization but, to keep it simple, we've deployed these as a single service. 
+Typically, you'll use {short-product-name} to stitch together services in different locations from across your organization but, to keep it simple, we've deployed these below as a single service. 
 
 == Overview
 
@@ -25,11 +25,11 @@ operation findAwards(FilmId):Award[]
 
 image:2architecture-overview.png[The services in our demo]
 
-We'll combine these together to create a single endpoint which exposes a REST API that returns the data from all three services.
+We'll combine these together to create a single endpoint that exposes a REST API which returns the data from all three services.
 
 == Set up
 
-To get started with {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Development Quickstart guide].
+To get started with {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Developer setup].
 
 Create a new Taxi project, for example, called `xml-and-json`. 
 
@@ -37,7 +37,7 @@ With {short-product-name}, instead of using integration code, schemas are used t
 
 == Describe the Film Service
 
-Write Taxi code that describes our Film service. This is an HTTP operation that returns a list of films.
+First, we'll write Taxi code that describes our Film service. This is an HTTP operation that returns a list of films.
 
 In the Taxi model, you'll notice  that the name of the field is comprised of special types which will be used to share data across services, and connect them together. 
 This means we are not coupled to field names, which are free to change without impacting our model. 
@@ -85,9 +85,9 @@ films-data.xml::
 ----
 ====
 
-Tip: Once you have exposed this service, you will be able to see it in the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
+TIP: Once you have exposed this service, you will be able to see it in the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
 
-Next, copy this code into the Taxi project you created - for example, into a file called `films.taxi`.  
+Next, copy this code into the Taxi project you created, for example, into a file called `films.taxi`.  
 
 == Integrate the Cast Service
 
@@ -152,7 +152,7 @@ model Film {
 operation fetchCastForFilm(FilmId):ActorList
 ----
 
-NOTE: Remember, we've written more Taxi here than normal because we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If our services published XSDs or WSDLs, we could've leveraged those and only declared the Taxi scalars, such as `FilmId`.
+NOTE: We've written more Taxi here than normal because we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If our services published XSDs or WSDLs, we could've leveraged those and only declared the Taxi scalars, such as `FilmId`.
 
 == Write Data Queries
 
