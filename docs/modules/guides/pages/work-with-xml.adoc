@@ -27,15 +27,16 @@ image:2architecture-overview.png[The services in our demo]
 
 We'll combine these together to create a single endpoint that exposes a REST API to return the data from all three services.
 
-== Set up
+== Step 1 - Set up {short-product-name}
 
-To get started with {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Developer setup].
+To get started with {short-product-name}:
 
-Create a new Taxi project, for example, called `xml-and-json`. 
+. Follow the instructions at xref:deploy:development-deployments.adoc[Developer setup]
+. Create a new Taxi project, for example, called `xml-and-json`. For more information, see https://taxilang.org[Taxi]
 
-With {short-product-name}, instead of using integration code, schemas are used to describe  data sources which {short-product-name} uses to link everything together. Some services publish their own schemas (e.g. XSDs or WSDLs) but the following example shows how to do this without schemas, with everything written in Taxi. If you have existing schemas, you can skip these steps. 
+With {short-product-name}, instead of using integration code, schemas are used to describe  data sources which {short-product-name} uses to link everything together. Some services publish their own schemas (e.g. XSDs or WSDLs) but the following example shows how to do this without schemas, with everything written in Taxi. 
 
-== Describe the Film Service
+== Step 2 - Describe the Film Service
 
 First, we'll write Taxi code that describes our Film service. This is an HTTP operation that returns a list of films.
 
@@ -89,9 +90,9 @@ TIP: Once you have exposed this service, you will be able to see it in the *Serv
 
 Next, copy this code into the Taxi project you created, for example, into a file called `films.taxi`.  
 
-== Integrate the Cast Service
+== Step 3 - Integrate the Cast Service
 
-Next, repeat this process to define a Taxi schema for the film cast. 
+Repeat this process to define a Taxi schema for the film cast. 
 
 Our CastService takes the FilmId you created previously and uses this to return a list of actors:
 
@@ -138,7 +139,7 @@ actor-data.xml::
 
 {short-product-name} can now link our services together - there's no need to write any integration code or resolvers as there is enough information contained in the schemas.
 
-Tip: Use the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
+TIP: Use the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
 
 [,taxi]
 ----
@@ -154,7 +155,7 @@ operation fetchCastForFilm(FilmId):ActorList
 
 NOTE: We've written more Taxi here than normal because we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If our services published XSDs or WSDLs, we could've leveraged those and only declared the Taxi scalars, such as `FilmId`.
 
-== Write Data Queries
+== Step 4 - Write Data Queries
 
 Next, using {short-product-name}'s *Query editor*, write a query using TaxiQL. 
 
@@ -262,7 +263,7 @@ Which now gives us:
 }
 ----
 
-== Add our Awards Service
+== Step 5 - Add our Awards Service
 
 We can also define a schema and service for our awards information, which is returned in JSON:
 
@@ -335,12 +336,16 @@ Which gives us:
 }
 ----
 
-== Publish our query as a REST API
+== Step 6 - Publish our query
+
+The following shows how to publish a query as a REST API, and as an endpoint using the UI.  
+
+=== Publish a query as a REST API
 
 Now that we're happy with our response data, we can publish this query as a REST API.
 
-* First, we wrap the query in a `+query { ... }+` block, and save it in our Taxi project
-* Then we add an `+@HttpOperation(...)+` annotation
+. Wrap the query in a `+query { ... }+` block, and save it in our Taxi project
+. Add an `+@HttpOperation(...)+` annotation
 
 [tabs]
 ====
@@ -394,7 +399,7 @@ Which gives us:
 ]
 ----
 
-== Publish a query using the UI 
+=== Publish a query using the UI 
 
 To publish a query as an endpoint using the UI: 
 
@@ -411,4 +416,4 @@ In this tutorial, we've:
 * Created a new project
 * Exposed XML services and modelled their responses
 * Written a query stitching three services together
-* Published that query as an HTTP service
+* Published the query as an HTTP service
