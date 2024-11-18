@@ -159,6 +159,22 @@ curl -X GET 'http://localhost:9021/api/q/newReleases' \
 == Authentication to Query Endpoints
 When Flow has been deployed with Identity Provider integration enabled, the query endpoints are secured using OAuth2.0.   In order to access the query endpoints, you must provide a valid access token in the Authorization HTTP header.  The access token is obtained by authenticating with the Identity Provider.  For more information on how to obtain an access token, see xref:deploy:authentication.adoc#obtain-an-access-token[Obtain an Access Token].
 
+Instead of executing with the requesting users permissions (as request / response queries do), persistent streaming queries execute with a system account - the Executor user.
+
+=== Configuring the Executor user
+
+`flow.security.openIdp.executorRole` prefixed parameters are required to configure the Executor user, see https://github.com/hazelcast/hazelcast-flow-docker-compose/blob/main/docker-compose-idp.yml[this Docker Compose file]. Some of the parameters are pre-configured, see xref:deploy:authentication.adoc#modification-of-sec-preconfig[potential modification of security pre-configuration].
+
+== Observers vs Executors
+
+Persistent streams are always executed under the permissions of the Executor user. However, these streams can also be observed by other users, through published http or websocket endpoint.
+
+In this scenario, policies are applied twice:
+
+* First, the stream is executed using the permissions of the Executor user
+* Then, when being observed, the results of the stream are then re-evaluated using the permissions of the user observing the stream
+As a result, the observed output may differ from the actual data being emitted by the stream.
+
 == Live reload
 
 Any changes made to the queries are automatically deployed.

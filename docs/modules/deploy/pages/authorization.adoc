@@ -5,6 +5,7 @@ NOTE: To use role-based authorization, you must have configured authentication w
 
 {short-product-name} uses role-based authorization to control which users can perform which tasks.
 
+[#flow-roles]
 == {short-product-name} roles
 
 Roles are used to grant <<permissions,permissions>> to users, which allow users to perform different actions on the {short-product-name} platform.
