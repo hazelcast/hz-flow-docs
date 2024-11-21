@@ -5,7 +5,7 @@ This tutorial shows how to link services that publish a mixture of XML and JSON.
 
 How to begin a {lpn} project is described from scratch so, if you're unfamiliar with {short-product-name}, this is the perfect starting point.
 
-Typically, you'll use {short-product-name} to stitch together services in different locations from across your organization but, to keep it simple, we've deployed these below as a single service. 
+Typically, you'll use {short-product-name} to stitch together services in different locations from across your organization but, to keep it simple, these are deployed below as a single service. 
 
 == Overview
 
@@ -23,24 +23,27 @@ operation findCast(FilmId):ActorList
 operation findAwards(FilmId):Award[]
 ----
 
-image:2architecture-overview.png[The services in our demo]
+image:2architecture-overview.png[The services in the demo]
 
-We'll combine these together to create a single endpoint that exposes a REST API to return the data from all three services.
+You'll combine these together to create a single endpoint that exposes a REST API to return the data from all three services.
 
-== Set up
+== Step 1 - Set up {short-product-name}
 
-To get started with {short-product-name}, follow the instructions at xref:deploy:development-deployments.adoc[Developer setup].
+To get started with {short-product-name}:
 
-Create a new Taxi project, for example, called `xml-and-json`. 
+. Follow the instructions at xref:deploy:development-deployments.adoc[Developer setup]
+. Create a new Taxi project, for example, called `xml-and-json`. For more information, see https://taxilang.org[Taxi]
 
-With {short-product-name}, instead of using integration code, schemas are used to describe  data sources which {short-product-name} uses to link everything together. Some services publish their own schemas (e.g. XSDs or WSDLs) but the following example shows how to do this without schemas, with everything written in Taxi. If you have existing schemas, you can skip these steps. 
+With {short-product-name}, instead of using integration code, schemas are used to describe  data sources which {short-product-name} uses to link everything together. Some services publish their own schemas (e.g. XSDs or WSDLs) but the following example shows how to do this without schemas, with everything written in Taxi. 
 
-== Describe the Film Service
+== Step 2 - Describe the Film Service
 
-First, we'll write Taxi code that describes our Film service. This is an HTTP operation that returns a list of films.
+First, write Taxi code that describes the FilmsService. This is an HTTP operation that returns a list of films.
 
 In the Taxi model, you'll notice that the name of the field is composed of special types that will be used to share data across services and connect them together. 
-This means we are not coupled to field names, which are free to change without impacting our model. 
+This means you are not coupled to field names, which are free to change without impacting the model. 
+
+The Taxi code that describes the FilmsService is shown in the *films.taxi* tab below, and an example of the list of films returned is shown in the *films-data.xml* tab.
 
 [tabs]
 ====
@@ -89,11 +92,14 @@ TIP: Once you have exposed this service, you will be able to see it in the *Serv
 
 Next, copy this code into the Taxi project you created, for example, into a file called `films.taxi`.  
 
-== Integrate the Cast Service
+== Step 3 - Integrate the Cast Service
 
-Next, repeat this process to define a Taxi schema for the film cast. 
+Repeat this process to define a Taxi schema for the film cast. 
 
-Our CastService takes the FilmId you created previously and uses this to return a list of actors:
+The CastService takes the FilmId you created previously and uses this to return a list of actors.
+
+The Taxi code that describes the CastService is shown in the *actors.taxi* tab below, and an example of the cast list returned is shown in the *actor-data.xml* tab.
+
 
 [tabs]
 ====
@@ -136,25 +142,25 @@ actor-data.xml::
 
 === What connects it together
 
-{short-product-name} can now link our services together - there's no need to write any integration code or resolvers as there is enough information contained in the schemas.
+{short-product-name} can now link the services together - there's no need to write any integration code or resolvers as there is enough information contained in the schemas.
 
-Tip: Use the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
+TIP: Use the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
 
 [,taxi]
 ----
-// The FilmId from our Film model...
+// The FilmId from the Film model...
 model Film {
   id : FilmId inherits Int
   ...
 }
 
-// ... is used as an input to our fetchCastForFilm operation:
+// ... is used as an input to the fetchCastForFilm operation:
 operation fetchCastForFilm(FilmId):ActorList
 ----
 
-NOTE: We've written more Taxi here than normal because we chose not to work with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If our services published XSDs or WSDLs, we could've leveraged those and only declared the Taxi scalars, such as `FilmId`.
+NOTE: More Taxi has been written here than normal because you're not working with the service's XSD directly (e.g., it wasn't available, or it didn't exist). If the services published XSDs or WSDLs, you could have leveraged those and only declared the Taxi scalars, such as `FilmId`.
 
-== Write Data Queries
+== Step 4 - Write Data Queries
 
 Next, using {short-product-name}'s *Query editor*, write a query using TaxiQL. 
 
@@ -189,7 +195,7 @@ Which returns:
 
 === Restructure the result
 
-To remove the `item` wrapper (which is carried over from the XML format), we can change the query to just ask for a `Film[]`:
+To remove the `item` wrapper (which is carried over from the XML format), change the query to just ask for a `Film[]`:
 
 [,taxi]
 ----
@@ -216,9 +222,9 @@ Which returns:
 
 === Define a custom response object
 
-We can define a data contract of the exact data we want back, specifying the field names we like,
+You can define a data contract of the exact data you want back, specifying the field names you like,
 with the data type indicating where the data is sourced from.
-This means we are not bound to the source system's descriptions.
+This means you are not bound to the source system's descriptions.
 
 [,taxi]
 ----
@@ -228,9 +234,9 @@ find { FilmList } as (Film[]) -> {
 } []
 ----
 
-=== Link our Actor Service
+=== Link the Actor Service
 
-To include data from our `CastService`, we just ask for the actor information:
+To include data from the `CastService`, just ask for the actor information:
 
 [,taxi]
 ----
@@ -262,9 +268,11 @@ Which now gives us:
 }
 ----
 
-== Add our Awards Service
+== Step 5 - Add the Awards Service
 
-We can also define a schema and service for our awards information, which is returned in JSON:
+You can also define a schema and service for the awards information, which is returned in JSON.
+
+The Taxi code that describes the AwardsService is shown in the *awards.taxi* tab below, and an example of the awards returned is shown in the *awards-data.json* tab.
 
 [tabs]
 ====
@@ -300,9 +308,9 @@ awards-data.json::
 ----
 ====
 
-=== Enrich our query
+=== Enrich your query
 
-Finally, to include this awards data, we just add it to our query:
+Finally, to include this awards data, you just add it to the query:
 
 [,taxi]
 ----
@@ -335,12 +343,16 @@ Which gives us:
 }
 ----
 
-== Publish our query as a REST API
+== Step 6 - Publish your query
 
-Now that we're happy with our response data, we can publish this query as a REST API.
+The following shows how to publish a query as a REST API, and as an endpoint using the UI.  
 
-* First, we wrap the query in a `+query { ... }+` block, and save it in our Taxi project
-* Then we add an `+@HttpOperation(...)+` annotation
+=== Publish a query as a REST API
+
+Now that you have response data you're happy with, you can publish this query as a REST API.
+
+. Wrap the query in a `+query { ... }+` block, and save it in your Taxi project
+. Add an `+@HttpOperation(...)+` annotation
 
 [tabs]
 ====
@@ -360,14 +372,14 @@ query.taxi::
 ----
 ====
 
-Our query is now available at http://localhost:9021/api/q/filmsAndAwards
+Your query is now available at http://localhost:9021/api/q/filmsAndAwards
 
 [,bash]
 ----
 $ curl http://localhost:9021/api/q/filmsAndAwards | jq
 ----
 
-Which gives us:
+Which gives:
 
 [,json]
 ----
@@ -394,7 +406,7 @@ Which gives us:
 ]
 ----
 
-== Publish a query using the UI 
+=== Publish a query using the UI 
 
 To publish a query as an endpoint using the UI: 
 
@@ -406,9 +418,9 @@ To publish a query as an endpoint using the UI:
 
 == Wrap up and next steps
 
-In this tutorial, we've:
+In this tutorial, you have:
 
 * Created a new project
 * Exposed XML services and modelled their responses
 * Written a query stitching three services together
-* Published that query as an HTTP service
+* Published the query as an HTTP service
