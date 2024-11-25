@@ -11,7 +11,7 @@ This guide shows you how to achieve that.
 When the {short-product-name} schema server is started, it reads the configuration from a config file.
 This configuration includes a list of repositories which the schema server will monitor.  In this topic, we'll explore adding a repository which can accept edits from the {short-product-name} UI.
 
-NOTE: This topic assumes you already have a taxi project that you want to make editable. If not, you might want to follow our instructions on https://taxilang.org/intro/getting-started/[creating a new taxi project] first.
+NOTE: This topic assumes you already have a taxi project that you want to make editable. If not, you might want to follow our instructions on https://taxilang.org/docs/packages/taxi-projects/[creating a new taxi project] first.
 
 == Add our taxi project to the Schema Server
 

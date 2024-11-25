@@ -121,7 +121,7 @@ To see all the supported databases, and their connection configurations, read xr
 
 == Describe tables in Taxi
 
-NOTE: Before you proceed, it's worth understanding the basics of https://taxilang.org/language-reference/taxi-language[Taxi] and how {short-product-name} uses it. Also, make sure you have a https://taxilang.org/intro/getting-started[Taxi project set up], and that it's been published to {short-product-name}. If you're running through one of our tutorials, we've already taken care of this for you.
+NOTE: Before you proceed, it's worth understanding the basics of https://taxilang.org/docs/[Taxi] and how {short-product-name} uses it. Also, make sure you have a https://taxilang.org/docs/packages/taxi-projects/[Taxi project set up], and that it's been published to {short-product-name}. If you're running through one of our tutorials, we've already taken care of this for you.
 
 Taxi files define the mappings of data models and the services that expose them.
 In this guide, we'll describe how to expose a new database table to {short-product-name}, and make it queryable.
