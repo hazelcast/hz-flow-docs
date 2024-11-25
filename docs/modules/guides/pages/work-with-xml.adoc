@@ -48,7 +48,7 @@ cd hazelcast-flow-public-demos/xml-and-json
 
 After about a minute, {short-product-name} should be available at http://localhost:9021.
 
-To make sure everything is ready to go, head to the http://localhost:9021/projects[Projects Explorer] to make sure that some schemas are registered.
+To confirm everything is ready to go, head to the http://localhost:9021/projects[Projects Explorer] to make sure that some schemas are registered.
 It should look like the screenshot below.  If you see a message saying there's nothing registered, wait a few moments longer.
 
 image:projects-screen-xml.png[The Projects screen]
