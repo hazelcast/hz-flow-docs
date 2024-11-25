@@ -27,23 +27,70 @@ image:2architecture-overview.png[The services in the demo]
 
 You'll combine these together to create a single endpoint that exposes a REST API to return the data from all three services.
 
-== Step 1 - Set up {short-product-name}
+=== Prerequisites
 
-To get started with {short-product-name}:
+You should have https://docs.docker.com/engine/install/[Docker] and https://docs.docker.com/compose/install/[Docker Compose].
 
-. Follow the instructions at xref:deploy:development-deployments.adoc[Developer setup]
-. Create a new Taxi project, for example, called `xml-and-json`. For more information, see https://taxilang.org[Taxi]
+== Step 1 - Start a local instance of {short-product-name}
+
+In this tutorial, we're going to deploy {short-product-name}, as well as a demo projects
+that we'll use throughout this tutorial.
+
+Everything you need is packaged up in a Docker Compose file to make getting started easier.
+
+To launch, clone the repository and follow instructions in the https://github.com/hazelcast/hazelcast-flow-public-demos/blob/main/xml-and-json/README.md[README] file:
+
+[,bash]
+----
+git clone https://github.com/hazelcast/hazelcast-flow-public-demos.git
+cd hazelcast-flow-public-demos/xml-and-json
+----
+
+After about a minute, {short-product-name} should be available at http://localhost:9021.
+
+To make sure everything is ready to go, head to the http://localhost:9021/projects[Projects Explorer] to make sure that some schemas are registered.
+It should look like the screenshot below.  If you see a message saying there's nothing registered, wait a few moments longer.
+
+image:projects-screen-xml.png[The Projects screen]
+
+You now have {short-product-name} running locally, along with an example REST service which we'll use in our next steps.
+
+If you run `docker ps`, you should see a collection of Docker containers now running.
+
+|===
+| Container Name | Part of {short-product-name} stack or Demo? | Description
+
+| {code-product-name}
+| {short-product-name}
+| The core {short-product-name} server, which provides our UI, and runs all our integration for us
+
+| postgres
+| {short-product-name}
+| A Postgres DB, used by flow to store its metadata
+
+| management-center
+| {short-product-name}
+| The Management Center, for monitoring and managing {short-product-name}
+
+| xml-and-json-films-xml
+| Demo
+| A REST API, which exposes information about films in XML and JSON format
+
+|===
 
 With {short-product-name}, instead of using integration code, schemas are used to describe  data sources which {short-product-name} uses to link everything together. Some services publish their own schemas (e.g. XSDs or WSDLs) but the following example shows how to do this without schemas, with everything written in Taxi. 
 
+
 == Step 2 - Describe the Film Service
 
-First, write Taxi code that describes the FilmsService. This is an HTTP operation that returns a list of films.
+First, write Taxi code that describes the Films Service. This is an HTTP operation that returns a list of films.
 
 In the Taxi model, you'll notice that the name of the field is composed of special types that will be used to share data across services and connect them together. 
 This means you are not coupled to field names, which are free to change without impacting the model. 
 
 The Taxi code that describes the FilmsService is shown in the *films.taxi* tab below, and an example of the list of films returned is shown in the *films-data.xml* tab.
+
+To add the taxi definitions to your project, copy the code into a file called called `films.taxi` in the directory `taxi/src` in your project.
 
 [tabs]
 ====
@@ -66,7 +113,7 @@ model Film {
 }
 
 service FilmsService {
-  @HttpOperation(url = "http://localhost:8044/films", method = "GET")
+  @HttpOperation(url = "http://films-xml:80/films", method = "GET")
   operation getAllFilms(): FilmList
 }
 
@@ -90,7 +137,7 @@ films-data.xml::
 
 TIP: Once you have exposed this service, you will be able to see it in the *Services diagram* in {short-product-name}'s *Catalog* to view how everything links together.
 
-Next, copy this code into the Taxi project you created, for example, into a file called `films.taxi`.  
+
 
 == Step 3 - Integrate the Cast Service
 
@@ -100,6 +147,7 @@ The CastService takes the FilmId you created previously and uses this to return 
 
 The Taxi code that describes the CastService is shown in the *actors.taxi* tab below, and an example of the cast list returned is shown in the *actor-data.xml* tab.
 
+Again, create a file called `actors.taxi` in the directory `taxi/src` in your project.
 
 [tabs]
 ====
@@ -119,7 +167,7 @@ model Actor {
 } 
 
 service CastService { 
-  @HttpOperation(url = "http://localhost:8044/film/{filmId}/cast", method = "GET") 
+  @HttpOperation(url = "http://films-xml:80/film/{filmId}/cast", method = "GET") 
   operation fetchCastForFilm(@PathVariable("filmId") filmId : FilmId):ActorList
 }
 ----
@@ -274,6 +322,8 @@ You can also define a schema and service for the awards information, which is re
 
 The Taxi code that describes the AwardsService is shown in the *awards.taxi* tab below, and an example of the awards returned is shown in the *awards-data.json* tab.
 
+You'll need to add this to your project by creating a file called `awards.taxi` in the directory `taxi/src`.
+
 [tabs]
 ====
 awards.taxi::
@@ -286,7 +336,7 @@ model Award {
 }
 
 service AwardsService {
-  @HttpOperation(url = "http://localhost:8044/film/{filmId}/awards", method = "GET")
+  @HttpOperation(url = "http://films-xml:80/film/{filmId}/awards", method = "GET")
   operation fetchAwardsForFilm(@PathVariable("filmId") filmId: FilmId): Award[]
 }
 ----
@@ -415,6 +465,16 @@ To publish a query as an endpoint using the UI:
 * Click the *Save query to project* button, choose a project (this must be editable), give your query a name and then save it
 * Click the *Publish endpoint* button and publish it as an HTTP or WebSocket endpoint, depending on the query
 * Choose *Endpoints* and make sure the query is running (you can disable/enable the endpoint if necessary)
+
+=== Stop the services
+
+When you're done, you can stop the services by running:
+
+[,bash]
+----
+docker compose down
+----
+
 
 == Wrap up and next steps
 
