@@ -683,3 +683,13 @@ has generated during this tutorial.
 | `taxi/src/`
 | The Taxi schemas that {short-product-name} generated for you.  These are the schemas that describe the data you've been working with.
 |===
+
+
+=== Stop the services
+
+When you're done, you can stop the services by running:
+
+[,bash]
+----
+docker compose down
+----
