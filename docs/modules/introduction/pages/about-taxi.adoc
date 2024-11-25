@@ -5,19 +5,21 @@ Taxi is a simple query language for describing how data and APIs across an ecosy
 
 You can use Taxi to document data models and data sources; for example, you might use it to describe a database, a Kafka topic, and a REST API. 
 
-Taxi is _semantic_ type system which essentially allows you to state that "This Thing is the same as That Thing". 
+Taxi is a _semantic_ type system which essentially allows you to state that "This Thing is the same as That Thing". 
 
-Because Taxi describes data semantically using rich semantic types rather than field names, this allows powerful tooling to discover and map data based upon its _meaning_. Therefore, when consuming APIs - rather than having to write integration code and being tightly coupled to a spec - the software can work out how to orchestrate APIs together automatically. 
+Because Taxi describes data using rich semantic types rather than field names, this allows powerful tooling to discover and map data based upon its _meaning_. Therefore, when consuming APIs - rather than having to write integration code and being tightly coupled to a spec - the software can work out how to orchestrate APIs together automatically. 
 
 Engineers no longer have to work out which API to call, what data to pass for inputs, and then write code to stitch it all together. Using Taxi, teams are also free to choose names that make sense to their domain, and to change their APIs easily, without cascading these changes onto consumers. 
 
 Taxi allows you to write queries for data without worrying where the data is served from. It is not tied to one specific underlying technology, and so is independent of databases, APIs, etc. 
 
-Taxi can partially describe:
+Taxi can describe:
 
 * Databases
 * HTTP APIs
 * Message queues, like Kafka and RabbitMQ
+
+NOTE: Taxi's primary purpose is to enhance existing specs with system-agnostic semantic metadata, rather than replace them. Typically, you'd use Taxi in conjunction with an existing spec, although it's possible to describe an entire REST API or CSV file using only Taxi. However, you can't describe serialization rules with Taxi, so it does not replace Protobuf or Avro specs.
 
 == Related links
 
