@@ -233,7 +233,7 @@ run queries against it.
 
 === Related links
 
-* https://docs.taxilang.org/language-reference/taxi-language/[Understand Taxi]
+* https://taxilang.org/docs/[Understand Taxi]
 
 == Connect a Swagger API
 
@@ -302,7 +302,7 @@ image:schema-db-and-api.png[]
 === Related links
 
 * xref:connect-data-sources:schema-publication-methods.adoc[Understand the different ways to publish schemas to {short-product-name}]
-* https://docs.taxilang.org/language-reference/describing-services/[Describe REST APIs in Taxi]
+* https://taxilang.org/docs/language/services/[Describe REST APIs in Taxi]
 * https://docs.taxilang.org/generating-taxi-from-source/#openapi-x-taxi-type-extension[Embed Taxi definitions inside Swagger, to keep {short-product-name} automatically up to date]
 
 == Integrate services and loading data
@@ -415,7 +415,7 @@ image:results-tree-with-providers.png[]
 === Related links
 
 * xref:query:write-queries.adoc[Write queries with {short-product-name}]
-* https://docs.taxilang.org/language-reference/query-with-taxiql/[TaxiQL language reference] 
+* https://taxilang.org/docs/taxiql/querying/[TaxiQL language reference] 
 
 === Explore the query execution
 

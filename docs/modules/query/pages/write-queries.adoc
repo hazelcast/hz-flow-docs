@@ -11,10 +11,10 @@ TODO: replace diagram
 
 == Write queries
 
-Queries are written in https://docs.taxilang.org/language-reference/query-with-taxiql/[TaxiQL], an open source
+Queries are written in https://taxilang.org/docs/taxiql/querying/[TaxiQL], an open source
 query language for data.
 
-TIP: https://docs.taxilang.org/language-reference/query-with-taxiql/[TaxiQL] is a powerful query language, and  the Taxi documentation has details on the syntax, which we haven't duplicated here.
+TIP: https://taxilang.org/docs/[TaxiQL] is a powerful query language, and  the Taxi documentation has details on the syntax, which we haven't duplicated here.
 
 TaxiQL is agnostic of where data comes from - it's left to {short-product-name} to discover data from the various sources that have been connected.
 
