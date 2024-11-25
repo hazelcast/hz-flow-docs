@@ -19,6 +19,8 @@ Taxi can describe:
 * HTTP APIs
 * Message queues, like Kafka and RabbitMQ
 
+NOTE: Taxi's primary purpose is to enhance existing specs with system-agnostic semantic metadata, rather than replace them. Typically, you'd use Taxi in conjunction with an existing spec, although it's possible to describe an entire REST API or CSV file using only Taxi. However, you can't describe serialization rules with Taxi, so it does not replace Protobuf or Avro specs.
+
 == Related links
 
 For more information about:
