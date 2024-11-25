@@ -33,7 +33,7 @@ You should have https://docs.docker.com/engine/install/[Docker] and https://docs
 
 == Step 1 - Start a local instance of {short-product-name}
 
-In this tutorial, we're going to deploy {short-product-name}, as well as a demo projects
+In this tutorial, we're going to deploy {short-product-name}, as well as a demo project
 that we'll use throughout this tutorial.
 
 Everything you need is packaged up in a Docker Compose file to make getting started easier.
