@@ -88,7 +88,7 @@ NOTE: MC is preconfigured as the identity provider for {short-product-name} with
 
 [#modification-of-sec-preconfig]
 === Potential modification of security pre-configuration
-The following properties can be changed or not; please consider your use case carefully.
+The following options and environment variables can be changed or not; please consider your use case carefully.
 
 . **--flow.security.openIdp.issuerUrl**: The openIdp issuer endpoint. This should be set to the MC's address. The browser will redirect to this endpoint, so ensure the DNS entry is accessible via browser traffic. `localhost` is possibly OK here. Example: Unless overridden, MC runs on http://localhost:8080. This property can be set to http://localhost:8080.
 
@@ -96,7 +96,7 @@ The following properties can be changed or not; please consider your use case ca
 
 . **--flow.security.openIdp.executorRoleTokenUrl**: The openIdp access token endpoint. This URL is called by  {short-product-name}'s server, so ensure that the DNS entry is accessible to  {short-product-name}. `localhost` is unlikely to work here. Example: Assume that MC is configured to run in a Docker Compose file with management-center service name. This property can be set to http://management-center:8080/oauth2/token.
 
-. **--flow.security.openIdp.executorRoleScopes**: Scopes that need to be passed to access token request. `openid email profile` should always be set. {short-product-name}-specific roles can be modified. For example, for the Executor user to have the PlatformManager and Viewer roles, this should be set to `openid email profile flow:PlatformManager flow:Viewer`. See xref:deploy:authorization.adoc#flow-roles[{short-product-name} roles].
+. **FLOW_SECURITY_OPENIDP_EXECUTORROLESCOPES**: Scopes that need to be passed to access token request. `openid email profile` should always be set. {short-product-name}-specific roles can be modified. For example, for the Executor user to have the PlatformManager and Viewer roles, this should be set to `openid email profile flow:PlatformManager flow:Viewer`. See xref:deploy:authorization.adoc#flow-roles[{short-product-name} roles].
 
 . **--flow.security.openIdp.executorRoleClientSecret**: The Client Secret to authenticate with. This value must be the same as the MC_APPLICATION_CLIENT_SECRET environment variable in the MC's environment.
 
