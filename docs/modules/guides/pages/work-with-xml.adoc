@@ -72,7 +72,7 @@ If you run `docker ps`, you should see a collection of Docker containers now run
 | {short-product-name}
 | The Management Center, for monitoring and managing {short-product-name}
 
-| xml-and-json-films-xml
+| films-xml
 | Demo
 | A REST API, which exposes information about films in XML and JSON format
 
@@ -157,7 +157,8 @@ actors.taxi::
 ----
 import flow.formats.Xml
 
-@Xml model ActorList {
+@Xml
+model ActorList {
   item : Actor[] 
 } 
 
@@ -388,7 +389,7 @@ Which gives us:
       {
          "title": "Best Supporting Actress",
          "yearWon": 2020
-      },
+      }
    ]
 }
 ----
@@ -401,7 +402,7 @@ The following shows how to publish a query as a REST API, and as an endpoint usi
 
 Now that you have response data you're happy with, you can publish this query as a REST API.
 
-. Wrap the query in a `+query { ... }+` block, and save it in your Taxi project
+. Wrap the query in a `+query { ... }+` block, and save it in your Taxi project (by creating a file called `query_filmsAndAwards.taxi` in the directory `taxi/src`)
 . Add an `+@HttpOperation(...)+` annotation
 
 [tabs]
@@ -411,14 +412,14 @@ query.taxi::
 [source,taxi]
 ----
 @HttpOperation(url = '/api/q/filmsAndAwards', method = 'GET')
- query filmsAndAwards {
-      find { FilmList } as (Film[]) -> {
-          filmId : FilmId
-          nameOfFilm : FilmTitle
-          awards : Award[]
-          cast : Actor[]
-      } []
- }
+query filmsAndAwards {
+    find { FilmList } as (Film[]) -> {
+        filmId : FilmId
+        nameOfFilm : FilmTitle
+        awards : Award[]
+        cast : Actor[]
+    } []
+}
 ----
 ====
 
