@@ -46,7 +46,7 @@ grantedAuthorityMappings {
 | Everything
 
 | Viewer
-| BrowseCatalog
+| BrowseSchema
 
 | MetricsViewer
 | ViewMetrics
