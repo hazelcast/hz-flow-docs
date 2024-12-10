@@ -2,7 +2,7 @@
 // .Get started
 * xref:index.adoc[Overview]
 * xref:introduction:index.adoc[What is {short-product-name}?]
-* xref:introduction:about-the-UI.adoc[About the UI]
+* xref:introduction:about-the-UI.adoc[A look at the UI]
 * xref:introduction:about-taxi.adoc[About Taxi]
 * xref:introduction:quickstart.adoc[Quickstart]
 * xref:guides:index.adoc[Tutorials]

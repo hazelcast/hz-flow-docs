@@ -1,4 +1,4 @@
-= About the UI
+= A look at the UI
 :description: An overview of the user interface
 
 This topic provides an overview of Hazelcast {short-product-name}'s user interface. 

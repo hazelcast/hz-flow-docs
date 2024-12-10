@@ -239,7 +239,7 @@ is supported, along with some special code snippets.
 
 // need rebranded graphic here:
 
-image:readme-grab-cropped.png[]
+image:readme-example.png[]
 
 === Taxi snippets
 Standard Taxi can be included by using the following syntax:
