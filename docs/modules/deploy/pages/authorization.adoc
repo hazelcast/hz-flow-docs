@@ -49,7 +49,8 @@ grantedAuthorityMappings {
 | BrowseSchema
 
 | MetricsViewer
-| ViewMetrics
+| ViewMetrics, +
+BrowseSchema
 
 | QueryRunner
 | RunQuery
@@ -144,6 +145,6 @@ The mapping:
 * Admin → Admin
 * User → PlatformManager + QueryRunner + Viewer
 * Read-Only User → Viewer
-* Metrics-Only User → MetricsViewer
+* Metrics-Only User → Viewer + MetricsViewer
 
 Example: If a user has `User` role in MC, they will have `PlatformManager`, `QueryRunner` and `Viewer` roles in {short-product-name}.
