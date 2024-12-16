@@ -85,10 +85,12 @@ With {short-product-name}, instead of using integration code, schemas are used t
 
 First, write Taxi code that describes the Films Service. This is an HTTP operation that returns a list of films.
 
+TIP: Use {short-product-name}'s *Designer* to create and edit your Taxi code. On the left-hand side, input a data sample or upload a CSV, TSV, PSV, JSON or XML source file. On the right-hand side, create a Taxi schema based on this data. The parsed results appear below as you work. When you are happy with your Taxi model, you can copy it from the Designer into your project. 
+
 In the Taxi model, you'll notice that the name of the field is composed of special types that will be used to share data across services and connect them together. 
 This means you are not coupled to field names, which are free to change without impacting the model. 
 
-The Taxi code that describes the FilmsService is shown in the *films.taxi* tab below, and an example of the list of films returned is shown in the *films-data.xml* tab.
+The Taxi code that describes the FilmsService is shown in the *films.taxi* tab below, and an example of the XML source for the list of films is shown in the *films-data.xml* tab.
 
 To add the taxi definitions to your project, copy the code into a file called called `films.taxi` in the directory `taxi/src` in your project.
 
@@ -145,7 +147,7 @@ Repeat this process to define a Taxi schema for the film cast.
 
 The CastService takes the FilmId you created previously and uses this to return a list of actors.
 
-The Taxi code that describes the CastService is shown in the *actors.taxi* tab below, and an example of the cast list returned is shown in the *actor-data.xml* tab.
+The Taxi code that describes the CastService is shown in the *actors.taxi* tab below, and an example of the XML source for the cast list is shown in the *actor-data.xml* tab.
 
 Again, create a file called `actors.taxi` in the directory `taxi/src` in your project.
 
