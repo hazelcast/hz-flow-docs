@@ -1,0 +1,20 @@
+= A look at the UI
+:description: An overview of the user interface
+
+This topic provides an overview of Hazelcast {short-product-name}'s user interface. 
+
+image:Flow-welcome-screen.png[]
+
+The {short-product-name} UI provides the following main screens and functions:
+
+- *Welcome screen*. View your data source health status, endpoint stats and any recent changes made to schemas
+- *Catalog*. The data catalog contains all models, attributes, services and operations published to {short-product-name}. You can search by name, or search for tags. Use the Services diagram to see a graphical representation of your data and how everything links together
+- *Projects*. Projects are where you define your data sources and hold your API specs. Use this screen to display the changelog of all the data sources connected to {short-product-name}, and to add a new project
+- *Query editor*. A query is a request built using {short-product-name}'s ability to retrieve data from different sources, such as from a database, API and Kafka streaming service. Use this screen to create, run and publish queries
+- *Query history*. View the results of recently run queries, or reuse an existing query
+-	*Data sources*. Create data sources and connections to register databases and message brokers to {short-product-name}
+-	*Authentication*. View and add the tokens used to authenticate {short-product-name} to services
+-	*Designer*. Create and edit Taxi schemas for your data that you can copy into your project. You can upload a CSV, TSV, PSV, JSON or XML source file to create a Taxi model based on this, and see the parsed results below
+-	*Endpoints*. Displays the queries and streams defined in your schema
+-	*Policies*. Policies define data access controls for the data served by {short-product-name}
+-	*Management Center*. Navigate to the main tool for managing and monitoring Hazelcast Platform clusters
