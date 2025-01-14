@@ -8,3 +8,4 @@ package-lock.json
 /pdf-docs/
 Gemfile.lock
 .vscode
+.idea
