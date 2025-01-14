@@ -30,5 +30,5 @@ asciidoc:
     # Variables used in the docs
     page-survey: https://www.surveymonkey.co.uk/r/NYGJNF9
   extensions:
-    - ./docs-tabs-library/tabs-block.js
+    - ./node_modules/hazelcast-docs-tools/antora-macro/tabs-block.js
     - asciidoctor-kroki
