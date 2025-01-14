@@ -19,3 +19,5 @@ jobs:
         uses: hazelcast/hazelcast-docs/.github/actions/validate@main
         with:
           check-links-loader-log-level: debug
+          orphan-checker-log-failure-level: skip
+          orphan-checker-directory: tutorials
