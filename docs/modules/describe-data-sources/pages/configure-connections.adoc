@@ -95,7 +95,7 @@ query-server {
 }
 ```
 
-For more information, see https://github.com/lightbend/config/issues/633[this issue] in the HOCON library
+For more information on substitutions, see HOCON library https://github.com/lightbend/config/blob/main/HOCON.md#substitutions[documentation].
 
 == Database connections
 

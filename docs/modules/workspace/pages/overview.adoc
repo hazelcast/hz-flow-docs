@@ -230,6 +230,72 @@ git {
 }
 ----
 
+== Include a README.md file
+
+If you supply a README.md file at the root of the project, it will be read by {short-product-name} and displayed in the UI.
+
+https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax[Github flavored markdown]
+is supported, along with some special code snippets.
+
+// need rebranded graphic here:
+
+image:readme-example.png[]
+
+=== Taxi snippets
+Standard Taxi can be included by using the following syntax:
+
+[source,markdown]
+----
+```taxi
+@DatabaseService(connection = "my-postgres-db")
+service MyPostgresService {
+
+   // table declares read operations, such as querying
+   table ticketSales : VenueTicketSalesRecord[]
+
+   // An upsert operation, for performing upsert queries
+   @UpsertOperation
+   write operation saveTicketSalesRecord(VenueTicketSalesRecord):VenueTicketSalesRecord
+}
+```
+----
+
+
+=== TaxiQL snippets
+Taxi queries that can be run in the query editor in {short-product-name} can be included like this:
+
+[source,markdown]
+----
+```taxiql
+find { VenueTicketSales[] }
+call MyPostgresService::saveTicketSalesRecord
+```
+----
+
+image:taxiql-snippet.png[]
+
+
+### Schema diagram snippets
+Schema diagrams can be included with the following syntax:
+
+[source,markdown]
+----
+```schemaDiagram
+{
+   "members" : {
+      "TicketsS3Bucket" : {},
+      "VenueTicketSales" : {},
+      "TicketPricesApi" : {}
+   }
+}
+```
+----
+
+This will produce the following interactive component within the README in {short-product-name}:
+
+image:schema-diagram.png[]
+
+
 == Continue reading
 
-Continue learning about {short-product-name} by xref:describe-data-sources:configure-connections.adoc[connect your data sources].
+Continue learning about {short-product-name} in xref:describe-data-sources:configure-connections.adoc[connect your data sources].

@@ -3,7 +3,6 @@
 /build/
 /test/
 .DS_Store
-package-lock.json
 /pdf-docs/
 Gemfile.lock
 .vscode
