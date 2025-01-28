@@ -67,7 +67,7 @@ query doASearch(@RequestBody searchRequest: SearchRequest) {
 
 === Given clause
 
-If you've written Taxi queries before, you're used to using the https://docs.taxilang.org/language-reference/query-with-taxiql/#providing-start-hints[given] clause
+If you've written Taxi queries before, you're used to using the https://docs.taxilang.org/language-reference/querying-with-taxiql/#providing-start-hints[given] clause
 to provide data into the query.
 
 For saved queries, that data is often passed as a variable, so the syntax is slightly different:
