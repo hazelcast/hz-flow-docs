@@ -97,7 +97,7 @@ To update, simply add a `maven` block into our `taxi/kotlin` plugin in the `taxi
    }
 ```
 
-The Maven plugin is https://taxilang.org/taxi-cli/kotlin-plugin/#generating-a-maven-pomxml[very extensible], but we'll work with the defaults for now.
+The Maven plugin is https://docs.taxilang.org/taxi-cli/kotlin-plugin/#generating-a-maven-pomxml[very extensible], but we'll work with the defaults for now.
 
 Note that adding in the Maven plugin means the build will now adopt Maven conventions. It's best to clear out our `dist` directory before building again.
 

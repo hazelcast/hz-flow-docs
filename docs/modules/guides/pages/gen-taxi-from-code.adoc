@@ -414,7 +414,7 @@ find { Film[] } as {
 }}></PlaygroundSnippet>
 ////
 
-This query, in https://taxilang.org/language-reference/query-with-taxiql/[TaxiQL] asks for data from two different sources. {short-product-name} works out how to orchestrate our two APIs together, enriching our Films data with reviews.
+This query, in https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL] asks for data from two different sources. {short-product-name} works out how to orchestrate our two APIs together, enriching our Films data with reviews.
 
 == Use typealias to keep our code DRY
 Inside our Kotlin code, we just added a two `@DataType("FilmId")` annotations indicating that the two pieces of information were the same.

@@ -168,7 +168,7 @@ image:linked_services_flow.png[Linked services]
 
 {short-product-name} performs this integration for us.
 
-By sending a request in https://taxilang.org/language-reference/query-with-taxiql/[TaxiQL], we can ask for data, without specifying how data
+By sending a request in https://docs.taxilang.org/language-reference/querying-with-taxiql/[TaxiQL], we can ask for data, without specifying how data
 relates, or which systems to get the data from.
 
 [,taxi]
