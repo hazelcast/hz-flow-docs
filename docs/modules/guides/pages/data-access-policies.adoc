@@ -1,0 +1,170 @@
+= Explore Data Access Policies
+:description: A tutorial showing how to use Data Access Policies
+
+This tutorial shows how to use Data Access Policies to control access to data sources.
+
+== Overview
+
+In this tutorial, we'll set up a local instance of {short-product-name}, and then see how to use {short-product-name}
+to apply Data Access Policies in an example project.
+
+=== Prerequisites
+
+You should have https://docs.docker.com/engine/install/[Docker] and https://docs.docker.com/compose/install/[Docker Compose].
+
+== Start a local instance of {short-product-name}
+
+In this tutorial, we're going to deploy {short-product-name}, as well as a few demo projects
+that we'll use throughout.
+
+Everything you need is packaged up in a Docker Compose file to make getting started easier.
+
+To launch, clone the repository 
+
+[,bash]
+----
+git clone https://github.com/hazelcast/hazelcast-flow-public-demos.git
+cd hazelcast-flow-public-demos/stock-ticker
+----
+
+Follow the instructions in the https://github.com/hazelcast/hazelcast-flow-public-demos/blob/main/stock-ticker/README.md[README] file.
+
+After about a minute, {short-product-name} should be available at http://localhost:9021.  When you first visit, you'll be asked to log in.
+
+Flow is configured to use Management Center as its Identity Provider.  Two users have been created and will be used in this demo:
+--
+- User: `admin`, Password: `changeme!`
+- User: `user`, Password: `changeme!`
+--
+
+Log in as admin to get started.
+
+To make sure everything is ready to go, head to the http://localhost:9021/projects[Projects Explorer] to make sure that some schemas are registered.
+It should look like the screenshot below.  If you see a message saying there's nothing registered, wait a few moments longer.
+
+image:stock-ticker-projects.png[The Projects screen]
+
+You now have {short-product-name} running locally, with the Stock Ticker project loaded.
+
+If you run `docker ps`, you should see a collection of Docker containers now running.
+
+|===
+| Container Name | Part of {short-product-name} stack or Demo? | Description
+
+| {code-product-name}
+| {short-product-name}
+| The core {short-product-name} server, which provides our UI, and runs all our integration for us
+
+| management-center
+| {short-product-name}
+| The Management Center, for monitoring and managing {short-product-name}
+
+| postgres
+| {short-product-name}
+| A postgres database used to store metadata for Flow
+
+| stockticker-generator
+| Demo
+| A simple ticker generator that sends stock prices to a Kafka topic
+
+|===
+
+
+=== Related links
+
+* xref:deploy:production-deployments.adoc[Deploy {short-product-name} without the demo projects]
+* https://github.com/hazelcast/hazelcast-flow-public-demos/tree/main/stock-ticker [Demo project source code, on GitHub]
+
+== View the project
+A project named *stockticker* has been created for {short-product-name} to hold the connection details of our Kafka data source, and schemas. 
+
+ - From the sidebar, click http://localhost:9021/projects[Projects]
+ - You will see the films project listed
+ - Click on the project to view the details
+ 
+
+|===
+| Field | Value
+
+| *Organization*
+| `com.hazelstock`
+
+
+| *Version*
+| `0.1.0`
+|===
+
+
+== Data Access Policies
+View the Data Access Policies defined for the *stockticker* project using Policies in the UI.
+
+ - From the sidebar, click on the *Policies* tab
+
+Here's what the predefined policies look like:
+
+image:policies.png[Data Access Policies]
+
+
+=== RestrictedStockTrade policy
+The *RestrictedStockTrade* policy is a simple example of a policy that restricts access to a specific schema.
+
+When the current user has the 'Admin' role, they can read all of the fields for the StockTrade model.  Otherwise, the user can read the schema, but the `price` field is excluded.
+
+[,taxi]
+----
+policy RestrictedStockTrade against StockTrade (userInfo : com.hazelstock.demo.UserInfo) -> {
+   read {
+      when {
+         userInfo.roles.contains('Admin') -> StockTrade
+         else -> StockTrade as { ... except { price } }
+      }
+   }
+}
+----
+
+When logged in as the `admin` user, select the `RestrictedStockTrade` policy to access the Policy designer.  Here's what the policy looks like in the Policy Designer:
+
+image:policy-designer-1.png[RestrictedStockTrade Policy]
+
+
+Execute this query in the Query Editor to see the effect of the policy:
+
+[,taxi]
+----
+import com.hazelstock.demo.StockTrade
+stream { StockTrade }
+----
+
+When executed as the `admin` user, all fields are returned.  When executed as the `user` user, the `price` field is excluded.   To execute as the `user` user, log out and log back in as `user`.
+
+=== FilterTicker policy
+The *FilterTicker* policy is a simple example of a policy that restricts access to a specific type.
+
+When the current user has the 'Admin' role, they can read the Ticker field.  Otherwise, the value is obfuscated.
+
+[,taxi]
+----
+policy FilterTicker against Ticker (userInfo : com.hazelstock.demo.UserInfo) -> {
+   read {
+      when {
+         userInfo.roles.contains('Admin') -> Ticker
+         else -> '****'
+      }
+   }
+}
+----
+
+When logged in as the `admin` user, select the `FilterTicker` policy to access the Policy designer.  Here's what the policy looks like in the Policy Designer:
+
+image:policy-designer-2.png[FilterTicker Policy]
+
+
+Execute this query in the Query Editor to see the effect of the policy:
+
+[,taxi]
+----
+import com.hazelstock.demo.StockTrade
+stream { StockTrade }
+----
+
+When executed as the `admin` user, all fields are returned including the `ticker` field.  When executed as the `user` user, the `ticker` field is obfuscated.   To execute as the `user` user, log out and log back in as `user`.
